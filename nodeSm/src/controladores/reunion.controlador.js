@@ -1,0 +1,90 @@
+'use strict'
+
+const reunionModelo = require("../modelos/reunion.modelo");
+const Reunion = require("../modelos/reunion.modelo");
+const jwt = require('../servicios/jwt');
+const bcrypt = require("bcrypt-nodejs");
+
+//Roles
+const user = 'Usuario';
+const admin = 'Administrador';
+const superAdmin = 'SuperAdministrador';
+
+//Estado del usuario y de la sala
+const confirmada = 'Confirmada';
+const pendiente = 'Pendiente';
+
+function obtenerReuniones(req,res){
+    reunionModelo.find().populate('idSala', 'nombre').populate('idResponsable', 'nombre').exec((err, reunionesEncontradas)=>{
+        console.log(err);
+        if(err) return res.status(500).send({ mensaje: 'Error en la peticion de reuniones' });
+        if(!reunionesEncontradas) return res.status(500).send({ mensaje: 'Error al obtener las reuniones' });
+        return res.status(200).send({ reunionesEncontradas });
+    })
+}
+
+function crearReunion(req,res){
+    var reunionModelo = new Reunion();
+    var params = req.body;
+
+    //Para la fecha de gestión
+    var todayDate = new Date();
+    var actualDate = todayDate.toLocaleDateString();
+
+    if (params.nombre && params.descripcion) {
+        reunionModelo.nombre = params.nombre;
+        reunionModelo.descripcion = params.descripcion;
+        reunionModelo.fechaDeReunion = params.fechaDeReunion;
+        reunionModelo.horaInicio = params.horaInicio;
+        reunionModelo.horaFin = params.horaFin;
+        reunionModelo.cantidadAsist = params.cantidadAsist;
+        reunionModelo.estado = pendiente;
+        reunionModelo.idResponsable = req.usuario.sub;
+        reunionModelo.idSala = params.idSala;
+        reunionModelo.fechaDeGestion = actualDate;
+
+        Reunion.find({
+            $or: [
+                { nombre: reunionModelo.nombre },
+                { descripcion: reunionModelo.descripcion }
+            ]
+        }).exec((err, reunionesEncontradas) => {
+            if (err) return res.status(500).send({ mensaje: 'Error en la peticion de la reunión' })
+
+            if (reunionesEncontradas && reunionesEncontradas.length >= 1) {
+                return res.status(500).send({ mensaje: 'La reunión ya existe' })
+            } else {
+                reunionModelo.save((err, reunionGuardada) => {
+                    if (err) return res.status(500).send({ mensaje: 'Error al guardar la reunión' })
+
+                    //Guardando la reunión
+                    if (reunionGuardada) {
+                        res.status(200).send(reunionGuardada)
+                        //Mostrando todos los datos de la reunión
+                        console.log(params); 
+                    } else {
+                        res.status(404).send({ mensaje: 'No se ha podido registrar la reunión' })
+                    }
+                }) 
+            }
+        })
+    }
+}
+
+
+function obtenerReunion(req, res) {
+    var idReunion = req.params.idReunion
+    
+    reunionModelo.findById(idReunion, (err, reunionEncontrada) => {
+        if (err) return res.status(500).send({ mensaje: 'Error en la peticion de la reunión' })
+        if (!reunionEncontrada) return res.status(500).send({ mensaje: 'Error en obtener los datos de la reunión' })
+        console.log(reunionEncontrada.nombre);
+        return res.status(200).send({ reunionEncontrada })
+    })
+}
+
+module.exports = {
+    obtenerReuniones,
+    crearReunion,
+    obtenerReunion
+}
