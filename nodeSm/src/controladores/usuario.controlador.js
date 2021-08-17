@@ -63,8 +63,8 @@ function obtenerUsuarios(req,res){
 
 function Login(req,res){
     var params = req.body;
-    
-    usuarioModelo.findOne({ usuario : params.usuario }, (err, usuarioEncontrado)=>{
+        
+    usuarioModelo.findOne({ usuario : params.usuario}, (err, usuarioEncontrado)=>{
         if(err) return res.status(404).send({ report: 'Error  al iniciar sesión'});
         if(!usuarioEncontrado) return res.status(404).send({ report: 'El usuario no existe'});
 
@@ -79,7 +79,6 @@ function Login(req,res){
             })
         }
     })
-
 }
 
 function crearUsuario(req,res){

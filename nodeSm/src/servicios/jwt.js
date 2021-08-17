@@ -13,6 +13,7 @@ exports.createToken = function (usuario){
         correo: usuario.correo,
         tel: usuario.tel,
         rol: usuario.rol,
+        estado: usuario.estado,
         usuario: usuario.usuario,
         
         iat: moment().unix(),
