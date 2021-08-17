@@ -12,5 +12,11 @@ var api = express.Router();
 
     api.post('/Login', usuarioControlador.Login);
     api.get('/obtenerUsuarios', authenticated.ensureAuth, usuarioControlador.obtenerUsuarios);
+    api.post('/crearUsuario', usuarioControlador.crearUsuario);
+    api.get('/obtenerUsuario/:idUsuario', usuarioControlador.obtenerUsuario);
+    api.put('/editarUsuario/:idUsuario', authenticated.ensureAuth, usuarioControlador.editarUsuario);
+    api.delete('/eliminarUsuario/:idUsuario', authenticated.ensureAuth, usuarioControlador.eliminarUsuario);
 
 module.exports = api;
+
+

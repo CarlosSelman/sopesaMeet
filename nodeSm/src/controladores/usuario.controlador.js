@@ -82,9 +82,109 @@ function Login(req,res){
 
 }
 
+function crearUsuario(req,res){
+    var usuarioModel = new Usuario();
+    var params = req.body;
+
+    if (params.usuario && params.correo && params.contrasena) {
+        usuarioModel.nombres = params.nombres;
+        usuarioModel.apellidos = params.apellidos;
+        usuarioModel.usuario = params.usuario;
+        usuarioModel.correo = params.correo;
+        usuarioModel.contrasena = params.contrasena;
+        usuarioModel.tel = params.tel;
+        usuarioModel.rol = user;
+        usuarioModel.estado = activo;
+        
+        Usuario.find({
+            $or: [
+                { usuario: usuarioModel.usuario },
+                { correo: usuarioModel.correo }
+            ]
+        }).exec((err, usuariosEncontrados) => {
+            if (err) return res.status(500).send({ mensaje: 'Error en la peticion del Usuario' })
+
+            if (usuariosEncontrados && usuariosEncontrados.length >= 1) {
+                return res.status(500).send({ mensaje: 'El usuario ya existe' })
+            } else {
+                //Encriptando la contraseña
+                bcrypt.hash(params.contrasena, null, null, (err, passwordEncriptada) => {
+                    usuarioModel.contrasena = passwordEncriptada;
+
+                    usuarioModel.save((err, usuarioGuardado) => {
+                        if (err) return res.status(500).send({ mensaje: 'Error al guardar el Usuario' })
+
+                        //Guardando el usuario
+                        if (usuarioGuardado) {
+                            res.status(200).send(usuarioGuardado)
+                            //Haciendo que no se vea la contraseña en el siguiente console.log
+                            delete params.contrasena; 
+                            //Mostrando todos los datos del usuario (menos la contraseña)
+                            console.log(params); 
+                        } else {
+                            res.status(404).send({ mensaje: 'No se ha podido registrar el Usuario' })
+                        }
+                    })
+                })
+            }
+        })
+    }
+}
+
+
+function obtenerUsuario(req, res) {
+    var idUsuario = req.params.idUsuario
+    
+    Usuario.findById(idUsuario, (err, usuarioEncontrado) => {
+        if (err) return res.status(500).send({ mensaje: 'Error en la peticion del Usuario' })
+        if (!usuarioEncontrado) return res.status(500).send({ mensaje: 'Error en obtener los datos del Usuario' })
+        console.log(usuarioEncontrado.correo);
+        return res.status(200).send({ usuarioEncontrado })
+    })
+}
+
+function editarUsuario(req, res) {
+    var idUsuario = req.params.idUsuario;
+    var params = req.body;
+
+    // BORRAR LA PROPIEDAD DE PASSWORD PARA QUE NO SE PUEDA EDITAR
+    delete params.contrasena;
+
+    if(req.usuario.rol != superAdmin){
+        return res.status(500).send({ mensaje: "Solo el Administrador puede editarlos" })
+    }
+
+    Usuario.findByIdAndUpdate(idUsuario, params, { new: true }, (err, usuarioActualizado)=>{
+        if(err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+        if(!usuarioActualizado) return res.status(500).send({ mensaje: 'No se ha podido actualizar al Usuario' });
+        
+        return res.status(200).send({ usuarioActualizado });
+    })
+
+    
+}
+
+function eliminarUsuario(req, res) {
+    const idUsuario = req.params.idUsuario;
+
+    if(req.usuario.rol != superAdmin ){
+        return res.status(500).send({mensaje: 'Solo puede eliminar el Administrador.'})
+    }
+
+    Usuario.findByIdAndDelete(idUsuario, (err, usuarioEliminado)=>{
+        if(err) return res.status(500).send({ mensaje: 'Error en la peticion de Eliminar' });
+        if(!usuarioEliminado) return res.status(500).send({ mensaje: 'Error al eliminar el usuario.' });
+
+        return res.status(200).send({ usuarioEliminado });
+    })
+}
 
 module.exports = {
     crearUsuarioSuperAdmin,
     Login,
-    obtenerUsuarios
+    obtenerUsuarios,
+    crearUsuario,
+    obtenerUsuario,
+    editarUsuario,
+    eliminarUsuario
 }
