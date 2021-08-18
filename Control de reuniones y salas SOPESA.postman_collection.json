@@ -1,0 +1,658 @@
+{
+	"info": {
+		"_postman_id": "15ff7020-9c6d-43c8-9831-f9f53e4c5a12",
+		"name": "Control de reuniones y salas SOPESA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Obtener Usuarios",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MTE1NzY3NzQ0NzVmZDM5MzQxMjU3NTQiLCJyb2wiOiJTdXBlckFkbWluaXN0cmFkb3IiLCJ1c3VhcmlvIjoiU3VwZXJBZG1pbiIsImlhdCI6MTYyOTA3MTcxNiwiZXhwIjoxNjI5OTM1NzE2fQ.tEoiQwdhfm7f5cBogTnSMeIt6gOWL1TcM9Qii0S136s",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/api/obtenerUsuarios",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"obtenerUsuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener Salas",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MTE1NzY3NzQ0NzVmZDM5MzQxMjU3NTQiLCJyb2wiOiJTdXBlckFkbWluaXN0cmFkb3IiLCJlc3RhZG8iOiJBY3Rpdm8iLCJ1c3VhcmlvIjoiU3VwZXJBZG1pbiIsImlhdCI6MTYyOTIxODg0MCwiZXhwIjoxNjI5OTEwMDQwfQ.Plyn0tHn0j9reCDsAyiV8_kty9Ffu_z3GzCnj62diN4",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/api/obtenerSalas",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"obtenerSalas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener Tipos de Sala",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MTE1NzY3NzQ0NzVmZDM5MzQxMjU3NTQiLCJyb2wiOiJTdXBlckFkbWluaXN0cmFkb3IiLCJlc3RhZG8iOiJBY3Rpdm8iLCJ1c3VhcmlvIjoiU3VwZXJBZG1pbiIsImlhdCI6MTYyOTIxODg0MCwiZXhwIjoxNjI5OTEwMDQwfQ.Plyn0tHn0j9reCDsAyiV8_kty9Ffu_z3GzCnj62diN4",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/api/obtenerTipoSalas",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"obtenerTipoSalas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener Reuniones",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MTE1NzY3NzQ0NzVmZDM5MzQxMjU3NTQiLCJyb2wiOiJTdXBlckFkbWluaXN0cmFkb3IiLCJlc3RhZG8iOiJBY3Rpdm8iLCJ1c3VhcmlvIjoiU3VwZXJBZG1pbiIsImlhdCI6MTYyOTIxODg0MCwiZXhwIjoxNjI5OTEwMDQwfQ.Plyn0tHn0j9reCDsAyiV8_kty9Ffu_z3GzCnj62diN4",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/api/obtenerReuniones",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"obtenerReuniones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener Usuario",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/obtenerUsuario/611afbed62310a285478503a",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"obtenerUsuario",
+						"611afbed62310a285478503a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener Sala",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/obtenerSala/611bea3c39947b4998a65c8d",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"obtenerSala",
+						"611bea3c39947b4998a65c8d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener Tipo de Sala",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/obtenerTipoSala/611bea2639947b4998a65c88",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"obtenerTipoSala",
+						"611bea2639947b4998a65c88"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener Reunion",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/obtenerReunion/611d356e5850092a5cc7362d",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"obtenerReunion",
+						"611d356e5850092a5cc7362d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "contrasena",
+							"value": "SOPESA2021",
+							"type": "text"
+						},
+						{
+							"key": "obtenerToken",
+							"value": "true",
+							"type": "text"
+						},
+						{
+							"key": "usuario",
+							"value": "SuperAdmin",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/api/Login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"Login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear Usuario",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "nombres",
+							"value": "Miguel Prueba",
+							"type": "text"
+						},
+						{
+							"key": "apellidos",
+							"value": "Prueba Garza",
+							"type": "text"
+						},
+						{
+							"key": "usuario",
+							"value": "MPrueba",
+							"type": "text"
+						},
+						{
+							"key": "correo",
+							"value": "MPrueba@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "contrasena",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "tel",
+							"value": "3359-6262",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/api/crearUsuario",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"crearUsuario"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear Sala",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MTE1NzY3NzQ0NzVmZDM5MzQxMjU3NTQiLCJyb2wiOiJTdXBlckFkbWluaXN0cmFkb3IiLCJlc3RhZG8iOiJBY3Rpdm8iLCJ1c3VhcmlvIjoiU3VwZXJBZG1pbiIsImlhdCI6MTYyOTIxODg0MCwiZXhwIjoxNjI5OTEwMDQwfQ.Plyn0tHn0j9reCDsAyiV8_kty9Ffu_z3GzCnj62diN4",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "nombre",
+							"value": "Sala  1 C4",
+							"type": "text"
+						},
+						{
+							"key": "equipoDisponible",
+							"value": "Una TV, una cañonera, una pizarra.",
+							"type": "text"
+						},
+						{
+							"key": "ubicacion",
+							"value": "Cuarto nivel, a un lado de la recepción",
+							"type": "text"
+						},
+						{
+							"key": "idTipoSala",
+							"value": "611bea2639947b4998a65c88",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/api/crearSala",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"crearSala"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear Tipo Sala",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MTE1NzY3NzQ0NzVmZDM5MzQxMjU3NTQiLCJyb2wiOiJTdXBlckFkbWluaXN0cmFkb3IiLCJlc3RhZG8iOiJBY3Rpdm8iLCJ1c3VhcmlvIjoiU3VwZXJBZG1pbiIsImlhdCI6MTYyOTIxODg0MCwiZXhwIjoxNjI5OTEwMDQwfQ.Plyn0tHn0j9reCDsAyiV8_kty9Ffu_z3GzCnj62diN4",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "nombre",
+							"value": "Tipo SUM",
+							"type": "text"
+						},
+						{
+							"key": "descripcion",
+							"value": "Sala comoda con buena vista.",
+							"type": "text"
+						},
+						{
+							"key": "capacidadMax",
+							"value": "10",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/api/crearTipoSala",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"crearTipoSala"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear Reunión",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MTE1NzY3NzQ0NzVmZDM5MzQxMjU3NTQiLCJyb2wiOiJTdXBlckFkbWluaXN0cmFkb3IiLCJlc3RhZG8iOiJBY3Rpdm8iLCJ1c3VhcmlvIjoiU3VwZXJBZG1pbiIsImlhdCI6MTYyOTIxODg0MCwiZXhwIjoxNjI5OTEwMDQwfQ.Plyn0tHn0j9reCDsAyiV8_kty9Ffu_z3GzCnj62diN4",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "nombre",
+							"value": "Reunión de prueba 2",
+							"type": "text"
+						},
+						{
+							"key": "descripcion",
+							"value": "RP2",
+							"type": "text"
+						},
+						{
+							"key": "fechaDeInicio",
+							"value": "18/08/2021 23:30:00",
+							"type": "text"
+						},
+						{
+							"key": "fechaDeFin",
+							"value": "18/08/2021 23:40:01",
+							"type": "text"
+						},
+						{
+							"key": "cantidadAsist",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "idSala",
+							"value": "611d14290861ac53b856673a",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/api/crearReunion",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"crearReunion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar Usuario",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MTE1NzY3NzQ0NzVmZDM5MzQxMjU3NTQiLCJyb2wiOiJTdXBlckFkbWluaXN0cmFkb3IiLCJ1c3VhcmlvIjoiU3VwZXJBZG1pbiIsImlhdCI6MTYyOTE2MDM1NSwiZXhwIjoxNjI5OTM3OTU1fQ.w6q18zliW854jokqqAqkr3iQGR35Y6_Yrn8y5DjsAUM",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "nombres",
+							"value": "Jose Gilberto",
+							"type": "text"
+						},
+						{
+							"key": "apellidos",
+							"value": "Gonzalez Prueba",
+							"type": "text"
+						},
+						{
+							"key": "usuario",
+							"value": "jprueba",
+							"type": "text"
+						},
+						{
+							"key": "correo",
+							"value": "jprueba@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "contrasena",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "tel",
+							"value": "1236-4889",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/api/editarUsuario/611af825f512e71918fde9c6",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"editarUsuario",
+						"611af825f512e71918fde9c6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar Sala",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MTFiZGI2ODU0MmFjMTNjYTQwZWMxMDAiLCJub21icmVzIjoiYSIsImFwZWxsaWRvcyI6ImEiLCJjb3JyZW8iOiJhQGdtYWlsLmNvbSIsInRlbCI6IjMzNTktNjI2MiIsInJvbCI6IlVzdWFyaW8iLCJlc3RhZG8iOiJBY3Rpdm8iLCJ1c3VhcmlvIjoiYSIsImlhdCI6MTYyOTIyMDQzMiwiZXhwIjoxNjI5OTExNjMyfQ.L99vTeHaBqal3GeX_j50gDGtXwu_tjpjLSubuTkJRVE",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "equipoDisponible",
+							"value": "Tv, controles, y  Pizarra",
+							"type": "text"
+						},
+						{
+							"key": "ubicacion",
+							"value": "Cuarto nivel",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/api/editarSala/611bea3c39947b4998a65c8d",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"editarSala",
+						"611bea3c39947b4998a65c8d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar Tipo de Sala",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MTE1NzY3NzQ0NzVmZDM5MzQxMjU3NTQiLCJyb2wiOiJTdXBlckFkbWluaXN0cmFkb3IiLCJlc3RhZG8iOiJBY3Rpdm8iLCJ1c3VhcmlvIjoiU3VwZXJBZG1pbiIsImlhdCI6MTYyOTIyMTA1MCwiZXhwIjoxNjI5OTEyMjUwfQ.1lqJ3Ls65ttyfKHRQBezb32duEKhBvzu9h5uZi8K3CQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "nombre",
+							"value": "SUM",
+							"type": "text"
+						},
+						{
+							"key": "descripcion",
+							"value": "Muy completo y amplio",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/api/editarTipoSala/611bea2639947b4998a65c88",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"editarTipoSala",
+						"611bea2639947b4998a65c88"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar Usuario",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MTE1NzY3NzQ0NzVmZDM5MzQxMjU3NTQiLCJyb2wiOiJTdXBlckFkbWluaXN0cmFkb3IiLCJ1c3VhcmlvIjoiU3VwZXJBZG1pbiIsImlhdCI6MTYyOTE2MDM1NSwiZXhwIjoxNjI5OTM3OTU1fQ.w6q18zliW854jokqqAqkr3iQGR35Y6_Yrn8y5DjsAUM",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/api/eliminarUsuario/611afe8543f6dd4abc72dedc",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"eliminarUsuario",
+						"611afe8543f6dd4abc72dedc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar Sala",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MTE1NzY3NzQ0NzVmZDM5MzQxMjU3NTQiLCJyb2wiOiJTdXBlckFkbWluaXN0cmFkb3IiLCJlc3RhZG8iOiJBY3Rpdm8iLCJ1c3VhcmlvIjoiU3VwZXJBZG1pbiIsImlhdCI6MTYyOTIyMjYyNCwiZXhwIjoxNjI5OTEzODI0fQ.bgzOQ9p2kfjlrrpxHO3jpxtSfD4jvSFjYwWM5_UVB74",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/api/eliminarSala/611bea3c39947b4998a65c8d",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"eliminarSala",
+						"611bea3c39947b4998a65c8d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar Tipo de Sala",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MTE1NzY3NzQ0NzVmZDM5MzQxMjU3NTQiLCJyb2wiOiJTdXBlckFkbWluaXN0cmFkb3IiLCJlc3RhZG8iOiJBY3Rpdm8iLCJ1c3VhcmlvIjoiU3VwZXJBZG1pbiIsImlhdCI6MTYyOTIyMjk0MCwiZXhwIjoxNjI5OTE0MTQwfQ.VBARB2hRKE_O5Hhc_kHMtBH5mGvoNKCB8LgEcEEQp1M",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/api/eliminarTipoSala/611bea2639947b4998a65c88",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"eliminarTipoSala",
+						"611bea2639947b4998a65c88"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
