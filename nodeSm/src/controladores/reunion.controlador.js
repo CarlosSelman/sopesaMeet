@@ -29,7 +29,7 @@ function crearReunion(req,res){
 
     //Para la fecha de gestión
     var todayDate = new Date();
-    var actualDate = todayDate.toUTCString();
+    var actualDate = todayDate.toLocaleDateString();
     if (params.nombre && params.descripcion) {
         reunionModelo.nombre = params.nombre;
         reunionModelo.descripcion = params.descripcion;
