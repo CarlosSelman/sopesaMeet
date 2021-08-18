@@ -37,6 +37,7 @@ function crearSala(req,res){
         salaModelo.ubicacion = params.ubicacion;
         salaModelo.estado = activo;
         salaModelo.idTipoSala = params.idTipoSala;
+        salaModelo.imagen = null;
 
         Sala.find({
             $or: [
