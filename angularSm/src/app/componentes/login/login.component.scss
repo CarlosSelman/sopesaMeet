@@ -13,7 +13,7 @@ body{
     min-height: 100vh;
     z-index: 0;
     background: #b71c1c;
-   // padding: 40px;
+    padding: 10px;
     justify-content: center;
     display:grid;
    // grid-template-rows: 1fr auto 1fr;
@@ -30,7 +30,7 @@ body{
     line-height: 40px;
     margin-bottom: 5px;
     font-weight:500;
-    color: #272346;
+    color: #000000;
     text-align:center;
 }
 
@@ -85,11 +85,11 @@ a{
 
 .login-form input{
     outline: none;
-    margin-bottom: 15px;
-    font-stretch: 16px;
+    margin-bottom: 10px;
+    font-stretch: 11px;
     color: #999;
     text-align: left;
-    padding: 14px 20px;
+    padding: 10px 16px;
     width: 100%;
     display: inline-block;
     box-sizing: border-box;
@@ -109,7 +109,7 @@ a{
     width: 100%;
     background: red;
     border: none;
-    padding: 14px 15px;
+    padding: 10px 16px;
     font-weight: 500;
     transition: 0.3s ease;
 }
