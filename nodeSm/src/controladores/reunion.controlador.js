@@ -15,7 +15,7 @@ const confirmada = 'Confirmada';
 const pendiente = 'Pendiente';
 
 function obtenerReuniones(req,res){
-    reunionModelo.find().populate('idSala', 'nombre').populate('idResponsable', 'nombre').exec((err, reunionesEncontradas)=>{
+    reunionModelo.find().populate('idSala', 'nombre').populate('idResponsable','usuario rol').exec((err, reunionesEncontradas)=>{
         console.log(err);
         if(err) return res.status(500).send({ mensaje: 'Error en la peticion de reuniones' });
         if(!reunionesEncontradas) return res.status(500).send({ mensaje: 'Error al obtener las reuniones' });
@@ -29,20 +29,23 @@ function crearReunion(req,res){
 
     //Para la fecha de gestión
     var todayDate = new Date();
-    var actualDate = todayDate.toLocaleDateString();
-
+    var actualDate = todayDate.toUTCString();
     if (params.nombre && params.descripcion) {
         reunionModelo.nombre = params.nombre;
         reunionModelo.descripcion = params.descripcion;
-        reunionModelo.fechaDeReunion = params.fechaDeReunion;
-        reunionModelo.horaInicio = params.horaInicio;
-        reunionModelo.horaFin = params.horaFin;
+        reunionModelo.fechaDeInicio = params.fechaDeInicio;
+        reunionModelo.fechaDeFin = params.fechaDeFin;
         reunionModelo.cantidadAsist = params.cantidadAsist;
         reunionModelo.estado = pendiente;
         reunionModelo.idResponsable = req.usuario.sub;
         reunionModelo.idSala = params.idSala;
         reunionModelo.fechaDeGestion = actualDate;
 
+        //Validando que si la fecha y hora de inicio es mayor o igual que la final entonces no procede.
+        if(reunionModelo.fechaDeInicio>=reunionModelo.fechaDeFin){
+            return res.status(500).send({ mensaje: 'La fecha y hora inicial no puede ser mayor o igual a la final.' })
+        }
+        
         Reunion.find({
             $or: [
                 { nombre: reunionModelo.nombre },
