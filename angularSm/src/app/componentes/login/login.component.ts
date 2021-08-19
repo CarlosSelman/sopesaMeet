@@ -44,9 +44,9 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('identidad', JSON.stringify(this.identidad));
         this.getToken();
         Swal.fire({
-          position: 'top-end',
+          //position: 'top-end',
           icon: 'success',
-          title: 'Usuario logeado correctamente',
+          title: 'Ingreso exitoso',
           showConfirmButton: false,
           timer: 1500,
         });
@@ -64,9 +64,9 @@ export class LoginComponent implements OnInit {
       },
       (error) => {
         Swal.fire({
-          position: 'top-end',
+          //position: 'top-end',
           icon: 'error',
-          title: 'Usuario o Contraseña incorrectos',
+          title: 'Dato(s) incorrecto(s)',
           showConfirmButton: false,
           timer: 1500,
         });
