@@ -50,8 +50,7 @@ export class UsuarioService {
     return this._http.delete(this.url + '/eliminarUsuario/' + id, {headers: headersToken})
   }
   getIdentidad(){
-    var localStorage: any;
-    var identidad2 = JSON.parse(localStorage.getItem('identidad'));
+    var identidad2:string = JSON.parse(localStorage.getItem('identidad') || '{}');
     if(identidad2 != 'undefined'){
       this.identidad = identidad2
     }else{
