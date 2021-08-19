@@ -50,8 +50,18 @@ export class LoginComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500,
         });
+        if(this.identidad.estado=="Activo"){
+          this._router.navigate(['/inicio']);
+        } else if(this.identidad.estado!="Activo"){
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: 'Su cuenta no está activa',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
 
-        this._router.navigate(['/inicio']);
       },
       (error) => {
         Swal.fire({
