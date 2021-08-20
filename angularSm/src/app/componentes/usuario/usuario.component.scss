@@ -1,0 +1,53 @@
+table {
+  width: 100%;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+th{
+  width: 18%;
+}
+
+.pointer{
+  cursor: pointer;
+}
+
+.container{
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-top: 5px;
+}
+
+.footer{
+  background: white;
+  height: 100px;
+  position: relative;
+}
+
+.footer .footer-content{
+  height: 80px;
+  display: flex;
+}
+
+.footer .footer-content .footer-section{
+  flex: 1;
+  padding: 25px;
+
+}
+
+.footer .footer-bottom{
+  background: white;
+  color: black;
+  height: 50px;
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  bottom: 0px;
+  left:0px;
+  padding-top:20px;
+}

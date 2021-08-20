@@ -16,11 +16,11 @@
             <h2>Iniciar sesión</h2>
           <form>
             <div class="mb-3">
-              <input type="text" placeholder="Ingrese su usuario" required autofocus="" class="form-control" id="exampleInputEmail1" name="email" #email="ngModel"
+              <input autocomplete="off" type="text" placeholder="Ingrese su usuario" required autofocus="" class="form-control" id="exampleInputEmail1" name="email" #email="ngModel"
               [(ngModel)]="usuarioModel.usuario" aria-describedby="emailHelp">
             </div>
             <div class="mb-3">
-              <input type="password" placeholder="Ingrese su contraseña" required autofocus="" class="form-control" id="exampleInputPassword1" name="password" #password="ngModel"
+              <input autocomplete="off" type="password" placeholder="Ingrese su contraseña" required autofocus="" class="form-control" id="exampleInputPassword1" name="password" #password="ngModel"
               [(ngModel)]="usuarioModel.contrasena">
             </div>
             <button type="submit" class="btn" (click)="login()">Acceder</button>
