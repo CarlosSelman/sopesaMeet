@@ -9,15 +9,9 @@
 </head>
 <body>
   <div  style=" border-radius: 0;"class="card text-center">
-    <div class="card-header">
-
-    </div>
     <div style="background-color:#b71c1c" class="card-body">
       <h5 style="color:white"class="card-title">USUARIOS</h5>
       <p style="color:white" class="card-text">En este apartado se podrán crear, ver, editar y desactivar las cuentas de los usuarios.</p>
-    </div>
-    <div class="card-footer text-muted">
-
     </div>
   </div>
 <div class="container">
@@ -29,12 +23,12 @@
     <div class="mat-elevation-z8">
 
       <table align="center" mat-table [dataSource]="dataSource" matSort >
-        <!-- Position Column -->
+        <!-- Position Column
         <ng-container matColumnDef="usuario">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </th>
           <td mat-cell *matCellDef="let element"> {{element.usuario}} </td>
         </ng-container>
-
+        -->
         <!-- Name Column -->
         <ng-container matColumnDef="correo">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Correo </th>
@@ -47,24 +41,30 @@
           <td mat-cell *matCellDef="let element"> {{element.tel}} </td>
         </ng-container>
 
-        <!-- Symbol Column -->
+        <!-- Symbol Column
         <ng-container matColumnDef="rol">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Rol </th>
           <td mat-cell *matCellDef="let element"> {{element.rol}} </td>
         </ng-container>
-
+        -->
         <ng-container matColumnDef="acciones">
           <th mat-header-cell *matHeaderCellDef>  </th>
           <td mat-cell *matCellDef="let element" style="text-align:right;">
-            <a class="pointer" style="color: #1878b0"  matTooltip="Ver detalle">
-              <mat-icon>search</mat-icon>
-            </a>
-            <a class="pointer  " style="color: #1f516f"  matTooltip="Editar">
-              <mat-icon>edit</mat-icon>
-            </a>
-            <a class="pointer" style="color: #e15639"  matTooltip="Desactivar">
-              <mat-icon>delete</mat-icon>
-            </a>
+
+              <div class="dropdown">
+                <button class="btn btn-light btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="bi bi-three-dots-vertical"> </i>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li><a class="dropdown-item"
+                    data-bs-toggle="modal" data-bs-target="#modalEditarHotel"><i class="bi bi-search"></i> | Ver más</a></li>
+                  <li><a class="dropdown-item"
+                    data-bs-toggle="modal" data-bs-target="#modalEditarHotel"><i class="bi bi-pencil-square"></i> | Editar</a></li>
+                  <li><a class="dropdown-item"
+                    data-bs-toggle="modal" data-bs-target="#modalEliminarHotel"><i class="bi bi-toggle-off"></i> | Desactivar</a></li>
+                  </ul>
+              </div>
+
           </td>
         </ng-container>
 
