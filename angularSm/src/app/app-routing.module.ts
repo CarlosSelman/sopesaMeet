@@ -8,7 +8,7 @@ import { UsuarioComponent } from './componentes/usuario/usuario.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'inicio', component: InicioComponent},
-  { path: 'usuario', component: UsuarioComponent},
+  { path: 'usuarios', component: UsuarioComponent},
   { path: 'reunion', component: ReunionComponent},
   { path: '**', component: LoginComponent} //Ruta que me redirige al login si no existe la ruta
 ];

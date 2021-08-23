@@ -23,7 +23,7 @@ export class UsuarioComponent implements OnInit {
     {_id: "76754256dfgdeytghdff6gfb",nombres: "",apellidos:"",contrasena:"",usuario: "ljota", correo: "ljota@sopesa.com", tel: "6377 - 2323", rol: "Usuario", estado: "Activo"}
    ];
 
-  displayedColumns: string[] = ['correo', 'tel', 'acciones'];
+  displayedColumns: string[] = ['usuario','correo', 'tel','rol', 'acciones'];
   dataSource = new MatTableDataSource(this.listUsuarios);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
