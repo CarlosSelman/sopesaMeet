@@ -31,6 +31,13 @@ export class NavbarComponent implements OnInit {
     this.token = null;
     localStorage.setItem('identidad', JSON.stringify(this.identidad))
     localStorage.setItem('token', JSON.stringify(this.token));
+    Swal.fire({
+      //position: 'top-end',
+      icon: 'success',
+      title: 'Sesión cerrada exitosamente',
+      showConfirmButton: false,
+      timer: 1500,
+    });
     this._router.navigate(['/login']);
   }
 
