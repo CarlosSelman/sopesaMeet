@@ -21,7 +21,6 @@ function crearUsuarioSuperAdmin(req,res) {
     usuarioModelo.rol = superAdmin;
     usuarioModelo.estado = activo;
 
-
     Usuario.find({ $or: [
      {usuario: usuarioModelo.usuario}
      ]}).exec((err, usuarioEncontrado)=>{
@@ -49,16 +48,16 @@ function crearUsuarioSuperAdmin(req,res) {
 
 
 function obtenerUsuarios(req,res){
-    var validacion = req.usuario.rol;
+    //var validacion = req.usuario.rol;
 
-    if(validacion == superAdmin){
+    //if(validacion == superAdmin){
         usuarioModelo.find((err,usuariosEncontrados)=>{
             if(err) return res.status(404).send({report: 'Error al encontrar los usuarios'});
             return res.status(200).send(usuariosEncontrados);
         })
-    }else{
-        return res.status(404).send({report:"No tienes los permisos necesarios"})
-    }
+    //}else{
+    //    return res.status(404).send({report:"No tienes los permisos necesarios"})
+    //}
 }
 
 function Login(req,res){

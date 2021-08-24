@@ -11,7 +11,7 @@ var authenticated = require("../middlewares/authenticated");
 var api = express.Router();
 
     api.post('/Login', usuarioControlador.Login);
-    api.get('/obtenerUsuarios', authenticated.ensureAuth, usuarioControlador.obtenerUsuarios);
+    api.get('/obtenerUsuarios', usuarioControlador.obtenerUsuarios);
     api.post('/crearUsuario', usuarioControlador.crearUsuario);
     api.get('/obtenerUsuario/:idUsuario', usuarioControlador.obtenerUsuario);
     api.put('/editarUsuario/:idUsuario', authenticated.ensureAuth, usuarioControlador.editarUsuario);
