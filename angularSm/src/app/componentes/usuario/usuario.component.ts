@@ -14,7 +14,7 @@ declare var $: any;
 })
 export class UsuarioComponent implements AfterViewInit {
 
-displayedColumns: string[] = ['usuario','correo', 'tel','rol', 'acciones'];
+displayedColumns: string[] = ['usuario','correo', 'tel','rol','acciones'];
 dataSource = new MatTableDataSource<any[]>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

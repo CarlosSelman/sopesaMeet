@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <title>SM-Usuarios</title>
   <meta charset="UTF-8">
@@ -8,217 +7,203 @@
   <meta name="keywords" content="">
 </head>
 <body>
+  <!-- Sección de la explicación de Usuarios -->
   <div  style=" border-radius: 0;"class="card text-center">
     <div style="background-color:#b71c1c" class="card-body">
       <h5 style="color:white"class="card-title">USUARIOS</h5>
       <p style="color:white" class="card-text">En este apartado se podrán crear, ver, editar y desactivar las cuentas de los usuarios.</p>
     </div>
   </div>
-<div class="container">
-  <br>
+  <!-- Sección donde estan las respectivas tablas y filtros -->
+  <div class="container"><br>
+    <!-- GRUPO DE TABS PARA LOS USUARIOS -->
+    <mat-tab-group mat-align-tabs="center">
 
-  <mat-tab-group mat-align-tabs="center">
+      <!-- Tab de Todos los Usuarios -->
+      <mat-tab label="Todos los Usuarios">
+        <!-- Filtro -->
+        <mat-form-field appearance="standard">
+          <mat-label >Escribe algo para filtrar...</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ejemplo: usuario" #input autocomplete="off">
+        </mat-form-field>
+        <!-- Tabla -->
+        <div class="mat-elevation-z8">
+          <table align="center" mat-table [dataSource]="dataSource" matSort >
 
-    <mat-tab label="Usuarios activos">
+            <ng-container matColumnDef="usuario">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header > Usuario </th>
+              <td mat-cell *matCellDef="let element"> {{element.usuario}} </td>
+            </ng-container>
 
-      <mat-form-field appearance="standard">
-        <mat-label >Escribe algo para filtrar...</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Ejemplo: usuario" #input autocomplete="off">
-      </mat-form-field>
+            <ng-container matColumnDef="correo">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Correo </th>
+              <td mat-cell *matCellDef="let element"> {{element.correo}} </td>
+            </ng-container>
 
-      <div class="mat-elevation-z8">
+            <ng-container matColumnDef="tel">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Teléfono </th>
+              <td mat-cell *matCellDef="let element"> {{element.tel}} </td>
+            </ng-container>
 
-        <table align="center" mat-table [dataSource]="dataSource" matSort > <!-- matSort -->
+            <ng-container matColumnDef="rol">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Rol </th>
+              <td mat-cell *matCellDef="let element"> {{element.rol}} </td>
+            </ng-container>
 
-          <ng-container matColumnDef="usuario">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header > Usuario </th> <!-- mat-sort-header  -->
-            <td mat-cell *matCellDef="let element"> {{element.usuario}} </td>
-          </ng-container>
+            <ng-container matColumnDef="acciones">
+              <th mat-header-cell *matHeaderCellDef>  </th>
+              <td mat-cell *matCellDef="let element" style="text-align:right;">
 
-          <ng-container matColumnDef="correo">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Correo </th> <!--  mat-sort-header -->
-            <td mat-cell *matCellDef="let element"> {{element.correo}} </td>
-          </ng-container>
+                  <div class="dropdown">
+                    <button class="btn btn-light btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="bi bi-three-dots-vertical"> </i>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li><a class="dropdown-item"
+                        data-bs-toggle="modal" data-bs-target="#modalEditarHotel"><i class="bi bi-search"></i> | Ver más</a></li>
+                      <li><a class="dropdown-item"
+                        data-bs-toggle="modal" data-bs-target="#modalEditarHotel"><i class="bi bi-pencil-square"></i> | Editar</a></li>
+                      <li><a class="dropdown-item"
+                        data-bs-toggle="modal" data-bs-target="#modalEliminarHotel"><i class="bi bi-toggle-off"></i> | Desactivar</a></li>
+                      </ul>
+                  </div>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <!-- Paginación -->
+         <mat-paginator  [pageSizeOptions]="[5, 10, 25,50,100]" showFirstLastButtons ></mat-paginator>
 
-          <ng-container matColumnDef="tel">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Teléfono </th> <!--  mat-sort-header -->
-            <td mat-cell *matCellDef="let element"> {{element.tel}} </td>
-          </ng-container>
+        </div>
+      </mat-tab>
 
-          <ng-container matColumnDef="rol">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Rol </th>   <!--  mat-sort-header -->
-            <td mat-cell *matCellDef="let element"> {{element.rol}} </td>
-          </ng-container>
+      <!-- Tab de Usuarios Activos -->
+      <mat-tab label="Usuarios activos">
+        <!-- Filtro -->
+        <mat-form-field appearance="standard">
+          <mat-label >Escribe algo para filtrar...</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ejemplo: usuario" #input autocomplete="off">
+        </mat-form-field>
+        <!-- Tabla -->
+        <div class="mat-elevation-z8">
+          <table align="center" mat-table [dataSource]="dataSource" matSort >
 
-          <ng-container matColumnDef="acciones">
-            <th mat-header-cell *matHeaderCellDef>  </th>
-            <td mat-cell *matCellDef="let element" style="text-align:right;">
+            <ng-container matColumnDef="usuario">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header > Usuario </th>
+              <td mat-cell *matCellDef="let element"> {{element.usuario}} </td>
+            </ng-container>
 
-                <div class="dropdown">
-                  <button class="btn btn-light btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-three-dots-vertical"> </i>
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item"
-                      data-bs-toggle="modal" data-bs-target="#modalEditarHotel"><i class="bi bi-search"></i> | Ver más</a></li>
-                    <li><a class="dropdown-item"
-                      data-bs-toggle="modal" data-bs-target="#modalEditarHotel"><i class="bi bi-pencil-square"></i> | Editar</a></li>
-                    <li><a class="dropdown-item"
-                      data-bs-toggle="modal" data-bs-target="#modalEliminarHotel"><i class="bi bi-toggle-off"></i> | Desactivar</a></li>
-                    </ul>
-                </div>
+            <ng-container matColumnDef="correo">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Correo </th>
+              <td mat-cell *matCellDef="let element"> {{element.correo}} </td>
+            </ng-container>
 
-            </td>
-          </ng-container>
+            <ng-container matColumnDef="tel">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Teléfono </th>
+              <td mat-cell *matCellDef="let element"> {{element.tel}} </td>
+            </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
+            <ng-container matColumnDef="rol">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Rol </th>
+              <td mat-cell *matCellDef="let element"> {{element.rol}} </td>
+            </ng-container>
 
-       <mat-paginator  [pageSizeOptions]="[5, 10, 25,50,100]" showFirstLastButtons ></mat-paginator>
+            <ng-container matColumnDef="acciones">
+              <th mat-header-cell *matHeaderCellDef>  </th>
+              <td mat-cell *matCellDef="let element" style="text-align:right;">
 
-      </div>
+                  <div class="dropdown">
+                    <button class="btn btn-light btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="bi bi-three-dots-vertical"> </i>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li><a class="dropdown-item"
+                        data-bs-toggle="modal" data-bs-target="#modalEditarHotel"><i class="bi bi-search"></i> | Ver más</a></li>
+                      <li><a class="dropdown-item"
+                        data-bs-toggle="modal" data-bs-target="#modalEditarHotel"><i class="bi bi-pencil-square"></i> | Editar</a></li>
+                      <li><a class="dropdown-item"
+                        data-bs-toggle="modal" data-bs-target="#modalEliminarHotel"><i class="bi bi-toggle-off"></i> | Desactivar</a></li>
+                      </ul>
+                  </div>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <!-- Paginación -->
+          <mat-paginator  [pageSizeOptions]="[5, 10, 25,50,100]" showFirstLastButtons ></mat-paginator>
+        </div>
+      </mat-tab>
 
-    </mat-tab>
+      <!-- Tab de Usuarios Desactivados -->
+      <mat-tab label="Usuarios desactivados">
+        <!-- Filtro -->
+        <mat-form-field appearance="standard">
+          <mat-label >Escribe algo para filtrar...</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ejemplo: usuario" #input autocomplete="off">
+        </mat-form-field>
+        <!-- Tabla -->
+        <div class="mat-elevation-z8">
+          <table align="center" mat-table [dataSource]="dataSource" matSort >
 
+            <ng-container matColumnDef="usuario">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header > Usuario </th>
+              <td mat-cell *matCellDef="let element"> {{element.usuario}} </td>
+            </ng-container>
 
-    <mat-tab label="Usuarios desactivados">
+            <ng-container matColumnDef="correo">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Correo </th>
+              <td mat-cell *matCellDef="let element"> {{element.correo}} </td>
+            </ng-container>
 
-      <mat-form-field appearance="standard">
-        <mat-label >Escribe algo para filtrar...</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Ejemplo: usuario" #input autocomplete="off">
-      </mat-form-field>
+            <ng-container matColumnDef="tel">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Teléfono </th>
+              <td mat-cell *matCellDef="let element"> {{element.tel}} </td>
+            </ng-container>
 
-      <div class="mat-elevation-z8">
+            <ng-container matColumnDef="rol">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Rol </th>
+              <td mat-cell *matCellDef="let element"> {{element.rol}} </td>
+            </ng-container>
 
-        <table align="center" mat-table [dataSource]="dataSource" matSort > <!-- matSort -->
+            <ng-container matColumnDef="acciones">
+              <th mat-header-cell *matHeaderCellDef>  </th>
+              <td mat-cell *matCellDef="let element" style="text-align:right;">
 
-          <ng-container matColumnDef="usuario">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header > Usuario </th> <!-- mat-sort-header  -->
-            <td mat-cell *matCellDef="let element"> {{element.usuario}} </td>
-          </ng-container>
+                  <div class="dropdown">
+                    <button class="btn btn-light btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="bi bi-three-dots-vertical"> </i>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li><a class="dropdown-item"
+                        data-bs-toggle="modal" data-bs-target="#modalEditarHotel"><i class="bi bi-search"></i> | Ver más</a></li>
+                      <li><a class="dropdown-item"
+                        data-bs-toggle="modal" data-bs-target="#modalEditarHotel"><i class="bi bi-pencil-square"></i> | Editar</a></li>
+                      <li><a class="dropdown-item"
+                        data-bs-toggle="modal" data-bs-target="#modalEliminarHotel"><i class="bi bi-toggle-off"></i> | Desactivar</a></li>
+                      </ul>
+                  </div>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <!-- Paginación -->
+          <mat-paginator  [pageSizeOptions]="[5, 10, 25,50,100]" showFirstLastButtons ></mat-paginator>
+        </div>
+      </mat-tab>
 
-          <ng-container matColumnDef="correo">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Correo </th> <!--  mat-sort-header -->
-            <td mat-cell *matCellDef="let element"> {{element.correo}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="tel">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Teléfono </th> <!--  mat-sort-header -->
-            <td mat-cell *matCellDef="let element"> {{element.tel}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="rol">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Rol </th>   <!--  mat-sort-header -->
-            <td mat-cell *matCellDef="let element"> {{element.rol}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="acciones">
-            <th mat-header-cell *matHeaderCellDef>  </th>
-            <td mat-cell *matCellDef="let element" style="text-align:right;">
-
-                <div class="dropdown">
-                  <button class="btn btn-light btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-three-dots-vertical"> </i>
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item"
-                      data-bs-toggle="modal" data-bs-target="#modalEditarHotel"><i class="bi bi-search"></i> | Ver más</a></li>
-                    <li><a class="dropdown-item"
-                      data-bs-toggle="modal" data-bs-target="#modalEditarHotel"><i class="bi bi-pencil-square"></i> | Editar</a></li>
-                    <li><a class="dropdown-item"
-                      data-bs-toggle="modal" data-bs-target="#modalEliminarHotel"><i class="bi bi-toggle-off"></i> | Desactivar</a></li>
-                    </ul>
-                </div>
-
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-
-       <mat-paginator  [pageSizeOptions]="[5, 10, 25,50,100]" showFirstLastButtons ></mat-paginator>
-
-      </div>
-
-    </mat-tab>
-
-
-    <mat-tab label="Todos los usuarios">
-
-      <mat-form-field appearance="standard">
-        <mat-label >Escribe algo para filtrar...</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Ejemplo: usuario" #input autocomplete="off">
-      </mat-form-field>
-
-      <div class="mat-elevation-z8">
-
-        <table align="center" mat-table [dataSource]="dataSource" matSort > <!-- matSort -->
-
-          <ng-container matColumnDef="usuario">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header > Usuario </th> <!-- mat-sort-header  -->
-            <td mat-cell *matCellDef="let element"> {{element.usuario}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="correo">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Correo </th> <!--  mat-sort-header -->
-            <td mat-cell *matCellDef="let element"> {{element.correo}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="tel">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Teléfono </th> <!--  mat-sort-header -->
-            <td mat-cell *matCellDef="let element"> {{element.tel}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="rol">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Rol </th>   <!--  mat-sort-header -->
-            <td mat-cell *matCellDef="let element"> {{element.rol}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="acciones">
-            <th mat-header-cell *matHeaderCellDef>  </th>
-            <td mat-cell *matCellDef="let element" style="text-align:right;">
-
-                <div class="dropdown">
-                  <button class="btn btn-light btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-three-dots-vertical"> </i>
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item"
-                      data-bs-toggle="modal" data-bs-target="#modalEditarHotel"><i class="bi bi-search"></i> | Ver más</a></li>
-                    <li><a class="dropdown-item"
-                      data-bs-toggle="modal" data-bs-target="#modalEditarHotel"><i class="bi bi-pencil-square"></i> | Editar</a></li>
-                    <li><a class="dropdown-item"
-                      data-bs-toggle="modal" data-bs-target="#modalEliminarHotel"><i class="bi bi-toggle-off"></i> | Desactivar</a></li>
-                    </ul>
-                </div>
-
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-
-       <mat-paginator  [pageSizeOptions]="[5, 10, 25,50,100]" showFirstLastButtons ></mat-paginator>
-
-      </div>
-
-
-
-    </mat-tab>
-  </mat-tab-group>
-
-
-    </div>
-  <br>
+    </mat-tab-group>
+  </div><br>
+  <!-- Línea previa al footer -->
   <div  style=" border-radius: 0;"class="card text-center">
     <div style="background-color:#b71c1c" class="card-body">
       <h5 style="color:white"class="card-title"></h5>
       <p style="color:white" class="card-text"></p>
     </div>
   </div>
+  <!-- Footer -->
   <div class="footer">
     <div class="footer-content">
       <div class="footer-section links">
