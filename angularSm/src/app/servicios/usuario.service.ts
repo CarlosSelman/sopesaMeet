@@ -28,6 +28,12 @@ export class UsuarioService {
     return this._http.post(this.url + '/login', params, {headers: this.headersVariable});
   }
 
+  crearUsuario(usuario: Usuario):Observable<any>{
+    let params = JSON.stringify(usuario);
+
+    return this._http.post(this.url + '/crearUsuario/', params,{headers: this.headersVariable})
+  }
+
   obtenerUsuarios(): Observable<any>{
     return this._http.get(this.url + '/obtenerUsuarios', {headers: this.headersVariable});
   }

@@ -19,8 +19,12 @@
     <!-- GRUPO DE TABS PARA LOS USUARIOS -->
     <mat-tab-group mat-align-tabs="center">
 
-      <!-- Tab de Todos los Usuarios -->
-      <mat-tab label="Todos los Usuarios">
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="example-tab-icon">search</mat-icon>
+          Ver Usuarios
+        </ng-template>
         <!-- Filtro -->
         <mat-form-field appearance="standard">
           <mat-label >Escribe algo para filtrar...</mat-label>
@@ -74,126 +78,111 @@
           </table>
           <!-- Paginación -->
          <mat-paginator  [pageSizeOptions]="[5, 10, 25,50,100]" showFirstLastButtons ></mat-paginator>
-
         </div>
       </mat-tab>
 
-      <!-- Tab de Usuarios Activos -->
-      <mat-tab label="Usuarios activos">
-        <!-- Filtro -->
-        <mat-form-field appearance="standard">
-          <mat-label >Escribe algo para filtrar...</mat-label>
-          <input matInput (keyup)="applyFilter($event)" placeholder="Ejemplo: usuario" #input autocomplete="off">
-        </mat-form-field>
-        <!-- Tabla -->
-        <div class="mat-elevation-z8">
-          <table align="center" mat-table [dataSource]="dataSource" matSort >
-
-            <ng-container matColumnDef="usuario">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header > Usuario </th>
-              <td mat-cell *matCellDef="let element"> {{element.usuario}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="correo">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Correo </th>
-              <td mat-cell *matCellDef="let element"> {{element.correo}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="tel">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Teléfono </th>
-              <td mat-cell *matCellDef="let element"> {{element.tel}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="rol">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Rol </th>
-              <td mat-cell *matCellDef="let element"> {{element.rol}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="acciones">
-              <th mat-header-cell *matHeaderCellDef>  </th>
-              <td mat-cell *matCellDef="let element" style="text-align:right;">
-
-                  <div class="dropdown">
-                    <button class="btn btn-light btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                      <i class="bi bi-three-dots-vertical"> </i>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                      <li><a class="dropdown-item"
-                        data-bs-toggle="modal" data-bs-target="#modalEditarHotel"><i class="bi bi-search"></i> | Ver más</a></li>
-                      <li><a class="dropdown-item"
-                        data-bs-toggle="modal" data-bs-target="#modalEditarHotel"><i class="bi bi-pencil-square"></i> | Editar</a></li>
-                      <li><a class="dropdown-item"
-                        data-bs-toggle="modal" data-bs-target="#modalEliminarHotel"><i class="bi bi-toggle-off"></i> | Desactivar</a></li>
-                      </ul>
+      <!-- Tab de Crear usuarios-->
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="example-tab-icon">add_reaction</mat-icon>
+          Crear Usuarios
+        </ng-template>
+        <div class="login-form">
+          <div class = "container">
+            <div class = "main">
+              <div class = "content" >
+                  <h2>Crea el usuario</h2>
+                <form>
+                  <div class="mb-3">
+                    <input autocomplete="off" type="text" placeholder="Ingrese su usuario" required autofocus="" class="form-control" id="exampleInputEmail1" name="email" #email="ngModel"
+                    [(ngModel)]="user.usuario" aria-describedby="emailHelp">
                   </div>
-              </td>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          </table>
-          <!-- Paginación -->
-          <mat-paginator  [pageSizeOptions]="[5, 10, 25,50,100]" showFirstLastButtons ></mat-paginator>
-        </div>
-      </mat-tab>
-
-      <!-- Tab de Usuarios Desactivados -->
-      <mat-tab label="Usuarios desactivados">
-        <!-- Filtro -->
-        <mat-form-field appearance="standard">
-          <mat-label >Escribe algo para filtrar...</mat-label>
-          <input matInput (keyup)="applyFilter($event)" placeholder="Ejemplo: usuario" #input autocomplete="off">
-        </mat-form-field>
-        <!-- Tabla -->
-        <div class="mat-elevation-z8">
-          <table align="center" mat-table [dataSource]="dataSource" matSort >
-
-            <ng-container matColumnDef="usuario">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header > Usuario </th>
-              <td mat-cell *matCellDef="let element"> {{element.usuario}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="correo">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Correo </th>
-              <td mat-cell *matCellDef="let element"> {{element.correo}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="tel">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Teléfono </th>
-              <td mat-cell *matCellDef="let element"> {{element.tel}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="rol">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Rol </th>
-              <td mat-cell *matCellDef="let element"> {{element.rol}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="acciones">
-              <th mat-header-cell *matHeaderCellDef>  </th>
-              <td mat-cell *matCellDef="let element" style="text-align:right;">
-
-                  <div class="dropdown">
-                    <button class="btn btn-light btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                      <i class="bi bi-three-dots-vertical"> </i>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                      <li><a class="dropdown-item"
-                        data-bs-toggle="modal" data-bs-target="#modalEditarHotel"><i class="bi bi-search"></i> | Ver más</a></li>
-                      <li><a class="dropdown-item"
-                        data-bs-toggle="modal" data-bs-target="#modalEditarHotel"><i class="bi bi-pencil-square"></i> | Editar</a></li>
-                      <li><a class="dropdown-item"
-                        data-bs-toggle="modal" data-bs-target="#modalEliminarHotel"><i class="bi bi-toggle-off"></i> | Desactivar</a></li>
-                      </ul>
+                  <div class="mb-3">
+                    <input autocomplete="off" type="password" placeholder="Ingrese su contraseña" required autofocus="" class="form-control" id="exampleInputPassword1" name="password" #password="ngModel"
+                    [(ngModel)]="user.contrasena">
                   </div>
-              </td>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          </table>
-          <!-- Paginación -->
-          <mat-paginator  [pageSizeOptions]="[5, 10, 25,50,100]" showFirstLastButtons ></mat-paginator>
+                  <div class="mb-3">
+                    <input autocomplete="off" type="text" placeholder="Ingrese su usuario" required autofocus="" class="form-control" id="exampleInputEmail1" name="email" #email="ngModel"
+                    [(ngModel)]="user.usuario" aria-describedby="emailHelp">
+                  </div>
+                  <div class="mb-3">
+                    <input autocomplete="off" type="text" placeholder="Ingrese su usuario" required autofocus="" class="form-control" id="exampleInputEmail1" name="email" #email="ngModel"
+                    [(ngModel)]="user.usuario" aria-describedby="emailHelp">
+                  </div>
+                  <div class="mb-3">
+                    <input autocomplete="off" type="text" placeholder="Ingrese su usuario" required autofocus="" class="form-control" id="exampleInputEmail1" name="email" #email="ngModel"
+                    [(ngModel)]="user.usuario" aria-describedby="emailHelp">
+                  </div>
+                  <button type="submit" class="btn" (click)="crearUsuarios()">Crear usuario</button>
+                </form>
+                <div id="emailHelp" class="form-text"><i class="bi bi-exclamation-circle-fill"></i> Al crear el usuario la cuenta ya está activa.</div>
+              </div>
+              <div class="form-img">
+                <img src="../../../assets/imgUs.jpg">
+              </div>
+            </div>
+          </div>
         </div>
       </mat-tab>
+      <!-- Tab de Crear usuarios
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="example-tab-icon">add_reaction</mat-icon>
+          Crear Usuarios
+        </ng-template>
+        <mat-card style="margin-top:10px">
+          <form [formGroup]="form" (ngSubmit)="crearUsuarios()">
+            <mat-grid-list cols="4" rowHeight="70px">
+              <mat-grid-tile [colspan]="2" [rowspan]="1" >
+                <mat-form-field class="ancho">
+                  <mat-label>Usuario</mat-label>
+                  <input matInput autocomplete="off" name="usuario" #usuario="ngModel"
+                  [(ngModel)]="user.usuario" >
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="2" [rowspan]="7">
+                <img src="../../../assets/programmer.png" width="250" height="250">
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="2" [rowspan]="1" >
+                <mat-form-field class="ancho">
+                  <mat-label>Nombres</mat-label>
+                  <input matInput autocomplete="off" formControlName="nombres">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="2" [rowspan]="1" >
+                <mat-form-field class="ancho">
+                  <mat-label>Apellidos</mat-label>
+                  <input matInput autocomplete="off" formControlName="apellidos">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="2" [rowspan]="1" >
+                <mat-form-field class="ancho">
+                  <mat-label>Correo</mat-label>
+                  <input matInput autocomplete="off" formControlName="correo" >
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="2" [rowspan]="1" >
+                <mat-form-field class="ancho">
+                  <mat-label>Teléfono</mat-label>
+                  <input matInput autocomplete="off"  formControlName="tel">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="2" [rowspan]="1" >
+                <mat-form-field class="ancho">
+                  <mat-label>Contraseña</mat-label>
+                  <input matInput autocomplete="off" formControlName="contrasena">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="2" [rowspan]="1" >
+                <button mat-raised-button style="margin-right: 20px;">Volver</button>
+                <button type="submit" [disabled]="form.invalid" mat-raised-button color="primary">Aceptar</button>
+              </mat-grid-tile>
+            </mat-grid-list>
+          </form>
+        </mat-card>
 
+      </mat-tab>
+    -->
     </mat-tab-group>
   </div><br>
   <!-- Línea previa al footer -->

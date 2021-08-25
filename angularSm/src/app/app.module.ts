@@ -29,8 +29,9 @@ import { MatTableModule } from '@angular/material/table';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
-
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatCardModule} from '@angular/material/card';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -62,9 +63,9 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatTooltipModule,
     MatPaginatorModule,
     MatSortModule,
-
-    MatTabsModule
-
+    MatTabsModule,
+    MatCardModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
