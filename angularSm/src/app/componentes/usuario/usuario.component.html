@@ -16,7 +16,7 @@
     </div>
   </div>
   <!-- Sección donde estan las respectivas tablas y filtros -->
-  <div class="container"><br>
+  <div  *ngIf="identidad.rol!='Usuario'" class="container"><br>
     <!-- GRUPO DE TABS PARA LOS USUARIOS -->
     <mat-tab-group mat-align-tabs="center">
 
@@ -64,9 +64,9 @@
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                       <li><a class="dropdown-item"
-                        data-bs-toggle="modal" data-bs-target="#modalEditarHotel"><i class="bi bi-search"></i> | Ver más</a></li>
+                        data-bs-toggle="modal" data-bs-target="#mVerUsuario"><i class="bi bi-search"></i> | Ver más</a></li>
                       <li><a class="dropdown-item"
-                        data-bs-toggle="modal" data-bs-target="#modalEditarHotel"><i class="bi bi-pencil-square"></i> | Editar</a></li>
+                        data-bs-toggle="modal" data-bs-target="#mEditarUsuario"><i class="bi bi-pencil-square"></i> | Editar</a></li>
                       <li><a class="dropdown-item"
                         data-bs-toggle="modal" data-bs-target="#modalEliminarHotel"><i class="bi bi-toggle-off"></i> | Desactivar</a></li>
                       </ul>
@@ -94,28 +94,28 @@
                   <h2>Crear Usuario</h2>
                 <form>
                   <div class="mb-3">
-                    <input autocomplete="off" type="text" placeholder="Nombres" required autofocus="" class="form-control" id="exampleInputEmail1" name="email" #email="ngModel"
-                    [(ngModel)]="user.nombres" aria-describedby="emailHelp">
+                    <input autocomplete="off" type="text" placeholder="Nombres" required autofocus="" class="form-control" id="inputNombres" name="email" #email="ngModel"
+                    [(ngModel)]="user.nombres">
                   </div>
                   <div class="mb-3">
-                    <input autocomplete="off" type="text" placeholder="Apellidos" required autofocus="" class="form-control" id="exampleInputEmail1" name="email" #email="ngModel"
-                    [(ngModel)]="user.apellidos" aria-describedby="emailHelp">
+                    <input autocomplete="off" type="text" placeholder="Apellidos" required autofocus="" class="form-control" id="inputApellidos" name="email" #email="ngModel"
+                    [(ngModel)]="user.apellidos">
                   </div>
                   <div class="mb-3">
-                    <input autocomplete="off" type="email" placeholder="Correo" required autofocus="" class="form-control" id="exampleInputEmail1" name="email" #email="ngModel"
-                    [(ngModel)]="user.correo" aria-describedby="emailHelp">
+                    <input autocomplete="off" type="email" placeholder="Correo" required autofocus="" class="form-control" id="inputCorreo" name="email" #email="ngModel"
+                    [(ngModel)]="user.correo">
                   </div>
                   <div class="mb-3">
-                    <input autocomplete="off" type="text" placeholder="Usuario" required autofocus="" class="form-control" id="exampleInputEmail1" name="email" #email="ngModel"
-                    [(ngModel)]="user.usuario" aria-describedby="emailHelp">
+                    <input autocomplete="off" type="text" placeholder="Usuario" required autofocus="" class="form-control" id="inputUsuario" name="email" #email="ngModel"
+                    [(ngModel)]="user.usuario">
                   </div>
                   <div class="mb-3">
-                    <input autocomplete="off" type="password" placeholder="Contraseña" required autofocus="" class="form-control" id="exampleInputPassword1" name="password" #password="ngModel"
+                    <input autocomplete="off" type="password" placeholder="Contraseña" required autofocus="" class="form-control" id="inputContrasena" name="password" #password="ngModel"
                     [(ngModel)]="user.contrasena">
                   </div>
                    <div class="mb-3">
-                    <input autocomplete="off" type="text" placeholder="No. Tel" required autofocus="" class="form-control" id="exampleInputEmail1" name="email" #email="ngModel"
-                    [(ngModel)]="user.tel" aria-describedby="emailHelp">
+                    <input autocomplete="off" type="text" placeholder="No. Tel" required autofocus="" class="form-control" id="inputTel" name="email" #email="ngModel"
+                    [(ngModel)]="user.tel">
                   </div>
                   <button type="submit" class="btn" (click)="crearUsuarios()">Crear Usuario</button>
                 </form>
@@ -128,65 +128,6 @@
           </div>
         </div>
       </mat-tab>
-      <!-- Tab de Crear usuarios
-      <mat-tab>
-        <ng-template mat-tab-label>
-          <mat-icon class="example-tab-icon">add_reaction</mat-icon>
-          Crear Usuarios
-        </ng-template>
-        <mat-card style="margin-top:10px">
-          <form [formGroup]="form" (ngSubmit)="crearUsuarios()">
-            <mat-grid-list cols="4" rowHeight="70px">
-              <mat-grid-tile [colspan]="2" [rowspan]="1" >
-                <mat-form-field class="ancho">
-                  <mat-label>Usuario</mat-label>
-                  <input matInput autocomplete="off" name="usuario" #usuario="ngModel"
-                  [(ngModel)]="user.usuario" >
-                </mat-form-field>
-              </mat-grid-tile>
-              <mat-grid-tile [colspan]="2" [rowspan]="7">
-                <img src="../../../assets/programmer.png" width="250" height="250">
-              </mat-grid-tile>
-              <mat-grid-tile [colspan]="2" [rowspan]="1" >
-                <mat-form-field class="ancho">
-                  <mat-label>Nombres</mat-label>
-                  <input matInput autocomplete="off" formControlName="nombres">
-                </mat-form-field>
-              </mat-grid-tile>
-              <mat-grid-tile [colspan]="2" [rowspan]="1" >
-                <mat-form-field class="ancho">
-                  <mat-label>Apellidos</mat-label>
-                  <input matInput autocomplete="off" formControlName="apellidos">
-                </mat-form-field>
-              </mat-grid-tile>
-              <mat-grid-tile [colspan]="2" [rowspan]="1" >
-                <mat-form-field class="ancho">
-                  <mat-label>Correo</mat-label>
-                  <input matInput autocomplete="off" formControlName="correo" >
-                </mat-form-field>
-              </mat-grid-tile>
-              <mat-grid-tile [colspan]="2" [rowspan]="1" >
-                <mat-form-field class="ancho">
-                  <mat-label>Teléfono</mat-label>
-                  <input matInput autocomplete="off"  formControlName="tel">
-                </mat-form-field>
-              </mat-grid-tile>
-              <mat-grid-tile [colspan]="2" [rowspan]="1" >
-                <mat-form-field class="ancho">
-                  <mat-label>Contraseña</mat-label>
-                  <input matInput autocomplete="off" formControlName="contrasena">
-                </mat-form-field>
-              </mat-grid-tile>
-              <mat-grid-tile [colspan]="2" [rowspan]="1" >
-                <button mat-raised-button style="margin-right: 20px;">Volver</button>
-                <button type="submit" [disabled]="form.invalid" mat-raised-button color="primary">Aceptar</button>
-              </mat-grid-tile>
-            </mat-grid-list>
-          </form>
-        </mat-card>
-
-      </mat-tab>
-    -->
     </mat-tab-group>
   </div><br>
   <!-- Línea previa al footer -->
@@ -222,3 +163,50 @@
   </div>
   </body>
   </html>
+
+
+
+<!-- Modal Ver Usuario -->
+<div class="modal fade" id="mVerUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Datos del usuario:</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="inputNombre" class="form-label">Nombre:</label>
+            <input type="text" class="form-control" id="inputNombre" name="nombre"
+            #nombre="ngModel" [(ngModel)]="user.nombres" disabled>
+          </div>
+          <div class="mb-3">
+            <label for="inputApellido" class="form-label">Apellido:</label>
+            <input type="text" class="form-control" id="inputApellido" name="lastName"
+            #lastName="ngModel" [(ngModel)]="user.apellidos" disabled>
+          </div>
+          <div class="mb-3">
+            <label for="inputUsuario" class="form-label">Usuario:</label>
+            <input type="text" class="form-control" id="inputUsuario" name="usuario"
+            #usuario="ngModel" [(ngModel)]="user.usuario" disabled>
+          </div>
+          <div class="mb-3">
+            <label for="inputEmail" class="form-label">E-Mail:</label>
+            <input type="text" class="form-control" id="inputEmail" name="email"
+            #email="ngModel" [(ngModel)]="user.correo" disabled>
+          </div>
+          <div class="mb-3">
+            <label for="inputEmail" class="form-label">E-Mail:</label>
+            <input type="text" class="form-control" id="inputEmail" name="email"
+            #email="ngModel" [(ngModel)]="user.contrasena" disabled>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <img src="../../../assets/imgSopesa.png" style="max-width: 20%;" alt="...">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

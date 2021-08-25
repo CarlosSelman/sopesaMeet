@@ -17,7 +17,7 @@ declare var $: any;
   providers: [UsuarioService]
 })
 export class UsuarioComponent implements AfterViewInit {
-
+  public identidad;
   /*form: FormGroup;*/
 
 displayedColumns: string[] = ['usuario','correo', 'tel','rol','acciones'];
@@ -29,13 +29,16 @@ dataSource = new MatTableDataSource<any[]>();
   public token;
   public usuarios:any;
   public user: Usuario;
+  public idUsuarioModel: Usuario;
 
   constructor(
     private _usuarioService: UsuarioService,
    /* private fb: FormBuilder,*/
     private _router: Router
     ) {
+      this.identidad = this._usuarioService.getIdentidad();
     this.user = new Usuario("","","","","","","","","");
+    this.idUsuarioModel = new Usuario("","","","","","","","","");
     this.token = this._usuarioService.getToken();
     this._usuarioService.obtenerUsuarios().subscribe ( usuarios => {
       this.dataSource.data = usuarios;
@@ -63,6 +66,17 @@ dataSource = new MatTableDataSource<any[]>();
       },
       error => {
         console.log(<any>error);
+      }
+    )
+  }
+
+
+  obtenerUsuarioId(idUsuario:String){
+    this._usuarioService.obtenerUsuarioId(idUsuario).subscribe(
+      response=>{
+        this.idUsuarioModel = response.usuarioEncontrado;
+        console.log(response);
+
       }
     )
   }
