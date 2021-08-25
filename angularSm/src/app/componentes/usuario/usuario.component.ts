@@ -68,10 +68,6 @@ dataSource = new MatTableDataSource<any[]>();
   }
 
   ngAfterViewInit() {
-    //this.dataSource.paginator = this.paginator;
-    //this.dataSource.sort = this.sort;
-    //console.log('\nNgAfterViewInit...\n');
-    //this.obtenerUsuarios();
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
   }
@@ -82,38 +78,52 @@ dataSource = new MatTableDataSource<any[]>();
   }
 
   crearUsuarios(){
-console.log(this.user);
+      if(this.user.nombres===""||this.user.apellidos===""||this.user.usuario===""||this.user.tel===""||this.user.correo===""||this.user.contrasena===""){
+        Swal.fire({
+          icon: 'warning',
+          title: 'Llene todos los campos',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }else{
+      console.log(this.user)
 
-this._usuarioService.crearUsuario(this.user).subscribe(
-  response=>{
-    this.user.nombres = '';
-    this.user.apellidos ='';
-    this.user.usuario ='';
-    this.user.correo ='';
-    this.user.tel ='';
-    this.user.contrasena ='';
-    console.log(response);
-    this.obtenerUsuarios()
-  }
-);
-   /* console.log(this.form);*/
+      this._usuarioService.crearUsuario(this.user).subscribe(
+        response=>{
+          console.log(response);
+          Swal.fire({
+            icon: 'success',
+            title: 'Usuario creado correctamente',
+            showConfirmButton: false,
+            timer: 1500,
+          });
 
-    /*const usua: Usuario = {
-      _id: this.form.value._id,
-      usuario: this.form.value.usuario,
-      nombres: this.form.value.nombres,
-      apellidos: this.form.value.apellidos,
-      correo: this.form.value.correo,
-      tel: this.form.value.tel,
-      contrasena: this.form.value.contrasena,
-      rol: this.form.value.rol,
-      estado: this.form.value.estado
-
+          this.user.nombres ='';
+          this.user.apellidos ='';
+          this.user.correo ='';
+          this.user.usuario ='';
+          this.user.contrasena ='';
+          this.user.tel ='';
+          this.refresh();
+          //this._router.navigate(['/usuarios'])
+        },
+        (error) => {
+          console.log(<any>error);
+          Swal.fire({
+            icon: 'error',
+            title: 'No se pudo crear el usuario',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      )
     }
 
-    this._usuarioService.crearUsuario(usua)
+  }
 
-    */
+
+  refresh(): void{
+    window.location.reload();
   }
 }
 

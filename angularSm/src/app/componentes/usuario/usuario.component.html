@@ -12,13 +12,13 @@
     <div style="background-color:#b71c1c" class="card-body">
       <h5 style="color:white"class="card-title">USUARIOS</h5>
       <p style="color:white" class="card-text">En este apartado se podrán crear, ver, editar y desactivar las cuentas de los usuarios.</p>
+      <button type="button" class="btn btn-light" [routerLink]="['/inicio']">Regresar al inicio</button>
     </div>
   </div>
   <!-- Sección donde estan las respectivas tablas y filtros -->
   <div class="container"><br>
     <!-- GRUPO DE TABS PARA LOS USUARIOS -->
     <mat-tab-group mat-align-tabs="center">
-
 
       <mat-tab>
         <ng-template mat-tab-label>
@@ -91,29 +91,33 @@
           <div class = "container">
             <div class = "main">
               <div class = "content" >
-                  <h2>Crea el usuario</h2>
+                  <h2>Crear Usuario</h2>
                 <form>
                   <div class="mb-3">
-                    <input autocomplete="off" type="text" placeholder="Ingrese su usuario" required autofocus="" class="form-control" id="exampleInputEmail1" name="email" #email="ngModel"
+                    <input autocomplete="off" type="text" placeholder="Nombres" required autofocus="" class="form-control" id="exampleInputEmail1" name="email" #email="ngModel"
+                    [(ngModel)]="user.nombres" aria-describedby="emailHelp">
+                  </div>
+                  <div class="mb-3">
+                    <input autocomplete="off" type="text" placeholder="Apellidos" required autofocus="" class="form-control" id="exampleInputEmail1" name="email" #email="ngModel"
+                    [(ngModel)]="user.apellidos" aria-describedby="emailHelp">
+                  </div>
+                  <div class="mb-3">
+                    <input autocomplete="off" type="email" placeholder="Correo" required autofocus="" class="form-control" id="exampleInputEmail1" name="email" #email="ngModel"
+                    [(ngModel)]="user.correo" aria-describedby="emailHelp">
+                  </div>
+                  <div class="mb-3">
+                    <input autocomplete="off" type="text" placeholder="Usuario" required autofocus="" class="form-control" id="exampleInputEmail1" name="email" #email="ngModel"
                     [(ngModel)]="user.usuario" aria-describedby="emailHelp">
                   </div>
                   <div class="mb-3">
-                    <input autocomplete="off" type="password" placeholder="Ingrese su contraseña" required autofocus="" class="form-control" id="exampleInputPassword1" name="password" #password="ngModel"
+                    <input autocomplete="off" type="password" placeholder="Contraseña" required autofocus="" class="form-control" id="exampleInputPassword1" name="password" #password="ngModel"
                     [(ngModel)]="user.contrasena">
                   </div>
-                  <div class="mb-3">
-                    <input autocomplete="off" type="text" placeholder="Ingrese su usuario" required autofocus="" class="form-control" id="exampleInputEmail1" name="email" #email="ngModel"
-                    [(ngModel)]="user.usuario" aria-describedby="emailHelp">
+                   <div class="mb-3">
+                    <input autocomplete="off" type="text" placeholder="No. Tel" required autofocus="" class="form-control" id="exampleInputEmail1" name="email" #email="ngModel"
+                    [(ngModel)]="user.tel" aria-describedby="emailHelp">
                   </div>
-                  <div class="mb-3">
-                    <input autocomplete="off" type="text" placeholder="Ingrese su usuario" required autofocus="" class="form-control" id="exampleInputEmail1" name="email" #email="ngModel"
-                    [(ngModel)]="user.usuario" aria-describedby="emailHelp">
-                  </div>
-                  <div class="mb-3">
-                    <input autocomplete="off" type="text" placeholder="Ingrese su usuario" required autofocus="" class="form-control" id="exampleInputEmail1" name="email" #email="ngModel"
-                    [(ngModel)]="user.usuario" aria-describedby="emailHelp">
-                  </div>
-                  <button type="submit" class="btn" (click)="crearUsuarios()">Crear usuario</button>
+                  <button type="submit" class="btn" (click)="crearUsuarios()">Crear Usuario</button>
                 </form>
                 <div id="emailHelp" class="form-text"><i class="bi bi-exclamation-circle-fill"></i> Al crear el usuario la cuenta ya está activa.</div>
               </div>
