@@ -43,15 +43,28 @@ export class UsuarioService {
   }
 
   obtenerUsuarioId(id:String): Observable<any>{
-    return this._http.get(this.url + '/obtenerUsuarioId/'+ id, {headers: this.headersVariable})
+    return this._http.get(this.url + '/obtenerUsuario/'+ id, {headers: this.headersVariable})
   }
 
   editarUsaurio(usuario: Usuario):Observable<any>{
     let params = JSON.stringify(usuario);
     let headersToken = this.headersVariable.set('Authorization', this.getToken())
 
-
     return this._http.put(this.url + '/editarUsuario/' + usuario._id, params, {headers: headersToken})
+  }
+
+  activarUsuario(usuario: Usuario):Observable<any>{
+    let params = JSON.stringify(usuario);
+    let headersToken = this.headersVariable.set('Authorization', this.getToken())
+
+    return this._http.put(this.url + '/activarUsuario/' + usuario._id, params, {headers: headersToken})
+  }
+
+  desactivarUsuario(usuario: Usuario):Observable<any>{
+    let params = JSON.stringify(usuario);
+    let headersToken = this.headersVariable.set('Authorization', this.getToken())
+
+    return this._http.put(this.url + '/desactivarUsuario/' + usuario._id, params, {headers: headersToken})
   }
 
   eliminarUsuario(id:String): Observable<any>{

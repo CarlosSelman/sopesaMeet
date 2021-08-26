@@ -28,7 +28,7 @@ export class UsuarioComponent implements AfterViewInit {
   dataSourceD = new MatTableDataSource<any[]>();
 
   public token;
-  public usuarios:any;
+  public usuarios;
   public user: Usuario;
   public idUsuarioModel: Usuario;
 
@@ -83,7 +83,7 @@ export class UsuarioComponent implements AfterViewInit {
   obtenerUsuarioId(idUsuario:String){
     this._usuarioService.obtenerUsuarioId(idUsuario).subscribe(
       response=>{
-        this.dataSource.data = response.usuarioEncontrado;
+        this.idUsuarioModel = response.usuarioEncontrado;
         console.log(response);
 
       }
