@@ -179,6 +179,34 @@ function eliminarUsuario(req, res) {
     })
 }
 
+function activarUsuario(req, res){
+    var idUsuario = req.params.idUsuario;
+    var estado = req.params.estado;
+    var usuarioModel = new Usuario();
+    usuarioModel.estado = activo;
+
+    Usuario.findByIdAndUpdate(idUsuario, {estado: activo}, { new: true }, (err, usuarioActualizado)=>{
+        if(err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+        if(!usuarioActualizado) return res.status(500).send({ mensaje: 'No se ha podido actualizar al Usuario' });
+        
+        return res.status(200).send({ usuarioActualizado });
+    })
+}
+
+function desactivarUsuario(req, res){
+    var idUsuario = req.params.idUsuario;
+    var estado = req.params.estado;
+    var usuarioModel = new Usuario();
+    usuarioModel.estado = desactivado;
+
+    Usuario.findByIdAndUpdate(idUsuario, {estado: desactivado}, { new: true }, (err, usuarioActualizado)=>{
+        if(err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+        if(!usuarioActualizado) return res.status(500).send({ mensaje: 'No se ha podido actualizar al Usuario' });
+        
+        return res.status(200).send({ usuarioActualizado });
+    })
+}
+
 module.exports = {
     crearUsuarioSuperAdmin,
     Login,
@@ -187,5 +215,7 @@ module.exports = {
     obtenerUsuario,
     editarUsuario,
     eliminarUsuario,
-    obtenerUsuariosD
+    obtenerUsuariosD,
+    activarUsuario,
+    desactivarUsuario
 }

@@ -9,13 +9,14 @@ var authenticated = require("../middlewares/authenticated");
 
 // RUTES
 var api = express.Router();
-
     api.post('/Login', usuarioControlador.Login);
     api.get('/obtenerUsuarios', usuarioControlador.obtenerUsuarios);
     api.get('/obtenerUsuariosD', usuarioControlador.obtenerUsuariosD);
     api.post('/crearUsuario', usuarioControlador.crearUsuario);
     api.get('/obtenerUsuario/:idUsuario', usuarioControlador.obtenerUsuario);
     api.put('/editarUsuario/:idUsuario', authenticated.ensureAuth, usuarioControlador.editarUsuario);
+    api.put('/activarUsuario/:idUsuario', authenticated.ensureAuth, usuarioControlador.activarUsuario);
+    api.put('/desactivarUsuario/:idUsuario', authenticated.ensureAuth, usuarioControlador.desactivarUsuario);
     api.delete('/eliminarUsuario/:idUsuario', authenticated.ensureAuth, usuarioControlador.eliminarUsuario);
 module.exports = api;
 

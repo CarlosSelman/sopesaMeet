@@ -54,12 +54,17 @@
               <td mat-cell *matCellDef="let element"> {{element.rol}} </td>
             </ng-container>
 
+            <ng-container matColumnDef="estado">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+              <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+            </ng-container>
+
             <ng-container matColumnDef="acciones">
               <th mat-header-cell *matHeaderCellDef>  </th>
               <td mat-cell *matCellDef="let element" style="text-align:right;">
 
                   <div class="dropdown">
-                    <button class="btn btn-light btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button  class="btn btn-light btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                       <i class="bi bi-three-dots-vertical"> </i>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -94,26 +99,31 @@
         </mat-form-field>
         <!-- Tabla -->
         <div class="mat-elevation-z8">
-          <table align="center" mat-table [dataSource]="dataSourceD" matSort >
+          <table align="center" mat-table [dataSource]="dataSourceD"> <!-- matSort -->
 
             <ng-container matColumnDef="usuario">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header > Usuario </th>
+              <th mat-header-cell *matHeaderCellDef> Usuario </th> <!-- mat-sort-header -->
               <td mat-cell *matCellDef="let element"> {{element.usuario}} </td>
             </ng-container>
 
             <ng-container matColumnDef="correo">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Correo </th>
+              <th mat-header-cell *matHeaderCellDef> Correo </th> <!-- mat-sort-header -->
               <td mat-cell *matCellDef="let element"> {{element.correo}} </td>
             </ng-container>
 
             <ng-container matColumnDef="tel">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Teléfono </th>
+              <th mat-header-cell *matHeaderCellDef> Teléfono </th> <!-- mat-sort-header -->
               <td mat-cell *matCellDef="let element"> {{element.tel}} </td>
             </ng-container>
 
             <ng-container matColumnDef="rol">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Rol </th>
+              <th mat-header-cell *matHeaderCellDef> Rol </th> <!-- mat-sort-header -->
               <td mat-cell *matCellDef="let element"> {{element.rol}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="estado">
+              <th mat-header-cell *matHeaderCellDef> Estado </th> <!-- mat-sort-header -->
+              <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
             </ng-container>
 
             <ng-container matColumnDef="acciones">
@@ -133,11 +143,11 @@
                   </div>
               </td>
             </ng-container>
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsD"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsD;"></tr>
           </table>
-          <!-- Paginación
-         <mat-paginator  [pageSizeOptions]="[5, 10, 25,50,100]" showFirstLastButtons ></mat-paginator>-->
+          <!-- Paginación -->
+         <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25,50,100]" showFirstLastButtons ></mat-paginator> -->
         </div>
       </mat-tab>
       <!-- Tab de Crear usuarios-->

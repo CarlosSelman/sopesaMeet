@@ -18,14 +18,14 @@ declare var $: any;
 })
 export class UsuarioComponent implements AfterViewInit {
   public identidad;
-  /*form: FormGroup;*/
 
-  displayedColumns: string[] = ['usuario','correo', 'tel','rol','acciones'];
+  displayedColumns: string[] = ['usuario','correo', 'tel','rol','estado','acciones'];
   dataSource = new MatTableDataSource<any[]>();
-  dataSourceD = new MatTableDataSource<any[]>();
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
+  displayedColumnsD: string[] = ['usuario','correo', 'tel','rol','estado','acciones'];
+  dataSourceD = new MatTableDataSource<any[]>();
 
   public token;
   public usuarios:any;
@@ -50,22 +50,13 @@ export class UsuarioComponent implements AfterViewInit {
     this._usuarioService.obtenerUsuariosD().subscribe ( usuarios => {
       this.dataSourceD.data = usuarios;
     })
-/*
-    this.form= this.fb.group({
-      usuario: ['', Validators.required],
-      nombres: ['', Validators.required],
-      apellidos: ['', Validators.required],
-      correo: ['', Validators.required],
-      tel: ['', Validators.required],
-      contrasena: ['', Validators.required],
-    })
-    */
    }
 
    ngOnInit(): void {
      //this.obtenerUsuarios();
    }
 
+  //Obteniendo los usuarios activos
   obtenerUsuarios(){
     this._usuarioService.obtenerUsuarios().subscribe(
       response => {
@@ -77,6 +68,7 @@ export class UsuarioComponent implements AfterViewInit {
     )
   }
 
+  //Obteniendo los usuarios desactivados
   obtenerUsuariosD(){
     this._usuarioService.obtenerUsuariosD().subscribe(
       response => {
@@ -88,16 +80,22 @@ export class UsuarioComponent implements AfterViewInit {
     )
   }
 
-
-
   obtenerUsuarioId(idUsuario:String){
     this._usuarioService.obtenerUsuarioId(idUsuario).subscribe(
       response=>{
-        this.idUsuarioModel = response.usuarioEncontrado;
+        this.dataSource.data = response.usuarioEncontrado;
         console.log(response);
 
       }
     )
+  }
+
+  activarUsuario(){
+
+  }
+
+  desactivarUsuario(){
+
   }
 
   ngAfterViewInit() {
@@ -105,19 +103,29 @@ export class UsuarioComponent implements AfterViewInit {
       this.dataSource.paginator = this.paginator;
   }
 
+  //Filtro tabla de usuarios activos
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  //Filtro tabla de usuarios desactivados
   applyFilterD(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSourceD.filter = filterValue.trim().toLowerCase();
   }
 
-
+  //Crear los usuarios
   crearUsuarios(){
-      if(this.user.nombres===""||this.user.apellidos===""||this.user.usuario===""||this.user.tel===""||this.user.correo===""||this.user.contrasena===""){
+    //Validación
+      if(
+        this.user.nombres===""||
+        this.user.apellidos===""||
+        this.user.usuario===""||
+        this.user.tel===""||
+        this.user.correo===""||
+        this.user.contrasena===""){
+        //Alerta para que se llenen todos los campos
         Swal.fire({
           icon: 'warning',
           title: 'Llene todos los campos',
@@ -130,19 +138,21 @@ export class UsuarioComponent implements AfterViewInit {
       this._usuarioService.crearUsuario(this.user).subscribe(
         response=>{
           console.log(response);
+          //Alerta de que se creó correctamente el usuario
           Swal.fire({
             icon: 'success',
             title: 'Usuario creado correctamente',
             showConfirmButton: false,
             timer: 1500,
           });
-
+          //Limpiando los campos luego de la creación
           this.user.nombres ='';
           this.user.apellidos ='';
           this.user.correo ='';
           this.user.usuario ='';
           this.user.contrasena ='';
           this.user.tel ='';
+          //Refrescando la ventana
           this.refresh();
           //this._router.navigate(['/usuarios'])
         },
