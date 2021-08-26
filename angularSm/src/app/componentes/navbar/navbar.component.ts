@@ -32,7 +32,6 @@ export class NavbarComponent implements OnInit {
     localStorage.setItem('identidad', JSON.stringify(this.identidad))
     localStorage.setItem('token', JSON.stringify(this.token));
     Swal.fire({
-      //position: 'top-end',
       icon: 'success',
       title: 'Sesión cerrada exitosamente',
       showConfirmButton: false,

@@ -13,8 +13,8 @@ import Swal from 'sweetalert2';
 export class LoginComponent implements OnInit {
 
   public usuarioModel: Usuario;
-  public token:any;
-  public identidad:any;
+  public token;
+  public identidad;
 
   constructor(
     private _usuarioService: UsuarioService,
@@ -28,8 +28,9 @@ export class LoginComponent implements OnInit {
   getToken() {
     this._usuarioService.login(this.usuarioModel).subscribe(
       (response) => {
+        console.log(response);
         this.token = response.token;
-        localStorage.setItem('token', this.token);
+        localStorage.setItem('token', JSON.stringify(this.token));
       },
       (error) => {
         console.log(<any>error);
@@ -40,21 +41,25 @@ export class LoginComponent implements OnInit {
   login() {
     this._usuarioService.login(this.usuarioModel).subscribe(
       (response) => {
+        console.log(response);
+        //this.refresh()
         this.identidad = response.usuarioEncontrado;
         localStorage.setItem('identidad', JSON.stringify(this.identidad));
         this.getToken();
-        Swal.fire({
-          //position: 'top-end',
-          icon: 'success',
-          title: 'Ingreso exitoso',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        this.token=response.token;
+        localStorage.setItem('token', JSON.stringify(this.token));
+
         if(this.identidad.estado=="Activo"){
-          this._router.navigate(['/inicio']);
+            Swal.fire({
+              //position: 'top-end',
+              icon: 'success',
+              title: 'Ingreso exitoso',
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            this._router.navigate(['/inicio']);
         } else if(this.identidad.estado!="Activo"){
           Swal.fire({
-            position: 'top-end',
             icon: 'error',
             title: 'Su cuenta no está activa',
             showConfirmButton: false,
@@ -72,5 +77,9 @@ export class LoginComponent implements OnInit {
         });
       }
     );
+  }
+
+  refresh(): void{
+    window.location.reload();
   }
 }
