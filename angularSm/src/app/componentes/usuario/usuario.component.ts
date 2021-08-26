@@ -170,74 +170,51 @@ export class UsuarioComponent implements AfterViewInit {
 
   }
 
+  editarUsuario(){
+    //Validación
+      if(
+        this.idUsuarioModel.nombres===""||
+        this.idUsuarioModel.apellidos===""||
+        this.idUsuarioModel.usuario===""||
+        this.idUsuarioModel.tel===""||
+        this.idUsuarioModel.correo===""
+      ){
+        //Alerta para que se llenen todos los campos
+        Swal.fire({
+          icon: 'warning',
+          title: 'Llene todos los campos',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }else{
+
+      this._usuarioService.editarUsuario(this.idUsuarioModel).subscribe(
+        response=>{
+          console.log(response);
+          //Alerta de que se actualizó correctamente el usuario
+          Swal.fire({
+            icon: 'success',
+            title: 'Usuario actualizado correctamente',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          //Refrescando la ventana
+          this.refresh();
+        },
+        (error) => {
+          console.log(<any>error);
+          Swal.fire({
+            icon: 'error',
+            title: 'No se pudo actualizar el usuario',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      )
+    }
+  }
 
   refresh(): void{
     window.location.reload();
   }
 }
-
-/*
-import { Component, OnInit } from '@angular/core';
-import { Usuario } from 'src/app/modelos/usuario.modelo';
-import { UsuarioService } from "../../servicios/usuario.service";
-declare var $: any;
-
-@Component({
-  selector: 'app-usuario',
-  templateUrl: './usuario.component.html',
-  styleUrls: ['./usuario.component.scss'],
-  providers: [UsuarioService]
-})
-export class UsuarioComponent implements OnInit {
-  public usuarios:any;
-  public idUsuarioModel: Usuario;
-  constructor(private _usuarioService: UsuarioService) {
-    this.idUsuarioModel = new Usuario("","","","","","","","","");
-   }
-
-  ngOnInit(): void {
-    this.obtenerUsuarios();
-  }
-
-  obtenerUsuarios(){
-    this._usuarioService.obtenerUsuarios().subscribe(
-      response => {
-        this.usuarios = response.usuariosEncontrados;
-      },
-      error => {
-        console.log(<any>error);
-      }
-    )
-  }
-
-  obtenerUsuarioId(idUsuario:String){
-    this._usuarioService.obtenerUsuarioId(idUsuario).subscribe(
-      response=>{
-        this.idUsuarioModel = response.usuarioEncontrado;
-        console.log(response);
-
-      }
-    )
-  }
-
-  editarUsuario(){
-    this._usuarioService.editarUsaurio(this.idUsuarioModel).subscribe(
-      response=>{
-        console.log(response);
-        this.obtenerUsuarios();
-      }
-    )
-  }
-
-  eliminarUsuario(idUsuario:String){
-    this._usuarioService.eliminarUsuario(idUsuario).subscribe(
-      response=>{
-        console.log(response);
-        this.obtenerUsuarios();
-      }
-    )
-  }
-
-
-}
-*/

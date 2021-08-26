@@ -46,7 +46,7 @@ export class UsuarioService {
     return this._http.get(this.url + '/obtenerUsuario/'+ id, {headers: this.headersVariable})
   }
 
-  editarUsaurio(usuario: Usuario):Observable<any>{
+  editarUsuario(usuario: Usuario):Observable<any>{
     let params = JSON.stringify(usuario);
     let headersToken = this.headersVariable.set('Authorization', this.getToken())
 
