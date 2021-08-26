@@ -234,22 +234,22 @@
 					"urlencoded": [
 						{
 							"key": "nombres",
-							"value": "Miguel Prueba",
+							"value": "Oscar Prueba",
 							"type": "text"
 						},
 						{
 							"key": "apellidos",
-							"value": "Prueba Garza",
+							"value": "Gonzales Dos",
 							"type": "text"
 						},
 						{
 							"key": "usuario",
-							"value": "MPrueba",
+							"value": "ogonzales",
 							"type": "text"
 						},
 						{
 							"key": "correo",
-							"value": "MPrueba@gmail.com",
+							"value": "ogonzales@gmail.com",
 							"type": "text"
 						},
 						{
@@ -259,7 +259,7 @@
 						},
 						{
 							"key": "tel",
-							"value": "3359-6262",
+							"value": "1234-5678",
 							"type": "text"
 						}
 					]
@@ -489,6 +489,66 @@
 						"api",
 						"editarUsuario",
 						"611af825f512e71918fde9c6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Activar Usuario",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MTE1NzY3NzQ0NzVmZDM5MzQxMjU3NTQiLCJyb2wiOiJTdXBlckFkbWluaXN0cmFkb3IiLCJlc3RhZG8iOiJBY3Rpdm8iLCJ1c3VhcmlvIjoiU3VwZXJBZG1pbiIsImlhdCI6MTYzMDAwMTYyNywiZXhwIjoxNjMwNTIwMDI3fQ.KY8Vy2rPwbJESf7_NRo2rDBtmdJqea4AGn4V_whycrI",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "localhost:3000/api/activarUsuario/611bdb68542ac13ca40ec100",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"activarUsuario",
+						"611bdb68542ac13ca40ec100"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Desactivar Usuario",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MTE1NzY3NzQ0NzVmZDM5MzQxMjU3NTQiLCJyb2wiOiJTdXBlckFkbWluaXN0cmFkb3IiLCJlc3RhZG8iOiJBY3Rpdm8iLCJ1c3VhcmlvIjoiU3VwZXJBZG1pbiIsImlhdCI6MTYzMDAwMTYyNywiZXhwIjoxNjMwNTIwMDI3fQ.KY8Vy2rPwbJESf7_NRo2rDBtmdJqea4AGn4V_whycrI",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "localhost:3000/api/desactivarUsuario/611bdb68542ac13ca40ec100",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"desactivarUsuario",
+						"611bdb68542ac13ca40ec100"
 					]
 				}
 			},
