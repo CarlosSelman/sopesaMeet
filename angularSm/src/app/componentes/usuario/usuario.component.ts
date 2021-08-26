@@ -20,8 +20,9 @@ export class UsuarioComponent implements AfterViewInit {
   public identidad;
   /*form: FormGroup;*/
 
-displayedColumns: string[] = ['usuario','correo', 'tel','rol','acciones'];
-dataSource = new MatTableDataSource<any[]>();
+  displayedColumns: string[] = ['usuario','correo', 'tel','rol','acciones'];
+  dataSource = new MatTableDataSource<any[]>();
+  dataSourceD = new MatTableDataSource<any[]>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -36,12 +37,18 @@ dataSource = new MatTableDataSource<any[]>();
    /* private fb: FormBuilder,*/
     private _router: Router
     ) {
-      this.identidad = this._usuarioService.getIdentidad();
+    this.identidad = this._usuarioService.getIdentidad();
+
     this.user = new Usuario("","","","","","","","","");
     this.idUsuarioModel = new Usuario("","","","","","","","","");
     this.token = this._usuarioService.getToken();
+
     this._usuarioService.obtenerUsuarios().subscribe ( usuarios => {
       this.dataSource.data = usuarios;
+    })
+
+    this._usuarioService.obtenerUsuariosD().subscribe ( usuarios => {
+      this.dataSourceD.data = usuarios;
     })
 /*
     this.form= this.fb.group({
@@ -70,6 +77,18 @@ dataSource = new MatTableDataSource<any[]>();
     )
   }
 
+  obtenerUsuariosD(){
+    this._usuarioService.obtenerUsuariosD().subscribe(
+      response => {
+         this.dataSourceD.data = response.usuariosEncontrados;
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+
 
   obtenerUsuarioId(idUsuario:String){
     this._usuarioService.obtenerUsuarioId(idUsuario).subscribe(
@@ -90,6 +109,12 @@ dataSource = new MatTableDataSource<any[]>();
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+  applyFilterD(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSourceD.filter = filterValue.trim().toLowerCase();
+  }
+
 
   crearUsuarios(){
       if(this.user.nombres===""||this.user.apellidos===""||this.user.usuario===""||this.user.tel===""||this.user.correo===""||this.user.contrasena===""){

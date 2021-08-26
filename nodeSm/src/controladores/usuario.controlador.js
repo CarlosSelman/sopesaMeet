@@ -48,16 +48,18 @@ function crearUsuarioSuperAdmin(req,res) {
 
 
 function obtenerUsuarios(req,res){
-    //var validacion = req.usuario.rol;
-
-    //if(validacion == superAdmin){
-        usuarioModelo.find((err,usuariosEncontrados)=>{
-            if(err) return res.status(404).send({report: 'Error al encontrar los usuarios'});
+    usuarioModelo.find((err,usuariosEncontrados)=>{
+        if(err) return res.status(404).send({report: 'Error al encontrar los usuarios'});
             return res.status(200).send(usuariosEncontrados);
-        })
-    //}else{
-    //    return res.status(404).send({report:"No tienes los permisos necesarios"})
-    //}
+    })
+}
+
+
+function obtenerUsuariosD(req,res){
+    usuarioModelo.find({estado: desactivado},(err,usuariosEncontrados)=>{
+        if(err) return res.status(404).send({report: 'Error al encontrar los usuarios'});
+        return res.status(200).send(usuariosEncontrados);
+    })
 }
 
 function Login(req,res){
@@ -184,5 +186,6 @@ module.exports = {
     crearUsuario,
     obtenerUsuario,
     editarUsuario,
-    eliminarUsuario
+    eliminarUsuario,
+    obtenerUsuariosD
 }

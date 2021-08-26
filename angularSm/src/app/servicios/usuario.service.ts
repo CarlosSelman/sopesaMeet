@@ -38,6 +38,10 @@ export class UsuarioService {
     return this._http.get(this.url + '/obtenerUsuarios', {headers: this.headersVariable});
   }
 
+  obtenerUsuariosD(): Observable<any>{
+    return this._http.get(this.url + '/obtenerUsuariosD', {headers: this.headersVariable});
+  }
+
   obtenerUsuarioId(id:String): Observable<any>{
     return this._http.get(this.url + '/obtenerUsuarioId/'+ id, {headers: this.headersVariable})
   }

@@ -80,7 +80,66 @@
          <mat-paginator  [pageSizeOptions]="[5, 10, 25,50,100]" showFirstLastButtons ></mat-paginator>
         </div>
       </mat-tab>
+      <!-- Tab de Usuarios Desactivados-->
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="example-tab-icon">search_off</mat-icon>
+          Usuarios Desactivados
+        </ng-template>
 
+        <!-- Filtro -->
+        <mat-form-field appearance="standard">
+          <mat-label >Escribe algo para filtrar...</mat-label>
+          <input matInput (keyup)="applyFilterD($event)" placeholder="Ejemplo: usuario" #input autocomplete="off">
+        </mat-form-field>
+        <!-- Tabla -->
+        <div class="mat-elevation-z8">
+          <table align="center" mat-table [dataSource]="dataSourceD" matSort >
+
+            <ng-container matColumnDef="usuario">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header > Usuario </th>
+              <td mat-cell *matCellDef="let element"> {{element.usuario}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="correo">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Correo </th>
+              <td mat-cell *matCellDef="let element"> {{element.correo}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="tel">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Teléfono </th>
+              <td mat-cell *matCellDef="let element"> {{element.tel}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="rol">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Rol </th>
+              <td mat-cell *matCellDef="let element"> {{element.rol}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="acciones">
+              <th mat-header-cell *matHeaderCellDef>  </th>
+              <td mat-cell *matCellDef="let element" style="text-align:right;">
+
+                  <div class="dropdown">
+                    <button class="btn btn-light btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="bi bi-three-dots-vertical"> </i>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li><a class="dropdown-item"
+                        data-bs-toggle="modal" data-bs-target="#mVerUsuario"><i class="bi bi-search"></i> | Ver más</a></li>
+                      <li><a class="dropdown-item"
+                        data-bs-toggle="modal" data-bs-target="#modalEliminarHotel"><i class="bi bi-toggle-on"></i> | Activar</a></li>
+                      </ul>
+                  </div>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <!-- Paginación
+         <mat-paginator  [pageSizeOptions]="[5, 10, 25,50,100]" showFirstLastButtons ></mat-paginator>-->
+        </div>
+      </mat-tab>
       <!-- Tab de Crear usuarios-->
       <mat-tab>
         <ng-template mat-tab-label>
