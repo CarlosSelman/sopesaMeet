@@ -69,11 +69,13 @@
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                       <li><a class="dropdown-item"
-                        data-bs-toggle="modal" data-bs-target="#mVerUsuario"><i class="bi bi-search"></i> | Ver más</a></li>
+                        data-bs-toggle="modal" data-bs-target="#mVerUsuario"(click)="obtenerUsuarioId(element._id)"><i class="bi bi-search"></i> | Ver más</a></li>
                       <li><a class="dropdown-item"
                         data-bs-toggle="modal" data-bs-target="#mEditarUsuario"><i class="bi bi-pencil-square"></i> | Editar</a></li>
-                      <li><a class="dropdown-item"
+                      <li><a *ngIf="element.estado==='Activo'" class="dropdown-item"
                         data-bs-toggle="modal" data-bs-target="#modalEliminarHotel"><i class="bi bi-toggle-off"></i> | Desactivar</a></li>
+                      <li><a *ngIf="element.estado==='Desactivado'" class="dropdown-item"
+                        data-bs-toggle="modal" data-bs-target="#modalEliminarHotel"><i class="bi bi-toggle-on"></i> | Activar</a></li>
                       </ul>
                   </div>
               </td>
@@ -260,20 +262,19 @@
             #usuario="ngModel" [(ngModel)]="idUsuarioModel.usuario" disabled>
           </div>
           <div class="mb-3">
-            <label for="inputEmail" class="form-label">E-Mail:</label>
+            <label for="inputEmail" class="form-label">Correo:</label>
             <input type="text" class="form-control" id="inputEmail" name="email"
             #email="ngModel" [(ngModel)]="idUsuarioModel.correo" disabled>
           </div>
           <div class="mb-3">
-            <label for="inputEmail" class="form-label">E-Mail:</label>
-            <input type="text" class="form-control" id="inputEmail" name="email"
-            #email="ngModel" [(ngModel)]="idUsuarioModel.contrasena" disabled>
+            <label for="inputPwd" class="form-label">No. Tel:</label>
+            <input type="text" class="form-control" id="inputPwd" name="contrasena"
+            #contrasena="ngModel" [(ngModel)]="idUsuarioModel.tel" disabled>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <img src="../../../assets/imgSopesa.png" style="max-width: 20%;" alt="...">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> Cerrar</button>
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> Cerrar</button>
       </div>
     </div>
   </div>
