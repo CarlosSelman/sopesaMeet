@@ -316,6 +316,19 @@
             <input type="email" class="form-control" id="inputTel"
             name="tel" #tel="ngModel" [(ngModel)]="idUsuarioModel.tel">
           </div>
+          <div id="emailHelp" class="form-text"><i class="bi bi-exclamation-circle-fill"></i> No dejes campos vacíos.</div>
+          <hr>
+
+          <label for="inputTipo" class="col-6 col-form-label"><strong>Tipo de rol:</strong></label>
+          <div class="mb-3">
+            <select  name="type" #type="ngModel"
+              [(ngModel)]="idUsuarioModel.rol" class="form-select" aria-label="Default select example">
+              <option  [ngValue]="'Administrador'">Administrador</option>
+              <option  [ngValue]="'Usuario'">Usuario</option>
+            </select>
+
+          <div id="emailHelp" class="form-text"><strong><i class="bi bi-exclamation-circle-fill"></i> Recuerda que cada rol tiene accesos distintos.</strong></div>
+        </div>
         </form>
       </div>
       <div class="modal-footer">
