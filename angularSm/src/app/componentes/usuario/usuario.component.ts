@@ -90,12 +90,24 @@ export class UsuarioComponent implements AfterViewInit {
     )
   }
 
-  activarUsuario(){
-
+  activarUsuario(idUsuario){
+    this._usuarioService.activarUsuario(idUsuario).subscribe(
+      response=>{
+        console.log(response)
+        //Refrescando la ventana
+        this.refresh();
+      }
+    )
   }
 
-  desactivarUsuario(){
-
+  desactivarUsuario(idUsuario){
+    this._usuarioService.desactivarUsuario(idUsuario).subscribe(
+      response=>{
+        console.log(response)
+        //Refrescando la ventana
+        this.refresh();
+      }
+    )
   }
 
   ngAfterViewInit() {

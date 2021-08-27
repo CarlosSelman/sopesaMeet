@@ -73,9 +73,9 @@
                       <li><a *ngIf="element.rol!='SuperAdministrador'" class="dropdown-item"
                         data-bs-toggle="modal" data-bs-target="#mEditarUsuario" (click)="obtenerUsuarioId(element._id)"><i class="bi bi-pencil-square"></i> | Editar</a></li>
                       <li><a *ngIf="element.estado==='Activo'" class="dropdown-item"
-                        data-bs-toggle="modal" data-bs-target="#modalEliminarHotel"><i class="bi bi-toggle-off"></i> | Desactivar</a></li>
+                        data-bs-toggle="modal" data-bs-target="#mDesactivarUsuario" (click)="obtenerUsuarioId(element._id)"><i class="bi bi-toggle-off"></i> | Desactivar</a></li>
                       <li><a *ngIf="element.estado==='Desactivado'" class="dropdown-item"
-                        data-bs-toggle="modal" data-bs-target="#modalEliminarHotel"><i class="bi bi-toggle-on"></i> | Activar</a></li>
+                        data-bs-toggle="modal" data-bs-target="#mActivarUsuario" (click)="obtenerUsuarioId(element._id)"><i class="bi bi-toggle-on"></i> | Activar</a></li>
                       </ul>
                   </div>
               </td>
@@ -141,7 +141,7 @@
                       <li><a class="dropdown-item"
                         data-bs-toggle="modal" data-bs-target="#mEditarUsuario" (click)="obtenerUsuarioId(element._id)"><i class="bi bi-pencil-square"></i> | Editar</a></li>
                       <li><a class="dropdown-item"
-                        data-bs-toggle="modal" data-bs-target="#modalEliminarHotel" ><i class="bi bi-toggle-on"></i> | Activar</a></li>
+                        data-bs-toggle="modal" data-bs-target="#mActivarUsuario" (click)="obtenerUsuarioId(element._id)" ><i class="bi bi-toggle-on"></i> | Activar</a></li>
                       </ul>
                   </div>
               </td>
@@ -321,6 +321,46 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> Cerrar</button>
         <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="editarUsuario()"><i class="bi bi-save"></i> Guardar cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Activar Usuario -->
+<div class="modal fade" id="mActivarUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirmación de activación</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Esta seguro de que desea activar el Usuario, {{idUsuarioModel.usuario}}?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> No, cerrar</button>
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal"
+        (click)="activarUsuario(idUsuarioModel._id)">Si, activar <i class="bi bi-toggle-on"></i> </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Desactivar Usuario -->
+<div class="modal fade" id="mDesactivarUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirmación de desactivación</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Esta seguro de que desea desactivar el Usuario, {{idUsuarioModel.usuario}}?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> No, cerrar</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+        (click)="desactivarUsuario(idUsuarioModel._id)">Si, desactivar <i class="bi bi-toggle-off"></i> </button>
       </div>
     </div>
   </div>
