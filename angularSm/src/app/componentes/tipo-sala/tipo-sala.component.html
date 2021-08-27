@@ -1,1 +1,95 @@
-<p>tipo-sala works!</p>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SM-TipoSalas</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+</head>
+<body>
+   <!-- Sección de la explicación de Usuarios -->
+   <div  style=" border-radius: 0;"class="card text-center">
+    <div style="background-color:#b71c1c" class="card-body">
+      <h5 style="color:white"class="card-title">Tipos de Salas</h5>
+      <p style="color:white" class="card-text">En este apartado podrás encontrar los tipos de salas disponibles, los cuales dentro de ellos cuentan con una serie de salas.</p>
+      <button type="button" class="btn btn-light" [routerLink]="['/inicio']">Regresar al inicio</button>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-6" *ngFor="let tpsl of tiposModelGet; let i = index">
+        <div class="card mb-5">
+          <div class="card-header">
+            <div *ngIf="identidad.rol==='SuperAdministrador'" align="right"class="dropdown">
+              <button  class="btn btn-light btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-three-dots-vertical"> </i>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item"
+                  data-bs-toggle="modal" data-bs-target="#mVerUsuario"><i class="bi bi-search"></i> | Ver más</a></li>
+                <li><a  class="dropdown-item"
+                  data-bs-toggle="modal" data-bs-target="#mEditarUsuario" ><i class="bi bi-pencil-square"></i> | Editar</a></li>
+                <li><a  class="dropdown-item"
+                  data-bs-toggle="modal" data-bs-target="#mDesactivarUsuario" ><i class="bi bi-toggle-off"></i> | Desactivar</a></li>
+                <li><a  class="dropdown-item"
+                  data-bs-toggle="modal" data-bs-target="#mActivarUsuario"><i class="bi bi-toggle-on"></i> | Activar</a></li>
+                </ul>
+            </div>
+          </div>
+          <div class="card-body">
+            <blockquote class="blockquote blockquote-custom bg-white px-3 pt-4">
+              <div style="background-color: #cc7c7c"class="blockquote-custom-icon shadow-1-strong">
+                <i class="bi bi-diagram-2-fill"></i>
+              </div>
+              <h5 class="card-title">{{tpsl.nombre}}</h5>
+              <p class="mb-0 mt-2 font-italic">
+                {{tpsl.descripcion}}
+              </p>
+              <br>
+              <a  class="card-link">Ver salas...</a>
+              <footer class="blockquote-footer pt-4 mt-4 border-top">
+                <strong>Capacidad máxima: </strong>{{tpsl.capacidadMax}}
+                <cite title="Source Title">personas.</cite>
+              </footer>
+            </blockquote>
+          </div>
+        </div>
+        <br>
+      </div>
+    </div>
+  </div>
+  <!-- Línea previa al footer -->
+  <div  style=" border-radius: 0;"class="card text-center">
+    <div style="background-color:#b71c1c" class="card-body">
+      <h5 style="color:white"class="card-title"></h5>
+      <p style="color:white" class="card-text"></p>
+    </div>
+  </div>
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-content">
+        <div class="footer-section links">
+          <div align="center"class="socials">
+            <a  style="color:rgb(40, 122, 177)" href= "https://www.linkedin.com/company/sopesagt"><i class="bi bi-linkedin"></i></a>&nbsp;
+            <a  style="color:blue" href= "https://www.facebook.com/SOPESA1/"><i class="bi bi-facebook"></i></a>&nbsp;
+            <a  style="
+              border-radius: 40px;
+              color: #fff;
+              vertical-align: middle;
+              background: #d6249f;
+              background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+              box-shadow: 0px 3px 10px rgba(0,0,0,.25);"
+              href= "https://instagram.com/sopesa1"><i class="bi bi-instagram"></i></a>&nbsp;
+            <a style="color:red" href= "https://youtube.com/channel/UCEEfSQ7Nl4R-gA8eb2x-otg"><i class="bi bi-youtube"></i></a>&nbsp;
+            <a style="color: black"href="https://goo.gl/maps/82xybT4hZ7L6cGaAA"><i class="bi bi-geo-alt-fill"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <strong>&copy; SOPESA</strong>
+      </div>
+    </div>
+</body>
+</html>

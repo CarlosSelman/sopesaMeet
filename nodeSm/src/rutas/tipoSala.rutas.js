@@ -10,7 +10,7 @@ var authenticated = require("../middlewares/authenticated");
 // RUTES
 var api = express.Router();
 
-    api.get('/obtenerTipoSalas', authenticated.ensureAuth, TipoSalaControlador.obtenerTipoSalas);
+    api.get('/obtenerTipoSalas', TipoSalaControlador.obtenerTipoSalas);
     api.post('/crearTipoSala', authenticated.ensureAuth, TipoSalaControlador.crearTipoSala);
     api.get('/obtenerTipoSala/:idTipoSala', TipoSalaControlador.obtenerTipoSala);
     api.put('/editarTipoSala/:idTipoSala', authenticated.ensureAuth, TipoSalaControlador.editarTipoSala);

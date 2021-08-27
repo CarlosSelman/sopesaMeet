@@ -36,6 +36,7 @@ import { DatosUsuarioComponent } from './componentes/datos-usuario/datos-usuario
 import { TipoSalaComponent } from './componentes/tipo-sala/tipo-sala.component';
 import { SalaComponent } from './componentes/sala/sala.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +47,8 @@ import { SalaComponent } from './componentes/sala/sala.component';
     UsuarioComponent,
     DatosUsuarioComponent,
     TipoSalaComponent,
-    SalaComponent
+    SalaComponent,
+
   ],
   imports: [
     CommonModule,
