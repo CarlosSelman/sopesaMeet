@@ -35,6 +35,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { DatosUsuarioComponent } from './componentes/datos-usuario/datos-usuario.component';
 import { TipoSalaComponent } from './componentes/tipo-sala/tipo-sala.component';
 import { SalaComponent } from './componentes/sala/sala.component';
+import { DetalleTipoSalaComponent } from './componentes/detalle-tipo-sala/detalle-tipo-sala.component';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { SalaComponent } from './componentes/sala/sala.component';
     DatosUsuarioComponent,
     TipoSalaComponent,
     SalaComponent,
+    DetalleTipoSalaComponent,
 
   ],
   imports: [

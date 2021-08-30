@@ -42,7 +42,7 @@
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li><a class="dropdown-item"
-                  data-bs-toggle="modal" data-bs-target="#mVerUsuario"><i class="bi bi-search"></i> | Ver más</a></li>
+                  [routerLink]="['/detalleTipoSala', tpsl._id]"><i class="bi bi-search"></i> | Ver más...</a></li>
                 <li><a class="dropdown-item"
                   data-bs-toggle="modal" data-bs-target="#mEditarUsuario" ><i class="bi bi-pencil-square"></i> | Editar</a></li>
                 <li><a   *ngIf="tpsl.estado==='Activo'"class="dropdown-item"
@@ -62,7 +62,7 @@
                 {{tpsl.descripcion}}
               </p>
               <br>
-              <a  class="card-link">Ver salas...</a>
+              <a class="card-link">Ver salas...</a>
               <footer class="blockquote-footer pt-4 mt-4 border-top">
                 <strong>Capacidad máxima: </strong>{{tpsl.capacidadMax}}
                 <cite title="Source Title">personas.</cite>
@@ -111,7 +111,7 @@
 
 
 <!-- Modal Agregar Tipo de Sala-->
-<div class="modal fade" id="mCrearTipoS" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="mCrearTipoS" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
       <div class="modal-content">
           <div class="modal-header">
@@ -122,7 +122,7 @@
               <form>
                   <div class="mb-3">
                       <label for="inputNombre" class="form-label"><strong>Nombre:</strong></label>
-                      <input type="text" class="form-control" id="inputNombre" placeholder="Nombre del tipo de sala." name="nombre" #nombre="ngModel" [(ngModel)]="tiposModelAdd.nombre">
+                      <input type="text" class="form-control" id="inputNombre" placeholder="Nombre del tipo de sala." name="nombre" #nombre="ngModel"  [(ngModel)]="tiposModelAdd.nombre">
                   </div>
                   <div class="mb-3">
                     <label for="inputDesc" class="form-label"><strong>Descripción:</strong></label>

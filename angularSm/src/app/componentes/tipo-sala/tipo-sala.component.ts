@@ -44,6 +44,15 @@ export class TipoSalaComponent implements OnInit {
     );
   }
 
+  obtenerTipoSala(idTipoSala){
+    this._tipoSalaService.obtenerTipoSala(this.token, idTipoSala).subscribe(
+      response => {
+        this.tiposModelGetId =response.tipoSalaEncontrado;
+        console.log(response);
+      }
+    )
+  }
+
    //Crear los tipos de salas
    crearTipoSala(){
     //Validación

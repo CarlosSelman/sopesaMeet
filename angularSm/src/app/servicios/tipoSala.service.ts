@@ -23,6 +23,14 @@ export class TipoSalaService {
     return this._http.get(this.url + '/obtenerTipoSalas', {headers: this.headersVariable});
   }
 
+  obtenerTipoSala(token, id: string): Observable<any> {
+    let headersToken = this.headersVariable.set('Authorization', token);
+
+    return this._http.get(this.url + '/obtenerTipoSala/' + id, {
+      headers: headersToken,
+    });
+  }
+
   crearTipoSala(tipoSala: TipoSala, token): Observable<any> {
     let headersToken = this.headersVariable.set('Authorization', token);
     let params = JSON.stringify(tipoSala);
