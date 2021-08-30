@@ -335,7 +335,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MTE1NzY3NzQ0NzVmZDM5MzQxMjU3NTQiLCJyb2wiOiJTdXBlckFkbWluaXN0cmFkb3IiLCJlc3RhZG8iOiJBY3Rpdm8iLCJ1c3VhcmlvIjoiU3VwZXJBZG1pbiIsImlhdCI6MTYyOTIxODg0MCwiZXhwIjoxNjI5OTEwMDQwfQ.Plyn0tHn0j9reCDsAyiV8_kty9Ffu_z3GzCnj62diN4",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MTI5MGQ5OTNjZDU2MjVlY2MxMWQxY2EiLCJyb2wiOiJTdXBlckFkbWluaXN0cmFkb3IiLCJlc3RhZG8iOiJBY3Rpdm8iLCJ1c3VhcmlvIjoiU3VwZXJBZG1pbiIsImlhdCI6MTYzMDA5NjEyOCwiZXhwIjoxNjMwNTI4MTI4fQ.3-HDWq0LuHcKyI-rHkh2ReyFSgEYO3ajB_pH9dcHU9s",
 						"type": "text"
 					}
 				],
@@ -344,12 +344,12 @@
 					"urlencoded": [
 						{
 							"key": "nombre",
-							"value": "Tipo SUM",
+							"value": "Tipo B",
 							"type": "text"
 						},
 						{
 							"key": "descripcion",
-							"value": "Sala comoda con buena vista.",
+							"value": "Sala con vista",
 							"type": "text"
 						},
 						{
@@ -510,6 +510,36 @@
 					"urlencoded": []
 				},
 				"url": {
+					"raw": "localhost:3000/api/activarTipo/612d56d4fc9bc43508daaf55",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"activarTipo",
+						"612d56d4fc9bc43508daaf55"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Activar Tipo de Sala",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MTE1NzY3NzQ0NzVmZDM5MzQxMjU3NTQiLCJyb2wiOiJTdXBlckFkbWluaXN0cmFkb3IiLCJlc3RhZG8iOiJBY3Rpdm8iLCJ1c3VhcmlvIjoiU3VwZXJBZG1pbiIsImlhdCI6MTYzMDAwMTYyNywiZXhwIjoxNjMwNTIwMDI3fQ.KY8Vy2rPwbJESf7_NRo2rDBtmdJqea4AGn4V_whycrI",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
 					"raw": "localhost:3000/api/activarUsuario/611bdb68542ac13ca40ec100",
 					"host": [
 						"localhost"
@@ -519,6 +549,36 @@
 						"api",
 						"activarUsuario",
 						"611bdb68542ac13ca40ec100"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Desactivar Tipo de Sala",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MTE1NzY3NzQ0NzVmZDM5MzQxMjU3NTQiLCJyb2wiOiJTdXBlckFkbWluaXN0cmFkb3IiLCJlc3RhZG8iOiJBY3Rpdm8iLCJ1c3VhcmlvIjoiU3VwZXJBZG1pbiIsImlhdCI6MTYzMDAwMTYyNywiZXhwIjoxNjMwNTIwMDI3fQ.KY8Vy2rPwbJESf7_NRo2rDBtmdJqea4AGn4V_whycrI",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "localhost:3000/api/desactivarTipo/612d56d4fc9bc43508daaf55",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"desactivarTipo",
+						"612d56d4fc9bc43508daaf55"
 					]
 				}
 			},
