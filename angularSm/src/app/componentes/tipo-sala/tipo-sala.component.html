@@ -107,3 +107,39 @@
     </div>
 </body>
 </html>
+
+
+
+<!-- Modal Agregar Tipo de Sala-->
+<div class="modal fade" id="mCrearTipoS" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Agregar Tipo de Sala</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <form>
+                  <div class="mb-3">
+                      <label for="inputNombre" class="form-label"><strong>Nombre:</strong></label>
+                      <input type="text" class="form-control" id="inputNombre" placeholder="Nombre del tipo de sala." name="nombre" #nombre="ngModel" [(ngModel)]="tiposModelAdd.nombre">
+                  </div>
+                  <div class="mb-3">
+                    <label for="inputDesc" class="form-label"><strong>Descripción:</strong></label>
+                    <textarea class="form-control" id="inputDesc" placeholder="Breve descripción del tipo de sala." rows="3" name="descrip" #descrip="ngModel"
+                      [(ngModel)]="tiposModelAdd.descripcion"></textarea>
+                  </div>
+                  <div class="mb-3">
+                      <label for="inputCap" class="form-label"><strong>Capacidad Máxima:</strong></label>
+                      <input type="number" class="form-control" id="inputCap" name="capM" #capM="ngModel" [(ngModel)]="tiposModelAdd.capacidadMax">
+                  </div>
+                  <div id="emailHelp" class="form-text"><i class="bi bi-exclamation-circle-fill"></i><strong> No dejes campos vacíos.</strong></div>
+              </form>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> Cancelar</button>
+              <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="crearTipoSala()"><i class="bi bi-plus-square"></i> Crear</button>
+          </div>
+      </div>
+  </div>
+</div>

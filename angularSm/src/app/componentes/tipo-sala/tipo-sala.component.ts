@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { TipoSala } from 'src/app/modelos/tipoSala.modelo';
 import { TipoSalaService } from 'src/app/servicios/tipoSala.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-tipo-sala',
@@ -43,16 +44,51 @@ export class TipoSalaComponent implements OnInit {
     );
   }
 
-  crearTipoSala() {
-    this._tipoSalaService.crearTipoSala(this.tiposModelAdd, this.token).subscribe(
-      response=>{
-        this.tiposModelAdd.nombre = '';
-        this.tiposModelAdd.descripcion ='';
-        this.tiposModelAdd.capacidadMax = null;
-        console.log(response);
-        this.obtenerTipoSalas()
-      }
-    );
+   //Crear los tipos de salas
+   crearTipoSala(){
+    //Validación
+      if(
+        this.tiposModelAdd.nombre===""||
+        this.tiposModelAdd.descripcion===""){
+        //Alerta para que se llenen todos los campos
+        Swal.fire({
+          icon: 'warning',
+          title: 'Llene todos los campos',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }else{
+      console.log(this.tiposModelAdd)
+
+      this._tipoSalaService.crearTipoSala(this.tiposModelAdd, this.token).subscribe(
+        response=>{
+          console.log(response);
+          //Alerta de que se creó correctamente el usuario
+          Swal.fire({
+            icon: 'success',
+            title: 'Tipo de Sala creada correctamente',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          //Limpiando los campos luego de la creación
+          this.tiposModelAdd.nombre = '';
+          this.tiposModelAdd.descripcion ='';
+          this.tiposModelAdd.capacidadMax = null;
+          //Refrescando la ventana
+          this.obtenerTipoSalas()
+        },
+        (error) => {
+          console.log(<any>error);
+          Swal.fire({
+            icon: 'error',
+            title: 'No se pudo crear el tipo de sala',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      )
+    }
+
   }
 
 }
