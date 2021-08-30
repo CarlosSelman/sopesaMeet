@@ -43,11 +43,11 @@
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li><a class="dropdown-item"
                   data-bs-toggle="modal" data-bs-target="#mVerUsuario"><i class="bi bi-search"></i> | Ver más</a></li>
-                <li><a  class="dropdown-item"
+                <li><a class="dropdown-item"
                   data-bs-toggle="modal" data-bs-target="#mEditarUsuario" ><i class="bi bi-pencil-square"></i> | Editar</a></li>
-                <li><a  class="dropdown-item"
+                <li><a   *ngIf="tpsl.estado==='Activo'"class="dropdown-item"
                   data-bs-toggle="modal" data-bs-target="#mDesactivarUsuario" ><i class="bi bi-toggle-off"></i> | Desactivar</a></li>
-                <li><a  class="dropdown-item"
+                <li><a   *ngIf="tpsl.estado==='Desactivado'" class="dropdown-item"
                   data-bs-toggle="modal" data-bs-target="#mActivarUsuario"><i class="bi bi-toggle-on"></i> | Activar</a></li>
                 </ul>
             </div>

@@ -25,7 +25,7 @@ export class TipoSalaComponent implements OnInit {
   ) {
     this.identidad = this._usuarioService.getIdentidad();
     this.token = this._usuarioService.getToken();
-    this.tiposModelAdd = new TipoSala("","","",0,"")
+    this.tiposModelAdd = new TipoSala("","","",0,"");
    }
 
   ngOnInit(): void {
