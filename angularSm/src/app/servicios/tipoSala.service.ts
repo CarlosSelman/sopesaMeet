@@ -23,12 +23,8 @@ export class TipoSalaService {
     return this._http.get(this.url + '/obtenerTipoSalas', {headers: this.headersVariable});
   }
 
-  obtenerTipoSala(token, id: string): Observable<any> {
-    let headersToken = this.headersVariable.set('Authorization', token);
-
-    return this._http.get(this.url + '/obtenerTipoSala/' + id, {
-      headers: headersToken,
-    });
+  obtenerTipoSala(id:String): Observable<any>{
+    return this._http.get(this.url + '/obtenerTipoSala/'+ id, {headers: this.headersVariable})
   }
 
   crearTipoSala(tipoSala: TipoSala, token): Observable<any> {
@@ -38,6 +34,16 @@ export class TipoSalaService {
     return this._http.post(this.url + '/crearTipoSala', params, {
       headers: headersToken,
     });
+  }
+
+  activarTipo(id:String):Observable<any>{
+    let headersToken = this.headersVariable.set('Authorization', this.getToken())
+    return this._http.put(this.url + '/activarTipo/' + id, {headers: headersToken})
+  }
+
+  desactivarTipo(id:String):Observable<any>{
+    let headersToken = this.headersVariable.set('Authorization', this.getToken())
+    return this._http.put(this.url + '/desactivarTipo/' + id, {headers: headersToken})
   }
 
   getIdentidad(){

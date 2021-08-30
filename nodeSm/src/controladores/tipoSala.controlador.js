@@ -107,10 +107,41 @@ function eliminarTipoSala(req, res) {
     })
 }
 
+function activarTipo(req, res){
+    var idTipoSala = req.params.idTipoSala;
+    var estado = req.params.estado;
+    var tipoSalaModelo = new TipoSala();
+    tipoSalaModelo.estado = activo;
+
+    TipoSala.findByIdAndUpdate(idTipoSala, {estado: activo}, { new: true }, (err, tipoSalaActualizado)=>{
+        if(err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+        if(!tipoSalaActualizado) return res.status(500).send({ mensaje: 'No se ha podido actualizar el tipo de sala' });
+        
+        return res.status(200).send({ tipoSalaActualizado });
+    })
+}
+
+function desactivarTipo(req, res){
+    var idTipoSala = req.params.idTipoSala;
+    var estado = req.params.estado;
+    var tipoSalaModelo = new TipoSala();
+    tipoSalaModelo.estado = activo;
+
+    TipoSala.findByIdAndUpdate(idTipoSala, {estado: desactivado}, { new: true }, (err, tipoSalaActualizado)=>{
+        if(err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+        if(!tipoSalaActualizado) return res.status(500).send({ mensaje: 'No se ha podido actualizar el tipo de sala' });
+        
+        return res.status(200).send({ tipoSalaActualizado });
+    })
+}
+
+
 module.exports = {
     obtenerTipoSalas,
     crearTipoSala,
     obtenerTipoSala,
     editarTipoSala,
-    eliminarTipoSala
+    eliminarTipoSala,
+    desactivarTipo,
+    activarTipo
 }

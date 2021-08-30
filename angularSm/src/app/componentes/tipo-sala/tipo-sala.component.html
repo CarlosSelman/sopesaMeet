@@ -32,8 +32,8 @@
   <br>
     <div class="row">
       <div class="col-xs-12 col-sm-6" *ngFor="let tpsl of tiposModelGet; let i = index">
-        <div class="card mb-5">
-          <div class="card-header">
+        <div class="card border-dark mb-5">
+          <div class="card-header border-dark">
             <div *ngIf="identidad.rol==='SuperAdministrador'" align="right"class="dropdown">
                 <button  *ngIf="tpsl.estado==='Activo'"type="button" class="btn btn-outline-success" disabled>Activo</button>&nbsp;
                 <button  *ngIf="tpsl.estado==='Desactivado'"type="button" class="btn btn-outline-danger" disabled>Desactivado</button>&nbsp;
@@ -44,11 +44,11 @@
                 <li><a class="dropdown-item"
                   [routerLink]="['/detalleTipoSala', tpsl._id]"><i class="bi bi-search"></i> | Ver más...</a></li>
                 <li><a class="dropdown-item"
-                  data-bs-toggle="modal" data-bs-target="#mEditarUsuario" ><i class="bi bi-pencil-square"></i> | Editar</a></li>
+                  data-bs-toggle="modal" data-bs-target="#mEditarUsuario" (click)="obtenerTipoSala(tpsl._id)"><i class="bi bi-pencil-square"></i> | Editar</a></li>
                 <li><a   *ngIf="tpsl.estado==='Activo'"class="dropdown-item"
-                  data-bs-toggle="modal" data-bs-target="#mDesactivarUsuario" ><i class="bi bi-toggle-off"></i> | Desactivar</a></li>
+                  data-bs-toggle="modal" data-bs-target="#mDesactivarTipo" (click)="obtenerTipoSala(tpsl._id)"><i class="bi bi-toggle-off"></i> | Desactivar</a></li>
                 <li><a   *ngIf="tpsl.estado==='Desactivado'" class="dropdown-item"
-                  data-bs-toggle="modal" data-bs-target="#mActivarUsuario"><i class="bi bi-toggle-on"></i> | Activar</a></li>
+                  data-bs-toggle="modal" data-bs-target="#mActivarTipo" (click)="obtenerTipoSala(tpsl._id)"><i class="bi bi-toggle-on"></i> | Activar</a></li>
                 </ul>
             </div>
           </div>
@@ -143,3 +143,45 @@
       </div>
   </div>
 </div>
+
+
+<!-- Modal Activar Tipo -->
+<div class="modal fade" id="mActivarTipo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirmación de activación</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Esta seguro de que desea activar el Tipo de Sala, "{{idTipoSalaModel.nombre}}"?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> No, cerrar</button>
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal"
+        (click)="activarTipo(idTipoSalaModel._id)">Si, activar <i class="bi bi-toggle-on"></i> </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Desactivar Tipo de Sala -->
+<div class="modal fade" id="mDesactivarTipo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirmación de desactivación</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Esta seguro de que desea desactivar el Tipo de Sala, "{{idTipoSalaModel.nombre}}"?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> No, cerrar</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+        (click)="desactivarTipo(idTipoSalaModel._id)">Si, desactivar <i class="bi bi-toggle-off"></i> </button>
+      </div>
+    </div>
+  </div>
+</div>
+

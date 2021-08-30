@@ -31,7 +31,7 @@ export class DetalleTipoSalaComponent implements OnInit {
 }
 
 obtenerTipoSala(idTipoSala){
-  this._tipoSalaService.obtenerTipoSala(this.token, idTipoSala).subscribe(
+  this._tipoSalaService.obtenerTipoSala(idTipoSala).subscribe(
     response => {
       this.tipoSalaModel =response.tipoSalaEncontrado;
       console.log(response);

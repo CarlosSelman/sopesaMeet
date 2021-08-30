@@ -17,6 +17,7 @@ export class TipoSalaComponent implements OnInit {
   public tiposModelGet;
   public tiposModelAdd: TipoSala;
   public tiposModelGetId: TipoSala;
+  public idTipoSalaModel: TipoSala;
 
   constructor(
     private _tipoSalaService: TipoSalaService,
@@ -26,6 +27,7 @@ export class TipoSalaComponent implements OnInit {
     this.identidad = this._usuarioService.getIdentidad();
     this.token = this._usuarioService.getToken();
     this.tiposModelAdd = new TipoSala("","","",0,"");
+    this.idTipoSalaModel = new TipoSala("","","",0,"");
    }
 
   ngOnInit(): void {
@@ -44,11 +46,31 @@ export class TipoSalaComponent implements OnInit {
     );
   }
 
-  obtenerTipoSala(idTipoSala){
-    this._tipoSalaService.obtenerTipoSala(this.token, idTipoSala).subscribe(
+  obtenerTipoSala(idTipoSala:String){
+    this._tipoSalaService.obtenerTipoSala(idTipoSala).subscribe(
       response => {
-        this.tiposModelGetId =response.tipoSalaEncontrado;
+        this.idTipoSalaModel = response.tipoSalaEncontrado;
         console.log(response);
+      }
+    )
+  }
+
+  activarTipo(idTipoSala){
+    this._tipoSalaService.activarTipo(idTipoSala).subscribe(
+      response=>{
+        console.log(response)
+        //Refrescando
+        this.obtenerTipoSalas();
+      }
+    )
+  }
+
+  desactivarTipo(idTipoSala){
+    this._tipoSalaService.desactivarTipo(idTipoSala).subscribe(
+      response=>{
+        console.log(response)
+        //Refrescando
+        this.obtenerTipoSalas();
       }
     )
   }
