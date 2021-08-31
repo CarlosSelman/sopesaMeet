@@ -13,7 +13,7 @@
       <h5 style="color:white"class="card-title">Tipos de Salas</h5>
       <p style="color:white" class="card-text">En este apartado podrás encontrar los tipos de salas disponibles, los cuales dentro de ellos cuentan con una serie de salas.</p>
       <button type="button" class="btn btn-light" [routerLink]="['/inicio']">Regresar al inicio</button>&nbsp;
-      <button *ngIf="identidad.rol==='SuperAdministrador'"type="button" class="btn btn-light" [routerLink]="['/tipoSalas']">Vista administrativa <i class="bi bi-grid"></i></button>
+      <button *ngIf="identidad.rol==='SuperAdministrador'" type="button" class="btn btn-light" [routerLink]="['/tipoSalas']">Vista administrativa <i class="bi bi-grid"></i></button>
     </div>
   </div>
   <br>
@@ -28,6 +28,9 @@
                   <br>
                   <br>
                   <strong>Capacidad máxima:</strong> {{tpsl.capacidadMax}} personas.
+                  <br>
+                  <br>
+                  <a class="card-link">Ver salas...</a>
                 </div>
               </div>
               <div class="form-img">

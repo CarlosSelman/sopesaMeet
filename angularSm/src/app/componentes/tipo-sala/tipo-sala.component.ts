@@ -122,4 +122,37 @@ export class TipoSalaComponent implements OnInit {
 
   }
 
+  editarTipoSala(){
+    if(
+      this.idTipoSalaModel.nombre===''||
+      this.idTipoSalaModel.descripcion===''
+    )
+    {
+      Swal.fire({
+        /*position: 'top',*/
+        icon: 'warning',
+        title: 'Llene todos los campos',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }else{
+
+  this._tipoSalaService.editarTipoSala(this.idTipoSalaModel).subscribe(
+    response=>{
+      console.log(response);
+
+      Swal.fire({
+        /*position: 'top',*/
+        icon: 'success',
+        title: 'Tipo de Sala editada y actualizada correctamente',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
+      this.obtenerTipoSalas();
+    }
+  )
+}
+}
+
 }
