@@ -23,6 +23,16 @@ function obtenerTipoSalas(req,res){
     })
 }
 
+function obtenerTipoSalasA(req,res){
+
+    tipoSalaModelo.find({estado: activo},(err,tipoSalasEncontrados)=>{
+        console.log(err);
+        if(err) return res.status(500).send({ mensaje: 'Error en la peticion de tipos de salas' });
+        if(!tipoSalasEncontrados) return res.status(500).send({ mensaje: 'Error al obtener los tipos de salas' });
+        return res.status(200).send({ tipoSalasEncontrados });
+    })
+}
+
 function crearTipoSala(req,res){
     var tipoSalaModelo = new TipoSala();
     var params = req.body;
@@ -143,5 +153,6 @@ module.exports = {
     editarTipoSala,
     eliminarTipoSala,
     desactivarTipo,
-    activarTipo
+    activarTipo,
+    obtenerTipoSalasA
 }

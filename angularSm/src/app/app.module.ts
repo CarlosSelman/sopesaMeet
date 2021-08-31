@@ -36,6 +36,7 @@ import { DatosUsuarioComponent } from './componentes/datos-usuario/datos-usuario
 import { TipoSalaComponent } from './componentes/tipo-sala/tipo-sala.component';
 import { SalaComponent } from './componentes/sala/sala.component';
 import { DetalleTipoSalaComponent } from './componentes/detalle-tipo-sala/detalle-tipo-sala.component';
+import { TipoSalaCComponent } from './componentes/tipo-sala-c/tipo-sala-c.component';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import { DetalleTipoSalaComponent } from './componentes/detalle-tipo-sala/detall
     TipoSalaComponent,
     SalaComponent,
     DetalleTipoSalaComponent,
+    TipoSalaCComponent,
 
   ],
   imports: [

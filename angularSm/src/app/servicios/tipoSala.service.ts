@@ -23,6 +23,10 @@ export class TipoSalaService {
     return this._http.get(this.url + '/obtenerTipoSalas', {headers: this.headersVariable});
   }
 
+  obtenerTipoSalasA(): Observable<any>{
+    return this._http.get(this.url + '/obtenerTipoSalasA', {headers: this.headersVariable});
+  }
+
   obtenerTipoSala(id:String): Observable<any>{
     return this._http.get(this.url + '/obtenerTipoSala/'+ id, {headers: this.headersVariable})
   }
