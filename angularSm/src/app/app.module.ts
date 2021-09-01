@@ -8,6 +8,14 @@ import { NavbarComponent } from './componentes/navbar/navbar.component';
 import { InicioComponent } from './componentes/inicio/inicio.component';
 import { ReunionComponent } from './componentes/reunion/reunion.component';
 import { UsuarioComponent } from './componentes/usuario/usuario.component';
+import { DatosUsuarioComponent } from './componentes/datos-usuario/datos-usuario.component';
+import { TipoSalaComponent } from './componentes/tipo-sala/tipo-sala.component';
+import { SalaComponent } from './componentes/sala/sala.component';
+import { DetalleTipoSalaComponent } from './componentes/detalle-tipo-sala/detalle-tipo-sala.component';
+import { TipoSalaCComponent } from './componentes/tipo-sala-c/tipo-sala-c.component';
+
+import { ListComponent } from './componentes/list/list.component';
+import { UploadsComponent } from './componentes/uploads/uploads.component';
 
 // Angular...
 import { NgModule } from '@angular/core';
@@ -32,12 +40,6 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { DatosUsuarioComponent } from './componentes/datos-usuario/datos-usuario.component';
-import { TipoSalaComponent } from './componentes/tipo-sala/tipo-sala.component';
-import { SalaComponent } from './componentes/sala/sala.component';
-import { DetalleTipoSalaComponent } from './componentes/detalle-tipo-sala/detalle-tipo-sala.component';
-import { TipoSalaCComponent } from './componentes/tipo-sala-c/tipo-sala-c.component';
-
 
 @NgModule({
   declarations: [
@@ -52,6 +54,8 @@ import { TipoSalaCComponent } from './componentes/tipo-sala-c/tipo-sala-c.compon
     SalaComponent,
     DetalleTipoSalaComponent,
     TipoSalaCComponent,
+    ListComponent,
+    UploadsComponent,
 
   ],
   imports: [

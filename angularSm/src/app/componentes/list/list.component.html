@@ -1,0 +1,10 @@
+<div class="col-12">
+  <div class="row">
+    <div class="col-4" *ngFor="let a of myImages">
+      <div>
+        <img class="img-fluid img-thumbnail image" src="{{a.fileUrl}}">
+      </div>
+      <span>{{a.fileName}}</span>
+    </div>
+  </div>
+</div>
