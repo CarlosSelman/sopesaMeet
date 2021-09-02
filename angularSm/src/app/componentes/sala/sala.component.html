@@ -14,6 +14,7 @@
       <h5 style="color:white"class="card-title">Salas</h5>
       <p style="color:white" class="card-text">En este apartado podrás encontrar las salas.</p>
       <button type="button" class="btn btn-light" [routerLink]="['/inicio']">Regresar al inicio</button>&nbsp;
+      <button type="button" class="btn btn-light" [routerLink]="['/tipoSalas']"><i class="bi bi-diagram-2"></i> Ir a tipos</button>&nbsp;
       <button class="btn btn-light" type="button" data-bs-toggle="modal" data-bs-target="#modalAgregarHotel">
         <i class="bi bi-plus-square"></i> Agregar Sala
       </button>
@@ -22,7 +23,6 @@
   <br>
 <div  class="main">
   <div class="container">
-
     <br>
     <div class="row">
       <div class="col-xs-12 col-sm-4" *ngFor="let sls of salasModelGet; let i = index">
