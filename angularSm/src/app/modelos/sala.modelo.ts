@@ -3,9 +3,11 @@ export class Sala{
     public _id: String,
     public nombre:String,
     public equipoDisponible: String,
-    public ubicacion: Number,
+    public ubicacion: String,
     public estado: String,
     public idTipoSala: String,
-    public imagen: String
+    public imagenUno: String,
+    public imagenDos: String,
+    public imagenTres: String
   ){}
 }

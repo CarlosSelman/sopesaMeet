@@ -1,1 +1,159 @@
-<p>sala works!</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SM - Salas</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+</head>
+<body>
+
+  <!-- Sección de la explicación de salas -->
+  <div  style="border-radius: 0; "class="card text-center ">
+    <div style="background-color:#b71c1c"  class="card-body">
+      <h5 style="color:white"class="card-title">Salas</h5>
+      <p style="color:white" class="card-text">En este apartado podrás encontrar las salas.</p>
+      <button type="button" class="btn btn-light" [routerLink]="['/inicio']">Regresar al inicio</button>&nbsp;
+      <button class="btn btn-light" type="button" data-bs-toggle="modal" data-bs-target="#modalAgregarHotel">
+        <i class="bi bi-plus-square"></i> Agregar Sala
+      </button>
+    </div>
+  </div>
+  <br>
+<div  class="main">
+  <div class="container">
+
+    <br>
+    <div class="row">
+      <div class="col-xs-12 col-sm-4" *ngFor="let sls of salasModelGet; let i = index">
+        <div class="card mb-3 border-dark" style="max-width: 21rem;">
+          <small class=card-header>
+            <div class="dropdown">
+              <button class="btn btn-light btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-three-dots-vertical"> </i>
+              </button>
+              <button  *ngIf="sls.estado==='Activa'"type="button" class="btn btn-outline-success" disabled>Activo</button>&nbsp;
+              <button  *ngIf="sls.estado==='Desactivada'"type="button" class="btn btn-outline-danger" disabled>Desactivado</button>&nbsp;
+
+
+              <strong> {{ sls.nombre }}</strong>
+
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item"  (click)="obtenerSala(sls._id)"
+                  data-bs-toggle="modal" data-bs-target="#modalEditarHotel"><i class="bi bi-pencil-square"></i> | Editar</a></li>
+                <li><a class="dropdown-item" (click)="obtenerSala(sls._id)"
+                  data-bs-toggle="modal" data-bs-target="#modalEliminarHotel"><i class="bi bi-trash-fill"></i> | Eliminar</a></li>
+               <li><a class="dropdown-item" [routerLink]="['/detalleHotel', sls._id]"><i class="bi bi-back"></i> | Detalle</a></li>
+              </ul>
+            </div>
+          </small>
+          <div class="card-body row justify-content-md-center" >
+              <img *ngIf="sls.imagenUno == null  " src="/assets/imgTipoSalaD.jpg" class ="avatar-profile"  >
+              <img *ngIf="sls.imagenUno " [src]="sls.imagenUno" class ="avatar-profile">
+          </div>
+          <div class="card-footer">
+            <div class="btn-group " role="group" aria-label="Basic example">
+              <p class="card-text"><strong>Nivel en el que se ubica: </strong>
+                {{sls.ubicacion}}
+              </p>
+
+           </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Línea previa al footer-->
+  <div  style=" border-radius: 0;"class="card text-center">
+    <div style="background-color:#b71c1c" class="card-body">
+      <h5 style="color:white"class="card-title"></h5>
+      <p style="color:white" class="card-text"></p>
+    </div>
+  </div>
+
+    <!-- Footer -->
+  <div class="footer">
+    <div class="footer-content">
+      <div class="footer-section links">
+        <div align="center"class="socials">
+          <a  style="color:rgb(40, 122, 177)" href= "https://www.linkedin.com/company/sopesagt"><i class="bi bi-linkedin"></i></a>&nbsp;
+          <a  style="color:blue" href= "https://www.facebook.com/SOPESA1/"><i class="bi bi-facebook"></i></a>&nbsp;
+          <a  style="
+            border-radius: 40px;
+            color: #fff;
+            vertical-align: middle;
+            background: #d6249f;
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+            box-shadow: 0px 3px 10px rgba(0,0,0,.25);"
+            href= "https://instagram.com/sopesa1"><i class="bi bi-instagram"></i></a>&nbsp;
+          <a style="color:red" href= "https://youtube.com/channel/UCEEfSQ7Nl4R-gA8eb2x-otg"><i class="bi bi-youtube"></i></a>&nbsp;
+          <a style="color: black"href="https://goo.gl/maps/82xybT4hZ7L6cGaAA"><i class="bi bi-geo-alt-fill"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <strong>&copy; SOPESA</strong>
+    </div>
+  </div>
+</body>
+</html>
+
+ <!-- Modal Agregar Hotel -->
+<div class="modal fade" id="modalAgregarHotel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar Sala</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="inputNombre" class="form-label"><strong>Nombre:</strong></label>
+            <input type="text" class="form-control" id="inputNombre" name="nombre" #nombre="ngModel"
+              [(ngModel)]="salasModelAdd.nombre">
+          </div>
+          <div class="mb-3">
+            <label for="inputDescripcion" class="form-label"><strong>Equipo Disponible:</strong></label>
+            <textarea class="form-control" id="inputDescripcion" rows="1" name="descripcion" #descripcion="ngModel"
+              [(ngModel)]="salasModelAdd.equipoDisponible"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="inputDireccion" class="form-label"><strong>Ubicación:</strong></label>
+            <textarea class="form-control" id="inputDireccion" rows="1" name="direccion" #direccion="ngModel"
+              [(ngModel)]="salasModelAdd.ubicacion"></textarea>
+          </div>
+          <hr>
+          <label class="form-label"><strong>Imágenes:</strong></label>
+          <div class="mb-3">
+            <textarea placeholder="Imagen principal" class="form-control" id="inImu" rows="1" name="imgU" #imgU="ngModel"
+              [(ngModel)]="salasModelAdd.imagenUno"></textarea>
+          </div>
+          <div class="mb-3">
+            <textarea placeholder="Imagen secundaria" class="form-control" id="inImD" rows="1" name="imgD" #imgD="ngModel"
+              [(ngModel)]="salasModelAdd.imagenDos"></textarea>
+          </div>
+          <div class="mb-3">
+            <textarea placeholder="Imagen terciaria" class="form-control" id="inImT" rows="1" name="imgTre" #imgTre="ngModel"
+              [(ngModel)]="salasModelAdd.imagenTres"></textarea>
+          </div>
+         <div class="mb-3">
+          <label class="form-label"><strong>Escoja el tipo de sala:</strong></label>
+            <select  name="tipoDeSala" #tipoDeSala="ngModel"
+            [(ngModel)]="salasModelAdd.idTipoSala" class="form-select" aria-label="Default select example">
+              <option *ngFor="let tpsl of tipos" [ngValue]="tpsl">{{tpsl.nombre}}</option>
+            </select>
+        </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> Cerrar</button>
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal"
+          (click)="crearSala()"><i class="bi bi-plus-square"></i> Agregar</button>
+      </div>
+    </div>
+  </div>
+</div>
+

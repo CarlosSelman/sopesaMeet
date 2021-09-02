@@ -10,8 +10,8 @@ const user = 'Usuario';
 const admin = 'Administrador';
 const superAdmin = 'SuperAdministrador';
 //Estado del usuario y de la sala
-const activo = 'Activo';
-const desactivado = 'Desactivado';
+const activo = 'Activa';
+const desactivado = 'Desactivada';
 
 function obtenerSalas(req,res){
 
@@ -37,12 +37,13 @@ function crearSala(req,res){
         salaModelo.ubicacion = params.ubicacion;
         salaModelo.estado = activo;
         salaModelo.idTipoSala = params.idTipoSala;
-        salaModelo.imagen = null;
+        salaModelo.imagenUno = params.imagenUno;
+        salaModelo.imagenDos = params.imagenDos;
+        salaModelo.imagenTres = params.imagenTres;
 
         Sala.find({
             $or: [
-                { nombre: salaModelo.nombre },
-                { ubicacion: salaModelo.ubicacion }
+                { nombre: salaModelo.nombre }
             ]
         }).exec((err, salasEncontradas) => {
             if (err) return res.status(500).send({ mensaje: 'Error en la peticion de la sala' })

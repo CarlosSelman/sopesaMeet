@@ -4,9 +4,9 @@ import { DetalleTipoSalaComponent } from './componentes/detalle-tipo-sala/detall
 import { InicioComponent } from './componentes/inicio/inicio.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { ReunionComponent } from './componentes/reunion/reunion.component';
+import { SalaComponent } from './componentes/sala/sala.component';
 import { TipoSalaCComponent } from './componentes/tipo-sala-c/tipo-sala-c.component';
 import { TipoSalaComponent } from './componentes/tipo-sala/tipo-sala.component';
-import { UploadsComponent } from './componentes/uploads/uploads.component';
 import { UsuarioComponent } from './componentes/usuario/usuario.component';
 
 const routes: Routes = [
@@ -14,10 +14,10 @@ const routes: Routes = [
   { path: 'inicio', component: InicioComponent},
   { path: 'usuarios', component: UsuarioComponent},
   { path: 'tipoSalas', component: TipoSalaComponent},
+  { path: 'salas', component: SalaComponent},
   { path: 'reunion', component: ReunionComponent},
   { path: 'detalleTipoSala/:idTipoSala', component: DetalleTipoSalaComponent },
   { path: 'tipoSalasC', component: TipoSalaCComponent},
-  { path: 'uploadings', component: UploadsComponent},
   { path: '**', component: LoginComponent} //Ruta que me redirige al login si no existe la ruta
 ];
 

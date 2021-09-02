@@ -14,9 +14,6 @@ import { SalaComponent } from './componentes/sala/sala.component';
 import { DetalleTipoSalaComponent } from './componentes/detalle-tipo-sala/detalle-tipo-sala.component';
 import { TipoSalaCComponent } from './componentes/tipo-sala-c/tipo-sala-c.component';
 
-import { ListComponent } from './componentes/list/list.component';
-import { UploadsComponent } from './componentes/uploads/uploads.component';
-
 // Angular...
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -53,9 +50,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     TipoSalaComponent,
     SalaComponent,
     DetalleTipoSalaComponent,
-    TipoSalaCComponent,
-    ListComponent,
-    UploadsComponent,
+    TipoSalaCComponent
+
 
   ],
   imports: [
