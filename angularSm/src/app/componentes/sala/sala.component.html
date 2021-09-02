@@ -9,7 +9,7 @@
 <body>
 
   <!-- Sección de la explicación de salas -->
-  <div  style="border-radius: 0; "class="card text-center ">
+  <div   *ngIf="identidad.rol==='SuperAdministrador'" style="border-radius: 0; "class="card text-center ">
     <div style="background-color:#b71c1c"  class="card-body">
       <h5 style="color:white"class="card-title">Salas</h5>
       <p style="color:white" class="card-text">En este apartado podrás encontrar las salas.</p>
@@ -21,7 +21,7 @@
     </div>
   </div>
   <br>
-<div  class="main">
+<div   *ngIf="identidad.rol==='SuperAdministrador'" class="main">
   <div class="container">
     <br>
     <div class="row">
@@ -65,6 +65,16 @@
     </div>
   </div>
 
+  <div *ngIf="identidad.rol!='SuperAdministrador'" class="error-page" >
+
+    <div class="contentE">
+      <h1>403</h1>
+      <h4>Ooops! No puedes acceder...</h4>
+      <p>Lo sentimos, pero no tienes acceso para poder ver este contenido. </p>
+    </div>
+
+  </div>
+  <br>
     <!-- Línea previa al footer-->
   <div  style=" border-radius: 0;"class="card text-center">
     <div style="background-color:#b71c1c" class="card-body">

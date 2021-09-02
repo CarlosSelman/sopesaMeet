@@ -118,3 +118,48 @@ button:hover{
 }
 
 
+
+
+
+//Sección del error
+
+.error-page{
+  margin: 0;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+  top: 10%;
+  left: 17%;
+  right: 17%;
+  bottom: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: radial-gradient(circle at 88.02% 50%, #ff5000 0, #fe3a10 25%, #f01c1c 50%, #e10023 75%, #d30029 100%);
+  box-shadow: 0px 5px 10px rgba(0,0,0,0.1);
+}
+
+
+.error-page .contentE{
+  max-width: 600px;
+  text-align: center;
+}
+
+.contentE h1{
+  font-size: 18vw;
+  line-height: 1em;
+}
+
+.contentE h4{
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  color: #000;
+  max-width: 600px;
+  font-size: 2em;
+}
+
+.contentE p{
+  font-size: 1.2em;
+  color: #0d0d0d;
+}
+
