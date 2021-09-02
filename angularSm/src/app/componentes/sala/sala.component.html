@@ -38,13 +38,13 @@
               <strong> {{ sls.nombre }}</strong>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li><a class="dropdown-item"
-                  [routerLink]="['/detalleTipoSala', sls._id]"><i class="bi bi-search"></i> | Ver más...</a></li>
+                  [routerLink]="['/detalleSala', sls._id]"><i class="bi bi-search"></i> | Ver más...</a></li>
                 <li><a class="dropdown-item"
-                  data-bs-toggle="modal" data-bs-target="#mEditarTipo" (click)="obtenerSala(sls._id)"><i class="bi bi-pencil-square"></i> | Editar</a></li>
+                  data-bs-toggle="modal" data-bs-target="#mEditarSala" (click)="obtenerSala(sls._id)"><i class="bi bi-pencil-square"></i> | Editar</a></li>
                 <li><a   *ngIf="sls.estado==='Activa'"class="dropdown-item"
-                  data-bs-toggle="modal" data-bs-target="#mDesactivarTipo" (click)="obtenerSala(sls._id)"><i class="bi bi-toggle-off"></i> | Desactivar</a></li>
+                  data-bs-toggle="modal" data-bs-target="#mDesactivarSala" (click)="obtenerSala(sls._id)"><i class="bi bi-toggle-off"></i> | Desactivar</a></li>
                 <li><a   *ngIf="sls.estado==='Desactivada'" class="dropdown-item"
-                  data-bs-toggle="modal" data-bs-target="#mActivarTipo" (click)="obtenerSala(sls._id)"><i class="bi bi-toggle-on"></i> | Activar</a></li>
+                  data-bs-toggle="modal" data-bs-target="#mActivarSala" (click)="obtenerSala(sls._id)"><i class="bi bi-toggle-on"></i> | Activar</a></li>
                 </ul>
             </div>
           </small>

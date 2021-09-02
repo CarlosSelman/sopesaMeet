@@ -13,11 +13,13 @@ import Swal from 'sweetalert2';
 })
 
 export class SalaComponent implements OnInit {
+  public identidad;
   public token;
   public tipos;
   public salasModelGet;
   public salasModelAdd: Sala;
   public salasModelGetId: Sala;
+  public idSalaModel: Sala;
 
   constructor(
 
@@ -29,8 +31,10 @@ export class SalaComponent implements OnInit {
   ) {
 
     this.token = this._usuarioService.getToken();
+    this.identidad = this._usuarioService.getIdentidad();
     this.salasModelGetId = new Sala("","","","","","","","","");
     this.salasModelAdd = new Sala("","","","","","","","","");
+    this.idSalaModel = new Sala("","","","","","","","","");
    }
 
   ngOnInit(): void {
@@ -64,9 +68,9 @@ export class SalaComponent implements OnInit {
 
 
   obtenerSala(idSala){
-    this._salaService.obtenerSala(this.token, idSala).subscribe(
+    this._salaService.obtenerSala(idSala).subscribe(
       response => {
-        this.salasModelGetId =response.salaEncontrada;
+        this.idSalaModel =response.salaEncontrada;
         console.log(response);
       }
     )
@@ -123,9 +127,9 @@ export class SalaComponent implements OnInit {
 
   editarSala(){
         if(
-          this.salasModelGetId.nombre===""||
-          this.salasModelGetId.equipoDisponible===""||
-          this.salasModelGetId.ubicacion===""
+          this.idSalaModel.nombre===""||
+          this.idSalaModel.equipoDisponible===""||
+          this.idSalaModel.ubicacion===""
         )
         {
           Swal.fire({
@@ -137,7 +141,7 @@ export class SalaComponent implements OnInit {
           });
         }else{
 
-      this._salaService.editarSala(this.salasModelGetId).subscribe(
+      this._salaService.editarSala(this.idSalaModel).subscribe(
         response=>{
           console.log(response);
 

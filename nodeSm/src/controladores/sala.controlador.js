@@ -72,7 +72,7 @@ function crearSala(req,res){
 function obtenerSala(req, res) {
     var idSala = req.params.idSala
     
-    salaModelo.findById(idSala, (err, salaEncontrada) => {
+    salaModelo.findById(idSala).populate('idTipoSala').exec((err, salaEncontrada)=>{
         if (err) return res.status(500).send({ mensaje: 'Error en la peticion de la sala' })
         if (!salaEncontrada) return res.status(500).send({ mensaje: 'Error en obtener los datos de la sala' })
         console.log(salaEncontrada.nombre);

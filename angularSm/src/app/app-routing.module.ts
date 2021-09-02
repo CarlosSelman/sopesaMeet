@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DetalleSalaComponent } from './componentes/detalle-sala/detalle-sala.component';
 import { DetalleTipoSalaComponent } from './componentes/detalle-tipo-sala/detalle-tipo-sala.component';
 import { InicioComponent } from './componentes/inicio/inicio.component';
 import { LoginComponent } from './componentes/login/login.component';
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'salas', component: SalaComponent},
   { path: 'reunion', component: ReunionComponent},
   { path: 'detalleTipoSala/:idTipoSala', component: DetalleTipoSalaComponent },
+  { path: 'detalleSala/:idSala', component: DetalleSalaComponent },
   { path: 'tipoSalasC', component: TipoSalaCComponent},
   { path: '**', component: LoginComponent} //Ruta que me redirige al login si no existe la ruta
 ];

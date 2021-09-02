@@ -10,8 +10,8 @@ import { Sala } from '../modelos/sala.modelo';
 
 export class SalaService {
   public url: String;
-  public token;
-  public identidad;
+  public identidad: any;
+  public token: any;
   public headersVariable = new HttpHeaders().set(
     'Content-Type',
     'application/json'
@@ -38,13 +38,8 @@ export class SalaService {
     });
   }
 
-
-  obtenerSala(token, id: string): Observable<any> {
-    let headersToken = this.headersVariable.set('Authorization', token);
-
-    return this._http.get(this.url + '/obtenerSala/' + id, {
-      headers: headersToken,
-    });
+  obtenerSala(id:String): Observable<any>{
+    return this._http.get(this.url + '/obtenerSala/'+ id, {headers: this.headersVariable})
   }
 
   editarSala(sala: Sala):Observable<any>{

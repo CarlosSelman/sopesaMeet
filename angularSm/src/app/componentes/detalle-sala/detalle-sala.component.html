@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SM-DetalleSala</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+</head>
+<body>
+  <!-- Sección de la explicación de Usuarios -->
+  <div  style=" border-radius: 0;"class="card text-center">
+    <div style="background-color:#b71c1c" class="card-body">
+      <h5 style="color:white"class="card-title">Detalle de la Sala "{{salaModel.nombre}}"</h5>
+      <p style="color:white" class="card-text">En este apartado podrás encontrar a detalle la información acerca de esta sala.</p>
+      <button type="button" class="btn btn-light" [routerLink]="['/tipoSalas']">Regresar a ver los Tipos de Salas</button>
+    </div>
+  </div>
+  <br>
+<div class="login-form" style="background-color: gray">
+  <div class = "container">
+    <div class = "main">
+      <div class = "content">
+        <div class="card-body">
+          <h5 class="card-title">{{salaModel.nombre}}</h5>
+          <br>
+          <strong>Equipo disponible: </strong> <p class="card-text">{{salaModel.equipoDisponible}}</p>
+          <br>
+          <br>
+          <strong>Nivel en el que se encuentra: </strong> {{salaModel.ubicacion}}
+        </div>
+        <br>
+        <div id="emailHelp" class="form-text"><strong><i class="bi bi-exclamation-circle-fill"></i> Ve hacia abajo para ver como es la sala...</strong></div>
+      </div>
+      <div class="form-img">
+        <img src="../../../assets/imgTipoSalaD.jpg">
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<div id="carouselExampleIndicators" class="carousel carousel-dark slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+  <div align="center" class="carousel-inner">
+    <div class="carousel-item active">
+        <img class="d-block w-100" alt="..." style="max-width:450px;" *ngIf="salaModel.imagenUno == null  " src="/assets/imgTipoSalaD.jpg">
+        <img class="d-block w-100" alt="..." style="max-width:450px;" *ngIf="salaModel.imagenUno " [src]="salaModel.imagenUno">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" alt="..." style="max-width:450px;" *ngIf="salaModel.imagenDos == null  " src="/assets/imgTipoSalaD.jpg">
+      <img class="d-block w-100" alt="..." style="max-width:450px;" *ngIf="salaModel.imagenDos " [src]="salaModel.imagenDos">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" alt="..." style="max-width:450px;" *ngIf="salaModel.imagenTres == null  " src="/assets/imgTipoSalaD.jpg">
+      <img class="d-block w-100" alt="..." style="max-width:450px;" *ngIf="salaModel.imagenTres " [src]="salaModel.imagenTres">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+<br>
+  <!-- Línea previa al footer-->
+<div  style=" border-radius: 0;"class="card text-center">
+  <div style="background-color:#b71c1c" class="card-body">
+    <h5 style="color:white"class="card-title"></h5>
+    <p style="color:white" class="card-text"></p>
+  </div>
+</div>
+  <!-- Footer -->
+    <div class="footer">
+      <div class="footer-content">
+        <div class="footer-section links">
+          <div align="center"class="socials">
+            <a  style="color:rgb(40, 122, 177)" href= "https://www.linkedin.com/company/sopesagt"><i class="bi bi-linkedin"></i></a>&nbsp;
+            <a  style="color:blue" href= "https://www.facebook.com/SOPESA1/"><i class="bi bi-facebook"></i></a>&nbsp;
+            <a  style="
+              border-radius: 40px;
+              color: #fff;
+              vertical-align: middle;
+              background: #d6249f;
+              background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+              box-shadow: 0px 3px 10px rgba(0,0,0,.25);"
+              href= "https://instagram.com/sopesa1"><i class="bi bi-instagram"></i></a>&nbsp;
+            <a style="color:red" href= "https://youtube.com/channel/UCEEfSQ7Nl4R-gA8eb2x-otg"><i class="bi bi-youtube"></i></a>&nbsp;
+            <a style="color: black"href="https://goo.gl/maps/82xybT4hZ7L6cGaAA"><i class="bi bi-geo-alt-fill"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <strong>&copy; SOPESA</strong>
+      </div>
+    </div>
+</body>
+</html>
+
