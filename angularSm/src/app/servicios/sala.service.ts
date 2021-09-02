@@ -49,6 +49,16 @@ export class SalaService {
     return this._http.put(this.url + '/editarSala/' + sala._id, params, {headers: headersToken})
   }
 
+  activarSala(id:String):Observable<any>{
+    let headersToken = this.headersVariable.set('Authorization', this.getToken())
+    return this._http.put(this.url + '/activarSala/' + id, {headers: headersToken})
+  }
+
+  desactivarSala(id:String):Observable<any>{
+    let headersToken = this.headersVariable.set('Authorization', this.getToken())
+    return this._http.put(this.url + '/desactivarSala/' + id, {headers: headersToken})
+  }
+
   getIdentidad(){
     var identidad2:string = JSON.parse(localStorage.getItem('identidad') || '{}');
     if(identidad2 != 'undefined'){

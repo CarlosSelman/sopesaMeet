@@ -131,7 +131,7 @@
               [(ngModel)]="salasModelAdd.equipoDisponible"></textarea>
           </div>
           <div class="mb-3">
-            <label for="inputDireccion" class="form-label"><strong>Ubicación:</strong></label>
+            <label for="inputDireccion" class="form-label"><strong>Nivel donde se ubica:</strong></label>
             <textarea class="form-control" id="inputDireccion" rows="1" name="direccion" #direccion="ngModel"
               [(ngModel)]="salasModelAdd.ubicacion"></textarea>
           </div>
@@ -167,3 +167,98 @@
   </div>
 </div>
 
+
+<!-- Modal Editar Tipo Sala -->
+<div class="modal fade" id="mEditarSala" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar Tipo Sala</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="inputNombreTs" class="form-label"><strong> Nombre:</strong></label>
+            <input type="text" class="form-control" id="inputNombreTs"
+            name="nombreTs" #nombreTs="ngModel" [(ngModel)]="idSalaModel.nombre">
+          </div>
+          <div class="mb-3">
+            <label for="inputDescripción" class="form-label"><strong> Equipo Disponible:</strong></label>
+              <textarea class="form-control" id="inputDescripción" rows="1"
+                  name="TipoSdesc"
+                  #TipoSdesc="ngModel"
+                  [(ngModel)]="idSalaModel.equipoDisponible">
+              </textarea>
+          </div>
+          <div class="mb-3">
+            <label for="inputCapacidadM" class="form-label"><strong> Nivel donde se ubica:</strong></label>
+            <input type="text" class="form-control" id="inputCapacidadM"
+            name="capM" #capM="ngModel" [(ngModel)]="idSalaModel.ubicacion">
+          </div>
+          <hr>
+          <label class="form-label"><strong>Imágenes:</strong></label>
+          <div class="mb-3">
+            <textarea placeholder="Imagen principal" class="form-control" id="inImu" rows="1" name="imgU" #imgU="ngModel"
+              [(ngModel)]="idSalaModel.imagenUno"></textarea>
+          </div>
+          <div class="mb-3">
+            <textarea placeholder="Imagen secundaria" class="form-control" id="inImD" rows="1" name="imgD" #imgD="ngModel"
+              [(ngModel)]="idSalaModel.imagenDos"></textarea>
+          </div>
+          <div class="mb-3">
+            <textarea placeholder="Imagen terciaria" class="form-control" id="inImT" rows="1" name="imgTre" #imgTre="ngModel"
+              [(ngModel)]="idSalaModel.imagenTres"></textarea>
+          </div>
+          <div id="emailHelp" class="form-text"><i class="bi bi-exclamation-circle-fill"></i> No dejes campos vacíos.</div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> Cerrar</button>
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="editarSala()"><i class="bi bi-save"></i> Guardar cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Activar Sala -->
+<div class="modal fade" id="mActivarSala" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirmación de activación</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Esta seguro de que desea activar la Sala, "{{idSalaModel.nombre}}"?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> No, cerrar</button>
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal"
+        (click)="activarSala(idSalaModel._id)">Si, activar <i class="bi bi-toggle-on"></i> </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Desactivar Sala -->
+<div class="modal fade" id="mDesactivarSala" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirmación de desactivación</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Esta seguro de que desea desactivar la Sala, "{{idSalaModel.nombre}}"?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> No, cerrar</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+        (click)="desactivarSala(idSalaModel._id)">Si, desactivar <i class="bi bi-toggle-off"></i> </button>
+      </div>
+    </div>
+  </div>
+</div>

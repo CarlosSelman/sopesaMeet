@@ -110,10 +110,39 @@ function eliminarSala(req, res) {
     })
 }
 
+function activarSala(req, res){
+    var idSala = req.params.idSala;
+    var estado = req.params.estado;
+    var salaModelo = new Sala();
+    salaModelo.estado = activo;
+
+    Sala.findByIdAndUpdate(idSala, {estado: activo}, { new: true }, (err, salaActualizada)=>{
+        if(err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+        if(!salaActualizada) return res.status(500).send({ mensaje: 'No se ha podido actualizar la sala' });
+        return res.status(200).send({ salaActualizada });
+    })
+}
+
+function desactivarSala(req, res){
+    var idSala = req.params.idSala;
+    var estado = req.params.estado;
+    var salaModelo = new Sala();
+    salaModelo.estado = activo;
+
+    Sala.findByIdAndUpdate(idSala, {estado: desactivado}, { new: true }, (err, salaActualizada)=>{
+        if(err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+        if(!salaActualizada) return res.status(500).send({ mensaje: 'No se ha podido actualizar la sala' });
+        return res.status(200).send({ salaActualizada });
+    })
+}
+
+
 module.exports = {
     obtenerSalas,
     crearSala,
     obtenerSala,
     editarSala,
-    eliminarSala
+    eliminarSala,
+    activarSala,
+    desactivarSala
 }

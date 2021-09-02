@@ -129,7 +129,10 @@ export class SalaComponent implements OnInit {
         if(
           this.idSalaModel.nombre===""||
           this.idSalaModel.equipoDisponible===""||
-          this.idSalaModel.ubicacion===""
+          this.idSalaModel.ubicacion===""||
+          this.idSalaModel.imagenUno===""||
+          this.idSalaModel.imagenDos===""||
+          this.idSalaModel.imagenTres===""
         )
         {
           Swal.fire({
@@ -157,5 +160,25 @@ export class SalaComponent implements OnInit {
         }
       )
     }
+  }
+
+  activarSala(idSala){
+    this._salaService.activarSala(idSala).subscribe(
+      response=>{
+        console.log(response)
+        //Refrescando
+        this.obtenerSalas();
+      }
+    )
+  }
+
+  desactivarSala(idSala){
+    this._salaService.desactivarSala(idSala).subscribe(
+      response=>{
+        console.log(response)
+        //Refrescando
+        this.obtenerSalas();
+      }
+    )
   }
 }
