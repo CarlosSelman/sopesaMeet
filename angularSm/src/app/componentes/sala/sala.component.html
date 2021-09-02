@@ -29,15 +29,13 @@
         <div class="card mb-3 border-dark" style="max-width: 21rem;">
           <small class=card-header>
             <div class="dropdown">
-              <button class="btn btn-light btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              <button *ngIf="sls.estado==='Activa'" class="btn btn-success btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-three-dots-vertical"> </i>
               </button>
-              <button  *ngIf="sls.estado==='Activa'"type="button" class="btn btn-outline-success" disabled>Activo</button>&nbsp;
-              <button  *ngIf="sls.estado==='Desactivada'"type="button" class="btn btn-outline-danger" disabled>Desactivado</button>&nbsp;
-
-
+              <button *ngIf="sls.estado==='Desactivada'" class="btn btn-danger btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-three-dots-vertical"> </i>
+              </button>
               <strong> {{ sls.nombre }}</strong>
-
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li><a class="dropdown-item"  (click)="obtenerSala(sls._id)"
                   data-bs-toggle="modal" data-bs-target="#modalEditarHotel"><i class="bi bi-pencil-square"></i> | Editar</a></li>
@@ -56,7 +54,6 @@
               <p class="card-text"><strong>Nivel en el que se ubica: </strong>
                 {{sls.ubicacion}}
               </p>
-
            </div>
           </div>
           </div>
