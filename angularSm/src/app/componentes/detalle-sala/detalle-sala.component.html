@@ -14,7 +14,7 @@
       <p style="color:white" class="card-text">En este apartado podrás encontrar a detalle la información acerca de esta sala.</p>
       <button *ngIf="identidad.rol==='SuperAdministrador'" type="button" class="btn btn-light"  [routerLink]="['/salas']"><i class="bi bi-building"></i> Ir a las salas</button>&nbsp;
       <button type="button" class="btn btn-light" [routerLink]="['/tipoSalasC']"><i class="bi bi-diagram-2"></i> Ir a tipos</button>&nbsp;
-      <button type="button" class="btn btn-light" [routerLink]="['/tipoSalas']"><i class="bi bi-diagram-2"></i> Ir a tipos  (Área administrativa)</button>
+      <button *ngIf="identidad.rol==='SuperAdministrador'" type="button" class="btn btn-light" [routerLink]="['/tipoSalas']"><i class="bi bi-diagram-2"></i> Ir a tipos  (Área administrativa)</button>
    </div>
   </div>
   <br>
