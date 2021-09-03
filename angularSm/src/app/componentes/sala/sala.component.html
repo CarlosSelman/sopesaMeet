@@ -65,14 +65,15 @@
     </div>
   </div>
 
-  <div *ngIf="identidad.rol!='SuperAdministrador'" class="error-page" >
 
-    <div class="contentE">
-      <h1>403</h1>
-      <h4>Ooops! No puedes acceder...</h4>
-      <p>Lo sentimos, pero no tienes acceso para poder ver este contenido. </p>
+  <div *ngIf="identidad.rol!='SuperAdministrador'" id="err">
+    <div id="error-page">
+      <div class="contentE">
+        <h1 data-text="403">403</h1>
+        <h4 data-text="Opps! Page not found">Ooops! No puedes acceder...</h4>
+        <p>Lo sentimos, pero no tienes acceso para poder ver este contenido. </p>
+      </div>
     </div>
-
   </div>
   <br>
     <!-- Línea previa al footer-->

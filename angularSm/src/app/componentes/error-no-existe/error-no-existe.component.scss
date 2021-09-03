@@ -1,16 +1,12 @@
 
-*{
+#err{
+  height: 100vh;
+  background: -webkit-repeating-linear-gradient(-45deg, #64696d, #a05050, red, red, #c6b7cc, #8f989e, #ff0303);
+  background-size: 400%;
   margin: 0;
   padding: 5px;
   outline: none;
   box-sizing: border-box;
-
-}
-
-body{
-  height: 100vh;
-  background: -webkit-repeating-linear-gradient(-45deg, #64696d, #a05050, red, red, #c6b7cc, #8f989e, #ff0303);
-  background-size: 400%;
 }
 
 #error-page{
@@ -26,16 +22,16 @@ body{
   background: #fff;
   box-shadow: 0px 5px 10px rgba(0,0,0,0.1);
 }
-#error-page .content{
+#error-page .contentE{
   max-width: 600px;
   text-align: center;
 }
-.content h1{
+.contentE h1{
   font-size: 18vw;
   line-height: 1em;
   position: relative;
 }
-.content h1:after{
+.contentE h1:after{
   position: absolute;
   content: attr(data-text);
   top: 0;
@@ -65,7 +61,7 @@ body{
     background-position: 0% 0%;
   }
 }
-.content h4{
+.contentE h4{
   font-size: 1.5em;
   margin-bottom: 20px;
   text-transform: uppercase;
@@ -74,7 +70,7 @@ body{
   max-width: 600px;
   position: relative;
 }
-.content h4:after{
+.contentE h4:after{
   position: absolute;
   content: attr(data-text);
   top: 0;
@@ -83,7 +79,7 @@ body{
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.content p{
+.contentE p{
   font-size: 1.2em;
   color: #0d0d0d;
 }
