@@ -40,6 +40,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { DetalleSalaComponent } from './componentes/detalle-sala/detalle-sala.component';
 import { SalasTipoComponent } from './componentes/salas-tipo/salas-tipo.component';
 import { SalasTipoSuperComponent } from './componentes/salas-tipo-super/salas-tipo-super.component';
+import { ErrorNoExisteComponent } from './componentes/error-no-existe/error-no-existe.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { SalasTipoSuperComponent } from './componentes/salas-tipo-super/salas-ti
     TipoSalaCComponent,
     DetalleSalaComponent,
     SalasTipoComponent,
-    SalasTipoSuperComponent
+    SalasTipoSuperComponent,
+    ErrorNoExisteComponent
 
 
   ],

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DetalleSalaComponent } from './componentes/detalle-sala/detalle-sala.component';
 import { DetalleTipoSalaComponent } from './componentes/detalle-tipo-sala/detalle-tipo-sala.component';
+import { ErrorNoExisteComponent } from './componentes/error-no-existe/error-no-existe.component';
 import { InicioComponent } from './componentes/inicio/inicio.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { ReunionComponent } from './componentes/reunion/reunion.component';
@@ -24,7 +25,7 @@ const routes: Routes = [
   { path: 'detalleTipoSala/:idTipoSala', component: DetalleTipoSalaComponent },
   { path: 'detalleSala/:idSala', component: DetalleSalaComponent },
   { path: 'tipoSalasC', component: TipoSalaCComponent},
-  { path: '**', component: LoginComponent} //Ruta que me redirige al login si no existe la ruta
+  { path: '**', component: ErrorNoExisteComponent} //Ruta que me redirige al erro404 si no existe la ruta
 ];
 
 @NgModule({
