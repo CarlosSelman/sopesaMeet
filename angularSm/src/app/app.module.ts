@@ -39,6 +39,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { DetalleSalaComponent } from './componentes/detalle-sala/detalle-sala.component';
 import { SalasTipoComponent } from './componentes/salas-tipo/salas-tipo.component';
+import { SalasTipoSuperComponent } from './componentes/salas-tipo-super/salas-tipo-super.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { SalasTipoComponent } from './componentes/salas-tipo/salas-tipo.componen
     DetalleTipoSalaComponent,
     TipoSalaCComponent,
     DetalleSalaComponent,
-    SalasTipoComponent
+    SalasTipoComponent,
+    SalasTipoSuperComponent
 
 
   ],

@@ -12,6 +12,7 @@ var api = express.Router();
 
     api.get('/obtenerSalas', authenticated.ensureAuth, salaControlador.obtenerSalas);
     api.get('/obtenerSalasTipo/:idTipoSala', salaControlador.obtenerSalasTipo);
+    api.get('/obtenerSalasTipoSuper/:idTipoSala', salaControlador.obtenerSalasTipoSuper);
     api.post('/crearSala', authenticated.ensureAuth, salaControlador.crearSala);
     api.get('/obtenerSala/:idSala', salaControlador.obtenerSala);
     api.put('/editarSala/:idSala', authenticated.ensureAuth, salaControlador.editarSala);

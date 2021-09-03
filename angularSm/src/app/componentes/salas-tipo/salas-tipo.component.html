@@ -10,10 +10,10 @@
    <!-- Sección de la explicación de Usuarios -->
   <div  style="border-radius: 0; "class="card text-center ">
     <div style="background-color:#b71c1c"  class="card-body">
-      <h5 style="color:white"class="card-title">Tipos de Salas</h5>
-      <p style="color:white" class="card-text">En este apartado podrás encontrar los tipos de salas disponibles, los cuales dentro de ellos cuentan con una serie de salas.</p>
+      <h5 style="color:white"class="card-title">Salas Activas</h5>
+      <p style="color:white" class="card-text">En este apartado podrás encontrar las salas activas del tipo seleccionado, para más información de las mismas ingresa donde dice "ver más..." en cada sala.</p>
       <button type="button" class="btn btn-light" [routerLink]="['/inicio']">Regresar al inicio</button>&nbsp;
-      <button type="button" class="btn btn-light" [routerLink]="['/tipoSalas']">Vista administrativa <i class="bi bi-grid"></i></button>
+      <button type="button" class="btn btn-light" [routerLink]="['/tipoSalasC']"><i class="bi bi-diagram-2"></i> Ir a tipos</button>
     </div>
   </div>
   <br>
@@ -23,30 +23,29 @@
             <div class = "main">
               <div class = "content">
                 <div class="card-body">
-                  <h5 class="card-title">{{tpsl.nombre}}</h5>
-                  <p class="card-text">{{tpsl.equipoDisponible}}</p>
+                    <h5 class="card-title">{{tpsl.nombre}}</h5>
                   <br>
+                  <strong>Nivel en el que se encuentra: </strong> {{tpsl.ubicacion}}
                   <br>
-                  <strong>Capacidad máxima:</strong> {{tpsl.ubicacion}} personas.
-                  <br>
-                  <br>
+                  <a class="card-link" [routerLink]="['/detalleSala', tpsl._id]">Ver salas...</a>
                 </div>
               </div>
               <div class="form-img">
-                <img src="../../../assets/imgTipoSalaD.jpg">
+                <img *ngIf="tpsl.imagenUno == null  " src="/assets/imgTipoSalaD.jpg">
+                <img *ngIf="tpsl.imagenUno " [src]="tpsl.imagenUno">
               </div>
             </div>
           </div>
         </div>
     </div>
-  <!-- Línea previa al footer
+  <!-- Línea previa al footer-->
   <div  style=" border-radius: 0;"class="card text-center">
     <div style="background-color:#b71c1c" class="card-body">
       <h5 style="color:white"class="card-title"></h5>
       <p style="color:white" class="card-text"></p>
     </div>
   </div>
-  -->
+
     <!-- Footer -->
     <div class="footer">
       <div class="footer-content">

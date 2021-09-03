@@ -12,6 +12,7 @@ import { TipoSalaService } from 'src/app/servicios/tipoSala.service';
   providers: [UsuarioService, SalaService,TipoSalaService]
 })
 export class DetalleSalaComponent implements OnInit {
+  public identidad;
   public salaModel;
   public token;
   public idSalaRuta: string;
@@ -23,6 +24,7 @@ export class DetalleSalaComponent implements OnInit {
   ) {
     this.token = this._usuarioService.getToken();
     this.salaModel = new Sala("","","","","","","","","");
+    this.identidad = this._usuarioService.getIdentidad();
   }
 
   ngOnInit(): void {

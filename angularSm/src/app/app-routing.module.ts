@@ -6,6 +6,7 @@ import { InicioComponent } from './componentes/inicio/inicio.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { ReunionComponent } from './componentes/reunion/reunion.component';
 import { SalaComponent } from './componentes/sala/sala.component';
+import { SalasTipoSuperComponent } from './componentes/salas-tipo-super/salas-tipo-super.component';
 import { SalasTipoComponent } from './componentes/salas-tipo/salas-tipo.component';
 import { TipoSalaCComponent } from './componentes/tipo-sala-c/tipo-sala-c.component';
 import { TipoSalaComponent } from './componentes/tipo-sala/tipo-sala.component';
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'tipoSalas', component: TipoSalaComponent},
   { path: 'salas', component: SalaComponent},
   { path: 'salasTipo/:idTipoSala', component: SalasTipoComponent},
+  { path: 'salasTipoSuper/:idTipoSala', component: SalasTipoSuperComponent},
   { path: 'reunion', component: ReunionComponent},
   { path: 'detalleTipoSala/:idTipoSala', component: DetalleTipoSalaComponent },
   { path: 'detalleSala/:idSala', component: DetalleSalaComponent },

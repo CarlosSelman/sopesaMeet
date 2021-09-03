@@ -64,7 +64,7 @@
                 {{tpsl.descripcion}}
               </p>
               <br>
-              <a class="card-link">Ver salas...</a>
+              <a class="card-link"  [routerLink]="['/salasTipoSuper', tpsl._id]">Ver salas...</a>
               <footer class="blockquote-footer pt-4 mt-4 border-top">
                 <strong>Capacidad máxima: </strong>{{tpsl.capacidadMax}}
                 <cite title="Source Title">personas.</cite>
