@@ -2,6 +2,8 @@
 
 const salaModelo = require("../modelos/sala.modelo");
 const Sala = require("../modelos/sala.modelo");
+const tipoModelo = require("../modelos/tipoSala.modelo");
+const TipoSala = require("../modelos/tipoSala.modelo");
 const jwt = require('../servicios/jwt');
 const bcrypt = require("bcrypt-nodejs");
 
@@ -136,6 +138,15 @@ function desactivarSala(req, res){
     })
 }
 
+function obtenerSalasTipo (req, res){
+    var idTipoSala = req.params.idTipoSala
+
+    Sala.find({idTipoSala : idTipoSala, estado:activo},(err, salasObtenidas)=>{
+        if(err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+        if(!salasObtenidas) return res.status(500).send({ mensaje: 'No se ha podido traer las salas' });
+        return res.status(200).send({ salasObtenidas });
+    })
+}
 
 module.exports = {
     obtenerSalas,
@@ -144,5 +155,6 @@ module.exports = {
     editarSala,
     eliminarSala,
     activarSala,
-    desactivarSala
+    desactivarSala,
+    obtenerSalasTipo
 }

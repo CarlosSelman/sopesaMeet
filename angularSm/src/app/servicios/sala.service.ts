@@ -29,6 +29,10 @@ export class SalaService {
     });
   }
 
+  obtenerSalasTipo(id:String):Observable<any>{
+    return this._http.get(this.url + '/obtenerSalasTipo/' + id, {headers:  this.headersVariable})
+  }
+
   crearSala(sala: Sala, token): Observable<any> {
     let headersToken = this.headersVariable.set('Authorization', token);
     let params = JSON.stringify(sala);

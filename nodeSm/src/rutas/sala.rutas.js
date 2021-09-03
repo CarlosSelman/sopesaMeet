@@ -11,12 +11,13 @@ var authenticated = require("../middlewares/authenticated");
 var api = express.Router();
 
     api.get('/obtenerSalas', authenticated.ensureAuth, salaControlador.obtenerSalas);
+    api.get('/obtenerSalasTipo/:idTipoSala', salaControlador.obtenerSalasTipo);
     api.post('/crearSala', authenticated.ensureAuth, salaControlador.crearSala);
     api.get('/obtenerSala/:idSala', salaControlador.obtenerSala);
     api.put('/editarSala/:idSala', authenticated.ensureAuth, salaControlador.editarSala);
     api.delete('/eliminarSala/:idSala', authenticated.ensureAuth, salaControlador.eliminarSala);
     api.put('/activarSala/:idSala', salaControlador.activarSala);
     api.put('/desactivarSala/:idSala', salaControlador.desactivarSala);
-
+    
 module.exports = api;
 

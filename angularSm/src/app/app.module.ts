@@ -38,6 +38,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { DetalleSalaComponent } from './componentes/detalle-sala/detalle-sala.component';
+import { SalasTipoComponent } from './componentes/salas-tipo/salas-tipo.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { DetalleSalaComponent } from './componentes/detalle-sala/detalle-sala.co
     SalaComponent,
     DetalleTipoSalaComponent,
     TipoSalaCComponent,
-    DetalleSalaComponent
+    DetalleSalaComponent,
+    SalasTipoComponent
 
 
   ],
