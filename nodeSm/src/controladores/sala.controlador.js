@@ -24,7 +24,7 @@ function obtenerSalas(req,res){
         return res.status(200).send({ salasEncontradas });
     })
 }
-
+/*
 function crearSala(req,res){
     var salaModelo = new Sala();
     var params = req.body;
@@ -69,8 +69,8 @@ function crearSala(req,res){
         })
     }
 }
+*/
 
-/*
 function crearSala(req,res){
     var salaModelo = new Sala();
     var params = req.body;
@@ -118,7 +118,6 @@ function crearSala(req,res){
     }
 }
 
-*/
 function obtenerSala(req, res) {
     var idSala = req.params.idSala
     
