@@ -70,7 +70,55 @@ function crearSala(req,res){
     }
 }
 
+/*
+function crearSala(req,res){
+    var salaModelo = new Sala();
+    var params = req.body;
 
+    if(req.usuario.rol != superAdmin){
+        return res.status(500).send({ mensaje: "Solo el Administrador puede crear salas" })
+    }
+
+    if (params.nombre && params.ubicacion) {
+        salaModelo.nombre = params.nombre;
+        salaModelo.equipoDisponible = params.equipoDisponible;
+        salaModelo.ubicacion = params.ubicacion;
+        salaModelo.estado = activo;
+        salaModelo.idTipoSala = params.idTipoSala;
+        salaModelo.imagenUno = '';
+        salaModelo.imagenDos = '';
+        salaModelo.imagenTres = '';
+
+        console.log(req.files, req.file)
+
+        Sala.find({
+            $or: [
+                { nombre: salaModelo.nombre }
+            ]
+        }).exec((err, salasEncontradas) => {
+            if (err) return res.status(500).send({ mensaje: 'Error en la peticion de la sala' })
+
+            if (salasEncontradas && salasEncontradas.length >= 1) {
+                return res.status(500).send({ mensaje: 'La sala ya existe' })
+            } else {
+                salaModelo.save((err, salaGuardada) => {
+                    if (err) return res.status(500).send({ mensaje: 'Error al guardar la sala' })
+
+                    //Guardando la sala
+                    if (salaGuardada) {
+                        res.status(200).send(salaGuardada)
+                        //Mostrando todos los datos de la sala
+                        console.log(params); 
+                    } else {
+                        res.status(404).send({ mensaje: 'No se ha podido registrar la sala' })
+                    }
+                }) 
+            }
+        })
+    }
+}
+
+*/
 function obtenerSala(req, res) {
     var idSala = req.params.idSala
     

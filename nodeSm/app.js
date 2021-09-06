@@ -31,8 +31,8 @@ app.use('/api', usuario_ruta,sala_ruta,tipoSala_ruta,reunion_ruta,uploads_ruta);
 //Llamando a la función para crear el usuario al iniciar la aplicación
 usuario_controlador.crearUsuarioSuperAdmin(); 
 
-app.use(express.static(path.join(__dirname, 'src/uploads')))
-app.use(require('./src/rutas/uploadImagen'))
+//app.use(express.static(path.join(__dirname, 'src/uploads')))
+//app.use(require('./src/rutas/uploadImagen'))
 
 //EXPORTAR
 module.exports = app;

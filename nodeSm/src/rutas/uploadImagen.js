@@ -3,7 +3,6 @@ const express = require("express");
 const Imagen = require('../modelos/imagen');
 const storage = require('../configuracion/multer');
 const multer = require('multer');
-
 var api = express.Router();
 
 const uploader = multer({
