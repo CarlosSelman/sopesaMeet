@@ -13,6 +13,7 @@ const superAdmin = 'SuperAdministrador';
 //Estado del usuario y de la sala
 const confirmada = 'Confirmada';
 const pendiente = 'Pendiente';
+const cancelada = 'Cancelada';
 
 function obtenerReuniones(req,res){
     reunionModelo.find().populate('idSala', 'nombre').populate('idResponsable','usuario rol').exec((err, reunionesEncontradas)=>{
@@ -86,8 +87,48 @@ function obtenerReunion(req, res) {
     })
 }
 
+function confirmarSolicitud(req, res){
+    var idReunion = req.params.idReunion;
+    var estado = req.params.estado;
+    var reunionModelo = new Reunion();
+    reunionModelo.estado = confirmada;
+
+    Reunion.findByIdAndUpdate(idReunion, {estado: confirmada}, { new: true }, (err, solicitudConfirmada)=>{
+        if(err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+        if(!solicitudConfirmada) return res.status(500).send({ mensaje: 'No se ha podido confirmar la solicitud de reunión.' });
+        return res.status(200).send({ solicitudConfirmada });
+    })
+}
+
+function cancelarSolicitud(req, res){
+    var idReunion = req.params.idReunion;
+    var estado = req.params.estado;
+    var reunionModelo = new Reunion();
+    reunionModelo.estado = cancelada;
+
+    Reunion.findByIdAndUpdate(idReunion, {estado: cancelada}, { new: true }, (err, solicitudCancelada)=>{
+        if(err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+        if(!solicitudCancelada) return res.status(500).send({ mensaje: 'No se ha podido cancelar la solicitud de reunión.' });
+        return res.status(200).send({ solicitudCancelada });
+    })
+}
+
+function editarSolicitud(req, res) {
+    var idReunion = req.params.idReunion;
+    var params = req.body;
+
+    reunionModelo.findByIdAndUpdate(idReunion, params, { new: true }, (err, solicitudActualizada)=>{
+        if(err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+        if(!solicitudActualizada) return res.status(500).send({ mensaje: 'No se ha podido actualizar la solicitud de reunión.' });
+            return res.status(200).send({ solicitudActualizada });
+    })   
+}
+
 module.exports = {
     obtenerReuniones,
     crearReunion,
-    obtenerReunion
+    obtenerReunion,
+    confirmarSolicitud,
+    cancelarSolicitud,
+    editarSolicitud
 }

@@ -13,5 +13,8 @@ var api = express.Router();
     api.get('/obtenerReuniones', authenticated.ensureAuth, reunionControlador.obtenerReuniones);
     api.post('/crearReunion', authenticated.ensureAuth, reunionControlador.crearReunion);
     api.get('/obtenerReunion/:idReunion', reunionControlador.obtenerReunion);
-
-module.exports = api;
+    api.put('/confirmarSolicitud/:idReunion', reunionControlador.confirmarSolicitud);
+    api.put('/cancelarSolicitud/:idReunion', reunionControlador.cancelarSolicitud);
+    api.put('/editarSolicitud/:idReunion', authenticated.ensureAuth, reunionControlador.editarSolicitud);
+    
+module.exports = api; 
