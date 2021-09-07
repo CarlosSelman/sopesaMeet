@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>SM-CrearSala</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+</head>
+<body>
+  <div  *ngIf="identidad.rol==='SuperAdministrador'"  class="login-form">
+    <div class = "container">
+      <div class = "main">
+        <div class = "content">
+            <h2>Crear Sala</h2>
+          <form>
+            <div class="mb-3">
+              <label for="inputNombre" class="form-label"><i class="bi bi-card-heading"></i><strong> Nombre:</strong></label>
+              <input type="text" class="form-control" id="inputNombre" name="nombre" #nombre="ngModel"
+                [(ngModel)]="salasModelAdd.nombre">
+            </div>
+            <div class="mb-3">
+              <label for="inputDescripcion" class="form-label"><i class="bi bi-ui-checks-grid"></i><strong> Equipo Disponible:</strong></label>
+              <textarea class="form-control" id="inputDescripcion" rows="1" name="descripcion" #descripcion="ngModel"
+                [(ngModel)]="salasModelAdd.equipoDisponible"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="inputDireccion" class="form-label"><i class="bi bi-geo-alt-fill"></i><i class="bi bi-building"></i><strong> Nivel donde se ubica:</strong></label>
+              <textarea class="form-control" id="inputDireccion" rows="1" name="direccion" #direccion="ngModel"
+                [(ngModel)]="salasModelAdd.ubicacion"></textarea>
+            </div>
+            <hr>
+            <br>
+            <label class="form-label"><i class="bi bi-link-45deg"></i><i class="bi bi-images"></i><strong> Imágenes:</strong></label>
+
+            <div class="mb-3">
+              <textarea placeholder="Link de imagen principal" class="form-control" id="inImu" rows="1" name="imgU" #imgU="ngModel"
+                [(ngModel)]="salasModelAdd.imagenUno"></textarea>
+            </div>
+            <div class="mb-3">
+              <textarea placeholder="Link de imagen  secundaria" class="form-control" id="inImD" rows="1" name="imgD" #imgD="ngModel"
+                [(ngModel)]="salasModelAdd.imagenDos"></textarea>
+            </div>
+            <div class="mb-3">
+              <textarea placeholder="Link de imagen  terciaria" class="form-control" id="inImT" rows="1" name="imgTre" #imgTre="ngModel"
+                [(ngModel)]="salasModelAdd.imagenTres"></textarea>
+            </div>
+           <div class="mb-3">
+            <label class="form-label"><i class="bi bi-diagram-2"></i><strong>Escoja el tipo de sala:</strong></label>
+              <select  name="tipoDeSala" #tipoDeSala="ngModel"
+              [(ngModel)]="salasModelAdd.idTipoSala" class="form-select" aria-label="Default select example">
+                <option *ngFor="let tpsl of tipos" [ngValue]="tpsl">{{tpsl.nombre}}</option>
+              </select>
+          </div>
+            <button type="submit" class="btn" (click)="crearSala()">Crear</button>
+          </form>
+          <div id="emailHelp" class="form-text"><strong><i class="bi bi-exclamation-circle-fill"></i>  No dejes campos vacios.</strong></div>
+          <div id="emailHelp" class="form-text"><strong><i class="bi bi-exclamation-circle-fill"></i>  Ten en cuenta que el tipo de sala no se puede cambiar luego de la sala ser creada.</strong></div>
+
+        </div>
+        <div class="form-img">
+          <img src="../../../assets/imgCrearSalaC.png">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="identidad.rol!='SuperAdministrador'" id="err">
+    <div id="error-page">
+      <div class="contentE">
+        <h1 data-text="403">403</h1>
+        <h4 data-text="Opps! Page not found">Ooops! No puedes acceder...</h4>
+        <p>Lo sentimos, pero no tienes acceso para poder ver este contenido. </p>
+      </div>
+    </div>
+  </div>
+  <br>
+    <!-- Footer -->
+  <div class="footer">
+    <div class="footer-content">
+      <div class="footer-section links">
+        <div align="center"class="socials">
+          <a  style="color:rgb(40, 122, 177)" href= "https://www.linkedin.com/company/sopesagt"><i class="bi bi-linkedin"></i></a>&nbsp;
+          <a  style="color:blue" href= "https://www.facebook.com/SOPESA1/"><i class="bi bi-facebook"></i></a>&nbsp;
+          <a  style="
+            border-radius: 40px;
+            color: #fff;
+            vertical-align: middle;
+            background: #d6249f;
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+            box-shadow: 0px 3px 10px rgba(0,0,0,.25);"
+            href= "https://instagram.com/sopesa1"><i class="bi bi-instagram"></i></a>&nbsp;
+          <a style="color:red" href= "https://youtube.com/channel/UCEEfSQ7Nl4R-gA8eb2x-otg"><i class="bi bi-youtube"></i></a>&nbsp;
+          <a style="color: black"href="https://goo.gl/maps/82xybT4hZ7L6cGaAA"><i class="bi bi-geo-alt-fill"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <strong>&copy; SOPESA</strong>
+    </div>
+  </div>
+</body>
+</html>
+
+

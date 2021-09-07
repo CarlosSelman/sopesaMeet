@@ -41,6 +41,7 @@ import { DetalleSalaComponent } from './componentes/detalle-sala/detalle-sala.co
 import { SalasTipoComponent } from './componentes/salas-tipo/salas-tipo.component';
 import { SalasTipoSuperComponent } from './componentes/salas-tipo-super/salas-tipo-super.component';
 import { ErrorNoExisteComponent } from './componentes/error-no-existe/error-no-existe.component';
+import { CrearSalaComponent } from './componentes/crear-sala/crear-sala.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { ErrorNoExisteComponent } from './componentes/error-no-existe/error-no-e
     DetalleSalaComponent,
     SalasTipoComponent,
     SalasTipoSuperComponent,
-    ErrorNoExisteComponent
+    ErrorNoExisteComponent,
+    CrearSalaComponent
 
 
   ],

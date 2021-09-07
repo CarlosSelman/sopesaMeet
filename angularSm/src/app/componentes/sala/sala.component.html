@@ -15,7 +15,7 @@
       <p style="color:white" class="card-text">En este apartado podrás encontrar las salas.</p>
       <button type="button" class="btn btn-light" [routerLink]="['/inicio']">Regresar al inicio</button>&nbsp;
       <button type="button" class="btn btn-light" [routerLink]="['/tipoSalas']"><i class="bi bi-diagram-2"></i> Ir a tipos</button>&nbsp;
-      <button class="btn btn-light" type="button" data-bs-toggle="modal" data-bs-target="#modalAgregarHotel">
+      <button class="btn btn-light" type="button"[routerLink]="['/crearSala']" ><!-- data-bs-toggle="modal" data-bs-target="#mAgregarSala" -->
         <i class="bi bi-plus-square"></i> Agregar Sala
       </button>
     </div>
@@ -112,7 +112,7 @@
 </html>
 
  <!-- Modal Agregar Hotel -->
-<div class="modal fade" id="modalAgregarHotel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="mAgregarSala" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -139,7 +139,7 @@
           </div>
           <hr>
           <label class="form-label"><strong>Imágenes:</strong></label>
-<!--
+
           <div class="mb-3">
             <textarea placeholder="Imagen principal" class="form-control" id="inImu" rows="1" name="imgU" #imgU="ngModel"
               [(ngModel)]="salasModelAdd.imagenUno"></textarea>
@@ -152,8 +152,7 @@
             <textarea placeholder="Imagen terciaria" class="form-control" id="inImT" rows="1" name="imgTre" #imgTre="ngModel"
               [(ngModel)]="salasModelAdd.imagenTres"></textarea>
           </div>
-        -->
-
+          <!--
           <div class="mb-3">
             <input type="file" class="form-control" id="inputIMGU" name="uploaded_file" #uploaded_file="ngModel"
               [(ngModel)]="salasModelAdd.imagenUno">
@@ -166,7 +165,7 @@
             <input type="file" class="form-control" id="inputIMGT" name="uploaded_file" #uploaded_file="ngModel"
               [(ngModel)]="salasModelAdd.imagenTres">
           </div>
-
+         -->
          <div class="mb-3">
           <label class="form-label"><strong>Escoja el tipo de sala:</strong></label>
             <select  name="tipoDeSala" #tipoDeSala="ngModel"
@@ -175,7 +174,6 @@
             </select>
         </div>
         </form>
-
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> Cerrar</button>
@@ -185,7 +183,6 @@
     </div>
   </div>
 </div>
-
 
 <!-- Modal Editar Tipo Sala -->
 <div class="modal fade" id="mEditarSala" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

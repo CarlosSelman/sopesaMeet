@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CrearSalaComponent } from './componentes/crear-sala/crear-sala.component';
 import { DetalleSalaComponent } from './componentes/detalle-sala/detalle-sala.component';
 import { DetalleTipoSalaComponent } from './componentes/detalle-tipo-sala/detalle-tipo-sala.component';
 import { ErrorNoExisteComponent } from './componentes/error-no-existe/error-no-existe.component';
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'detalleTipoSala/:idTipoSala', component: DetalleTipoSalaComponent },
   { path: 'detalleSala/:idSala', component: DetalleSalaComponent },
   { path: 'tipoSalasC', component: TipoSalaCComponent},
+  { path: 'crearSala', component: CrearSalaComponent},
   { path: '**', component: ErrorNoExisteComponent} //Ruta que me redirige al erro404 si no existe la ruta
 ];
 
