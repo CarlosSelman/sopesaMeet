@@ -43,6 +43,11 @@ import { SalasTipoSuperComponent } from './componentes/salas-tipo-super/salas-ti
 import { ErrorNoExisteComponent } from './componentes/error-no-existe/error-no-existe.component';
 import { CrearSalaComponent } from './componentes/crear-sala/crear-sala.component';
 
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { FlatpickrModule } from 'angularx-flatpickr';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -87,7 +92,14 @@ import { CrearSalaComponent } from './componentes/crear-sala/crear-sala.componen
     MatSortModule,
     MatTabsModule,
     MatCardModule,
-    MatGridListModule
+    MatGridListModule,
+
+    NgbModalModule,
+    FlatpickrModule.forRoot(),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

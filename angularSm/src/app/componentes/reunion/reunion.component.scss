@@ -1,0 +1,61 @@
+
+h3 {
+  margin: 0 0 10px;
+}
+
+pre {
+  background-color: #f5f5f5;
+  padding: 15px;
+}
+
+
+.login-form{
+  position: relative;
+  min-height: 100vh;
+  z-index: 0;
+  background: #b71c1c;
+  padding: 10px;
+  justify-content: center;
+ // grid-template-rows: 1fr auto 1fr;
+  align-items: center;
+}
+
+.container{
+  max-width: center;
+  margin: 0 auto;
+}
+
+.login-form .main{
+  position: relative;
+  display: flex;
+  margin: 30px 0;
+}
+
+.content{
+  flex-basis: 100%;
+  padding: 1em 1em;
+  background: #fff;
+  box-shadow: 2px 9px 49px -17px rgba(0,0,0,0.1);
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+//Responsive
+@media(max-width: 736px){
+  .login-form .main{
+      flex-direction: column;
+  }
+  .login-form form{
+      margin-top: 30px;
+      margin-bottom: 10px;
+  }
+  .content{
+      border-radius: 0;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+  }
+}
+
+
