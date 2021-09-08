@@ -8,6 +8,18 @@
   <meta name="keywords" content="">
 </head>
 <body>
+  <div  style=" border-radius: 0; "class="card text-center">
+    <div style="background-color:#b71c1c" class="card-header">
+    <br>
+    </div>
+    <div  class="card-body">
+      <br>
+      <h5 class="card-title">Crear Sala</h5>
+      <p  class="card-text">En esta sección podrás crear salas, las cuales podrán ser escogidas para gestionar reuniones en ellas.</p>
+      <a href="#" class="card-link" [routerLink]="['/inicio']">Regresar al inicio</a>
+    </div>
+    <br>
+  </div>
   <div  *ngIf="identidad.rol==='SuperAdministrador'"  class="login-form">
     <div class = "container">
       <div class = "main">
@@ -56,7 +68,6 @@
           </form>
           <div id="emailHelp" class="form-text"><strong><i class="bi bi-exclamation-circle-fill"></i>  No dejes campos vacios.</strong></div>
           <div id="emailHelp" class="form-text"><strong><i class="bi bi-exclamation-circle-fill"></i>  Ten en cuenta que el tipo de sala no se puede cambiar luego de la sala ser creada.</strong></div>
-
         </div>
         <div class="form-img">
           <img src="../../../assets/imgCrearSalaC.png">
