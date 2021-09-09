@@ -290,3 +290,26 @@ button:hover{
   font-size: 1.2em;
   color: #0d0d0d;
 }
+
+.contentE .btns a {
+  display: inline-block;
+  margin: 0 10px;
+  text-decoration: none;
+  border: 2px solid #727475;
+  color: #727475;
+  font-weight: 500;
+  padding: 10px 25px;
+  border-radius: 25px;
+  text-transform: uppercase;
+  transition: all 0.4s ease;
+}
+
+.contentE .btns a:hover{
+  background-color: #727475;
+  background: #fff;
+}
+
+.contentE .btns a{
+  margin: 25px 0;
+  display: inline-flex;
+}

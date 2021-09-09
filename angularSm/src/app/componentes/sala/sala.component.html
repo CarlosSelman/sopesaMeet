@@ -9,7 +9,7 @@
 <body>
 
   <!-- Sección de la explicación de salas -->
-  <div   *ngIf="identidad.rol==='SuperAdministrador'" style="border-radius: 0; "class="card text-center ">
+  <div   *ngIf="identidad !=null && identidad.rol==='SuperAdministrador'" style="border-radius: 0; "class="card text-center ">
     <div style="background-color:#b71c1c"  class="card-body">
       <h5 style="color:white"class="card-title">Salas</h5>
       <p style="color:white" class="card-text">En este apartado podrás encontrar las salas.</p>
@@ -21,10 +21,10 @@
     </div>
   </div>
   <br>
-<div   *ngIf="identidad.rol==='SuperAdministrador'" class="main">
-  <div class="container">
+<div   *ngIf="identidad !=null && identidad.rol==='SuperAdministrador'" class="main">
+  <div *ngIf="identidad !=null && identidad.rol==='SuperAdministrador'"  class="container">
     <br>
-    <div class="row">
+    <div *ngIf="identidad !=null && identidad.rol==='SuperAdministrador'"  class="row">
       <div class="col-xs-12 col-sm-4" *ngFor="let sls of salasModelGet; let i = index">
         <div class="card mb-3 border-dark" style="max-width: 21rem;">
           <small class=card-header>
@@ -48,11 +48,11 @@
                 </ul>
             </div>
           </small>
-          <div class="card-body row justify-content-md-center" >
+          <div *ngIf="identidad !=null" class="card-body row justify-content-md-center" >
               <img *ngIf="sls.imagenUno == null  " src="/assets/imgTipoSalaD.jpg" class ="avatar-profile"  >
               <img *ngIf="sls.imagenUno " [src]="sls.imagenUno" class ="avatar-profile">
           </div>
-          <div class="card-footer">
+          <div *ngIf="identidad !=null" class="card-footer">
             <div class="btn-group " role="group" aria-label="Basic example">
               <p class="card-text"><strong>Nivel en el que se ubica: </strong>
                 {{sls.ubicacion}}
@@ -65,8 +65,7 @@
     </div>
   </div>
 
-
-  <div *ngIf="identidad.rol!='SuperAdministrador'" id="err">
+  <div *ngIf="identidad !=null && identidad.rol!='SuperAdministrador'" id="err">
     <div id="error-page">
       <div class="contentE">
         <h1 data-text="403">403</h1>
@@ -75,9 +74,23 @@
       </div>
     </div>
   </div>
-  <br>
+
+
+<div *ngIf="identidad === null" id="err">
+  <div id="error-page">
+    <div class="contentE">
+      <h1 data-text="403">403</h1>
+      <h4 data-text="Opps! Page not found">Ooops! No puedes acceder...</h4>
+      <p>Lo sentimos, pero tienes que iniciar sesión para poder ver el contenido.</p>
+      <div class="btns">
+        <a [routerLink]="['/login']">Ir a iniciar sesión</a>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
     <!-- Línea previa al footer-->
-  <div  style=" border-radius: 0;"class="card text-center">
+  <div *ngIf="identidad !=null && identidad.rol==='SuperAdministrador'" style=" border-radius: 0;"class="card text-center">
     <div style="background-color:#b71c1c" class="card-body">
       <h5 style="color:white"class="card-title"></h5>
       <p style="color:white" class="card-text"></p>
@@ -121,7 +134,7 @@
       </div>
       <div class="modal-body">
 
-        <form action="/crearSala" method="post" enctype="multipart/form-data">
+        <form> <!-- action="/crearSala" method="post" enctype="multipart/form-data" -->
           <div class="mb-3">
             <label for="inputNombre" class="form-label"><strong>Nombre:</strong></label>
             <input type="text" class="form-control" id="inputNombre" name="nombre" #nombre="ngModel"

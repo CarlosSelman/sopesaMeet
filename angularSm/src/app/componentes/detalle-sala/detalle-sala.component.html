@@ -7,18 +7,18 @@
   <meta name="keywords" content="">
 </head>
 <body>
-  <!-- Sección de la explicación de Usuarios -->
-  <div  style=" border-radius: 0;"class="card text-center">
-    <div style="background-color:#b71c1c" class="card-body">
+  <!-- Sección de la explicación del detalle de la sala -->
+  <div   *ngIf="identidad != null" style=" border-radius: 0;"class="card text-center">
+    <div  *ngIf="identidad != null" style="background-color:#b71c1c" class="card-body">
       <h5 style="color:white"class="card-title">Detalle de la Sala "{{salaModel.nombre}}"</h5>
       <p style="color:white" class="card-text">En este apartado podrás encontrar a detalle la información acerca de esta sala.</p>
-      <button *ngIf="identidad.rol==='SuperAdministrador'" type="button" class="btn btn-light"  [routerLink]="['/salas']"><i class="bi bi-building"></i> Ir a las salas</button>&nbsp;
+      <button *ngIf="identidad != null && identidad.rol==='SuperAdministrador'" type="button" class="btn btn-light"  [routerLink]="['/salas']"><i class="bi bi-building"></i> Ir a las salas</button>&nbsp;
       <button type="button" class="btn btn-light" [routerLink]="['/tipoSalasC']"><i class="bi bi-diagram-2"></i> Ir a tipos</button>&nbsp;
-      <button *ngIf="identidad.rol==='SuperAdministrador'" type="button" class="btn btn-light" [routerLink]="['/tipoSalas']"><i class="bi bi-diagram-2"></i> Ir a tipos  (Área administrativa)</button>
+      <button *ngIf="identidad != null && identidad.rol==='SuperAdministrador'" type="button" class="btn btn-light" [routerLink]="['/tipoSalas']"><i class="bi bi-diagram-2"></i> Ir a tipos  (Área administrativa)</button>
    </div>
   </div>
   <br>
-<div class="login-form" style="background-color: gray">
+<div  *ngIf="identidad != null" class="login-form" style="background-color: gray">
   <div class = "container">
     <div class = "main">
       <div class = "content">
@@ -40,7 +40,7 @@
   </div>
 </div>
 <br>
-<div id="carouselExampleIndicators" class="carousel carousel-dark slide" data-bs-ride="carousel">
+<div  *ngIf="identidad != null" id="carouselExampleIndicators" class="carousel carousel-dark slide" data-bs-ride="carousel">
   <div class="carousel-indicators">
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -71,12 +71,25 @@
 </div>
 <br>
   <!-- Línea previa al footer-->
-<div  style=" border-radius: 0;"class="card text-center">
+<div  *ngIf="identidad != null" style=" border-radius: 0;"class="card text-center">
   <div style="background-color:#b71c1c" class="card-body">
     <h5 style="color:white"class="card-title"></h5>
     <p style="color:white" class="card-text"></p>
   </div>
 </div>
+<div *ngIf="identidad === null" id="err">
+  <div id="error-page">
+    <div class="contentE">
+      <h1 data-text="403">403</h1>
+      <h4 data-text="Opps! Page not found">Ooops! No puedes acceder...</h4>
+      <p>Lo sentimos, pero tienes que iniciar sesión para poder ver el contenido.</p>
+      <div class="btns">
+        <a [routerLink]="['/login']">Ir a iniciar sesión</a>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
   <!-- Footer -->
     <div class="footer">
       <div class="footer-content">

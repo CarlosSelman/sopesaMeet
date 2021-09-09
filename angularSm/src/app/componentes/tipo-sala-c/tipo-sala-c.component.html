@@ -7,8 +7,8 @@
   <meta name="keywords" content="">
 </head>
 <body>
-   <!-- Sección de la explicación de Usuarios -->
-  <div  style="border-radius: 0; "class="card text-center ">
+   <!-- Sección de la explicación de tipos de sala -->
+  <div  *ngIf="identidad != null" style="border-radius: 0; "class="card text-center ">
     <div style="background-color:#b71c1c"  class="card-body">
       <h5 style="color:white"class="card-title">Tipos de Salas</h5>
       <p style="color:white" class="card-text">En este apartado podrás encontrar los tipos de salas disponibles, los cuales dentro de ellos cuentan con una serie de salas.</p>
@@ -17,7 +17,7 @@
     </div>
   </div>
   <br>
-    <div style="background-color: gray;"class="row table">
+    <div  *ngIf="identidad != null" style="background-color: gray;"class="row table">
       <div class="col-xs-12 col-sm-6" *ngFor="let tpsl of tiposModelGet; let i = index">
         <div class="login-form">
             <div class = "main">
@@ -40,6 +40,19 @@
           </div>
         </div>
     </div>
+
+    <div *ngIf="identidad === null" id="err">
+      <div id="error-page">
+        <div class="contentE">
+          <h1 data-text="403">403</h1>
+          <h4 data-text="Opps! Page not found">Ooops! No puedes acceder...</h4>
+          <p>Lo sentimos, pero tienes que iniciar sesión para poder ver el contenido.</p>
+          <div class="btns">
+            <a [routerLink]="['/login']">Ir a iniciar sesión</a>
+          </div>
+        </div>
+      </div>
+    </div>
   <!-- Línea previa al footer
   <div  style=" border-radius: 0;"class="card text-center">
     <div style="background-color:#b71c1c" class="card-body">
@@ -49,7 +62,7 @@
   </div>
   -->
     <!-- Footer -->
-    <div class="footer">
+    <div  *ngIf="identidad != null" class="footer">
       <div class="footer-content">
         <div class="footer-section links">
           <div align="center"class="socials">

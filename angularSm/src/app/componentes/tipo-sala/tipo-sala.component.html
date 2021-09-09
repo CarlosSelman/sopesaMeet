@@ -8,19 +8,19 @@
 </head>
 <body>
    <!-- Sección de la explicación de Usuarios -->
-   <div *ngIf="identidad.rol==='SuperAdministrador'" style=" border-radius: 0;"class="card text-center">
+   <div *ngIf="identidad != null && identidad.rol==='SuperAdministrador'" style=" border-radius: 0;"class="card text-center">
     <div style="background-color:#b71c1c" class="card-body">
       <h5 style="color:white"class="card-title">Tipos de Salas</h5>
       <p style="color:white" class="card-text">En este apartado podrás encontrar los tipos de salas disponibles, los cuales dentro de ellos cuentan con una serie de salas.</p>
       <button type="button" class="btn btn-light" [routerLink]="['/inicio']">Regresar al inicio</button>&nbsp;
       <button type="button" class="btn btn-light"  [routerLink]="['/salas']"><i class="bi bi-building"></i> Ir a las salas</button>&nbsp;
-      <button *ngIf="identidad.rol==='SuperAdministrador'" type="button" class="btn btn-light" [routerLink]="['/tipoSalasC']">Vista de usuario <i class="bi bi-grid"></i></button>
+      <button *ngIf="identidad != null && identidad.rol==='SuperAdministrador'" type="button" class="btn btn-light" [routerLink]="['/tipoSalasC']">Vista de usuario <i class="bi bi-grid"></i></button>
     </div>
   </div>
   <br>
   <br>
-  <div *ngIf="identidad.rol==='SuperAdministrador'" class="container">
-    <div  *ngIf="identidad.rol==='SuperAdministrador'" class="row">
+  <div *ngIf="identidad != null && identidad.rol==='SuperAdministrador'" class="container">
+    <div  *ngIf="identidad != null && identidad.rol==='SuperAdministrador'" class="row">
       <div class="col">
         <ng-container>
           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -32,11 +32,11 @@
       </div>
   </div>
   <br>
-    <div class="row">
+    <div *ngIf="identidad != null" class="row">
       <div class="col-xs-12 col-sm-6" *ngFor="let tpsl of tiposModelGet; let i = index">
         <div class="card border-dark mb-5">
           <div class="card-header border-dark">
-            <div *ngIf="identidad.rol==='SuperAdministrador'" align="right"class="dropdown">
+            <div *ngIf="identidad != null && identidad.rol==='SuperAdministrador'" align="right"class="dropdown">
                 <button  *ngIf="tpsl.estado==='Activo'"type="button" class="btn btn-outline-success" disabled>Activo</button>&nbsp;
                 <button  *ngIf="tpsl.estado==='Desactivado'"type="button" class="btn btn-outline-danger" disabled>Desactivado</button>&nbsp;
                <button  class="btn btn-light btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -54,7 +54,7 @@
                 </ul>
             </div>
           </div>
-          <div class="card-body">
+          <div *ngIf="identidad != null" class="card-body">
             <blockquote class="blockquote blockquote-custom bg-white px-3 pt-4">
               <div style="background-color: #cc7c7c"class="blockquote-custom-icon shadow-1-strong">
                 <i class="bi bi-diagram-2-fill"></i>
@@ -77,7 +77,7 @@
     </div>
   </div>
 
-  <div *ngIf="identidad.rol!='SuperAdministrador'" id="err">
+  <div *ngIf="identidad != null && identidad.rol!='SuperAdministrador'" id="err">
     <div id="error-page">
       <div class="contentE">
         <h1 data-text="403">403</h1>
@@ -86,9 +86,22 @@
       </div>
     </div>
   </div>
+
+  <div *ngIf="identidad === null" id="err">
+    <div id="error-page">
+      <div class="contentE">
+        <h1 data-text="403">403</h1>
+        <h4 data-text="Opps! Page not found">Ooops! No puedes acceder...</h4>
+        <p>Lo sentimos, pero tienes que iniciar sesión para poder ver el contenido.</p>
+        <div class="btns">
+          <a [routerLink]="['/login']">Ir a iniciar sesión</a>
+        </div>
+      </div>
+    </div>
+  </div>
 <br>
   <!-- Línea previa al footer -->
-  <div  style=" border-radius: 0;"class="card text-center">
+  <div *ngIf="identidad != null && identidad.rol==='SuperAdministrador'" style=" border-radius: 0;"class="card text-center">
     <div style="background-color:#b71c1c" class="card-body">
       <h5 style="color:white"class="card-title"></h5>
       <p style="color:white" class="card-text"></p>

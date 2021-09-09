@@ -8,7 +8,7 @@
 </head>
 <body>
   <!-- Sección de la explicación de Usuarios -->
-  <div    *ngIf="identidad.rol==='SuperAdministrador'" style=" border-radius: 0;"class="card text-center">
+  <div    *ngIf="identidad != null && identidad.rol==='SuperAdministrador'" style=" border-radius: 0;"class="card text-center">
     <div style="background-color:#b71c1c" class="card-body">
       <h5 style="color:white"class="card-title">USUARIOS</h5>
       <p style="color:white" class="card-text">En este apartado se podrán crear, ver, editar y desactivar las cuentas de los usuarios.</p>
@@ -16,7 +16,7 @@
     </div>
   </div>
   <!-- Sección donde estan las respectivas tablas y filtros -->
-  <div   *ngIf="identidad.rol==='SuperAdministrador'" class="container"><br>
+  <div   *ngIf="identidad != null && identidad.rol==='SuperAdministrador'" class="container"><br>
     <!-- GRUPO DE TABS PARA LOS USUARIOS -->
     <mat-tab-group mat-align-tabs="center">
 
@@ -167,27 +167,27 @@
                   <h2>Crear Usuario</h2>
                 <form>
                   <div class="mb-3">
-                    <input autocomplete="off" type="text" placeholder="Nombres" required autofocus="" class="form-control" id="inputNombres" name="email" #email="ngModel"
+                    <input autocomplete="off" type="text" placeholder="Nombres" required autofocus="" class="form-control" id="inputNombres" name="cUnom" #cUnom="ngModel"
                     [(ngModel)]="user.nombres">
                   </div>
                   <div class="mb-3">
-                    <input autocomplete="off" type="text" placeholder="Apellidos" required autofocus="" class="form-control" id="inputApellidos" name="email" #email="ngModel"
+                    <input autocomplete="off" type="text" placeholder="Apellidos" required autofocus="" class="form-control" id="inputApellidos" name="cUap" #cUap="ngModel"
                     [(ngModel)]="user.apellidos">
                   </div>
                   <div class="mb-3">
-                    <input autocomplete="off" type="email" placeholder="Correo" required autofocus="" class="form-control" id="inputCorreo" name="email" #email="ngModel"
+                    <input autocomplete="off" type="email" placeholder="Correo" required autofocus="" class="form-control" id="inputCorreo" name="cUcorr" #cUcorr="ngModel"
                     [(ngModel)]="user.correo">
                   </div>
                   <div class="mb-3">
-                    <input autocomplete="off" type="text" placeholder="Usuario" required autofocus="" class="form-control" id="inputUsuario" name="email" #email="ngModel"
+                    <input autocomplete="off" type="text" placeholder="Usuario" required autofocus="" class="form-control" id="inputUsuario" name="cUuser" #cUuser="ngModel"
                     [(ngModel)]="user.usuario">
                   </div>
                   <div class="mb-3">
-                    <input autocomplete="off" type="password" placeholder="Contraseña" required autofocus="" class="form-control" id="inputContrasena" name="password" #password="ngModel"
+                    <input autocomplete="off" type="password" placeholder="Contraseña" required autofocus="" class="form-control" id="inputContrasena" name="cUpwd" #cUpwd="ngModel"
                     [(ngModel)]="user.contrasena">
                   </div>
                    <div class="mb-3">
-                    <input autocomplete="off" type="text" placeholder="No. Tel" required autofocus="" class="form-control" id="inputTel" name="email" #email="ngModel"
+                    <input autocomplete="off" type="text" placeholder="No. Tel" required autofocus="" class="form-control" id="inputTel" name="cUtel" #cUtel="ngModel"
                     [(ngModel)]="user.tel">
                   </div>
                   <button type="submit" class="btn" (click)="crearUsuarios()">Crear Usuario</button>
@@ -204,7 +204,7 @@
     </mat-tab-group>
   </div><br>
 
-  <div *ngIf="identidad.rol!='SuperAdministrador'" id="err">
+  <div *ngIf="identidad != null && identidad.rol!='SuperAdministrador'" id="err">
     <div id="error-page">
       <div class="contentE">
         <h1 data-text="403">403</h1>
@@ -213,9 +213,22 @@
       </div>
     </div>
   </div>
+
+  <div *ngIf="identidad === null" id="err">
+    <div id="error-page">
+      <div class="contentE">
+        <h1 data-text="403">403</h1>
+        <h4 data-text="Opps! Page not found">Ooops! No puedes acceder...</h4>
+        <p>Lo sentimos, pero tienes que iniciar sesión para poder ver el contenido.</p>
+        <div class="btns">
+          <a [routerLink]="['/login']">Ir a iniciar sesión</a>
+        </div>
+      </div>
+    </div>
+  </div>
   <br>
   <!-- Línea previa al footer -->
-  <div  style=" border-radius: 0;"class="card text-center">
+  <div  *ngIf="identidad != null && identidad.rol==='SuperAdministrador'" style=" border-radius: 0;"class="card text-center">
     <div style="background-color:#b71c1c" class="card-body">
       <h5 style="color:white"class="card-title"></h5>
       <p style="color:white" class="card-text"></p>
@@ -259,29 +272,29 @@
       <div class="modal-body">
         <form>
           <div class="mb-3">
-            <label for="inputNombre" class="form-label">Nombres:</label>
-            <input type="text" class="form-control" id="inputNombre" name="nombre"
-            #nombre="ngModel" [(ngModel)]="idUsuarioModel.nombres" disabled>
+            <label for="inVnom" class="form-label">Nombres:</label>
+            <input type="text" class="form-control" id="inVnom" name="nombreV"
+            #nombreV="ngModel" [(ngModel)]="idUsuarioModel.nombres" disabled>
           </div>
           <div class="mb-3">
-            <label for="inputApellido" class="form-label">Apellidos:</label>
-            <input type="text" class="form-control" id="inputApellido" name="lastName"
-            #lastName="ngModel" [(ngModel)]="idUsuarioModel.apellidos" disabled>
+            <label for="inVap" class="form-label">Apellidos:</label>
+            <input type="text" class="form-control" id="inVap" name="lastNameV"
+            #lastNameV="ngModel" [(ngModel)]="idUsuarioModel.apellidos" disabled>
           </div>
           <div class="mb-3">
-            <label for="inputUsuario" class="form-label">Usuario:</label>
-            <input type="text" class="form-control" id="inputUsuario" name="usuario"
-            #usuario="ngModel" [(ngModel)]="idUsuarioModel.usuario" disabled>
+            <label for="inVus" class="form-label">Usuario:</label>
+            <input type="text" class="form-control" id="inVus" name="userV"
+            #userV="ngModel" [(ngModel)]="idUsuarioModel.usuario" disabled>
           </div>
           <div class="mb-3">
-            <label for="inputEmail" class="form-label">Correo:</label>
-            <input type="text" class="form-control" id="inputEmail" name="email"
-            #email="ngModel" [(ngModel)]="idUsuarioModel.correo" disabled>
+            <label for="inVemial" class="form-label">Correo:</label>
+            <input type="text" class="form-control" id="inVemial" name="emailV"
+            #emailV="ngModel" [(ngModel)]="idUsuarioModel.correo" disabled>
           </div>
           <div class="mb-3">
-            <label for="inputTel" class="form-label">No. Tel:</label>
-            <input type="text" class="form-control" id="inputTel" name="tel"
-            #tel="ngModel" [(ngModel)]="idUsuarioModel.tel" disabled>
+            <label for="inVtel" class="form-label">No. Tel:</label>
+            <input type="text" class="form-control" id="inVtel" name="telV"
+            #telV="ngModel" [(ngModel)]="idUsuarioModel.tel" disabled>
           </div>
         </form>
       </div>

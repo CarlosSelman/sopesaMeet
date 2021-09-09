@@ -38,7 +38,7 @@ export class CrearSalaComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.obtenerSalas();
+    //this.obtenerSalas();
     this.obtenerTipoSalas();
   }
 

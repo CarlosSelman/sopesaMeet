@@ -8,7 +8,7 @@
 </head>
 <br>
 <body>
-  <div  style=" border-radius: 0;"class="card text-center">
+  <div  *ngIf="identidad !=null" style=" border-radius: 0;"class="card text-center">
     <div class="card-header"></div>
     <div style="background-color:#b71c1c" class="card-body">
       <h5 style="color:white"class="card-title">Calendario de Reuniones</h5>
@@ -17,7 +17,7 @@
     </div>
     <div class="card-footer text-muted"></div>
   </div>
-  <div class="login-form">
+  <div *ngIf="identidad !=null" class="login-form">
     <div class = "container">
       <div class = "main">
         <div class = "content">
@@ -231,29 +231,43 @@
     </div>
   </div>
 
-    <!-- Footer -->
-    <div class="footer">
-      <div class="footer-content">
-        <div class="footer-section links">
-          <div align="center"class="socials">
-            <a  style="color:rgb(40, 122, 177)" href= "https://www.linkedin.com/company/sopesagt"><i class="bi bi-linkedin"></i></a>&nbsp;
-            <a  style="color:blue" href= "https://www.facebook.com/SOPESA1/"><i class="bi bi-facebook"></i></a>&nbsp;
-            <a  style="
-              border-radius: 40px;
-              color: #fff;
-              vertical-align: middle;
-              background: #d6249f;
-              background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
-              box-shadow: 0px 3px 10px rgba(0,0,0,.25);"
-              href= "https://instagram.com/sopesa1"><i class="bi bi-instagram"></i></a>&nbsp;
-            <a style="color:red" href= "https://youtube.com/channel/UCEEfSQ7Nl4R-gA8eb2x-otg"><i class="bi bi-youtube"></i></a>&nbsp;
-            <a style="color: black"href="https://goo.gl/maps/82xybT4hZ7L6cGaAA"><i class="bi bi-geo-alt-fill"></i></a>
-          </div>
+  <!-- Error 403 -->
+<div *ngIf="identidad === null" id="err">
+  <div id="error-page">
+    <div class="contentE">
+      <h1 data-text="403">403</h1>
+      <h4 data-text="Opps! Page not found">Ooops! No puedes acceder...</h4>
+      <p>Lo sentimos, pero tienes que iniciar sesión para poder ver el contenido.</p>
+      <div class="btns">
+        <a [routerLink]="['/login']">Ir a iniciar sesión</a>
         </div>
       </div>
-      <div class="footer-bottom">
-        <strong>&copy; SOPESA</strong>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-content">
+      <div class="footer-section links">
+        <div align="center"class="socials">
+          <a  style="color:rgb(40, 122, 177)" href= "https://www.linkedin.com/company/sopesagt"><i class="bi bi-linkedin"></i></a>&nbsp;
+          <a  style="color:blue" href= "https://www.facebook.com/SOPESA1/"><i class="bi bi-facebook"></i></a>&nbsp;
+          <a  style="
+            border-radius: 40px;
+            color: #fff;
+            vertical-align: middle;
+            background: #d6249f;
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+            box-shadow: 0px 3px 10px rgba(0,0,0,.25);"
+            href= "https://instagram.com/sopesa1"><i class="bi bi-instagram"></i></a>&nbsp;
+          <a style="color:red" href= "https://youtube.com/channel/UCEEfSQ7Nl4R-gA8eb2x-otg"><i class="bi bi-youtube"></i></a>&nbsp;
+          <a style="color: black"href="https://goo.gl/maps/82xybT4hZ7L6cGaAA"><i class="bi bi-geo-alt-fill"></i></a>
+        </div>
       </div>
     </div>
-  </body>
-  </html>
+    <div class="footer-bottom">
+      <strong>&copy; SOPESA</strong>
+    </div>
+  </div>
+</body>
+</html>

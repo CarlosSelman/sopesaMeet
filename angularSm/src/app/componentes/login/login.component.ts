@@ -27,10 +27,11 @@ export class LoginComponent implements OnInit {
 
   getToken() {
     this._usuarioService.login(this.usuarioModel).subscribe(
-      (response) => {
+      (response)=> {
         console.log(response);
         this.token = response.token;
         localStorage.setItem('token', JSON.stringify(this.token));
+        this.refresh();
       },
       (error) => {
         console.log(<any>error);
@@ -68,6 +69,7 @@ export class LoginComponent implements OnInit {
         }
       },
       (error) => {
+        console.log(<any>error);
         Swal.fire({
           //position: 'top-end',
           icon: 'error',

@@ -8,7 +8,7 @@
 </head>
 <body>
    <!-- Sección de la explicación de Usuarios -->
-  <div  style="border-radius: 0; "class="card text-center ">
+  <div *ngIf="identidad !=null" style="border-radius: 0; "class="card text-center ">
     <div style="background-color:#b71c1c"  class="card-body">
       <h5 style="color:white"class="card-title">Salas Activas</h5>
       <p style="color:white" class="card-text">En este apartado podrás encontrar las salas activas del tipo seleccionado, para más información de las mismas ingresa donde dice "ver más..." en cada sala.</p>
@@ -17,7 +17,7 @@
     </div>
   </div>
   <br>
-    <div style="background-color: gray;"class="row table">
+    <div  *ngIf="identidad !=null" style="background-color: gray;"class="row table">
       <div class="col-xs-12 col-sm-6" *ngFor="let tpsl of salasModelGet; let i = index">
         <div class="login-form">
             <div class = "main">
@@ -39,12 +39,26 @@
         </div>
     </div>
   <!-- Línea previa al footer-->
-  <div  style=" border-radius: 0;"class="card text-center">
+  <div  *ngIf="identidad !=null" style=" border-radius: 0;"class="card text-center">
     <div style="background-color:#b71c1c" class="card-body">
       <h5 style="color:white"class="card-title"></h5>
       <p style="color:white" class="card-text"></p>
     </div>
   </div>
+
+  <div *ngIf="identidad === null" id="err">
+    <div id="error-page">
+      <div class="contentE">
+        <h1 data-text="403">403</h1>
+        <h4 data-text="Opps! Page not found">Ooops! No puedes acceder...</h4>
+        <p>Lo sentimos, pero tienes que iniciar sesión para poder ver el contenido.</p>
+        <div class="btns">
+          <a [routerLink]="['/login']">Ir a iniciar sesión</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
 
     <!-- Footer -->
     <div class="footer">

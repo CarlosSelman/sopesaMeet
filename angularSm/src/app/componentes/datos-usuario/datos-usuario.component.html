@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <section class="seccion-perfil-usuario">
+    <section *ngIf="identidad != null" class="seccion-perfil-usuario">
         <div class="perfil-usuario-header">
             <div class="perfil-usuario-portada">
                 <div class="perfil-usuario-avatar">
@@ -61,5 +61,17 @@
         </div>
         <br>
     </section>
+    <div *ngIf="identidad === null" id="err">
+      <div id="error-page">
+        <div class="contentE">
+          <h1 data-text="403">403</h1>
+          <h4 data-text="Opps! Page not found">Ooops! No puedes acceder...</h4>
+          <p>Lo sentimos, pero tienes que iniciar sesión para poder ver el contenido.</p>
+          <div class="btns">
+            <a [routerLink]="['/login']">Ir a iniciar sesión</a>
+          </div>
+        </div>
+      </div>
+    </div>
 </body>
 </html>

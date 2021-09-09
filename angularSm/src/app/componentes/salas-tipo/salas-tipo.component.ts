@@ -13,6 +13,7 @@ import Swal from "sweetalert2";
   providers: [UsuarioService, SalaService],
 })
 export class SalasTipoComponent implements OnInit {
+  public identidad;
   public salasModel;
   public token;
   public idTipoRuta: string;
@@ -24,6 +25,7 @@ export class SalasTipoComponent implements OnInit {
     public _activatedRoute: ActivatedRoute
   ) {
     this.token = this._usuarioService.getToken();
+    this.identidad = this._usuarioService.getIdentidad();
     this.salasModel = new Sala("","","","","","","","","");
    }
 
