@@ -13,12 +13,13 @@ import { SalasTipoComponent } from './componentes/salas-tipo/salas-tipo.componen
 import { TipoSalaCComponent } from './componentes/tipo-sala-c/tipo-sala-c.component';
 import { TipoSalaComponent } from './componentes/tipo-sala/tipo-sala.component';
 import { UsuarioComponent } from './componentes/usuario/usuario.component';
-
+import { DatosUsuarioComponent } from './componentes/datos-usuario/datos-usuario.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'inicio', component: InicioComponent},
   { path: 'usuarios', component: UsuarioComponent},
   { path: 'tipoSalas', component: TipoSalaComponent},
+  { path: 'datosPerfil', component: DatosUsuarioComponent},
   { path: 'salas', component: SalaComponent},
   { path: 'salasTipo/:idTipoSala', component: SalasTipoComponent},
   { path: 'salasTipoSuper/:idTipoSala', component: SalasTipoSuperComponent},
@@ -27,7 +28,7 @@ const routes: Routes = [
   { path: 'detalleSala/:idSala', component: DetalleSalaComponent },
   { path: 'tipoSalasC', component: TipoSalaCComponent},
   { path: 'crearSala', component: CrearSalaComponent},
-  { path: '**', component: ErrorNoExisteComponent} //Ruta que me redirige al erro404 si no existe la ruta
+  { path: '**', component: ErrorNoExisteComponent} //Ruta que me redirige al error 404 si no existe la ruta
 ];
 
 @NgModule({
