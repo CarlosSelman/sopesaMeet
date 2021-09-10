@@ -12,7 +12,7 @@
     <div style="background-color:#b71c1c" class="card-body">
       <h5 style="color:white"class="card-title">USUARIOS</h5>
       <p style="color:white" class="card-text">En este apartado se podrán crear, ver, editar y desactivar las cuentas de los usuarios.</p>
-      <button type="button" class="btn btn-light" [routerLink]="['/inicio']">Regresar al inicio</button>
+      <button type="button" class="btn btn-light" [routerLink]="['/inicio']"><i class="bi bi-house-fill"></i> Ir al inicio</button>
     </div>
   </div>
   <!-- Sección donde estan las respectivas tablas y filtros -->
@@ -357,7 +357,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> Cerrar</button>
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="editarUsuario()"><i class="bi bi-save"></i> Guardar cambios</button>
+        <button type="button" class="btn btn-success" (click)="editarUsuario()"><i class="bi bi-save"></i> Guardar cambios</button>
       </div>
     </div>
   </div>

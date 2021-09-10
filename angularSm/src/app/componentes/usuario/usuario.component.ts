@@ -211,6 +211,8 @@ export class UsuarioComponent implements AfterViewInit {
             timer: 1500,
           });
           //Refrescando la ventana
+          $('#mEditarUsuario').modal('hide');
+
           this.refresh();
         },
         (error) => {

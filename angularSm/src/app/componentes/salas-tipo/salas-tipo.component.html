@@ -11,9 +11,11 @@
   <div *ngIf="identidad !=null" style="border-radius: 0; "class="card text-center ">
     <div style="background-color:#b71c1c"  class="card-body">
       <h5 style="color:white"class="card-title">Salas Activas</h5>
-      <p style="color:white" class="card-text">En este apartado podrás encontrar las salas activas del tipo seleccionado, para más información de las mismas ingresa donde dice "ver más..." en cada sala.</p>
-      <button type="button" class="btn btn-light" [routerLink]="['/inicio']">Regresar al inicio</button>&nbsp;
-      <button type="button" class="btn btn-light" [routerLink]="['/tipoSalasC']"><i class="bi bi-diagram-2"></i> Ir a tipos</button>
+      <p style="color:white" class="card-text">En este apartado podrás encontrar las salas activas del tipo seleccionado, para más información de las mismas ingresa donde dice "Ver más..." en cada sala.</p>
+      <div class="btn-group" role="group" aria-label="Basic outlined example">
+        <button type="button" class="btn btn-light" [routerLink]="['/inicio']"><i class="bi bi-house-fill"></i> Ir al inicio</button>&nbsp;
+        <button type="button" class="btn btn-light" [routerLink]="['/tipoSalasC']"><i class="bi bi-diagram-2"></i> Ir a tipos</button>
+      </div>
     </div>
   </div>
   <br>
@@ -27,7 +29,7 @@
                   <br>
                   <strong>Nivel en el que se encuentra: </strong> {{tpsl.ubicacion}}
                   <br>
-                  <a class="card-link" [routerLink]="['/detalleSala', tpsl._id]">Ver salas...</a>
+                  <a class="card-link" [routerLink]="['/detalleSala', tpsl._id]">Ver más...</a>
                 </div>
               </div>
               <div class="form-img">

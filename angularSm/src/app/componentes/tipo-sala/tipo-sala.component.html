@@ -12,9 +12,11 @@
     <div style="background-color:#b71c1c" class="card-body">
       <h5 style="color:white"class="card-title">Tipos de Salas</h5>
       <p style="color:white" class="card-text">En este apartado podrás encontrar los tipos de salas disponibles, los cuales dentro de ellos cuentan con una serie de salas.</p>
-      <button type="button" class="btn btn-light" [routerLink]="['/inicio']">Regresar al inicio</button>&nbsp;
-      <button type="button" class="btn btn-light"  [routerLink]="['/salas']"><i class="bi bi-building"></i> Ir a las salas</button>&nbsp;
-      <button *ngIf="identidad != null && identidad.rol==='SuperAdministrador'" type="button" class="btn btn-light" [routerLink]="['/tipoSalasC']">Vista de usuario <i class="bi bi-grid"></i></button>
+       <div class="btn-group" role="group" aria-label="Basic outlined exampleD">
+        <button type="button" class="btn btn-light" [routerLink]="['/inicio']"><i class="bi bi-house-fill"></i> Ir al inicio</button>&nbsp;
+        <button type="button" class="btn btn-light"  [routerLink]="['/salas']"><i class="bi bi-building"></i> Ir a las salas</button>&nbsp;
+        <button *ngIf="identidad != null && identidad.rol==='SuperAdministrador'" type="button" class="btn btn-secondary" [routerLink]="['/tipoSalasC']"><i class="bi bi-arrow-repeat"></i></button>
+      </div>
     </div>
   </div>
   <br>
@@ -244,7 +246,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> Cerrar</button>
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="editarTipoSala()"><i class="bi bi-save"></i> Guardar cambios</button>
+        <button type="button" class="btn btn-success" (click)="editarTipoSala()"><i class="bi bi-save"></i> Guardar cambios</button>
       </div>
     </div>
   </div>

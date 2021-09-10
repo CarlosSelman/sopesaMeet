@@ -5,6 +5,8 @@ import { SalaService } from 'src/app/servicios/sala.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { TipoSalaService } from 'src/app/servicios/tipoSala.service';
 import Swal from 'sweetalert2';
+declare var $: any;
+
 @Component({
   selector: 'app-sala',
   templateUrl: './sala.component.html',
@@ -142,6 +144,7 @@ export class SalaComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500,
           });
+         // $('#mEditarSala').modal('show');
         }else{
 
       this._salaService.editarSala(this.idSalaModel).subscribe(
@@ -157,6 +160,7 @@ export class SalaComponent implements OnInit {
           });
 
           this.obtenerSalas();
+          $('#mEditarSala').modal('hide');
         }
       )
     }

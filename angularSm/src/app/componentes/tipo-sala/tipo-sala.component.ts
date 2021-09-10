@@ -4,6 +4,7 @@ import { TipoSala } from 'src/app/modelos/tipoSala.modelo';
 import { TipoSalaService } from 'src/app/servicios/tipoSala.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import Swal from "sweetalert2";
+declare var $: any;
 
 @Component({
   selector: 'app-tipo-sala',
@@ -148,8 +149,8 @@ export class TipoSalaComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500,
       });
-
       this.obtenerTipoSalas();
+      $('#mEditarTipo').modal('hide');
     }
   )
 }

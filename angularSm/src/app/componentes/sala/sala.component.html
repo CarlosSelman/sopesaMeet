@@ -13,14 +13,23 @@
     <div style="background-color:#b71c1c"  class="card-body">
       <h5 style="color:white"class="card-title">Salas</h5>
       <p style="color:white" class="card-text">En este apartado podrás encontrar las salas.</p>
-      <button type="button" class="btn btn-light" [routerLink]="['/inicio']">Regresar al inicio</button>&nbsp;
-      <button type="button" class="btn btn-light" [routerLink]="['/tipoSalas']"><i class="bi bi-diagram-2"></i> Ir a tipos</button>&nbsp;
-      <button class="btn btn-light" type="button"[routerLink]="['/crearSala']" ><!-- data-bs-toggle="modal" data-bs-target="#mAgregarSala" -->
-        <i class="bi bi-plus-square"></i> Agregar Sala
-      </button>
+      <!-- Sección de botones -->
+      <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+        <button type="button" class="btn btn-light" [routerLink]="['/inicio']"><i class="bi bi-house-fill"></i> Ir al inicio</button> &nbsp;
+            <!-- Sección de área administrativa -->
+        <div *ngIf="identidad != null && identidad.rol==='SuperAdministrador'" class="btn-group" role="group">
+          <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-gear"></i>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+            <li><a class="dropdown-item" [routerLink]="['/crearSala']" ><i class="bi bi-plus-square"></i> Ir a crear una sala</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/tipoSalas']"><i class="bi bi-diagram-2"></i> Ir a los tipos (CRUD)</a></li>
+          </ul>
+        </div>
+        </div>
     </div>
   </div>
-  <br>
+<br>
 <div   *ngIf="identidad !=null && identidad.rol==='SuperAdministrador'" class="main">
   <div *ngIf="identidad !=null && identidad.rol==='SuperAdministrador'"  class="container">
     <br>
@@ -245,7 +254,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> Cerrar</button>
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="editarSala()"><i class="bi bi-save"></i> Guardar cambios</button>
+        <button type="button" class="btn btn-success"  (click)="editarSala()"><i class="bi bi-save"></i> Guardar cambios</button>
       </div>
     </div>
   </div>

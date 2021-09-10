@@ -8,16 +8,29 @@
 </head>
 <body>
   <!-- Sección de la explicación del detalle de la sala -->
-  <div   *ngIf="identidad != null" style=" border-radius: 0;"class="card text-center">
-    <div  *ngIf="identidad != null" style="background-color:#b71c1c" class="card-body">
+  <div *ngIf="identidad != null" style=" border-radius: 0;"class="card text-center">
+    <div *ngIf="identidad != null" style="background-color:#b71c1c" class="card-body">
       <h5 style="color:white"class="card-title">Detalle de la Sala "{{salaModel.nombre}}"</h5>
       <p style="color:white" class="card-text">En este apartado podrás encontrar a detalle la información acerca de esta sala.</p>
-      <button *ngIf="identidad != null && identidad.rol==='SuperAdministrador'" type="button" class="btn btn-light"  [routerLink]="['/salas']"><i class="bi bi-building"></i> Ir a las salas</button>&nbsp;
-      <button type="button" class="btn btn-light" [routerLink]="['/tipoSalasC']"><i class="bi bi-diagram-2"></i> Ir a tipos</button>&nbsp;
-      <button *ngIf="identidad != null && identidad.rol==='SuperAdministrador'" type="button" class="btn btn-light" [routerLink]="['/tipoSalas']"><i class="bi bi-diagram-2"></i> Ir a tipos  (Área administrativa)</button>
-   </div>
+      <!-- Sección de botones -->
+      <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+            <!-- Botón para acceso del usuario -->
+        <button type="button" class="btn btn-light" [routerLink]="['/tipoSalasC']"><i class="bi bi-diagram-2"></i> Ir a tipos</button> &nbsp;
+            <!-- Sección de área administrativa -->
+        <div *ngIf="identidad != null && identidad.rol==='SuperAdministrador'" class="btn-group" role="group">
+          <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-gear"></i>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+            <li><a class="dropdown-item" [routerLink]="['/salas']"><i class="bi bi-building"></i> Ir a las salas (CRUD)</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/tipoSalas']"><i class="bi bi-diagram-2"></i> Ir a los tipos (CRUD)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
   <br>
+  <!-- Sección de la información de la sala -->
 <div  *ngIf="identidad != null" class="login-form" style="background-color: gray">
   <div class = "container">
     <div class = "main">
@@ -40,6 +53,7 @@
   </div>
 </div>
 <br>
+<!-- Sección de las imágenes de la sala -->
 <div  *ngIf="identidad != null" id="carouselExampleIndicators" class="carousel carousel-dark slide" data-bs-ride="carousel">
   <div class="carousel-indicators">
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
