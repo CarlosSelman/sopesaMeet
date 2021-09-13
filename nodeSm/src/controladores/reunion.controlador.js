@@ -124,11 +124,20 @@ function editarSolicitud(req, res) {
     })   
 }
 
+function obtenerReunionesSala(req, res){
+  Reunion.find({idSala : idSala},(err, reunionesObtenidas)=>{
+        if(err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+        if(!reunionesObtenidas) return res.status(500).send({ mensaje: 'No se han podido traer las reuniones' });
+        return res.status(200).send({ reunionesObtenidas });
+    })
+}
+
 module.exports = {
     obtenerReuniones,
     crearReunion,
     obtenerReunion,
     confirmarSolicitud,
     cancelarSolicitud,
-    editarSolicitud
+    editarSolicitud,
+    obtenerReunionesSala
 }
