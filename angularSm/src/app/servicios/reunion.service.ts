@@ -33,6 +33,10 @@ export class ReunionService {
     return this._http.get(this.url + '/obtenerReunionesSala/' + id, {headers:  this.headersVariable})
   }
 
+  obtenerReunionesUsuario(id:String):Observable<any>{
+    return this._http.get(this.url + '/obtenerReunionesUsuario/' + id, {headers:  this.headersVariable})
+  }
+
   crearReunion(reunion: Reunion, token): Observable<any> {
       let headersToken = this.headersVariable.set('Authorization', token);
       let params = JSON.stringify(reunion);

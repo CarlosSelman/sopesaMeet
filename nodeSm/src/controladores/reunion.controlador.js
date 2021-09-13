@@ -132,6 +132,14 @@ function obtenerReunionesSala(req, res){
     })
 }
 
+function obtenerReunionesUsuario(req, res){
+    Reunion.find({idResponsable : idResponsable},(err, reunionesObtenidas)=>{
+          if(err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+          if(!reunionesObtenidas) return res.status(500).send({ mensaje: 'No se han podido traer las reuniones del usuario.' });
+          return res.status(200).send({ reunionesObtenidas });
+      })
+  }
+
 module.exports = {
     obtenerReuniones,
     crearReunion,
@@ -139,5 +147,6 @@ module.exports = {
     confirmarSolicitud,
     cancelarSolicitud,
     editarSolicitud,
-    obtenerReunionesSala
+    obtenerReunionesSala,
+    obtenerReunionesUsuario
 }

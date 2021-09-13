@@ -126,6 +126,20 @@ body {
     width: 100%;
 }
 
+.seccion-perfil-usuario .perfil-usuario-bioD {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 0 12px rgba(0, 0, 0, .2);
+  color: white;
+  background: linear-gradient(45deg, #ff3c3c, #b41212);
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+  width: 100%;
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
 .seccion-perfil-usuario .perfil-usuario-bio {
     margin-bottom: 1.25rem;
     text-align: center;
@@ -171,6 +185,21 @@ body {
 
 .seccion-perfil-usuario .redes-sociales .boton-redes+.boton-redes {
     margin-top: .5rem;
+}
+
+.seccion-perfil-usuario .perfil-usuario-body .lista-reuniones{
+    list-style: none;
+    flex-wrap: wrap;
+    padding: 1.5rem 2rem;
+    box-shadow: 0 0 12px rgba(0, 0, 0, .2);
+    background-color: #fff;
+    //margin-top: 1.25rem;
+    width: 100%;
+    margin-bottom: 1.25rem;
+    text-align: center;
+    display: block;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
 }
 
 /* adactacion a dispositivos */

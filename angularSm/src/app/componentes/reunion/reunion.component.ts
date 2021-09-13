@@ -36,8 +36,9 @@ const colors: any = {
 @Component({
   selector: 'app-reunion',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrls: ['./reunion.component.scss'],
   templateUrl: './reunion.component.html',
-  styleUrls: ['./reunion.component.scss']
+
 })
 export class ReunionComponent {
 
@@ -56,14 +57,14 @@ export class ReunionComponent {
 
   actions: CalendarEventAction[] = [
     {
-      label: '<i class="fas fa-fw fa-pencil-alt"></i>',
+      label: '<i class="bi bi-pencil-square"></i>',
       a11yLabel: 'Edit',
       onClick: ({ event }: { event: CalendarEvent }): void => {
         this.handleEvent('Edited', event);
       },
     },
     {
-      label: '<i class="fas fa-fw fa-trash-alt"></i>',
+      label: '<i class="bi bi-trash-fill"></i>',
       a11yLabel: 'Delete',
       onClick: ({ event }: { event: CalendarEvent }): void => {
         this.events = this.events.filter((iEvent) => iEvent !== event);
@@ -164,7 +165,7 @@ export class ReunionComponent {
     this.events = [
       ...this.events,
       {
-        title: 'New event',
+        title: 'Nuevo',
         start: startOfDay(new Date()),
         end: endOfDay(new Date()),
         color: colors.red,

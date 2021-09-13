@@ -17,4 +17,6 @@ var api = express.Router();
     api.put('/cancelarSolicitud/:idReunion', reunionControlador.cancelarSolicitud);
     api.put('/editarSolicitud/:idReunion', authenticated.ensureAuth, reunionControlador.editarSolicitud);
     api.get('/obtenerReunionesSala/:idSala', reunionControlador.obtenerReunionesSala);
+    api.get('/obtenerReunionesUsuario/:idResponsable', reunionControlador.obtenerReunionesUsuario);
+    
 module.exports = api; 
