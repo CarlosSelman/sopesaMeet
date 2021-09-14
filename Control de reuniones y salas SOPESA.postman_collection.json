@@ -87,7 +87,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MTE1NzY3NzQ0NzVmZDM5MzQxMjU3NTQiLCJyb2wiOiJTdXBlckFkbWluaXN0cmFkb3IiLCJlc3RhZG8iOiJBY3Rpdm8iLCJ1c3VhcmlvIjoiU3VwZXJBZG1pbiIsImlhdCI6MTYyOTIxODg0MCwiZXhwIjoxNjI5OTEwMDQwfQ.Plyn0tHn0j9reCDsAyiV8_kty9Ffu_z3GzCnj62diN4",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MTI5MGQ5OTNjZDU2MjVlY2MxMWQxY2EiLCJyb2wiOiJTdXBlckFkbWluaXN0cmFkb3IiLCJlc3RhZG8iOiJBY3Rpdm8iLCJ1c3VhcmlvIjoiU3VwZXJBZG1pbiIsImlhdCI6MTYzMTY2MjE5NywiZXhwIjoxNjMyMzUzMzk3fQ.V3r2xMCmokiF_FDwvtTrQIIkIBTudIJLMh2bHkJ7LQs",
 						"type": "text"
 					}
 				],
@@ -180,6 +180,84 @@
 						"api",
 						"obtenerReunion",
 						"611d356e5850092a5cc7362d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener Salas según tipo",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MTI5MGQ5OTNjZDU2MjVlY2MxMWQxY2EiLCJyb2wiOiJTdXBlckFkbWluaXN0cmFkb3IiLCJlc3RhZG8iOiJBY3Rpdm8iLCJ1c3VhcmlvIjoiU3VwZXJBZG1pbiIsImlhdCI6MTYzMDYyNDY2OCwiZXhwIjoxNjMxMTQzMDY4fQ.DEAn2CnKbydX0PEjZG0sJN5bKNG914go9nPcg2LnJeM",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/api/obtenerSalasTipo/61294b4af2f3ee5de82d3be3",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"obtenerSalasTipo",
+						"61294b4af2f3ee5de82d3be3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener Reuniones según sala",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MTI5MGQ5OTNjZDU2MjVlY2MxMWQxY2EiLCJyb2wiOiJTdXBlckFkbWluaXN0cmFkb3IiLCJlc3RhZG8iOiJBY3Rpdm8iLCJ1c3VhcmlvIjoiU3VwZXJBZG1pbiIsImlhdCI6MTYzMTY2MjE5NywiZXhwIjoxNjMyMzUzMzk3fQ.V3r2xMCmokiF_FDwvtTrQIIkIBTudIJLMh2bHkJ7LQs",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/api/obtenerReunionesSala/611d14290861ac53b856673a",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"obtenerReunionesSala",
+						"611d14290861ac53b856673a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener Reuniones según usuario",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MTI5MGQ5OTNjZDU2MjVlY2MxMWQxY2EiLCJyb2wiOiJTdXBlckFkbWluaXN0cmFkb3IiLCJlc3RhZG8iOiJBY3Rpdm8iLCJ1c3VhcmlvIjoiU3VwZXJBZG1pbiIsImlhdCI6MTYzMDYyNDY2OCwiZXhwIjoxNjMxMTQzMDY4fQ.DEAn2CnKbydX0PEjZG0sJN5bKNG914go9nPcg2LnJeM",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/api/obtenerReunionesUsuario/61368b31d09f0531a0b61550",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"obtenerReunionesUsuario",
+						"61368b31d09f0531a0b61550"
 					]
 				}
 			},
@@ -495,7 +573,7 @@
 			"response": []
 		},
 		{
-			"name": "Activar Usuario",
+			"name": "Confirmar Soliciitud",
 			"request": {
 				"method": "PUT",
 				"header": [
@@ -510,14 +588,44 @@
 					"urlencoded": []
 				},
 				"url": {
-					"raw": "localhost:3000/api/activarTipo/612d56d4fc9bc43508daaf55",
+					"raw": "localhost:3000/api/confirmarSolicitud/612d56d4fc9bc43508daaf55",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
 						"api",
-						"activarTipo",
+						"confirmarSolicitud",
+						"612d56d4fc9bc43508daaf55"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cancelar Solicitud",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MTE1NzY3NzQ0NzVmZDM5MzQxMjU3NTQiLCJyb2wiOiJTdXBlckFkbWluaXN0cmFkb3IiLCJlc3RhZG8iOiJBY3Rpdm8iLCJ1c3VhcmlvIjoiU3VwZXJBZG1pbiIsImlhdCI6MTYzMDAwMTYyNywiZXhwIjoxNjMwNTIwMDI3fQ.KY8Vy2rPwbJESf7_NRo2rDBtmdJqea4AGn4V_whycrI",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "localhost:3000/api/cancelarSolicitud/612d56d4fc9bc43508daaf55",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"cancelarSolicitud",
 						"612d56d4fc9bc43508daaf55"
 					]
 				}
@@ -690,6 +798,67 @@
 					"path": [
 						"api",
 						"editarTipoSala",
+						"611bea2639947b4998a65c88"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar Solicitud",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MTE1NzY3NzQ0NzVmZDM5MzQxMjU3NTQiLCJyb2wiOiJTdXBlckFkbWluaXN0cmFkb3IiLCJlc3RhZG8iOiJBY3Rpdm8iLCJ1c3VhcmlvIjoiU3VwZXJBZG1pbiIsImlhdCI6MTYyOTIyMTA1MCwiZXhwIjoxNjI5OTEyMjUwfQ.1lqJ3Ls65ttyfKHRQBezb32duEKhBvzu9h5uZi8K3CQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "nombre",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "descripcion",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "fechaDeInicio",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "fechaDeFin",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "cantidadAsist",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "idSala",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/api/editarSolicitud/611bea2639947b4998a65c88",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"editarSolicitud",
 						"611bea2639947b4998a65c88"
 					]
 				}
