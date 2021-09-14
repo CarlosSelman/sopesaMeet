@@ -16,21 +16,54 @@ export class ReunionComponent implements OnInit {
 }
 */
 
-import { Component, ChangeDetectionStrategy, ViewChild, TemplateRef } from '@angular/core';
-import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
-import { Subject } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
 
 import { Router } from '@angular/router';
 import { Usuario } from 'src/app/modelos/usuario.modelo';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import Swal from 'sweetalert2';
 
+import {
+  Component,
+  ChangeDetectionStrategy,
+  ViewChild,
+  TemplateRef,
+} from '@angular/core';
+import {
+  startOfDay,
+  endOfDay,
+  subDays,
+  addDays,
+  endOfMonth,
+  isSameDay,
+  isSameMonth,
+  addHours,
+} from 'date-fns';
+import { Subject } from 'rxjs';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  CalendarEvent,
+  CalendarEventAction,
+  CalendarEventTimesChangedEvent,
+  CalendarView,
+} from 'angular-calendar';
+
 const colors: any = {
-  red: { primary: '#ad2121', secondary: '#FAE3E3' },
-  blue: { primary: '#1e90ff', secondary: '#D1E8FF' },
-  yellow: { primary: '#e3bc08', secondary: '#FDF1BA' },
+  red: {
+    primary: '#ad2121',
+    secondary: '#FAE3E3',
+  },
+  gray: {
+    primary: '#979291',
+    secondary: '#FAE3E3',
+  },
+  blue: {
+    primary: '#1e90ff',
+    secondary: '#D1E8FF',
+  },
+  yellow: {
+    primary: '#e3bc08',
+    secondary: '#FDF1BA',
+  },
 };
 
 @Component({
@@ -57,14 +90,14 @@ export class ReunionComponent {
 
   actions: CalendarEventAction[] = [
     {
-      label: '<i class="bi bi-pencil-square"></i>',
+      label: '<i class="fas fa-fw fa-pencil-alt"></i>',
       a11yLabel: 'Edit',
       onClick: ({ event }: { event: CalendarEvent }): void => {
         this.handleEvent('Edited', event);
       },
     },
     {
-      label: '<i class="bi bi-trash-fill"></i>',
+      label: '<i class="fas fa-fw fa-trash-alt"></i>',
       a11yLabel: 'Delete',
       onClick: ({ event }: { event: CalendarEvent }): void => {
         this.events = this.events.filter((iEvent) => iEvent !== event);
@@ -165,10 +198,10 @@ export class ReunionComponent {
     this.events = [
       ...this.events,
       {
-        title: 'Nuevo',
+        title: 'Nuevo evento',
         start: startOfDay(new Date()),
         end: endOfDay(new Date()),
-        color: colors.red,
+        color: colors.gray,
         draggable: true,
         resizable: {
           beforeStart: true,
