@@ -225,37 +225,53 @@
 
   <ng-template #modalContent let-close="close">
     <div class="modal-header">
-      <h5 class="modal-title">Event action occurred</h5>
+      <h5 class="modal-title">Datos del evento:</h5>
       <button type="button" class="close" (click)="close()">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
+      <!-- Modal mostrando la acción
       <div>
         Action:
         <pre>{{ modalData?.action }}</pre>
       </div>
+      -->
+      <!-- Todos los datos del evento en formato json
       <div>
         Event:
         <pre>{{ modalData?.event | json }}</pre>
       </div>
+      -->
+      <div>
+        <i class="bi bi-list-nested"></i><strong> Nombre del evento: </strong>
+          <pre>{{ modalData?.event.title }}</pre>
+      </div>
+      <div>
+        <i class="bi bi-calendar-check"></i><strong> Fecha de inicio: </strong>
+          <pre>{{ modalData?.event.start }}</pre>
+      </div>
+      <div>
+        <i class="bi bi-calendar-x"></i><strong> Fecha de fin: </strong>
+          <pre>{{ modalData?.event.end }}</pre>
+      </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-secondary" (click)="close()">
-        OK
+      <button type="button" class="btn btn-outline-danger" (click)="close()">
+        Cerrar
       </button>
     </div>
   </ng-template>
 
   <!-- Error 403 -->
-<div *ngIf="identidad === null" id="err">
-  <div id="error-page">
-    <div class="contentE">
-      <h1 data-text="403">403</h1>
-      <h4 data-text="Opps! Page not found">Ooops! No puedes acceder...</h4>
-      <p>Lo sentimos, pero tienes que iniciar sesión para poder ver el contenido.</p>
-      <div class="btns">
-        <a [routerLink]="['/login']">Ir a iniciar sesión</a>
+  <div *ngIf="identidad === null" id="err">
+    <div id="error-page">
+      <div class="contentE">
+        <h1 data-text="403">403</h1>
+        <h4 data-text="Opps! Page not found">Ooops! No puedes acceder...</h4>
+        <p>Lo sentimos, pero tienes que iniciar sesión para poder ver el contenido.</p>
+        <div class="btns">
+          <a [routerLink]="['/login']">Ir a iniciar sesión</a>
         </div>
       </div>
     </div>
