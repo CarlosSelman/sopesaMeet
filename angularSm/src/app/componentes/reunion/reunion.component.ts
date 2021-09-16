@@ -1,69 +1,33 @@
-/*
-import { Component, OnInit } from '@angular/core';
-
-@Component({
-  selector: 'app-reunion',
-  templateUrl: './reunion.component.html',
-  styleUrls: ['./reunion.component.scss']
-})
-export class ReunionComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}
-*/
-
-
-import { Router } from '@angular/router';
+//IMPORTACIÓN DE MODELOS
 import { Usuario } from 'src/app/modelos/usuario.modelo';
+import { Reunion } from 'src/app/modelos/reunion.modelo';
+import { Sala } from 'src/app/modelos/sala.modelo';
+
+//IMPORTACIÓN DE SERVICIOS
+import { SalaService } from 'src/app/servicios/sala.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
+import { ReunionService } from 'src/app/servicios/reunion.service';
+
+//IMPORTACIÓN PARA ALERTAS
 import Swal from 'sweetalert2';
 
-import {
-  Component,
-  ChangeDetectionStrategy,
-  ViewChild,
-  TemplateRef,
-} from '@angular/core';
-import {
-  startOfDay,
-  endOfDay,
-  subDays,
-  addDays,
-  endOfMonth,
-  isSameDay,
-  isSameMonth,
-  addHours,
-} from 'date-fns';
+//OTRAS IMPORTACIONES
+import { Router } from '@angular/router';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild, TemplateRef } from '@angular/core';
+import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  CalendarEvent,
-  CalendarEventAction,
-  CalendarEventTimesChangedEvent,
-  CalendarView,
-} from 'angular-calendar';
+import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
 
+//DECLARANDO $ PARA UTILIZAR JQUERY
+declare var $: any;
+
+//CONJUNTO DE COLORES
 const colors: any = {
-  red: {
-    primary: '#ad2121',
-    secondary: '#FAE3E3',
-  },
-  gray: {
-    primary: '#979291',
-    secondary: '#FAE3E3',
-  },
-  blue: {
-    primary: '#1e90ff',
-    secondary: '#D1E8FF',
-  },
-  yellow: {
-    primary: '#e3bc08',
-    secondary: '#FDF1BA',
-  },
+  red: { primary: '#ad2121', secondary: '#FAE3E3'},
+  gray: { primary: '#979291', secondary: '#FAE3E3'},
+  blue: { primary: '#1e90ff', secondary: '#D1E8FF'},
+  yellow: { primary: '#e3bc08',secondary: '#FDF1BA'},
 };
 
 @Component({
@@ -71,16 +35,52 @@ const colors: any = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./reunion.component.scss'],
   templateUrl: './reunion.component.html',
-
+  providers: [UsuarioService,SalaService,ReunionService]
 })
-export class ReunionComponent {
+
+export class ReunionComponent implements OnInit{
+
+  public identidad;
+  public token;
+  public salas;
+  public reunionesModelGet;
+  public reunionesModelAdd: Reunion;
+  public reunionesModelGetId: Reunion;
+  public idReunionModel: Reunion;
+
+  constructor(
+    private modal: NgbModal,
+    public _usuarioService: UsuarioService,
+    public _reunionService: ReunionService,) {
+    this.identidad = this._usuarioService.getIdentidad();
+    this.token = this._usuarioService.getToken();
+    this.reunionesModelAdd = new Reunion("","","","","","","","","","");
+    this.reunionesModelGetId = new Reunion("","","","","","","","","","");
+    this.idReunionModel = new Reunion("","","","","","","","","","");
+  }
+
+  //OBTENIENDO DATOS DE LA DB
+  obtenerReuniones(){
+    this._reunionService.obtenerReuniones(this.token).subscribe(
+      response => {
+         //this.reunionesModelGet = response.reunionesEncontradas;
+         this.reunionesModelGet = response.reunionesEncontradas;
+         console.log(response)
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  ngOnInit(): void {
+    this.obtenerReuniones(); //IMPRIMIENDO DE LA DB
+    console.log(this.events); //IMPRIMIENDO LOS EVENTOS ESTATICOS
+  }
 
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
-
   view: CalendarView = CalendarView.Month;
-
   CalendarView = CalendarView;
-
   viewDate: Date = new Date();
 
   modalData: {
@@ -149,13 +149,9 @@ export class ReunionComponent {
     },
   ];
 
+  /*events: CalendarEvent[] = [];*/
+
   activeDayIsOpen: boolean = true;
-
-  public identidad;
-
-  constructor(private modal: NgbModal,public _usuarioService: UsuarioService) {
-    this.identidad = this._usuarioService.getIdentidad();
-  }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -222,6 +218,7 @@ export class ReunionComponent {
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
   }
+
 }
 
 
