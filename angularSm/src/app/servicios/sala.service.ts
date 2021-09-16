@@ -29,6 +29,10 @@ export class SalaService {
     });
   }
 
+  obtenerSalasT(): Observable<any>{
+    return this._http.get(this.url + '/obtenerSalasT', {headers: this.headersVariable});
+  }
+
   obtenerSalasTipo(id:String):Observable<any>{
     return this._http.get(this.url + '/obtenerSalasTipo/' + id, {headers:  this.headersVariable})
   }

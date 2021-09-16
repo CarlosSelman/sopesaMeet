@@ -1,5 +1,4 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+//Importaciones de Componentes (Diferentes vistas en la página)
 import { CrearSalaComponent } from './componentes/crear-sala/crear-sala.component';
 import { DetalleSalaComponent } from './componentes/detalle-sala/detalle-sala.component';
 import { DetalleTipoSalaComponent } from './componentes/detalle-tipo-sala/detalle-tipo-sala.component';
@@ -14,6 +13,13 @@ import { TipoSalaCComponent } from './componentes/tipo-sala-c/tipo-sala-c.compon
 import { TipoSalaComponent } from './componentes/tipo-sala/tipo-sala.component';
 import { UsuarioComponent } from './componentes/usuario/usuario.component';
 import { DatosUsuarioComponent } from './componentes/datos-usuario/datos-usuario.component';
+import { FiltroTabletComponent } from './componentes/filtro-tablet/filtro-tablet.component';
+
+//Otras importaciones
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+//Diferentes rutas a las que se puede navegar
 const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'inicio', component: InicioComponent},
@@ -28,6 +34,7 @@ const routes: Routes = [
   { path: 'detalleSala/:idSala', component: DetalleSalaComponent },
   { path: 'tipoSalasC', component: TipoSalaCComponent},
   { path: 'crearSala', component: CrearSalaComponent},
+  { path: 'filtroTablet', component: FiltroTabletComponent},
   { path: '**', component: ErrorNoExisteComponent} //Ruta que me redirige al error 404 si no existe la ruta
 ];
 

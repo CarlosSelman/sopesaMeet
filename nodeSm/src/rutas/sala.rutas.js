@@ -26,6 +26,7 @@ const upload = multer({ storage: storage })
 var api = express.Router();
 
     api.get('/obtenerSalas', authenticated.ensureAuth, salaControlador.obtenerSalas);
+    api.get('/obtenerSalasT', salaControlador.obtenerSalasT);
     api.get('/obtenerSalasTipo/:idTipoSala', salaControlador.obtenerSalasTipo);
     api.get('/obtenerSalasTipoSuper/:idTipoSala', salaControlador.obtenerSalasTipoSuper);
     api.post('/crearSala', authenticated.ensureAuth, salaControlador.crearSala);

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>SM-Filtro Sala</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+</head>
+
+<body>
+  <div class="login-form" style="background-color:#96999b">
+    <div class = "container">
+      <div class = "main">
+        <div class = "content">
+          <div class="card-body">
+            <h5 class="card-title">Filtrado por sala</h5>
+            <br>
+            <p class="card-text">Selecciona una de las salas que se mostrarán a continuación, para poder acceder a las reuniones solo de la sala seleccionada.</p>
+
+            <div id="emailHelp" class="form-text"><i class="bi bi-exclamation-circle-fill"></i> Es necesario que selecciones una sala para que puedas seguir...</div>
+            <select  name="tipoDeSala" #tipoDeSala="ngModel"
+            [(ngModel)]="idSalaModel" class="form-select" aria-label="Default select example">
+              <option *ngFor="let tpsl of salasModelGet" [ngValue]="tpsl">{{tpsl.nombre}}</option>
+            </select>
+            <br>
+            <p class="card-text">Luego de haber seleccionado una sala, presiona en el botón que se encuentra a continuación para poder ir a ver los eventos de la sala seleccionada.</p>
+            <div class="d-grid gap-2">
+              <button class="btn btn-outline-danger" type="button">Ir a ver más...</button>
+            </div>
+            <hr>
+            <div id="emailHelp" class="form-text"><strong><i class="bi bi-question-circle-fill"></i> Si no te aparece ninguna sala, favor de comunicarte con el área de Informática.</strong></div>
+          </div>
+        </div>
+        <div class="form-img">
+          <img src="../../../assets/imgFiltroSala.png">
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="footer">
+      <div class="footer-content">
+        <div class="footer-section links">
+          <div align="center"class="socials">
+            <a  style="color:rgb(40, 122, 177)" href= "https://www.linkedin.com/company/sopesagt"><i class="bi bi-linkedin"></i></a>&nbsp;
+            <a  style="color:blue" href= "https://www.facebook.com/SOPESA1/"><i class="bi bi-facebook"></i></a>&nbsp;
+            <a  style="
+              border-radius: 40px;
+              color: #fff;
+              vertical-align: middle;
+              background: #d6249f;
+              background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+              box-shadow: 0px 3px 10px rgba(0,0,0,.25);"
+              href= "https://instagram.com/sopesa1"><i class="bi bi-instagram"></i></a>&nbsp;
+            <a style="color:red" href= "https://youtube.com/channel/UCEEfSQ7Nl4R-gA8eb2x-otg"><i class="bi bi-youtube"></i></a>&nbsp;
+            <a style="color: black"href="https://goo.gl/maps/82xybT4hZ7L6cGaAA"><i class="bi bi-geo-alt-fill"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <strong>&copy; SOPESA</strong>
+      </div>
+    </div>
+</body>
+</html>
+

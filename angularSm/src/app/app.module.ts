@@ -47,6 +47,8 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { FiltroTabletComponent } from './componentes/filtro-tablet/filtro-tablet.component';
+import { ControlTabletComponent } from './componentes/control-tablet/control-tablet.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +67,9 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     SalasTipoComponent,
     SalasTipoSuperComponent,
     ErrorNoExisteComponent,
-    CrearSalaComponent
+    CrearSalaComponent,
+    FiltroTabletComponent,
+    ControlTabletComponent
 
 
   ],
