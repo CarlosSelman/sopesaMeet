@@ -27,7 +27,7 @@ function obtenerSalas(req,res){
 
 function obtenerSalasT(req,res){
 
-    salaModelo.find().populate('idTipoSala', 'nombre').exec((err, salasEncontradas)=>{
+    salaModelo.find({estado:activo}).populate('idTipoSala', 'nombre').exec((err, salasEncontradas)=>{
         console.log(err);
         if(err) return res.status(500).send({ mensaje: 'Error en la peticion de salas' });
         if(!salasEncontradas) return res.status(500).send({ mensaje: 'Error al obtener las salas' });

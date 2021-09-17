@@ -14,6 +14,9 @@
       <h5 style="color:white"class="card-title">Calendario de Reuniones</h5>
       <p style="color:white" class="card-text">En esta sección podrás encontrar todas las reuniones hechas, las cuales las podrás gestionar en un calendario que cuenta con varias funciones.</p>
       <button type="button" class="btn btn-light" [routerLink]="['/inicio']"><i class="bi bi-house-fill"></i> Ir al inicio</button>&nbsp;
+      <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <i class="bi bi-calendar-plus"></i> Agregar Reunión
+      </button>
     </div>
     <div class="card-footer text-muted"></div>
   </div>
@@ -303,3 +306,86 @@
   </div>
 </body>
 </html>
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Agregar Reunión</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="inputNombreR" class="form-label"><i class="bi bi-list-nested"></i><strong> Nombre del Responsable:</strong></label>
+            <input type="text" class="form-control" id="inputNombreR" name="nombreR" #nombreR="ngModel"
+              [(ngModel)]="reunionesModelAdd.nombre">
+          </div>
+          <div class="mb-3">
+            <label for="inputDescripcionR" class="form-label"><i class="bi bi-list-nested"></i><strong> Descripción:</strong></label>
+            <textarea class="form-control" id="inputDescripcionR" rows="1" name="descripcionR" #descripcionR="ngModel"
+              [(ngModel)]="reunionesModelAdd.descripcion"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="inputCnaAsR" class="form-label"><i class="bi bi-people-fill"></i><strong> Cantidad de Asistentes:</strong></label>
+            <input type="number" class="form-control" id="inputCnaAsR" name="cantAsR" #cantAsR="ngModel"
+              [(ngModel)]="reunionesModelAdd.cantidadAsist">
+          </div>
+          <div class="mb-3">
+            <label for="inputFechaIn" class="form-label"><i class="bi bi-calendar2-check"></i><strong> Fecha de Inicio:</strong></label>
+            <input
+              class="form-control"
+              type="text"
+              mwlFlatpickr
+              id="inputFechaIn"
+              name="fechIn"
+              #fechIn="ngModel"
+              [(ngModel)]="reunionesModelAdd.fechaDeInicio"
+              (ngModelChange)="refresh.next()"
+              [altInput]="true"
+              [convertModelValue]="true"
+              [enableTime]="true"
+              dateFormat="Y-m-dTH:i"
+              altFormat="F j, Y H:i"
+              placeholder="Seleccione la fecha de inicio"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="inputFechaFn" class="form-label"><i class="bi bi-calendar-x"></i><strong> Fecha de Finalización:</strong></label>
+            <input
+              class="form-control"
+              type="text"
+              mwlFlatpickr
+              id="inputFechaFn"
+              name="fechFn"
+              #fechFn="ngModel"
+              [(ngModel)]="reunionesModelAdd.fechaDeFin"
+              (ngModelChange)="refresh.next()"
+              [altInput]="true"
+              [convertModelValue]="true"
+              [enableTime]="true"
+              dateFormat="Y-m-dTH:i"
+              altFormat="F j, Y H:i"
+              placeholder="Seleccione la fecha de fin"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="inputSala" class="form-label"><i class="bi bi-building"></i><strong> Salas disponibles para la reunión:</strong></label>
+            <select  name="sala" #sala="ngModel"
+              [(ngModel)]="idSalaModel" class="form-select" aria-label="Default select example">
+              <option *ngFor="let tpsl of salasModelGet" [ngValue]="tpsl">{{tpsl.nombre}}</option>
+            </select>
+          </div>
+          <div id="emailHelp" class="form-text"><i class="bi bi-exclamation-circle-fill"></i> No dejes campos vacios.</div>
+          <div id="emailHelp" class="form-text"><strong><i class="bi bi-exclamation-circle-fill"></i> Cuando agregues la reunión pasará a un estado "Pendiente de Confirmación".</strong></div>
+      </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> Cancelar</button>
+        <button type="button" class="btn btn-outline-secondary"><i class="bi bi-calendar-plus"></i> Agregar Reunión</button>
+      </div>
+    </div>
+  </div>
+</div>

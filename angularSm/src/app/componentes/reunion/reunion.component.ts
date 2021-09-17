@@ -7,6 +7,7 @@ import { Sala } from 'src/app/modelos/sala.modelo';
 import { SalaService } from 'src/app/servicios/sala.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { ReunionService } from 'src/app/servicios/reunion.service';
+import { TipoSalaService } from 'src/app/servicios/tipoSala.service';
 
 //IMPORTACIÓN PARA ALERTAS
 import Swal from 'sweetalert2';
@@ -35,7 +36,7 @@ const colors: any = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./reunion.component.scss'],
   templateUrl: './reunion.component.html',
-  providers: [UsuarioService,SalaService,ReunionService]
+  providers: [UsuarioService,SalaService,ReunionService,TipoSalaService]
 })
 
 export class ReunionComponent implements OnInit{
@@ -48,15 +49,62 @@ export class ReunionComponent implements OnInit{
   public reunionesModelGetId: Reunion;
   public idReunionModel: Reunion;
 
+  public tipos;
+  public salasModelGet;
+  public salasModelAdd: Sala;
+  public salasModelGetId: Sala;
+  public idSalaModel: Sala;
+
   constructor(
     private modal: NgbModal,
     public _usuarioService: UsuarioService,
-    public _reunionService: ReunionService,) {
+    public _reunionService: ReunionService,
+    public _salaService: SalaService,
+    public _tipoSalaService:TipoSalaService
+    ) {
     this.identidad = this._usuarioService.getIdentidad();
     this.token = this._usuarioService.getToken();
+
     this.reunionesModelAdd = new Reunion("","","","","","","","","","");
     this.reunionesModelGetId = new Reunion("","","","","","","","","","");
     this.idReunionModel = new Reunion("","","","","","","","","","");
+
+    this.salasModelGetId = new Sala("","","","","","","","","");
+    this.salasModelAdd = new Sala("","","","","","","","","");
+    this.idSalaModel = new Sala("","","","","","","","","");
+  }
+
+  obtenerSalasT() {
+    this._salaService.obtenerSalasT().subscribe(
+      (response) => {
+        this.salasModelGet = response.salasEncontradas;
+        console.log(response);
+      },
+      (error) => {
+        console.log(<any>error);
+      }
+    );
+  }
+
+  obtenerTipoSalas() {
+    this._tipoSalaService.obtenerTipoSalas().subscribe(
+      (response) => {
+        this.tipos = response.tipoSalasEncontrados;
+        console.log(response);
+      },
+      (error) => {
+        console.log(<any>error);
+      }
+    );
+  }
+
+  obtenerSala(idSala){
+    this._salaService.obtenerSala(idSala).subscribe(
+      response => {
+        this.idSalaModel =response.salaEncontrada;
+        console.log(response);
+      }
+    )
   }
 
   //OBTENIENDO DATOS DE LA DB
@@ -74,6 +122,8 @@ export class ReunionComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.obtenerTipoSalas();
+    this.obtenerSalasT();
     this.obtenerReuniones(); //IMPRIMIENDO DE LA DB
     console.log(this.events); //IMPRIMIENDO LOS EVENTOS ESTATICOS
   }
