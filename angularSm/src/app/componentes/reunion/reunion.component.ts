@@ -81,13 +81,12 @@ export class ReunionComponent implements OnInit{
     this.idSalaModel = new Sala("","","","","","","","","");
 
     this.todayDate = new Date();
-
 /*
     this._reunionService.obtenerReuniones(this.token).subscribe ( reuniones => {
       this.events = reuniones;
     })
+*/
 
-    */
   }
 
   obtenerSalasT() {
@@ -124,11 +123,24 @@ export class ReunionComponent implements OnInit{
   }
 
   //OBTENIENDO DATOS DE LA DB
-  obtenerReuniones(){
+  obtenerReunionesDB(){
     this._reunionService.obtenerReuniones(this.token).subscribe(
       response => {
          //this.reunionesModelGet = response.reunionesEncontradas;
          this.reunionesModelGet = response.reunionesEncontradas;
+         console.log(response)
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  obtenerReuniones(){
+    this._reunionService.obtenerReuniones(this.token).subscribe(
+      response => {
+         this.reunionesModelGet = response.reunionesEncontradas;
+         //this.events = response.reunionesEncontradas;
          console.log(response)
       },
       error => {
@@ -145,8 +157,8 @@ export class ReunionComponent implements OnInit{
         this.reunionesModelAdd.nombre===""||
         this.reunionesModelAdd.descripcion===""||
         this.reunionesModelAdd.cantidadAsist===""||
-        this.reunionesModelAdd.fechaDeInicio===""||
-        this.reunionesModelAdd.fechaDeFin===""||
+        this.reunionesModelAdd.start===""||
+        this.reunionesModelAdd.end===""||
         this.reunionesModelAdd.idSala===""){
         //Alerta para que se llenen todos los campos
         Swal.fire({
@@ -157,7 +169,7 @@ export class ReunionComponent implements OnInit{
         });
         //Validando que la fecha te inicio no sea mayor o igual a la final
       }else if(
-        this.reunionesModelAdd.fechaDeInicio >= this.reunionesModelAdd.fechaDeFin
+        this.reunionesModelAdd.start >= this.reunionesModelAdd.end
       ){
         Swal.fire({
           icon: 'warning',
@@ -167,7 +179,7 @@ export class ReunionComponent implements OnInit{
         });
         //Validando que la fecha de inicio no sea menor a la actual
       }else if(
-        this.reunionesModelAdd.fechaDeInicio < this.todayDate
+        this.reunionesModelAdd.start < this.todayDate
       ){
         Swal.fire({
           icon: 'warning',
@@ -192,8 +204,8 @@ export class ReunionComponent implements OnInit{
           this.reunionesModelAdd.nombre ='';
           this.reunionesModelAdd.descripcion ='';
           this.reunionesModelAdd.cantidadAsist ='';
-          this.reunionesModelAdd.fechaDeInicio ='';
-          this.reunionesModelAdd.fechaDeFin ='';
+          this.reunionesModelAdd.start ='';
+          this.reunionesModelAdd.end ='';
           this.reunionesModelAdd.idSala ='';
           //Refrescando la ventana
           this.reload();
@@ -269,6 +281,7 @@ export class ReunionComponent implements OnInit{
   refresh: Subject<any> = new Subject();
 
   events: CalendarEvent[] = [
+
     {
       start: subDays(startOfDay(new Date()), 1),
       end: addDays(new Date(), 1),
@@ -358,7 +371,7 @@ export class ReunionComponent implements OnInit{
         title: 'Nuevo evento',
         start: startOfDay(new Date()),
         end: endOfDay(new Date()),
-        color: colors.gray,
+        //color: colors.gray,
         draggable: true,
         resizable: {
           beforeStart: true,

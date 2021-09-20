@@ -7,8 +7,8 @@ var reunionSchema = Schema ({
     
     nombre: String,
     descripcion: String, 
-    fechaDeInicio: String,
-    fechaDeFin: String,
+    start: String,
+    end: String,
     cantidadAsist: String,
     estado: String, 
     idResponsable: {type: Schema.Types.ObjectId, ref : 'Usuario'}, //Referencia del usuario que lo creó

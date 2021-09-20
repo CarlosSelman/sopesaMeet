@@ -119,7 +119,7 @@
           </div>
 
           <!-- Everything you see below is just for the demo, you don't need to include it in your app-->
-          <!-- <br /><br /><br /> -->
+          <!-- <br /><br /><br />
           <hr>
           <div class="accordion" id="accordionExample">
             <div class="accordion-item">
@@ -219,7 +219,7 @@
               </div>
             </div>
           </div>
-
+        -->
         </div>
       </div>
     </div>
@@ -342,7 +342,7 @@
               id="inputFechaIn"
               name="fechIn"
               #fechIn="ngModel"
-              [(ngModel)]="reunionesModelAdd.fechaDeInicio"
+              [(ngModel)]="reunionesModelAdd.start"
               (ngModelChange)="refresh.next()"
               [altInput]="true"
               [convertModelValue]="true"
@@ -361,7 +361,7 @@
               id="inputFechaFn"
               name="fechFn"
               #fechFn="ngModel"
-              [(ngModel)]="reunionesModelAdd.fechaDeFin"
+              [(ngModel)]="reunionesModelAdd.end"
               (ngModelChange)="refresh.next()"
               [altInput]="true"
               [convertModelValue]="true"

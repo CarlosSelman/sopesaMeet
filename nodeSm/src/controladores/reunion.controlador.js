@@ -34,8 +34,8 @@ function crearReunion(req,res){
     if (params.nombre && params.descripcion) {
         reunionModelo.nombre = params.nombre;
         reunionModelo.descripcion = params.descripcion;
-        reunionModelo.fechaDeInicio = params.fechaDeInicio;
-        reunionModelo.fechaDeFin = params.fechaDeFin;
+        reunionModelo.start = params.start;
+        reunionModelo.end = params.end;
         reunionModelo.cantidadAsist = params.cantidadAsist;
         reunionModelo.estado = pendiente;
         reunionModelo.idResponsable = req.usuario.sub;
@@ -43,7 +43,7 @@ function crearReunion(req,res){
         reunionModelo.fechaDeGestion = actualDate;
 
         //Validando que si la fecha y hora de inicio es mayor o igual que la final entonces no procede.
-        if(reunionModelo.fechaDeInicio>=reunionModelo.fechaDeFin){
+        if(reunionModelo.start>=reunionModelo.end){
             return res.status(500).send({ mensaje: 'La fecha y hora inicial no puede ser mayor o igual a la final.' })
         }
         
@@ -55,9 +55,9 @@ function crearReunion(req,res){
         }).exec((err, reunionesEncontradas) => {
             if (err) return res.status(500).send({ mensaje: 'Error en la peticion de la reunión' })
 
-            if (reunionesEncontradas && reunionesEncontradas.length >= 1) {
+            /*if (reunionesEncontradas && reunionesEncontradas.length >= 1) {
                 return res.status(500).send({ mensaje: 'La reunión ya existe' })
-            } else {
+            } */else {
                 reunionModelo.save((err, reunionGuardada) => {
                     if (err) return res.status(500).send({ mensaje: 'Error al guardar la reunión' })
 
