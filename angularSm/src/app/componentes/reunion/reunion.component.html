@@ -374,7 +374,7 @@
           <div class="mb-3">
             <label for="inputSala" class="form-label"><i class="bi bi-building"></i><strong> Salas disponibles para la reunión:</strong></label>
             <select  name="sala" #sala="ngModel"
-              [(ngModel)]="idSalaModel" class="form-select" aria-label="Default select example">
+              [(ngModel)]="reunionesModelAdd.idSala" class="form-select" aria-label="Default select example">
               <option *ngFor="let tpsl of salasModelGet" [ngValue]="tpsl">{{tpsl.nombre}}</option>
             </select>
           </div>
@@ -384,7 +384,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> Cancelar</button>
-        <button type="button" class="btn btn-outline-secondary"><i class="bi bi-calendar-plus"></i> Agregar Reunión</button>
+        <button type="button" class="btn btn-outline-secondary" (click)="crearReunion()"><i class="bi bi-calendar-plus"></i> Agregar Reunión</button>
       </div>
     </div>
   </div>

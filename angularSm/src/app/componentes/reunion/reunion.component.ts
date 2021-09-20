@@ -55,13 +55,20 @@ export class ReunionComponent implements OnInit{
   public salasModelGetId: Sala;
   public idSalaModel: Sala;
 
+  public reuniones;
+  public todayDate;
+
   constructor(
+
     private modal: NgbModal,
+
     public _usuarioService: UsuarioService,
     public _reunionService: ReunionService,
     public _salaService: SalaService,
     public _tipoSalaService:TipoSalaService
+
     ) {
+
     this.identidad = this._usuarioService.getIdentidad();
     this.token = this._usuarioService.getToken();
 
@@ -72,6 +79,15 @@ export class ReunionComponent implements OnInit{
     this.salasModelGetId = new Sala("","","","","","","","","");
     this.salasModelAdd = new Sala("","","","","","","","","");
     this.idSalaModel = new Sala("","","","","","","","","");
+
+    this.todayDate = new Date();
+
+/*
+    this._reunionService.obtenerReuniones(this.token).subscribe ( reuniones => {
+      this.events = reuniones;
+    })
+
+    */
   }
 
   obtenerSalasT() {
@@ -121,6 +137,100 @@ export class ReunionComponent implements OnInit{
     )
   }
 
+  //Función de agregar reunión
+  crearReunion(){
+
+    //Validación
+      if(
+        this.reunionesModelAdd.nombre===""||
+        this.reunionesModelAdd.descripcion===""||
+        this.reunionesModelAdd.cantidadAsist===""||
+        this.reunionesModelAdd.fechaDeInicio===""||
+        this.reunionesModelAdd.fechaDeFin===""||
+        this.reunionesModelAdd.idSala===""){
+        //Alerta para que se llenen todos los campos
+        Swal.fire({
+          icon: 'warning',
+          title: 'Llene todos los campos',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        //Validando que la fecha te inicio no sea mayor o igual a la final
+      }else if(
+        this.reunionesModelAdd.fechaDeInicio >= this.reunionesModelAdd.fechaDeFin
+      ){
+        Swal.fire({
+          icon: 'warning',
+          title: 'La fecha de inicio no puede ser mayor o igual a la final',
+          showConfirmButton: false,
+          timer: 2500,
+        });
+        //Validando que la fecha de inicio no sea menor a la actual
+      }else if(
+        this.reunionesModelAdd.fechaDeInicio < this.todayDate
+      ){
+        Swal.fire({
+          icon: 'warning',
+          title: 'La fecha de inicio es del pasado',
+          text: "Pon una fecha que no sea menor a la actual.",
+          showConfirmButton: false,
+          timer: 2500,
+        });
+      }else{
+        console.log(this.reunionesModelAdd)
+      this._reunionService.crearReunion(this.reunionesModelAdd,this.token).subscribe(
+        response=>{
+          console.log(response);
+          //Alerta de que se creó correctamente el usuario
+          Swal.fire({
+            icon: 'success',
+            title: 'Reunión creada correctamente',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          //Limpiando los campos luego de la creación
+          this.reunionesModelAdd.nombre ='';
+          this.reunionesModelAdd.descripcion ='';
+          this.reunionesModelAdd.cantidadAsist ='';
+          this.reunionesModelAdd.fechaDeInicio ='';
+          this.reunionesModelAdd.fechaDeFin ='';
+          this.reunionesModelAdd.idSala ='';
+          //Refrescando la ventana
+          this.reload();
+          //this._router.navigate(['/usuarios'])
+        },
+        (error) => {
+          console.log(<any>error);
+          Swal.fire({
+            icon: 'error',
+            title: 'No se pudo crear la reunión',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      )
+    }
+  }
+
+  //Función para refrescar la pantalla
+  reload(): void{
+    window.location.reload();
+  }
+
+/*
+  obtenerReuniones(){
+    this._reunionService.obtenerReuniones(this.token).subscribe(
+      response => {
+         //this.reunionesModelGet = response.reunionesEncontradas;
+         this.events = response.reunionesEncontradas;
+         //console.log(response)
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+*/
   ngOnInit(): void {
     this.obtenerTipoSalas();
     this.obtenerSalasT();
@@ -198,6 +308,7 @@ export class ReunionComponent implements OnInit{
       draggable: true,
     },
   ];
+
 
   /*events: CalendarEvent[] = [];*/
 
