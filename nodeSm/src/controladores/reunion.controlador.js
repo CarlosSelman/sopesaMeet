@@ -13,7 +13,7 @@ const superAdmin = 'SuperAdministrador';
 //Estado del usuario y de la sala
 const confirmada = 'Confirmada';
 const pendiente = 'Pendiente';
-const cancelada = 'Cancelada';
+const rechazada = 'Rechazada';
 
 function obtenerReuniones(req,res){
     reunionModelo.find().populate('idSala', 'nombre').populate('idResponsable','usuario rol').exec((err, reunionesEncontradas)=>{
@@ -23,7 +23,23 @@ function obtenerReuniones(req,res){
         return res.status(200).send({ reunionesEncontradas });
     })
 }
+/*
+function obtenerReunionesT(req,res){
+    reunionModelo.find().populate('idSala', 'nombre').populate('idResponsable','nombre usuario rol').exec((err, reunionesEncontradas)=>{
+        console.log(err);
+        if(err) return res.status(500).send({ mensaje: 'Error en la peticion de reuniones' });
+        if(!reunionesEncontradas) return res.status(500).send({ mensaje: 'Error al obtener las reuniones' });
+        return res.status(200).send({ reunionesEncontradas });
+    })
+}
+*/
 
+function obtenerReunionesT(req,res){
+    reunionModelo.find((err,reunionesEncontradas)=>{
+        if(err) return res.status(404).send({report: 'Error al encontrar las reuniones'});
+            return res.status(200).send(reunionesEncontradas);
+    })
+}
 function crearReunion(req,res){
     var reunionModelo = new Reunion();
     var params = req.body;
@@ -75,11 +91,10 @@ function crearReunion(req,res){
     }
 }
 
-
 function obtenerReunion(req, res) {
     var idReunion = req.params.idReunion
-    
-    reunionModelo.findById(idReunion, (err, reunionEncontrada) => {
+
+    reunionModelo.findById(idReunion).populate('idSala', 'nombre').populate('idResponsable','usuario rol').exec((err, reunionEncontrada)=>{
         if (err) return res.status(500).send({ mensaje: 'Error en la peticion de la reunión' })
         if (!reunionEncontrada) return res.status(500).send({ mensaje: 'Error en obtener los datos de la reunión' })
         console.log(reunionEncontrada.nombre);
@@ -104,9 +119,9 @@ function cancelarSolicitud(req, res){
     var idReunion = req.params.idReunion;
     var estado = req.params.estado;
     var reunionModelo = new Reunion();
-    reunionModelo.estado = cancelada;
+    reunionModelo.estado = rechazada;
 
-    Reunion.findByIdAndUpdate(idReunion, {estado: cancelada}, { new: true }, (err, solicitudCancelada)=>{
+    Reunion.findByIdAndUpdate(idReunion, {estado: rechazada}, { new: true }, (err, solicitudCancelada)=>{
         if(err) return res.status(500).send({ mensaje: 'Error en la peticion' });
         if(!solicitudCancelada) return res.status(500).send({ mensaje: 'No se ha podido cancelar la solicitud de reunión.' });
         return res.status(200).send({ solicitudCancelada });
@@ -148,5 +163,6 @@ module.exports = {
     cancelarSolicitud,
     editarSolicitud,
     obtenerReunionesSala,
-    obtenerReunionesUsuario
+    obtenerReunionesUsuario,
+    obtenerReunionesT
 }

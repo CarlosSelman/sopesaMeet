@@ -69,8 +69,7 @@ import { ControlTabletComponent } from './componentes/control-tablet/control-tab
     ErrorNoExisteComponent,
     CrearSalaComponent,
     FiltroTabletComponent,
-    ControlTabletComponent
-
+    ControlTabletComponent,
 
   ],
   imports: [

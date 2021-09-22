@@ -21,6 +21,10 @@ export class ReunionService {
     this.url = GLOBAL.url;
   }
 
+  obtenerReunionesT(): Observable<any>{
+    return this._http.get(this.url + '/obtenerReunionesT', {headers: this.headersVariable});
+  }
+
   obtenerReuniones(token): Observable<any> {
     let headersToken = this.headersVariable.set('Authorization', token);
 

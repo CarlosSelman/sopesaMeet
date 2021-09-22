@@ -12,6 +12,13 @@ import { TipoSalaService } from 'src/app/servicios/tipoSala.service';
 //IMPORTACIÓN PARA ALERTAS
 import Swal from 'sweetalert2';
 
+//IMPORTACIONES PARA LA SECCIÓN DE LA TABLA (CON ANGULAR MATERIAL)
+import { AfterViewInit} from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+
 //OTRAS IMPORTACIONES
 import { Router } from '@angular/router';
 import { Component, OnInit, ChangeDetectionStrategy, ViewChild, TemplateRef } from '@angular/core';
@@ -33,13 +40,13 @@ const colors: any = {
 
 @Component({
   selector: 'app-reunion',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  //changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./reunion.component.scss'],
   templateUrl: './reunion.component.html',
   providers: [UsuarioService,SalaService,ReunionService,TipoSalaService]
 })
 
-export class ReunionComponent implements OnInit{
+export class ReunionComponent implements OnInit, AfterViewInit{
 
   public identidad;
   public token;
@@ -58,6 +65,17 @@ export class ReunionComponent implements OnInit{
   public reuniones;
   public todayDate;
 
+
+  //Lo de la sección de la tabla
+
+  public reunionesT;
+
+    //displayedColumns: string[] = ['nombre','descripcion', 'start','end','cantidadAsist','estado','idResponsable','idSala','fechaDeGestion','acciones'];
+    displayedColumns: string[] = ['descripcion','estado','cantidadAsist','start','end','acciones'];
+    dataSourceReuniones = new MatTableDataSource<any[]>();
+    @ViewChild(MatPaginator) paginator!: MatPaginator;
+    @ViewChild(MatSort) sort!: MatSort;
+  /* ---------------------------- */
   constructor(
 
     private modal: NgbModal,
@@ -81,12 +99,113 @@ export class ReunionComponent implements OnInit{
     this.idSalaModel = new Sala("","","","","","","","","");
 
     this.todayDate = new Date();
+
+    this._reunionService.obtenerReunionesT().subscribe ( reunionesT => {
+      this.dataSourceReuniones.data = reunionesT;
+    })
 /*
     this._reunionService.obtenerReuniones(this.token).subscribe ( reuniones => {
       this.events = reuniones;
     })
 */
 
+  }
+
+  obtenerReunionesT(){
+    this._reunionService.obtenerReunionesT().subscribe(
+      response => {
+         this.dataSourceReuniones.data = response.reunionesEncontradas;
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  ngAfterViewInit() {
+      this.dataSourceReuniones.sort = this.sort;
+      this.dataSourceReuniones.paginator = this.paginator;
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSourceReuniones.filter = filterValue.trim().toLowerCase();
+  }
+
+  obtenerReunion(idReunion:String){
+    this._reunionService.obtenerReunion(idReunion).subscribe(
+      response=>{
+        this.idReunionModel = response.reunionEncontrada;
+        console.log(response);
+
+      }
+    )
+  }
+
+  editarSolicitud(){
+    //Validación
+      if(
+        this.idReunionModel.nombre===""||
+        this.idReunionModel.descripcion===""||
+        this.idReunionModel.cantidadAsist===""||
+        this.idReunionModel.start===""||
+        this.idReunionModel.end===""
+      ){
+        //Alerta para que se llenen todos los campos
+        Swal.fire({
+          icon: 'warning',
+          title: 'Llene todos los campos',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        //Validando que la fecha te inicio no sea mayor o igual a la final
+      }else if(
+        this.idReunionModel.start >= this.idReunionModel.end
+      ){
+        Swal.fire({
+          icon: 'warning',
+          title: 'La fecha de inicio no puede ser mayor o igual a la final',
+          showConfirmButton: false,
+          timer: 2500,
+        });
+        //Validando que la fecha de inicio no sea menor a la actual
+      }else if(
+        this.idReunionModel.start < this.todayDate
+      ){
+        Swal.fire({
+          icon: 'warning',
+          title: 'La fecha de inicio es del pasado',
+          text: "Pon una fecha que no sea menor a la actual.",
+          showConfirmButton: false,
+          timer: 2500,
+        });
+      }else{
+        console.log(this.idReunionModel)
+      this._reunionService.editarSolicitud(this.idReunionModel).subscribe(
+        response=>{
+          console.log(response);
+          //Alerta de que se creó correctamente el usuario
+          Swal.fire({
+            icon: 'success',
+            title: 'Reunión actualizada correctamente',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          //Refrescando la ventana
+          this.reload();
+          //this._router.navigate(['/usuarios'])
+        },
+        (error) => {
+          console.log(<any>error);
+          Swal.fire({
+            icon: 'error',
+            title: 'No se pudo actualizar la reunión',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      )
+    }
   }
 
   obtenerSalasT() {
