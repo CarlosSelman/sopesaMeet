@@ -7,8 +7,12 @@ export class Reunion{
     public end: String,
     public cantidadAsist: String,
     public estado: String,
-    public idResponsable: String,
-    public idSala: String,
+    public idResponsable: {
+      usuario: String;
+    },
+    public idSala: {
+      nombre: String;
+    },
     public fechaDeGestion: String
   ){}
 }

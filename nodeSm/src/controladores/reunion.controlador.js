@@ -116,7 +116,7 @@ function crearReunion(req,res){
 function obtenerReunion(req, res) {
     var idReunion = req.params.idReunion
 
-    reunionModelo.findById(idReunion).populate('idSala', 'nombre').populate('idResponsable','usuario rol').exec((err, reunionEncontrada)=>{
+    reunionModelo.findById(idReunion).populate('idSala idResponsable').exec((err, reunionEncontrada)=>{
         if (err) return res.status(500).send({ mensaje: 'Error en la peticion de la reunión' })
         if (!reunionEncontrada) return res.status(500).send({ mensaje: 'Error en obtener los datos de la reunión' })
         console.log(reunionEncontrada.nombre);

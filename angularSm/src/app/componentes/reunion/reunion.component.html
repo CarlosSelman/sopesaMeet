@@ -884,13 +884,13 @@
           </div>
           <div class="mb-3">
             <label for="inVrSala" class="form-label">Sala:</label>
-            <input type="text" class="form-control" id="inVrSala" name="salReu"
-            #salReu="ngModel" [(ngModel)]="idReunionModel.idSala" disabled>
+            <input type="text" class="form-control" id="inVrSala" name="nombre"
+            #nombre="ngModel" [(ngModel)]="idReunionModel.idSala.nombre" disabled>
           </div>
           <div class="mb-3">
-            <label for="inVrRespC" class="form-label">Creador de Reunión:</label>
+            <label for="inVrRespC" class="form-label">Usuario del Creador de la Reunión:</label>
             <input type="text" class="form-control" id="inVrRespC" name="salReu"
-            #salReu="ngModel" [(ngModel)]="idReunionModel.idResponsable" disabled>
+            #salReu="ngModel" [(ngModel)]="idReunionModel.idResponsable.usuario" disabled>
           </div>
           <div class="mb-3">
             <label for="inFges" class="form-label">Fecha de Gestión:</label>

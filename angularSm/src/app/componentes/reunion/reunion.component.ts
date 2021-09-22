@@ -96,9 +96,9 @@ export class ReunionComponent implements OnInit, AfterViewInit{
     this.identidad = this._usuarioService.getIdentidad();
     this.token = this._usuarioService.getToken();
 
-    this.reunionesModelAdd = new Reunion("","","","","","","","","","");
-    this.reunionesModelGetId = new Reunion("","","","","","","","","","");
-    this.idReunionModel = new Reunion("","","","","","","","","","");
+    this.reunionesModelAdd = new Reunion("","","","","","","",{usuario:""},{nombre:""},"");
+    this.reunionesModelGetId = new Reunion("","","","","","","",{usuario:""},{nombre:""},"");
+    this.idReunionModel = new Reunion("","","","","","","",{usuario:""},{nombre:""},"");
 
     this.salasModelGetId = new Sala("","","","","","","","","");
     this.salasModelAdd = new Sala("","","","","","","","","");
@@ -374,7 +374,7 @@ export class ReunionComponent implements OnInit, AfterViewInit{
         this.reunionesModelAdd.cantidadAsist===""||
         this.reunionesModelAdd.start===""||
         this.reunionesModelAdd.end===""||
-        this.reunionesModelAdd.idSala===""){
+        this.reunionesModelAdd.idSala.nombre===""){
         //Alerta para que se llenen todos los campos
         Swal.fire({
           icon: 'warning',
@@ -421,7 +421,7 @@ export class ReunionComponent implements OnInit, AfterViewInit{
           this.reunionesModelAdd.cantidadAsist ='';
           this.reunionesModelAdd.start ='';
           this.reunionesModelAdd.end ='';
-          this.reunionesModelAdd.idSala ='';
+          this.reunionesModelAdd.idSala.nombre ='';
           //Refrescando la ventana
           this.reload();
           //this._router.navigate(['/usuarios'])
