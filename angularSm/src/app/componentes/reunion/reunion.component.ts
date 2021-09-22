@@ -70,12 +70,18 @@ export class ReunionComponent implements OnInit, AfterViewInit{
 
   public reunionesT;
 
-    //displayedColumns: string[] = ['nombre','descripcion', 'start','end','cantidadAsist','estado','idResponsable','idSala','fechaDeGestion','acciones'];
-    displayedColumns: string[] = ['descripcion','estado','cantidadAsist','start','end','acciones'];
-    dataSourceReuniones = new MatTableDataSource<any[]>();
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
-  /* ---------------------------- */
+
+    displayedColumns: string[] = ['descripcion','estado','cantidadAsist','start','end','acciones'];
+    dataSourceReuniones = new MatTableDataSource<any[]>();
+    displayedColumnsC: string[] = ['descripcion','estado','cantidadAsist','start','end','acciones'];
+    dataSourceReunionesC = new MatTableDataSource<any[]>();
+    displayedColumnsP: string[] = ['descripcion','estado','cantidadAsist','start','end','acciones'];
+    dataSourceReunionesP = new MatTableDataSource<any[]>();
+    displayedColumnsR: string[] = ['descripcion','estado','cantidadAsist','start','end','acciones'];
+    dataSourceReunionesR = new MatTableDataSource<any[]>();
+
   constructor(
 
     private modal: NgbModal,
@@ -103,6 +109,18 @@ export class ReunionComponent implements OnInit, AfterViewInit{
     this._reunionService.obtenerReunionesT().subscribe ( reunionesT => {
       this.dataSourceReuniones.data = reunionesT;
     })
+
+    this._reunionService.obtenerReunionesC().subscribe ( reunionesT => {
+      this.dataSourceReunionesC.data = reunionesT;
+    })
+
+    this._reunionService.obtenerReunionesR().subscribe ( reunionesT => {
+      this.dataSourceReunionesR.data = reunionesT;
+    })
+
+    this._reunionService.obtenerReunionesP().subscribe ( reunionesT => {
+      this.dataSourceReunionesP.data = reunionesT;
+    })
 /*
     this._reunionService.obtenerReuniones(this.token).subscribe ( reuniones => {
       this.events = reuniones;
@@ -122,6 +140,69 @@ export class ReunionComponent implements OnInit, AfterViewInit{
     )
   }
 
+  obtenerReunionesC(){
+    this._reunionService.obtenerReunionesC().subscribe(
+      response => {
+         this.dataSourceReunionesC.data = response.reunionesEncontradas;
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  obtenerReunionesR(){
+    this._reunionService.obtenerReunionesR().subscribe(
+      response => {
+         this.dataSourceReunionesR.data = response.reunionesEncontradas;
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  obtenerReunionesP(){
+    this._reunionService.obtenerReunionesP().subscribe(
+      response => {
+         this.dataSourceReunionesP.data = response.reunionesEncontradas;
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  cancelarSolicitud(idReunion){
+    this._reunionService.cancelarSolicitud(idReunion).subscribe(
+      response=>{
+        console.log(response)
+        //Refrescando la ventana
+        this.reload();
+      }
+    )
+  }
+
+  confirmarSolicitud(idReunion){
+    this._reunionService.confirmarSolicitud(idReunion).subscribe(
+      response=>{
+        console.log(response)
+        //Refrescando la ventana
+        this.reload();
+      }
+    )
+  }
+
+  pendienteSolicitud(idReunion){
+    this._reunionService.pendienteSolicitud(idReunion).subscribe(
+      response=>{
+        console.log(response)
+        //Refrescando la ventana
+        this.reload();
+      }
+    )
+  }
+
   ngAfterViewInit() {
       this.dataSourceReuniones.sort = this.sort;
       this.dataSourceReuniones.paginator = this.paginator;
@@ -130,6 +211,21 @@ export class ReunionComponent implements OnInit, AfterViewInit{
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSourceReuniones.filter = filterValue.trim().toLowerCase();
+  }
+
+  applyFilterC(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSourceReunionesC.filter = filterValue.trim().toLowerCase();
+  }
+
+  applyFilterR(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSourceReunionesR.filter = filterValue.trim().toLowerCase();
+  }
+
+  applyFilterP(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSourceReunionesP.filter = filterValue.trim().toLowerCase();
   }
 
   obtenerReunion(idReunion:String){

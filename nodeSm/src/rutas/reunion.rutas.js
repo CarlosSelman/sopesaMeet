@@ -10,7 +10,11 @@ var authenticated = require("../middlewares/authenticated");
 // RUTES
 var api = express.Router();
 
+    api.put('/pendienteSolicitud/:idReunion', reunionControlador.pendienteSolicitud);
     api.get('/obtenerReunionesT', reunionControlador.obtenerReunionesT);
+    api.get('/obtenerReunionesC', reunionControlador.obtenerReunionesC);
+    api.get('/obtenerReunionesP', reunionControlador.obtenerReunionesP);
+    api.get('/obtenerReunionesR', reunionControlador.obtenerReunionesR);
     api.get('/obtenerReuniones', authenticated.ensureAuth, reunionControlador.obtenerReuniones);
     api.post('/crearReunion', authenticated.ensureAuth, reunionControlador.crearReunion);
     api.get('/obtenerReunion/:idReunion', reunionControlador.obtenerReunion);

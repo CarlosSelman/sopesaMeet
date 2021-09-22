@@ -131,12 +131,14 @@
               <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                 <div   *ngIf="identidad != null && identidad.rol==='SuperAdministrador'" class="container"><br>
+                  <hr>
                   <mat-tab-group mat-align-tabs="center">
 
+                    <!-- Tab para ver todas las reuniones -->
                     <mat-tab>
                       <ng-template mat-tab-label>
                         <mat-icon class="example-tab-icon">search</mat-icon>
-                        Ver solicitudes de reuniones
+
                       </ng-template>
                       <!-- Filtro -->
                       <mat-form-field appearance="standard">
@@ -224,9 +226,9 @@
                                     <li><a  *ngIf="element.estado!='Confirmada'" class="dropdown-item"
                                       data-bs-toggle="modal" data-bs-target="#mDesactivarUsuario" (click)="obtenerReunion(element._id)"> <i style="color:green" class="bi bi-check2-circle"></i> | Confirmar</a></li>
                                     <li><a *ngIf="element.estado!='Rechazada'" class="dropdown-item"
-                                      data-bs-toggle="modal" data-bs-target="#mActivarUsuario"(click)="obtenerReunion(element._id)"><i style="color:red"class="bi bi-x-circle"></i> | Rechazar</a></li>
+                                      data-bs-toggle="modal" data-bs-target="#mRechazarReunion"(click)="obtenerReunion(element._id)"><i style="color:red"class="bi bi-x-circle"></i> | Rechazar</a></li>
                                     <li><a  *ngIf="element.estado!='Pendiente'" class="dropdown-item"
-                                      data-bs-toggle="modal" data-bs-target="#mDesactivarUsuario" (click)="obtenerReunion(element._id)"><i class="bi bi-clock-history"></i> | Poner en Pendiente</a></li>
+                                      data-bs-toggle="modal" data-bs-target="#mPendienteReunion" (click)="obtenerReunion(element._id)"><i class="bi bi-clock-history"></i> | Poner en Pendiente</a></li>
                                     </ul>
                                 </div>
                             </td>
@@ -238,6 +240,323 @@
                        <mat-paginator  [pageSizeOptions]="[5, 10, 25,50,100]" showFirstLastButtons ></mat-paginator>
                       </div>
                     </mat-tab>
+
+                    <!-- Tab para ver todas las reuniones confirmadas -->
+                    <mat-tab>
+                      <ng-template mat-tab-label>
+                        <mat-icon style="color:green"class="example-tab-icon">task_alt</mat-icon>
+                      </ng-template>
+                      <!-- Filtro -->
+                      <mat-form-field appearance="standard">
+                        <mat-label >Escribe algo para filtrar...</mat-label>
+                        <input matInput (keyup)="applyFilterC($event)" placeholder="Ejemplo: Reunión" #input autocomplete="off">
+                      </mat-form-field>
+                      <!-- Tabla -->
+                      <div class="mat-elevation-z8">
+                        <table  align="center" mat-table [dataSource]="dataSourceReunionesC" matSort > <!-- matSort -->
+
+                          <ng-container matColumnDef="descripcion">
+                            <th mat-header-cell *matHeaderCellDef> <i class="bi bi-list-nested"></i> &nbsp; Descripción </th>
+                            <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="estado">
+                            <th mat-header-cell *matHeaderCellDef> Estado </th>
+                            <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="cantidadAsist">
+                            <th mat-header-cell *matHeaderCellDef><i class="bi bi-people-fill"></i> </th>
+                            <td mat-cell *matCellDef="let element"> {{element.cantidadAsist}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="start">
+                            <th mat-header-cell *matHeaderCellDef> <i class="bi bi-calendar2-check-fill"></i> &nbsp; Fecha de Inicio </th>
+                            <td mat-cell *matCellDef="let element">
+                              <input
+                                class="form-control"
+                                type="text"
+                                mwlFlatpickr
+                                id="inputFechaFn"
+                                name="fechFnd"
+                                #fechFnd="ngModel"
+                                [(ngModel)]="element.start"
+                                (ngModelChange)="refresh.next()"
+                                [altInput]="true"
+                                [convertModelValue]="true"
+                                [enableTime]="true"
+                                dateFormat="Y-m-dTH:i"
+                                altFormat="F j, Y H:i"
+                                placeholder="Seleccione la fecha de inicio"
+                                disabled
+                            />
+                            </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="end">
+                            <th mat-header-cell *matHeaderCellDef><i class="bi bi-calendar2-x-fill"></i> &nbsp; Fecha de finalización </th>
+                            <td mat-cell *matCellDef="let element">
+                              <input
+                                class="form-control"
+                                type="text"
+                                mwlFlatpickr
+                                id="inputFechaIn"
+                                name="fechIn"
+                                #fechIn="ngModel"
+                                [(ngModel)]="element.end"
+                                (ngModelChange)="refresh.next()"
+                                [altInput]="true"
+                                [convertModelValue]="true"
+                                [enableTime]="true"
+                                dateFormat="Y-m-dTH:i"
+                                altFormat="F j, Y H:i"
+                                placeholder="Seleccione la fecha de inicio"
+                                disabled
+                            />
+                            </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="acciones">
+                            <th mat-header-cell *matHeaderCellDef>  </th>
+                            <td mat-cell *matCellDef="let element" style="text-align:right;">
+
+                                <div  class="dropdown">
+                                  <button  class="btn btn-light btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-three-dots-vertical"> </i>
+                                  </button>
+                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item"
+                                      data-bs-toggle="modal" data-bs-target="#mVerReunion" (click)="obtenerReunion(element._id)"><i class="bi bi-search"></i> | Ver más</a></li>
+                                    <li><a  class="dropdown-item"
+                                      data-bs-toggle="modal" data-bs-target="#mEditarReunion" (click)="obtenerReunion(element._id)"><i style="color:orange" class="bi bi-pencil-square"></i> | Editar</a></li>
+                                    <li><a  *ngIf="element.estado!='Confirmada'" class="dropdown-item"
+                                      data-bs-toggle="modal" data-bs-target="#mDesactivarUsuario" (click)="obtenerReunion(element._id)"> <i style="color:green" class="bi bi-check2-circle"></i> | Confirmar</a></li>
+                                    <li><a *ngIf="element.estado!='Rechazada'" class="dropdown-item"
+                                      data-bs-toggle="modal" data-bs-target="#mRechazarReunion"(click)="obtenerReunion(element._id)"><i style="color:red"class="bi bi-x-circle"></i> | Rechazar</a></li>
+                                    <li><a  *ngIf="element.estado!='Pendiente'" class="dropdown-item"
+                                      data-bs-toggle="modal" data-bs-target="#mPendienteReunion" (click)="obtenerReunion(element._id)"><i class="bi bi-clock-history"></i> | Poner en Pendiente</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                          </ng-container>
+                          <tr mat-header-row *matHeaderRowDef="displayedColumnsC"></tr>
+                          <tr mat-row *matRowDef="let row; columns: displayedColumnsC;"></tr>
+                        </table>
+                      </div>
+                    </mat-tab>
+
+                    <!-- Tab para ver todas las reuniones rechazadas -->
+                    <mat-tab>
+                      <ng-template mat-tab-label>
+                        <mat-icon style="color:red"class="example-tab-icon">highlight_off</mat-icon>
+                      </ng-template>
+                      <!-- Filtro -->
+                      <mat-form-field appearance="standard">
+                        <mat-label >Escribe algo para filtrar...</mat-label>
+                        <input matInput (keyup)="applyFilterR($event)" placeholder="Ejemplo: Reunión" #input autocomplete="off">
+                      </mat-form-field>
+                      <!-- Tabla -->
+                      <div class="mat-elevation-z8">
+                        <table  align="center" mat-table [dataSource]="dataSourceReunionesR" matSort > <!-- matSort -->
+
+                          <ng-container matColumnDef="descripcion">
+                            <th mat-header-cell *matHeaderCellDef> <i class="bi bi-list-nested"></i> &nbsp; Descripción </th>
+                            <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="estado">
+                            <th mat-header-cell *matHeaderCellDef> Estado </th>
+                            <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="cantidadAsist">
+                            <th mat-header-cell *matHeaderCellDef><i class="bi bi-people-fill"></i> </th>
+                            <td mat-cell *matCellDef="let element"> {{element.cantidadAsist}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="start">
+                            <th mat-header-cell *matHeaderCellDef> <i class="bi bi-calendar2-check-fill"></i> &nbsp; Fecha de Inicio </th>
+                            <td mat-cell *matCellDef="let element">
+                              <input
+                                class="form-control"
+                                type="text"
+                                mwlFlatpickr
+                                id="inputFechaFn"
+                                name="fechFnd"
+                                #fechFnd="ngModel"
+                                [(ngModel)]="element.start"
+                                (ngModelChange)="refresh.next()"
+                                [altInput]="true"
+                                [convertModelValue]="true"
+                                [enableTime]="true"
+                                dateFormat="Y-m-dTH:i"
+                                altFormat="F j, Y H:i"
+                                placeholder="Seleccione la fecha de inicio"
+                                disabled
+                            />
+                            </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="end">
+                            <th mat-header-cell *matHeaderCellDef><i class="bi bi-calendar2-x-fill"></i> &nbsp; Fecha de finalización </th>
+                            <td mat-cell *matCellDef="let element">
+                              <input
+                                class="form-control"
+                                type="text"
+                                mwlFlatpickr
+                                id="inputFechaIn"
+                                name="fechIn"
+                                #fechIn="ngModel"
+                                [(ngModel)]="element.end"
+                                (ngModelChange)="refresh.next()"
+                                [altInput]="true"
+                                [convertModelValue]="true"
+                                [enableTime]="true"
+                                dateFormat="Y-m-dTH:i"
+                                altFormat="F j, Y H:i"
+                                placeholder="Seleccione la fecha de inicio"
+                                disabled
+                            />
+                            </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="acciones">
+                            <th mat-header-cell *matHeaderCellDef>  </th>
+                            <td mat-cell *matCellDef="let element" style="text-align:right;">
+
+                                <div  class="dropdown">
+                                  <button  class="btn btn-light btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-three-dots-vertical"> </i>
+                                  </button>
+                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item"
+                                      data-bs-toggle="modal" data-bs-target="#mVerReunion" (click)="obtenerReunion(element._id)"><i class="bi bi-search"></i> | Ver más</a></li>
+                                    <li><a  class="dropdown-item"
+                                      data-bs-toggle="modal" data-bs-target="#mEditarReunion" (click)="obtenerReunion(element._id)"><i style="color:orange" class="bi bi-pencil-square"></i> | Editar</a></li>
+                                    <li><a  *ngIf="element.estado!='Confirmada'" class="dropdown-item"
+                                      data-bs-toggle="modal" data-bs-target="#mDesactivarUsuario" (click)="obtenerReunion(element._id)"> <i style="color:green" class="bi bi-check2-circle"></i> | Confirmar</a></li>
+                                    <li><a *ngIf="element.estado!='Rechazada'" class="dropdown-item"
+                                      data-bs-toggle="modal" data-bs-target="#mRechazarReunion"(click)="obtenerReunion(element._id)"><i style="color:red"class="bi bi-x-circle"></i> | Rechazar</a></li>
+                                    <li><a  *ngIf="element.estado!='Pendiente'" class="dropdown-item"
+                                      data-bs-toggle="modal" data-bs-target="#mPendienteReunion" (click)="obtenerReunion(element._id)"><i class="bi bi-clock-history"></i> | Poner en Pendiente</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                          </ng-container>
+                          <tr mat-header-row *matHeaderRowDef="displayedColumnsR"></tr>
+                          <tr mat-row *matRowDef="let row; columns: displayedColumnsR;"></tr>
+                        </table>
+                        <!-- Paginación
+                       <mat-paginator  [pageSizeOptions]="[5, 10, 25,50,100]" showFirstLastButtons ></mat-paginator>-->
+                      </div>
+                    </mat-tab>
+
+                     <!-- Tab para ver todas las reuniones pendientes -->
+                    <mat-tab>
+                      <ng-template mat-tab-label>
+                        <mat-icon class="example-tab-icon">query_builder</mat-icon>
+                      </ng-template>
+                      <!-- Filtro -->
+                      <mat-form-field appearance="standard">
+                        <mat-label >Escribe algo para filtrar...</mat-label>
+                        <input matInput (keyup)="applyFilterP($event)" placeholder="Ejemplo: Reunión" #input autocomplete="off">
+                      </mat-form-field>
+                      <!-- Tabla -->
+                      <div class="mat-elevation-z8">
+                        <table  align="center" mat-table [dataSource]="dataSourceReunionesP" matSort > <!-- matSort -->
+
+                          <ng-container matColumnDef="descripcion">
+                            <th mat-header-cell *matHeaderCellDef> <i class="bi bi-list-nested"></i> &nbsp; Descripción </th>
+                            <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="estado">
+                            <th mat-header-cell *matHeaderCellDef> Estado </th>
+                            <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="cantidadAsist">
+                            <th mat-header-cell *matHeaderCellDef><i class="bi bi-people-fill"></i> </th>
+                            <td mat-cell *matCellDef="let element"> {{element.cantidadAsist}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="start">
+                            <th mat-header-cell *matHeaderCellDef> <i class="bi bi-calendar2-check-fill"></i> &nbsp; Fecha de Inicio </th>
+                            <td mat-cell *matCellDef="let element">
+                              <input
+                                class="form-control"
+                                type="text"
+                                mwlFlatpickr
+                                id="inputFechaFn"
+                                name="fechFnd"
+                                #fechFnd="ngModel"
+                                [(ngModel)]="element.start"
+                                (ngModelChange)="refresh.next()"
+                                [altInput]="true"
+                                [convertModelValue]="true"
+                                [enableTime]="true"
+                                dateFormat="Y-m-dTH:i"
+                                altFormat="F j, Y H:i"
+                                placeholder="Seleccione la fecha de inicio"
+                                disabled
+                            />
+                            </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="end">
+                            <th mat-header-cell *matHeaderCellDef><i class="bi bi-calendar2-x-fill"></i> &nbsp; Fecha de finalización </th>
+                            <td mat-cell *matCellDef="let element">
+                              <input
+                                class="form-control"
+                                type="text"
+                                mwlFlatpickr
+                                id="inputFechaIn"
+                                name="fechIn"
+                                #fechIn="ngModel"
+                                [(ngModel)]="element.end"
+                                (ngModelChange)="refresh.next()"
+                                [altInput]="true"
+                                [convertModelValue]="true"
+                                [enableTime]="true"
+                                dateFormat="Y-m-dTH:i"
+                                altFormat="F j, Y H:i"
+                                placeholder="Seleccione la fecha de inicio"
+                                disabled
+                            />
+                            </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="acciones">
+                            <th mat-header-cell *matHeaderCellDef>  </th>
+                            <td mat-cell *matCellDef="let element" style="text-align:right;">
+
+                                <div  class="dropdown">
+                                  <button  class="btn btn-light btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-three-dots-vertical"> </i>
+                                  </button>
+                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item"
+                                      data-bs-toggle="modal" data-bs-target="#mVerReunion" (click)="obtenerReunion(element._id)"><i class="bi bi-search"></i> | Ver más</a></li>
+                                    <li><a  class="dropdown-item"
+                                      data-bs-toggle="modal" data-bs-target="#mEditarReunion" (click)="obtenerReunion(element._id)"><i style="color:orange" class="bi bi-pencil-square"></i> | Editar</a></li>
+                                    <li><a  *ngIf="element.estado!='Confirmada'" class="dropdown-item"
+                                      data-bs-toggle="modal" data-bs-target="#mDesactivarUsuario" (click)="obtenerReunion(element._id)"> <i style="color:green" class="bi bi-check2-circle"></i> | Confirmar</a></li>
+                                    <li><a *ngIf="element.estado!='Rechazada'" class="dropdown-item"
+                                      data-bs-toggle="modal" data-bs-target="#mRechazarReunion"(click)="obtenerReunion(element._id)"><i style="color:red"class="bi bi-x-circle"></i> | Rechazar</a></li>
+                                    <li><a  *ngIf="element.estado!='Pendiente'" class="dropdown-item"
+                                      data-bs-toggle="modal" data-bs-target="#mPendienteReunion" (click)="obtenerReunion(element._id)"><i class="bi bi-clock-history"></i> | Poner en Pendiente</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                          </ng-container>
+                          <tr mat-header-row *matHeaderRowDef="displayedColumnsP"></tr>
+                          <tr mat-row *matRowDef="let row; columns: displayedColumnsP;"></tr>
+                        </table>
+                        <!-- Paginación
+                       <mat-paginator  [pageSizeOptions]="[5, 10, 25,50,100]" showFirstLastButtons ></mat-paginator>-->
+                      </div>
+                    </mat-tab>
+
                   </mat-tab-group>
                 </div><br>
               </div>
@@ -656,6 +975,45 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> Cerrar</button>
         <button type="button" class="btn btn-success" (click)="editarSolicitud()"><i class="bi bi-save"></i> Guardar cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Rechazar Reunion -->
+<div class="modal fade" id="mRechazarReunion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirmación de Rechazo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Esta seguro de que desea rechazar la solicitud de reunión a nombre de "{{idReunionModel.nombre}}"?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"
+        (click)="cancelarSolicitud(idReunionModel._id)">Si, rechazar <i class="bi bi-x-circle"></i> </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Pendiente Reunion -->
+<div class="modal fade" id="mPendienteReunion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirmación de Pendiente</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Esta seguro de que desea poner en pendiente la solicitud de reunión a nombre de "{{idReunionModel.nombre}}"?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"
+        (click)="pendienteSolicitud(idReunionModel._id)">Si, poner en pendiente <i class="bi bi-clock-history"></i> </button>
       </div>
     </div>
   </div>

@@ -25,6 +25,18 @@ export class ReunionService {
     return this._http.get(this.url + '/obtenerReunionesT', {headers: this.headersVariable});
   }
 
+  obtenerReunionesC(): Observable<any>{
+    return this._http.get(this.url + '/obtenerReunionesC', {headers: this.headersVariable});
+  }
+
+  obtenerReunionesR(): Observable<any>{
+    return this._http.get(this.url + '/obtenerReunionesR', {headers: this.headersVariable});
+  }
+
+  obtenerReunionesP(): Observable<any>{
+    return this._http.get(this.url + '/obtenerReunionesP', {headers: this.headersVariable});
+  }
+
   obtenerReuniones(token): Observable<any> {
     let headersToken = this.headersVariable.set('Authorization', token);
 
@@ -69,6 +81,11 @@ export class ReunionService {
   cancelarSolicitud(id:String):Observable<any>{
     let headersToken = this.headersVariable.set('Authorization', this.getToken())
     return this._http.put(this.url + '/cancelarSolicitud/' + id, {headers: headersToken})
+  }
+
+  pendienteSolicitud(id:String):Observable<any>{
+    let headersToken = this.headersVariable.set('Authorization', this.getToken())
+    return this._http.put(this.url + '/pendienteSolicitud/' + id, {headers: headersToken})
   }
 
   getIdentidad(){

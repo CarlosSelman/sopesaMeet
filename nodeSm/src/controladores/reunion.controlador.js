@@ -40,6 +40,28 @@ function obtenerReunionesT(req,res){
             return res.status(200).send(reunionesEncontradas);
     })
 }
+
+function obtenerReunionesC(req,res){
+    reunionModelo.find({estado: confirmada},(err,reunionesEncontradas)=>{
+        if(err) return res.status(404).send({report: 'Error al encontrar las reuniones'});
+        return res.status(200).send(reunionesEncontradas);
+    })
+}
+
+function obtenerReunionesP(req,res){
+    reunionModelo.find({estado: pendiente},(err,reunionesEncontradas)=>{
+        if(err) return res.status(404).send({report: 'Error al encontrar las reuniones'});
+        return res.status(200).send(reunionesEncontradas);
+    })
+}
+
+function obtenerReunionesR(req,res){
+    reunionModelo.find({estado: rechazada},(err,reunionesEncontradas)=>{
+        if(err) return res.status(404).send({report: 'Error al encontrar las reuniones'});
+        return res.status(200).send(reunionesEncontradas);
+    })
+}
+
 function crearReunion(req,res){
     var reunionModelo = new Reunion();
     var params = req.body;
@@ -115,6 +137,49 @@ function confirmarSolicitud(req, res){
     })
 }
 
+/*
+function confirmarSolicitud(req,res) {
+
+    var idReunion = req.params.idReunion;
+    var estado = req.params.estado;
+    var reunionModelo = new Reunion();
+    reunionModelo.estado = confirmada;
+    
+    var idSala = req.params.idSala;
+    var params = req.body;
+
+    var reunionModelo= new Reunion();
+
+        let start = new Date(params.start);
+        let end = new Date(params.end);
+        let contador=0;
+
+        reunionModelo.start = start;
+        reunionModelo.end = end;
+        reunionModelo.idSala = idSala;
+     
+        Reunion.find({idSala: idSala},(err, reunionEncontrada)=>{
+            for (let i = 0; i < reunionEncontrada.length; i++) {
+                if(
+                    start.getTime()>reunionEncontrada[i].start.getTime() && start.getTime()> reunionEncontrada[i].end.getTime() ||
+                    start.getTime()< reunionEncontrada[i].start.getTime() && end.getTime()< reunionEncontrada[i].end.getTime()
+                ){  
+                contador++;
+                }        
+            }
+
+        if(contador== reunionEncontrada.length){                    
+            Reunion.findByIdAndUpdate(idReunion, {estado: confirmada}, { new: true }, (err, solicitudConfirmada)=>{
+                if(err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+                if(!solicitudConfirmada) return res.status(500).send({ mensaje: 'No se ha podido cancelar la solicitud de reunión.' });
+                return res.status(200).send({ solicitudConfirmada });
+            })
+        }else{
+            return res.status(500).send({mensaje: 'Hay interferencia con ese horario'})
+        }
+    })
+}
+*/
 function cancelarSolicitud(req, res){
     var idReunion = req.params.idReunion;
     var estado = req.params.estado;
@@ -125,6 +190,19 @@ function cancelarSolicitud(req, res){
         if(err) return res.status(500).send({ mensaje: 'Error en la peticion' });
         if(!solicitudCancelada) return res.status(500).send({ mensaje: 'No se ha podido cancelar la solicitud de reunión.' });
         return res.status(200).send({ solicitudCancelada });
+    })
+}
+
+function pendienteSolicitud(req, res){
+    var idReunion = req.params.idReunion;
+    var estado = req.params.estado;
+    var reunionModelo = new Reunion();
+    reunionModelo.estado = pendiente;
+
+    Reunion.findByIdAndUpdate(idReunion, {estado: pendiente}, { new: true }, (err, solicitudPendiente)=>{
+        if(err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+        if(!solicitudPendiente) return res.status(500).send({ mensaje: 'No se ha podido poner en pendiente la solicitud de reunión.' });
+        return res.status(200).send({ solicitudPendiente });
     })
 }
 
@@ -164,5 +242,9 @@ module.exports = {
     editarSolicitud,
     obtenerReunionesSala,
     obtenerReunionesUsuario,
-    obtenerReunionesT
+    obtenerReunionesT,
+    obtenerReunionesC,
+    obtenerReunionesP,
+    obtenerReunionesR,
+    pendienteSolicitud
 }
