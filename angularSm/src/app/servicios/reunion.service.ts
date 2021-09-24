@@ -25,6 +25,10 @@ export class ReunionService {
     return this._http.get(this.url + '/obtenerReunionesT', {headers: this.headersVariable});
   }
 
+  obtenerReunionesG(): Observable<any>{
+    return this._http.get(this.url + '/obtenerReunionesT', {headers: this.headersVariable});
+  }
+
   obtenerReunionesC(): Observable<any>{
     return this._http.get(this.url + '/obtenerReunionesC', {headers: this.headersVariable});
   }

@@ -202,6 +202,30 @@ body {
     border-bottom-left-radius: 8px;
 }
 
+table {
+  width: 100%;
+  //margin-top: 40px;
+ // margin-bottom: 40px;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+/*
+th{
+  width: 18%;
+}
+*/
+.pointer{
+  cursor: pointer;
+}
+
+.container{
+  //margin-left: 100px;
+  //margin-right: 100px;
+  margin-top: 5px;
+}
 /* adactacion a dispositivos */
 @media (max-width: 750px) {
     .seccion-perfil-usuario .lista-datos {

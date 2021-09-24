@@ -48,6 +48,8 @@ const colors: any = {
 
 export class ReunionComponent implements OnInit, AfterViewInit{
 
+  //DECLARACIÓN DE VARIABLES PARA DIVERSOS USOS
+
   public identidad;
   public token;
   public salas;
@@ -64,69 +66,76 @@ export class ReunionComponent implements OnInit, AfterViewInit{
 
   public reuniones;
   public todayDate;
-
-
-  //Lo de la sección de la tabla
-
   public reunionesT;
 
+    //ViewChild DE LA PAGINACIÓN Y DEL SORT DE LA TABLA CON TODOS LOS DATOS
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
-
-    displayedColumns: string[] = ['descripcion','estado','cantidadAsist','start','end','acciones'];
+    //VARIABLES QUE INSTANCIAS PARA LOS DATOS DE LAS TABLAS
     dataSourceReuniones = new MatTableDataSource<any[]>();
-    displayedColumnsC: string[] = ['descripcion','estado','cantidadAsist','start','end','acciones'];
     dataSourceReunionesC = new MatTableDataSource<any[]>();
-    displayedColumnsP: string[] = ['descripcion','estado','cantidadAsist','start','end','acciones'];
     dataSourceReunionesP = new MatTableDataSource<any[]>();
-    displayedColumnsR: string[] = ['descripcion','estado','cantidadAsist','start','end','acciones'];
     dataSourceReunionesR = new MatTableDataSource<any[]>();
+    //VARIABLES QUE TRAEN LAS COLUMNAS DE CADA TABLA
+    displayedColumns: string[] = ['descripcion','estado','cantidadAsist','start','end','acciones'];
+    displayedColumnsC: string[] = ['descripcion','estado','cantidadAsist','start','end','acciones'];
+    displayedColumnsP: string[] = ['descripcion','estado','cantidadAsist','start','end','acciones'];
+    displayedColumnsR: string[] = ['descripcion','estado','cantidadAsist','start','end','acciones'];
 
   constructor(
 
+    //CREANDO UNA VARIABLE PARA NgbModal
     private modal: NgbModal,
-
+    //SERVICIOS
     public _usuarioService: UsuarioService,
     public _reunionService: ReunionService,
     public _salaService: SalaService,
     public _tipoSalaService:TipoSalaService
-
     ) {
 
+    //OBTENIENDO IDENTIDAD Y TOKEN
     this.identidad = this._usuarioService.getIdentidad();
     this.token = this._usuarioService.getToken();
-
+    //INSTANCIANDO LOS DATOS DE LA DB DE REUNIÓN CON LAS VARIABLES
     this.reunionesModelAdd = new Reunion("","","","","","","",{usuario:""},{nombre:""},"");
     this.reunionesModelGetId = new Reunion("","","","","","","",{usuario:""},{nombre:""},"");
     this.idReunionModel = new Reunion("","","","","","","",{usuario:""},{nombre:""},"");
-
+    //INSTANCIANDO LOS DATOS DE LA DB DE SALA CON LAS VARIABLES
     this.salasModelGetId = new Sala("","","","","","","","","");
     this.salasModelAdd = new Sala("","","","","","","","","");
     this.idSalaModel = new Sala("","","","","","","","","");
-
+    //VARIABLE OBTENIENDO LA FECHA ACTUAL PARA VALIUDACIÓN EN PARTE DEL CRUD
     this.todayDate = new Date();
-
+    //DECLARANDO QUE LAS VARIABLES OBTIENEN DATOS DEL SERVICIO
     this._reunionService.obtenerReunionesT().subscribe ( reunionesT => {
       this.dataSourceReuniones.data = reunionesT;
     })
-
     this._reunionService.obtenerReunionesC().subscribe ( reunionesT => {
       this.dataSourceReunionesC.data = reunionesT;
     })
-
     this._reunionService.obtenerReunionesR().subscribe ( reunionesT => {
       this.dataSourceReunionesR.data = reunionesT;
     })
-
     this._reunionService.obtenerReunionesP().subscribe ( reunionesT => {
       this.dataSourceReunionesP.data = reunionesT;
     })
 /*
-    this._reunionService.obtenerReuniones(this.token).subscribe ( reuniones => {
+    this._reunionService.obtenerReunionesG().subscribe ( reuniones => {
       this.events = reuniones;
     })
 */
+  }
 
+  obtenerReunionesG(){
+    this._reunionService.obtenerReunionesG().subscribe(
+      response => {
+         this.events = response.reunionesEncontradas;
+         console.log(response)
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
   }
 
   obtenerReunionesT(){
@@ -203,11 +212,9 @@ export class ReunionComponent implements OnInit, AfterViewInit{
     )
   }
 
-  ngAfterViewInit() {
-      this.dataSourceReuniones.sort = this.sort;
-      this.dataSourceReuniones.paginator = this.paginator;
-  }
 
+
+  //FILTROS DE LAS TABLAS
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSourceReuniones.filter = filterValue.trim().toLowerCase();
@@ -228,6 +235,7 @@ export class ReunionComponent implements OnInit, AfterViewInit{
     this.dataSourceReunionesP.filter = filterValue.trim().toLowerCase();
   }
 
+  //FUNCIONES
   obtenerReunion(idReunion:String){
     this._reunionService.obtenerReunion(idReunion).subscribe(
       response=>{
@@ -458,13 +466,8 @@ export class ReunionComponent implements OnInit, AfterViewInit{
     )
   }
 */
-  ngOnInit(): void {
-    this.obtenerTipoSalas();
-    this.obtenerSalasT();
-    this.obtenerReuniones(); //IMPRIMIENDO DE LA DB
-    console.log(this.events); //IMPRIMIENDO LOS EVENTOS ESTATICOS
-  }
 
+/* SECCIÓN DEL CALENDARIO */
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
   view: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
@@ -495,8 +498,8 @@ export class ReunionComponent implements OnInit, AfterViewInit{
 
   refresh: Subject<any> = new Subject();
 
+  /*
   events: CalendarEvent[] = [
-
     {
       start: subDays(startOfDay(new Date()), 1),
       end: addDays(new Date(), 1),
@@ -536,9 +539,9 @@ export class ReunionComponent implements OnInit, AfterViewInit{
       draggable: true,
     },
   ];
+*/
 
-
-  /*events: CalendarEvent[] = [];*/
+  events: CalendarEvent[] = [];
 
   activeDayIsOpen: boolean = true;
 
@@ -574,7 +577,7 @@ export class ReunionComponent implements OnInit, AfterViewInit{
     this.handleEvent('Dropped or resized', event);
   }
 
-  handleEvent(action: string, event: CalendarEvent): void {
+   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action };
     this.modal.open(this.modalContent, { size: 'lg' });
   }
@@ -608,6 +611,19 @@ export class ReunionComponent implements OnInit, AfterViewInit{
     this.activeDayIsOpen = false;
   }
 
+//OnInit y AfterViewInit
+
+  ngOnInit(): void {
+    this.obtenerTipoSalas();
+    this.obtenerSalasT();
+    this.obtenerReuniones(); //IMPRIMIENDO DE LA DB
+    console.log(this.events); //IMPRIMIENDO LOS EVENTOS ESTATICOS
+  }
+
+  ngAfterViewInit() {
+      this.dataSourceReuniones.sort = this.sort;
+      this.dataSourceReuniones.paginator = this.paginator;
+  }
 }
 
 

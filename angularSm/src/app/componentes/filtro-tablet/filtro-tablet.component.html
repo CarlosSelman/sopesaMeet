@@ -9,35 +9,104 @@
 </head>
 
 <body>
-  <div class="login-form" style="background-color:#96999b">
-    <div class = "container">
-      <div class = "main">
-        <div class = "content">
-          <div class="card-body">
-            <h5 class="card-title">Filtrado por sala</h5>
-            <br>
-            <p class="card-text">Selecciona una de las salas que se mostrarán a continuación, para poder acceder a las reuniones solo de la sala seleccionada.</p>
 
-            <div id="emailHelp" class="form-text"><i class="bi bi-exclamation-circle-fill"></i> Es necesario que selecciones una sala para que puedas seguir...</div>
-            <select  name="tipoDeSala" #tipoDeSala="ngModel"
-            [(ngModel)]="idSalaModel" class="form-select" aria-label="Default select example">
-              <option *ngFor="let tpsl of salasModelGet" [ngValue]="tpsl">{{tpsl.nombre}}</option>
-            </select>
-            <br>
-            <p class="card-text">Luego de haber seleccionado una sala, presiona en el botón que se encuentra a continuación para poder ir a ver los eventos de la sala seleccionada.</p>
-            <div class="d-grid gap-2">
-              <button class="btn btn-outline-danger" type="button">Ir a ver más...</button>
+  <form>
+    <div class="login-form" style="background-color:#96999b">
+      <div class = "container">
+        <div class = "main">
+          <div class = "content">
+            <div class="card-body">
+              <form>
+                <h5 class="card-title">Filtrado por sala</h5>
+                <br>
+                <p class="card-text">Selecciona una de las salas que se mostrarán a continuación, para poder acceder a las reuniones solo de la sala seleccionada.</p>
+                <!--
+                <select  name="tipoDeSala" #tipoDeSala="ngModel"
+                  [(ngModel)]="idSalaModel" class="form-select" aria-label="Default select example">
+                  <option *ngFor="let tpsl of salasModelGet" [ngValue]="tpsl">{{tpsl.nombre}}</option>
+                </select>
+                -->
+                <div id="emailHelp" class="form-text"><i class="bi bi-exclamation-circle-fill"></i> Es necesario que selecciones una sala para que puedas seguir...</div>
+                <br>
+                <div class="d-grid gap-2">
+                  <mat-form-field>
+                    <mat-label>Seleccione una sala</mat-label>
+
+                    <mat-select  name="tipoDeSala" #tipoDeSala="ngModel"
+                    [(ngModel)]="idSalaModel">
+                      <mat-option *ngFor="let tpsl of salasModelGet" [value]="tpsl">
+                        {{tpsl.nombre}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                </div>
+                  <p class="card-text">Luego de haber seleccionado una sala, presiona en el botón que se encuentra a continuación para poder ir a ver los eventos de la sala seleccionada.</p>
+                <div class="d-grid gap-2">
+                  <!-- <button type="submit"[disabled]="form.invalid" mat-flat-button color="warn" [routerLink]="['/controlTablet', idSalaModel._id]">Ir a ver más...</button>-->
+                  <button mat-flat-button color="warn" [routerLink]="['/controlTablet', idSalaModel._id]">Ir a ver más...</button>
+                </div>
+                    <!--
+                <div class="d-grid gap-2">
+                  <button class="btn btn-outline-danger" [routerLink]="['/controlTablet', idSalaModel._id]" type="button">Ir a ver más...</button>
+                </div>
+                -->
+                <hr>
+                <div id="emailHelp" class="form-text"><strong><i class="bi bi-question-circle-fill"></i> Si no te aparece ninguna sala, favor de comunicarte con el área de Informática.</strong></div>
+              </form>
             </div>
-            <hr>
-            <div id="emailHelp" class="form-text"><strong><i class="bi bi-question-circle-fill"></i> Si no te aparece ninguna sala, favor de comunicarte con el área de Informática.</strong></div>
           </div>
-        </div>
-        <div class="form-img">
-          <img src="../../../assets/imgFiltroSala.png">
+          <div class="form-img">
+            <img src="../../../assets/imgFiltroSala.png">
+          </div>
         </div>
       </div>
     </div>
-  </div>
+</form>
+
+
+
+<!--
+          <mat-card>
+             <br>
+            <form>
+              <mat-grid-list cols="4" rowHeight="70px">
+                <mat-grid-tile [colspan]="2" [rowspan]="1">
+                  <mat-label class="ancho">
+                    Selecciona una de las salas que se mostrarán a continuación, para poder acceder a las reuniones solo de la sala seleccionada.
+                  </mat-label>
+                     </mat-grid-tile>
+                <mat-grid-tile [colspan]="2" [rowspan]="6">
+                  <img src="../../../assets/imgFiltroSala.png">
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="2" [rowspan]="1">
+                  <div id="emailHelp" class="form-text"><i class="bi bi-exclamation-circle-fill"></i> Es necesario que selecciones una sala para que puedas seguir...</div>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="2" [rowspan]="1" [style.background]="'lightblue'">
+                  <h4>Basic mat-select</h4>
+                    <mat-form-field appearance="fill">
+                      <mat-label>Favorite food</mat-label>
+                      <mat-select>
+                        <mat-option *ngFor="let tpsl of salasModelGet" [value]="tpsl">
+                          {{tpsl.nombre}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="2" [rowspan]="1">
+                  <p class="card-text">Luego de haber seleccionado una sala, presiona en el botón que se encuentra a continuación para poder ir a ver los eventos de la sala seleccionada.</p>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="2" [rowspan]="1" [style.background]="'lightblue'">
+
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="2" [rowspan]="1">
+                  <div id="emailHelp" class="form-text"><i class="bi bi-question-circle-fill"></i> Si no te aparece ninguna sala, favor de comunicarte con el área de Informática.</div>
+                </mat-grid-tile>
+              </mat-grid-list>
+            </form>
+          </mat-card>
+          <br>
+ -->
     <div class="footer">
       <div class="footer-content">
         <div class="footer-section links">

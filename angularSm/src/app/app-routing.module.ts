@@ -18,6 +18,7 @@ import { FiltroTabletComponent } from './componentes/filtro-tablet/filtro-tablet
 //Otras importaciones
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ControlTabletComponent } from './componentes/control-tablet/control-tablet.component';
 
 //Diferentes rutas a las que se puede navegar
 const routes: Routes = [
@@ -25,7 +26,7 @@ const routes: Routes = [
   { path: 'inicio', component: InicioComponent},
   { path: 'usuarios', component: UsuarioComponent},
   { path: 'tipoSalas', component: TipoSalaComponent},
-  { path: 'datosPerfil', component: DatosUsuarioComponent},
+  { path: 'datosPerfil/:idResponsable', component: DatosUsuarioComponent},
   { path: 'salas', component: SalaComponent},
   { path: 'salasTipo/:idTipoSala', component: SalasTipoComponent},
   { path: 'salasTipoSuper/:idTipoSala', component: SalasTipoSuperComponent},
@@ -35,6 +36,7 @@ const routes: Routes = [
   { path: 'tipoSalasC', component: TipoSalaCComponent},
   { path: 'crearSala', component: CrearSalaComponent},
   { path: 'filtroTablet', component: FiltroTabletComponent},
+  { path: 'controlTablet/:idSala', component: ControlTabletComponent},
   { path: '**', component: ErrorNoExisteComponent} //Ruta que me redirige al error 404 si no existe la ruta
 ];
 

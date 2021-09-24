@@ -37,6 +37,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
+import {MatSelectModule} from '@angular/material/select';
+
 import { DetalleSalaComponent } from './componentes/detalle-sala/detalle-sala.component';
 import { SalasTipoComponent } from './componentes/salas-tipo/salas-tipo.component';
 import { SalasTipoSuperComponent } from './componentes/salas-tipo-super/salas-tipo-super.component';
@@ -96,6 +98,7 @@ import { ControlTabletComponent } from './componentes/control-tablet/control-tab
     MatTabsModule,
     MatCardModule,
     MatGridListModule,
+    MatSelectModule,
 
     NgbModalModule,
     FlatpickrModule.forRoot(),

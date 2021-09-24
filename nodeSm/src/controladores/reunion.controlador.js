@@ -123,7 +123,7 @@ function obtenerReunion(req, res) {
         return res.status(200).send({ reunionEncontrada })
     })
 }
-
+/*
 function confirmarSolicitud(req, res){
     var idReunion = req.params.idReunion;
     var estado = req.params.estado;
@@ -137,7 +137,7 @@ function confirmarSolicitud(req, res){
     })
 }
 
-/*
+*/
 function confirmarSolicitud(req,res) {
 
     var idReunion = req.params.idReunion;
@@ -150,36 +150,40 @@ function confirmarSolicitud(req,res) {
 
     var reunionModelo= new Reunion();
 
-        let start = new Date(params.start);
-        let end = new Date(params.end);
         let contador=0;
+        //reunionModelo.idSala = idSala;
+        
+        Reunion.findById(idReunion,(err, reunionEncontrada)=>{
 
-        reunionModelo.start = start;
-        reunionModelo.end = end;
-        reunionModelo.idSala = idSala;
-     
-        Reunion.find({idSala: idSala},(err, reunionEncontrada)=>{
-            for (let i = 0; i < reunionEncontrada.length; i++) {
+            let start = new Date(reunionEncontrada.start);
+            let end = new Date(reunionEncontrada.end);
+            
+            Reunion.find({idSala: idSala},(err, reunionEncontrada)=>{
+                for (let i = 0; i < reunionEncontrada.length; i++) {
+
                 if(
-                    start.getTime()>reunionEncontrada[i].start.getTime() && start.getTime()> reunionEncontrada[i].end.getTime() ||
+                    start.getTime()>reunionEncontrada[i].start.getTime() && end.getTime()> reunionEncontrada[i].end.getTime() ||
                     start.getTime()< reunionEncontrada[i].start.getTime() && end.getTime()< reunionEncontrada[i].end.getTime()
                 ){  
                 contador++;
                 }        
             }
 
-        if(contador== reunionEncontrada.length){                    
-            Reunion.findByIdAndUpdate(idReunion, {estado: confirmada}, { new: true }, (err, solicitudConfirmada)=>{
-                if(err) return res.status(500).send({ mensaje: 'Error en la peticion' });
-                if(!solicitudConfirmada) return res.status(500).send({ mensaje: 'No se ha podido cancelar la solicitud de reunión.' });
-                return res.status(200).send({ solicitudConfirmada });
+            if(contador== reunionEncontrada.length){                    
+                Reunion.findByIdAndUpdate(idReunion, {estado: confirmada}, { new: true }, (err, solicitudConfirmada)=>{
+                    if(err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+                    if(!solicitudConfirmada) return res.status(500).send({ mensaje: 'No se ha podido cancelar la solicitud de reunión.' });
+                    return res.status(200).send({ solicitudConfirmada });
+                })
+            }else{
+                return res.status(500).send({mensaje: 'Hay interferencia con ese horario'})
+            }
             })
-        }else{
-            return res.status(500).send({mensaje: 'Hay interferencia con ese horario'})
-        }
+
+           
     })
 }
-*/
+
 function cancelarSolicitud(req, res){
     var idReunion = req.params.idReunion;
     var estado = req.params.estado;
@@ -218,7 +222,8 @@ function editarSolicitud(req, res) {
 }
 
 function obtenerReunionesSala(req, res){
-  Reunion.find({idSala : idSala},(err, reunionesObtenidas)=>{
+    var idSala = req.params.idSala;
+    Reunion.find({idSala : idSala},(err, reunionesObtenidas)=>{
         if(err) return res.status(500).send({ mensaje: 'Error en la peticion' });
         if(!reunionesObtenidas) return res.status(500).send({ mensaje: 'No se han podido traer las reuniones' });
         return res.status(200).send({ reunionesObtenidas });
@@ -226,6 +231,7 @@ function obtenerReunionesSala(req, res){
 }
 
 function obtenerReunionesUsuario(req, res){
+    var idResponsable = req.params.idResponsable
     Reunion.find({idResponsable : idResponsable},(err, reunionesObtenidas)=>{
           if(err) return res.status(500).send({ mensaje: 'Error en la peticion' });
           if(!reunionesObtenidas) return res.status(500).send({ mensaje: 'No se han podido traer las reuniones del usuario.' });

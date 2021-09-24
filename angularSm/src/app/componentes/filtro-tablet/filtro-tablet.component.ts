@@ -4,6 +4,7 @@ import { Sala } from 'src/app/modelos/sala.modelo';
 import { SalaService } from 'src/app/servicios/sala.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { TipoSalaService } from 'src/app/servicios/tipoSala.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 declare var $: any;
 
@@ -14,6 +15,7 @@ declare var $: any;
 })
 export class FiltroTabletComponent implements OnInit {
 
+  form: FormGroup;
   public identidad;
   public token;
   public tipos;
@@ -23,7 +25,7 @@ export class FiltroTabletComponent implements OnInit {
   public idSalaModel: Sala;
 
   constructor(
-
+    private fb: FormBuilder,
     public _salaService: SalaService,
     public _usuarioService: UsuarioService,
     public _tipoSalaService:TipoSalaService,
@@ -36,6 +38,12 @@ export class FiltroTabletComponent implements OnInit {
     this.salasModelGetId = new Sala("","","","","","","","","");
     this.salasModelAdd = new Sala("","","","","","","","","");
     this.idSalaModel = new Sala("","","","","","","","","");
+
+    /*
+    this.form=this.fb.group({
+      tipoDeSala: ['',Validators.required]
+      })
+    */
    }
 
   ngOnInit(): void {

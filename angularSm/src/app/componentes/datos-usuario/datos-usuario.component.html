@@ -25,7 +25,7 @@
                 </button>
             </div>
         </div>
-        <div class="perfil-usuario-body">
+        <div  class="perfil-usuario-body">
             <div class="perfil-usuario-bio">
                 <h3 class="titulo">{{identidad.usuario}}</h3>
                 <!--<p class="texto">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -45,37 +45,117 @@
                   <li><i class="bi bi-arrow-return-right"></i> {{identidad.tel}}</li>
               </ul>
             </div>
+            <!--
             <div class="perfil-usuario-bioD">
               <h3 class="titulo">Solicitud de reuniones</h3>
-              <!--<p class="texto">Presiona en "V</p>-->
+              <p class="texto">Presiona en "V</p>
           </div>
-            <div class="lista-reuniones">
-              <div class="row justify-content-md-center ">
-                <div class="col col-lg-11">
-                  <table class="table table-striped table-hover">
-                    <thead class="table-dark">
-                      <tr class="text-center">
-                        <th scope="col">Sala</th>
-                        <th scope="col">Tipo de sala</th>
-                        <th scope="col">Fecha de inicio</th>
-                        <th scope="col">Fecha de fin</th>
-                        <th scope="col">Estado</th>
-                      </tr>
-                    </thead>
-                    <tbody class="text-center">
-                      <tr>
-                        <td>C1 4AS</td>
-                        <td>SUM</td>
-                        <td>13-09-02</td>
-                        <td>13-10-02</td>
-                        <td>PENDIENTE</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+          -->
+        <!--<div class="container">-->
+              <!-- Filtro
+                <mat-form-field appearance="standard">
+                  <mat-label >Escribe algo para filtrar...</mat-label>
+                  <input matInput (keyup)="applyFilter($event)" placeholder="Ejemplo: Reunión" #input autocomplete="off">
+                </mat-form-field>-->
+        <!-- Tabla
+        <div class="mat-elevation-z8">
+          <table align="center" mat-table [dataSource]="dataSource" matSort >
 
-                </div>
+            <ng-container matColumnDef="descripcion">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <i class="bi bi-list-nested"></i> &nbsp; Descripción </th>
+              <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="estado">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+              <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="cantidadAsist">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header><i class="bi bi-people-fill"></i> </th>
+              <td mat-cell *matCellDef="let element"> {{element.cantidadAsist}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="start">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <i class="bi bi-calendar2-check-fill"></i> &nbsp; Fecha de Inicio </th>
+              <td mat-cell *matCellDef="let element">
+                <input
+                  class="form-control"
+                  type="text"
+                  mwlFlatpickr
+                  id="inputFechaFn"
+                  name="fechFnd"
+                  #fechFnd="ngModel"
+                  [(ngModel)]="element.start"
+
+                  [altInput]="true"
+                  [convertModelValue]="true"
+                  [enableTime]="true"
+                  dateFormat="Y-m-dTH:i"
+                  altFormat="F j, Y H:i"
+                  placeholder="Seleccione la fecha de inicio"
+                  disabled
+              />
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="end">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header><i class="bi bi-calendar2-x-fill"></i> &nbsp; Fecha de finalización </th>
+              <td mat-cell *matCellDef="let element">
+                <input
+                  class="form-control"
+                  type="text"
+                  mwlFlatpickr
+                  id="inputFechaIn"
+                  name="fechIn"
+                  #fechIn="ngModel"
+                  [(ngModel)]="element.end"
+
+                  [altInput]="true"
+                  [convertModelValue]="true"
+                  [enableTime]="true"
+                  dateFormat="Y-m-dTH:i"
+                  altFormat="F j, Y H:i"
+                  placeholder="Seleccione la fecha de inicio"
+                  disabled
+              />
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="acciones">
+              <th mat-header-cell *matHeaderCellDef>  </th>
+              <td mat-cell *matCellDef="let element" style="text-align:right;">
+
+                  <div  class="dropdown">
+                    <button  class="btn btn-light btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="bi bi-three-dots-vertical"> </i>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li><a class="dropdown-item"
+                        data-bs-toggle="modal" data-bs-target="#mVerReunion"><i class="bi bi-search"></i> | Ver más</a></li>
+                      <li><a  class="dropdown-item"
+                        data-bs-toggle="modal" data-bs-target="#mEditarReunion" ><i style="color:orange" class="bi bi-pencil-square"></i> | Editar</a></li>
+                      <li><a  *ngIf="element.estado!='Confirmada'" class="dropdown-item"
+                        data-bs-toggle="modal" data-bs-target="#mDesactivarUsuario" > <i style="color:green" class="bi bi-check2-circle"></i> | Confirmar</a></li>
+                      <li><a *ngIf="element.estado!='Rechazada'" class="dropdown-item"
+                        data-bs-toggle="modal" data-bs-target="#mRechazarReunion"><i style="color:red"class="bi bi-x-circle"></i> | Rechazar</a></li>
+                      <li><a  *ngIf="element.estado!='Pendiente'" class="dropdown-item"
+                        data-bs-toggle="modal" data-bs-target="#mPendienteReunion"><i class="bi bi-clock-history"></i> | Poner en Pendiente</a></li>
+                      </ul>
+                  </div>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+
+         <mat-paginator  [pageSizeOptions]="[5, 10, 25,50,100]" showFirstLastButtons ></mat-paginator>
+        </div>
+
+
               </div>
+            -->
             <div class="redes-sociales">
               <a style="color:black" href="https://goo.gl/maps/82xybT4hZ7L6cGaAA" class="boton-redes"><i class="bi bi-geo-alt-fill"></i></a>
                 <a href="https://www.linkedin.com/company/sopesagt" class="boton-redes"><i class="bi bi-linkedin"></i></a>

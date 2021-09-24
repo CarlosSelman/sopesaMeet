@@ -54,7 +54,7 @@
     <hr>
     <div class="offcanvas-footer">
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="offcanvas" aria-label="Close" [routerLink]="['/datosPerfil']">Ver perfil</button>
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="offcanvas" aria-label="Close" [routerLink]="['/datosPerfil', identidad._id]">Ver perfil</button>
         <button type="button" class="btn btn-outline-danger" data-bs-dismiss="offcanvas" aria-label="Close" (click)="cerrarSesion()">Cerrar sesión</button>
       </div>
     </div>
