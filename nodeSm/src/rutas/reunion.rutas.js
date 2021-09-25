@@ -23,5 +23,6 @@ var api = express.Router();
     api.put('/editarSolicitud/:idReunion', authenticated.ensureAuth, reunionControlador.editarSolicitud);
     api.get('/obtenerReunionesSala/:idSala', reunionControlador.obtenerReunionesSala);
     api.get('/obtenerReunionesUsuario/:idResponsable', reunionControlador.obtenerReunionesUsuario);
+    api.put('/asistencia/:idReunion', reunionControlador.asistencia);
     
 module.exports = api; 

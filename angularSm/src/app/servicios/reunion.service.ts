@@ -82,6 +82,10 @@ export class ReunionService {
     return this._http.put(this.url + '/confirmarSolicitud/' + id, {headers: headersToken})
   }
 
+  asistencia(id:String): Observable<any>{
+    return this._http.get(this.url + '/asistencia/'+ id, {headers: this.headersVariable})
+  }
+
   cancelarSolicitud(id:String):Observable<any>{
     let headersToken = this.headersVariable.set('Authorization', this.getToken())
     return this._http.put(this.url + '/cancelarSolicitud/' + id, {headers: headersToken})

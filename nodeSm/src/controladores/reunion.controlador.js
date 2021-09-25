@@ -14,6 +14,7 @@ const superAdmin = 'SuperAdministrador';
 const confirmada = 'Confirmada';
 const pendiente = 'Pendiente';
 const rechazada = 'Rechazada';
+const asitio = 'Asistida'
 
 function obtenerReuniones(req,res){
     reunionModelo.find().populate('idSala', 'nombre').populate('idResponsable','usuario rol').exec((err, reunionesEncontradas)=>{
@@ -239,6 +240,19 @@ function obtenerReunionesUsuario(req, res){
       })
   }
 
+  function asistencia(req, res){
+    var idReunion = req.params.idReunion;
+    var estado = req.params.estado;
+    var reunionModelo = new Reunion();
+    reunionModelo.estado = asitio;
+
+    Reunion.findByIdAndUpdate(idReunion, {estado: asitio}, { new: true }, (err, solicitudAsistida)=>{
+        if(err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+        if(!solicitudAsistida) return res.status(500).send({ mensaje: 'No se ha podido poner en pendiente la solicitud de reunión.' });
+        return res.status(200).send({ solicitudAsistida });
+    })
+}
+
 module.exports = {
     obtenerReuniones,
     crearReunion,
@@ -252,5 +266,6 @@ module.exports = {
     obtenerReunionesC,
     obtenerReunionesP,
     obtenerReunionesR,
-    pendienteSolicitud
+    pendienteSolicitud,
+    asistencia
 }

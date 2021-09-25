@@ -8,8 +8,8 @@
 </head>
 <body>
   <!-- Sección de la explicación del detalle de la sala -->
-  <div *ngIf="identidad != null" style=" border-radius: 0;"class="card text-center">
-    <div *ngIf="identidad != null" style="background-color:#b71c1c" class="card-body">
+  <div style=" border-radius: 0;"class="card text-center">
+    <div style="background-color:#b71c1c" class="card-body">
       <h5 style="color:white"class="card-title">Reuniones de la Sala "{{salaModel.nombre}}"</h5>
       <p style="color:white" class="card-text">En este apartado podrás encontrar las reuniones de esta sala y demás información.</p>
       <!-- Sección de botones -->
@@ -17,7 +17,7 @@
             <!-- Botón para acceso del usuario -->
         <button type="button" class="btn btn-light" [routerLink]="['/filtroTablet']"><i class="bi bi-arrow-left-circle-fill"></i> Regresar</button> &nbsp;
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="bi bi-info-circle-fill"></i>
+        <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#MverSala"><i class="bi bi-info-circle-fill"></i>
           Ver sala...
         </button>
       </div>
@@ -25,120 +25,579 @@
   </div>
   <br>
 
-  <!-- Sección de la información de la sala -->
-<div  *ngIf="identidad != null" class="login-form" style="background-color: gray">
-  <div class = "container">
-    <div class = "main">
-      <div class = "content">
-        <div class="card-body">
-          <h5 class="card-title">{{salaModel.nombre}}</h5>
-          <br>
-          <strong>Equipo disponible: </strong> <p class="card-text">{{salaModel.equipoDisponible}}</p>
-          <br>
-          <br>
-          <strong>Nivel en el que se encuentra: </strong> {{salaModel.ubicacion}}
-        </div>
-        <br>
-        <div id="emailHelp" class="form-text"><strong><i class="bi bi-exclamation-circle-fill"></i> Ve hacia abajo para ver las reuniones...</strong></div>
-      </div>
-      <div class="form-img">
-        <img src="../../../assets/imgTipoSalaD.jpg">
-      </div>
-    </div>
-  </div>
-  <div class="accordion" id="accordionPanelsStayOpenExample">
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-          Ver imágenes de la sala...
-        </button>
-      </h2>
-      <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
-        <div class="accordion-body">
-          <!-- Sección de las imágenes de la sala -->
-  <div  *ngIf="identidad != null" id="carouselExampleIndicators" class="carousel carousel-dark slide" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-      </div>
-    <div align="center" class="carousel-inner">
-      <div class="carousel-item active">
-          <img class="d-block w-100" alt="..." style="max-width: 80%;max-height:500px; " *ngIf="salaModel.imagenUno == null  " src="/assets/imgTipoSalaD.jpg">
-          <img class="d-block w-100" alt="..." style="max-width: 80%;max-height:500px; " *ngIf="salaModel.imagenUno " [src]="salaModel.imagenUno">
-      </div>
-      <div class="carousel-item">
-        <img class="d-block w-100" alt="..." style="max-width: 80%;max-height:500px; "  *ngIf="salaModel.imagenDos == null  " src="/assets/imgTipoSalaD.jpg">
-        <img class="d-block w-100" alt="..." style="max-width: 80%;max-height:500px; "  *ngIf="salaModel.imagenDos " [src]="salaModel.imagenDos">
-      </div>
-      <div class="carousel-item">
-        <img class="d-block w-100" alt="..." style="max-width: 80%;max-height:500px; "  *ngIf="salaModel.imagenTres == null  " src="/assets/imgTipoSalaD.jpg">
-        <img class="d-block w-100" alt="..." style="max-width: 80%;max-height:500px; "  *ngIf="salaModel.imagenTres " [src]="salaModel.imagenTres">
-      </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-  <!-- Línea previa al footer-->
-<div  *ngIf="identidad != null" style=" border-radius: 0;"class="card text-center">
-  <div style="background-color:#b71c1c" class="card-body">
-    <h5 style="color:white"class="card-title"></h5>
-    <p style="color:white" class="card-text"></p>
-  </div>
-</div>
-<div *ngIf="identidad === null" id="err">
-  <div id="error-page">
-    <div class="contentE">
-      <h1 data-text="403">403</h1>
-      <h4 data-text="Opps! Page not found">Ooops! No puedes acceder...</h4>
-      <p>Lo sentimos, pero tienes que iniciar sesión para poder ver el contenido.</p>
-      <div class="btns">
-        <a [routerLink]="['/login']">Ir a iniciar sesión</a>
-      </div>
-    </div>
-  </div>
-</div>
-<br>
-  <!-- Footer -->
-    <div class="footer">
-      <div class="footer-content">
-        <div class="footer-section links">
-          <div align="center"class="socials">
-            <a  style="color:rgb(40, 122, 177)" href= "https://www.linkedin.com/company/sopesagt"><i class="bi bi-linkedin"></i></a>&nbsp;
-            <a  style="color:blue" href= "https://www.facebook.com/SOPESA1/"><i class="bi bi-facebook"></i></a>&nbsp;
-            <a  style="
-              border-radius: 40px;
-              color: #fff;
-              vertical-align: middle;
-              background: #d6249f;
-              background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
-              box-shadow: 0px 3px 10px rgba(0,0,0,.25);"
-              href= "https://instagram.com/sopesa1"><i class="bi bi-instagram"></i></a>&nbsp;
-            <a style="color:red" href= "https://youtube.com/channel/UCEEfSQ7Nl4R-gA8eb2x-otg"><i class="bi bi-youtube"></i></a>&nbsp;
-            <a style="color: black"href="https://goo.gl/maps/82xybT4hZ7L6cGaAA"><i class="bi bi-geo-alt-fill"></i></a>
+  <div class="login-form">
+    <div class = "container">
+      <div class = "main">
+        <div class = "content">
+
+          <div class="row text-center">
+            <div class="col-md-4">
+              <div class="btn-group">
+                <div
+                  class="btn btn-danger"
+                  mwlCalendarPreviousView
+                  [view]="view"
+                  [(viewDate)]="viewDate"
+                  (viewDateChange)="closeOpenMonthViewDay()"
+                >
+                  Previous
+                </div>
+                <div
+                  class="btn btn-outline-danger"
+                  mwlCalendarToday
+                  [(viewDate)]="viewDate"
+                >
+                  Today
+                </div>
+                <div
+                  class="btn btn-danger"
+                  mwlCalendarNextView
+                  [view]="view"
+                  [(viewDate)]="viewDate"
+                  (viewDateChange)="closeOpenMonthViewDay()"
+                >
+                  Next
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+            </div>
+            <div class="col-md-4">
+              <div class="btn-group">
+                <div
+                  class="btn btn-danger"
+                  (click)="setView(CalendarView.Month)"
+                  [class.active]="view === CalendarView.Month"
+                >
+                  Month
+                </div>
+                <div
+                  class="btn btn-danger"
+                  (click)="setView(CalendarView.Week)"
+                  [class.active]="view === CalendarView.Week"
+                >
+                  Week
+                </div>
+                <div
+                  class="btn btn-danger"
+                  (click)="setView(CalendarView.Day)"
+                  [class.active]="view === CalendarView.Day"
+                >
+                  Day
+                </div>
+              </div>
+            </div>
           </div>
+
+          <br />
+          <div [ngSwitch]="view">
+            <mwl-calendar-month-view
+              *ngSwitchCase="CalendarView.Month"
+              [viewDate]="viewDate"
+              [events]="events"
+              [refresh]="refresh"
+              [activeDayIsOpen]="activeDayIsOpen"
+              (dayClicked)="dayClicked($event.day)"
+              (eventClicked)="handleEvent('Clicked', $event.event)"
+              (eventTimesChanged)="eventTimesChanged($event)"
+            >
+            </mwl-calendar-month-view>
+            <mwl-calendar-week-view
+              *ngSwitchCase="CalendarView.Week"
+              [viewDate]="viewDate"
+              [events]="events"
+              [refresh]="refresh"
+              (eventClicked)="handleEvent('Clicked', $event.event)"
+              (eventTimesChanged)="eventTimesChanged($event)"
+            >
+            </mwl-calendar-week-view>
+            <mwl-calendar-day-view
+              *ngSwitchCase="CalendarView.Day"
+              [viewDate]="viewDate"
+              [events]="events"
+              [refresh]="refresh"
+              (eventClicked)="handleEvent('Clicked', $event.event)"
+              (eventTimesChanged)="eventTimesChanged($event)"
+            >
+            </mwl-calendar-day-view>
+          </div>
+
+          <!-- Everything you see below is just for the demo, you don't need to include it in your app-->
+          <!-- <br /><br /><br /> -->
+          <br>
+          <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  Ver detalle de solicitudes de eventos.
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                <div   *ngIf="identidad != null && identidad.rol==='SuperAdministrador'" class="container">
+                      <!-- Filtro -->
+                      <mat-form-field appearance="standard">
+                        <mat-label >Escribe algo para filtrar...</mat-label>
+                        <input matInput (keyup)="applyFilterP($event)" placeholder="Ejemplo: Reunión" #input autocomplete="off">
+                      </mat-form-field>
+                      <!-- Tabla -->
+                      <div class="mat-elevation-z8">
+                        <table  align="center" mat-table [dataSource]="dataSourceReunionesP" matSort > <!-- matSort -->
+
+                          <ng-container matColumnDef="descripcion">
+                            <th mat-header-cell *matHeaderCellDef> <i class="bi bi-list-nested"></i> &nbsp; Descripción </th>
+                            <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="estado">
+                            <th mat-header-cell *matHeaderCellDef> Estado </th>
+                            <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="cantidadAsist">
+                            <th mat-header-cell *matHeaderCellDef><i class="bi bi-people-fill"></i> </th>
+                            <td mat-cell *matCellDef="let element"> {{element.cantidadAsist}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="start">
+                            <th mat-header-cell *matHeaderCellDef> <i class="bi bi-calendar2-check-fill"></i> &nbsp; Fecha de Inicio </th>
+                            <td mat-cell *matCellDef="let element">
+                              <input
+                                class="form-control"
+                                type="text"
+                                mwlFlatpickr
+                                id="inputFechaFn"
+                                name="fechFnd"
+                                #fechFnd="ngModel"
+                                [(ngModel)]="element.start"
+                                (ngModelChange)="refresh.next()"
+                                [altInput]="true"
+                                [convertModelValue]="true"
+                                [enableTime]="true"
+                                dateFormat="Y-m-dTH:i"
+                                altFormat="F j, Y H:i"
+                                placeholder="Seleccione la fecha de inicio"
+                                disabled
+                            />
+                            </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="end">
+                            <th mat-header-cell *matHeaderCellDef><i class="bi bi-calendar2-x-fill"></i> &nbsp; Fecha de finalización </th>
+                            <td mat-cell *matCellDef="let element">
+                              <input
+                                class="form-control"
+                                type="text"
+                                mwlFlatpickr
+                                id="inputFechaIn"
+                                name="fechIn"
+                                #fechIn="ngModel"
+                                [(ngModel)]="element.end"
+                                (ngModelChange)="refresh.next()"
+                                [altInput]="true"
+                                [convertModelValue]="true"
+                                [enableTime]="true"
+                                dateFormat="Y-m-dTH:i"
+                                altFormat="F j, Y H:i"
+                                placeholder="Seleccione la fecha de inicio"
+                                disabled
+                            />
+                            </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="acciones">
+                            <th mat-header-cell *matHeaderCellDef>  </th>
+                            <td mat-cell *matCellDef="let element" style="text-align:right;">
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#mLogin">
+                                  <i class="bi bi-clipboard-check"></i>
+                                </button>
+                            </td>
+                          </ng-container>
+                          <tr mat-header-row *matHeaderRowDef="displayedColumnsP"></tr>
+                          <tr mat-row *matRowDef="let row; columns: displayedColumnsP;"></tr>
+                        </table>
+                        <!-- Paginación -->
+                       <mat-paginator  [pageSizeOptions]="[5, 10, 25,50,100]" showFirstLastButtons ></mat-paginator>
+                      </div>
+
+                </div><br>
+              </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
-      <div class="footer-bottom">
-        <strong>&copy; SOPESA</strong>
+    </div>
+
+
+  <ng-template #modalContent let-close="close">
+    <div class="modal-header">
+      <h5 class="modal-title">Datos del evento:</h5>
+      <button type="button" class="close" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <!-- Modal mostrando la acción
+      <div>
+        Action:
+        <pre>{{ modalData?.action }}</pre>
+      </div>
+      -->
+      <!-- Todos los datos del evento en formato json
+      <div>
+        Event:
+        <pre>{{ modalData?.event | json }}</pre>
+      </div>
+      -->
+      <div>
+        <i class="bi bi-list-nested"></i><strong> Nombre del evento: </strong>
+          <pre>{{ modalData?.event.title }}</pre>
+      </div>
+      <div>
+        <i class="bi bi-calendar-check"></i><strong> Fecha de inicio: </strong>
+          <pre>{{ modalData?.event.start }}</pre>
+      </div>
+      <div>
+        <i class="bi bi-calendar-x"></i><strong> Fecha de fin: </strong>
+          <pre>{{ modalData?.event.end }}</pre>
       </div>
     </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-danger" (click)="close()">
+        Cerrar
+      </button>
+    </div>
+  </ng-template>
+
+  <!-- Error 403 -->
+  <div *ngIf="identidad === null" id="err">
+    <div id="error-page">
+      <div class="contentE">
+        <h1 data-text="403">403</h1>
+        <h4 data-text="Opps! Page not found">Ooops! No puedes acceder...</h4>
+        <p>Lo sentimos, pero tienes que iniciar sesión para poder ver el contenido.</p>
+        <div class="btns">
+          <a [routerLink]="['/login']">Ir a iniciar sesión</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-content">
+      <div class="footer-section links">
+        <div align="center"class="socials">
+          <a  style="color:rgb(40, 122, 177)" href= "https://www.linkedin.com/company/sopesagt"><i class="bi bi-linkedin"></i></a>&nbsp;
+          <a  style="color:blue" href= "https://www.facebook.com/SOPESA1/"><i class="bi bi-facebook"></i></a>&nbsp;
+          <a  style="
+            border-radius: 40px;
+            color: #fff;
+            vertical-align: middle;
+            background: #d6249f;
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+            box-shadow: 0px 3px 10px rgba(0,0,0,.25);"
+            href= "https://instagram.com/sopesa1"><i class="bi bi-instagram"></i></a>&nbsp;
+          <a style="color:red" href= "https://youtube.com/channel/UCEEfSQ7Nl4R-gA8eb2x-otg"><i class="bi bi-youtube"></i></a>&nbsp;
+          <a style="color: black"href="https://goo.gl/maps/82xybT4hZ7L6cGaAA"><i class="bi bi-geo-alt-fill"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <strong>&copy; SOPESA</strong>
+    </div>
+  </div>
 </body>
 </html>
 
-<!-- Modal Ver Usuario -->
+
+<!-- Modal Agregar-->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Agregar Reunión</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="inputNombreR" class="form-label"><i class="bi bi-list-nested"></i><strong> Nombre del Responsable:</strong></label>
+            <input type="text" class="form-control" id="inputNombreR" name="nombreR" #nombreR="ngModel"
+              [(ngModel)]="reunionesModelAdd.nombre">
+          </div>
+          <div class="mb-3">
+            <label for="inputDescripcionR" class="form-label"><i class="bi bi-list-nested"></i><strong> Descripción:</strong></label>
+            <textarea class="form-control" id="inputDescripcionR" rows="1" name="descripcionR" #descripcionR="ngModel"
+              [(ngModel)]="reunionesModelAdd.descripcion"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="inputCnaAsR" class="form-label"><i class="bi bi-people-fill"></i><strong> Cantidad de Asistentes:</strong></label>
+            <input type="number" class="form-control" id="inputCnaAsR" name="cantAsR" #cantAsR="ngModel"
+              [(ngModel)]="reunionesModelAdd.cantidadAsist">
+          </div>
+          <div class="mb-3">
+            <label for="inputFechaIn" class="form-label"><i class="bi bi-calendar2-check"></i><strong> Fecha de Inicio:</strong></label>
+            <input
+              class="form-control"
+              type="text"
+              mwlFlatpickr
+              id="inputFechaIn"
+              name="fechIn"
+              #fechIn="ngModel"
+              [(ngModel)]="reunionesModelAdd.start"
+              (ngModelChange)="refresh.next()"
+              [altInput]="true"
+              [convertModelValue]="true"
+              [enableTime]="true"
+              dateFormat="Y-m-dTH:i"
+              altFormat="F j, Y H:i"
+              placeholder="Seleccione la fecha de inicio"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="inputFechaFn" class="form-label"><i class="bi bi-calendar-x"></i><strong> Fecha de Finalización:</strong></label>
+            <input
+              class="form-control"
+              type="text"
+              mwlFlatpickr
+              id="inputFechaFn"
+              name="fechFn"
+              #fechFn="ngModel"
+              [(ngModel)]="reunionesModelAdd.end"
+              (ngModelChange)="refresh.next()"
+              [altInput]="true"
+              [convertModelValue]="true"
+              [enableTime]="true"
+              dateFormat="Y-m-dTH:i"
+              altFormat="F j, Y H:i"
+              placeholder="Seleccione la fecha de fin"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="inputSala" class="form-label"><i class="bi bi-building"></i><strong> Salas disponibles para la reunión:</strong></label>
+            <select  name="sala" #sala="ngModel"
+              [(ngModel)]="reunionesModelAdd.idSala" class="form-select" aria-label="Default select example">
+              <option *ngFor="let tpsl of salasModelGet" [ngValue]="tpsl">{{tpsl.nombre}}</option>
+            </select>
+          </div>
+          <div id="emailHelp" class="form-text"><i class="bi bi-exclamation-circle-fill"></i> No dejes campos vacios.</div>
+          <div id="emailHelp" class="form-text"><strong><i class="bi bi-exclamation-circle-fill"></i> Cuando agregues la reunión pasará a un estado "Pendiente de Confirmación".</strong></div>
+      </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> Cancelar</button>
+        <button type="button" class="btn btn-outline-secondary" (click)="crearReunion()"><i class="bi bi-calendar-plus"></i> Agregar Reunión</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Ver Reunion -->
+<div class="modal fade" id="mVerReunion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Datos de la Reunión:</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="inVrN" class="form-label">Nombre del Responsable:</label>
+            <input type="text" class="form-control" id="inVrN" name="nombreRes"
+            #nombreRes="ngModel" [(ngModel)]="idReunionModel.nombre" disabled>
+          </div>
+          <div class="mb-3">
+            <label for="inVrD" class="form-label">Descripción:</label>
+            <input type="text" class="form-control" id="inVrD" name="descReu"
+            #descReu="ngModel" [(ngModel)]="idReunionModel.descripcion" disabled>
+          </div>
+          <div class="mb-3">
+            <label for="inVrS" class="form-label"><i class="bi bi-calendar-x"></i><strong> Fecha de Finalización:</strong></label>
+            <input
+              class="form-control"
+              type="text"
+              mwlFlatpickr
+              id="inVrS"
+              name="inicReu"
+              #inicReu="ngModel"
+              [(ngModel)]="idReunionModel.start"
+              (ngModelChange)="refresh.next()"
+              [altInput]="true"
+              [convertModelValue]="true"
+              [enableTime]="true"
+              dateFormat="Y-m-dTH:i"
+              altFormat="F j, Y H:i"
+              placeholder="Seleccione la fecha de fin"
+              disabled
+            />
+          </div>
+          <div class="mb-3">
+            <label for="inVrF" class="form-label"><i class="bi bi-calendar-x"></i><strong> Fecha de Finalización:</strong></label>
+            <input
+              class="form-control"
+              type="text"
+              mwlFlatpickr
+              id="inVrF"
+              name="finReu"
+              #finReu="ngModel"
+              [(ngModel)]="idReunionModel.end"
+              (ngModelChange)="refresh.next()"
+              [altInput]="true"
+              [convertModelValue]="true"
+              [enableTime]="true"
+              dateFormat="Y-m-dTH:i"
+              altFormat="F j, Y H:i"
+              placeholder="Seleccione la fecha de fin"
+              disabled
+            />
+          </div>
+          <div class="mb-3">
+            <label for="inVrSala" class="form-label">Sala:</label>
+            <input type="text" class="form-control" id="inVrSala" name="nombre"
+            #nombre="ngModel" [(ngModel)]="idReunionModel.idSala.nombre" disabled>
+          </div>
+          <div class="mb-3">
+            <label for="inVrRespC" class="form-label">Usuario del Creador de la Reunión:</label>
+            <input type="text" class="form-control" id="inVrRespC" name="salReu"
+            #salReu="ngModel" [(ngModel)]="idReunionModel.idResponsable.usuario" disabled>
+          </div>
+          <div class="mb-3">
+            <label for="inFges" class="form-label">Fecha de Gestión:</label>
+            <input type="text" class="form-control" id="inFges" name="fechGestR"
+            #fechGestR="ngModel" [(ngModel)]="idReunionModel.fechaDeGestion" disabled>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Editar Reunion -->
+<div class="modal fade" id="mEditarReunion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar Reunión</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="inputNombre" class="form-label"><strong>Nombres:</strong></label>
+            <input type="text" class="form-control" id="inputNombre"
+            name="nombres" #nombres="ngModel" [(ngModel)]="idReunionModel.nombre">
+          </div>
+          <div class="mb-3">
+            <label for="inputApellidos" class="form-label"><strong>Descripción:</strong></label>
+            <input type="text" class="form-control" id="inputApellidos"
+            name="apellidos" #apellidos="ngModel" [(ngModel)]="idReunionModel.descripcion">
+          </div>
+          <div class="mb-3">
+            <label for="inputUsuario" class="form-label"><strong>Cantidad de Asistentes:</strong></label>
+            <input type="number" class="form-control" id="inputUsuario"
+            name="usuario" #usuario="ngModel" [(ngModel)]="idReunionModel.cantidadAsist">
+          </div>
+          <div class="mb-3">
+            <label for="inputFechaIn" class="form-label"><i class="bi bi-calendar2-check"></i><strong> Fecha de Inicio:</strong></label>
+            <input
+              class="form-control"
+              type="text"
+              mwlFlatpickr
+              id="inputFechaIn"
+              name="fechIn"
+              #fechIn="ngModel"
+              [(ngModel)]="idReunionModel.start"
+              (ngModelChange)="refresh.next()"
+              [altInput]="true"
+              [convertModelValue]="true"
+              [enableTime]="true"
+              dateFormat="Y-m-dTH:i"
+              altFormat="F j, Y H:i"
+              placeholder="Seleccione la fecha de inicio"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="inputFechaFn" class="form-label"><i class="bi bi-calendar-x"></i><strong> Fecha de Finalización:</strong></label>
+            <input
+              class="form-control"
+              type="text"
+              mwlFlatpickr
+              id="inputFechaFn"
+              name="fechFn"
+              #fechFn="ngModel"
+              [(ngModel)]="idReunionModel.end"
+              (ngModelChange)="refresh.next()"
+              [altInput]="true"
+              [convertModelValue]="true"
+              [enableTime]="true"
+              dateFormat="Y-m-dTH:i"
+              altFormat="F j, Y H:i"
+              placeholder="Seleccione la fecha de fin"
+            />
+          </div>
+          <div id="emailHelp" class="form-text"><i class="bi bi-exclamation-circle-fill"></i> No dejes campos vacíos.</div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> Cerrar</button>
+        <button type="button" class="btn btn-success" (click)="editarSolicitud()"><i class="bi bi-save"></i> Guardar cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Rechazar Reunion -->
+<div class="modal fade" id="mRechazarReunion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirmación de Rechazo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Esta seguro de que desea rechazar la solicitud de reunión a nombre de "{{idReunionModel.nombre}}"?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"
+        (click)="cancelarSolicitud(idReunionModel._id)">Si, rechazar <i class="bi bi-x-circle"></i> </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Pendiente Reunion -->
+<div class="modal fade" id="mPendienteReunion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirmación de Pendiente</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Esta seguro de que desea poner en pendiente la solicitud de reunión a nombre de "{{idReunionModel.nombre}}"?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"
+        (click)="pendienteSolicitud(idReunionModel._id)">Si, poner en pendiente <i class="bi bi-clock-history"></i> </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Ver Usuario -->
+<div class="modal fade" id="MverSala" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -186,12 +645,6 @@
               </div>
             </div>
           </div>
-
-
-
-
-
-
         </form>
       </div>
       <div class="modal-footer">
@@ -201,3 +654,31 @@
   </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="mLogin" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div style="background-color: #b71c1c;" class="modal-header">
+        <button type="button" style="background-color: white;"class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div align="center" class="mb-3">
+            <img class="d-block w-20" alt="..." style="max-width: 20%;"  src="../../../assets/imgSopesa.png">
+          </div>
+          <mat-form-field appearance="fill">
+            <mat-label>Ingrese su usuario</mat-label>
+            <input matInput>
+          </mat-form-field>
+          <mat-form-field appearance="fill"><!-- appearance="fill" -->
+            <mat-label>Ingrese su contraseña</mat-label>
+            <input matInput>
+          </mat-form-field>
+          <div class="d-grid gap-2">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" aria-label="Close">Confirmar Asistencia</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
