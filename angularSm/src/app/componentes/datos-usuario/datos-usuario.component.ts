@@ -1,15 +1,26 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+//IMPORTACIÓN DE MODELOS
+import { Usuario } from 'src/app/modelos/usuario.modelo';
+import { Reunion } from 'src/app/modelos/reunion.modelo';
+import { Sala } from 'src/app/modelos/sala.modelo';
+
+//IMPORTACIÓN DE SERVICIOS
+import { SalaService } from 'src/app/servicios/sala.service';
+import { UsuarioService } from 'src/app/servicios/usuario.service';
+import { ReunionService } from 'src/app/servicios/reunion.service';
+import { TipoSalaService } from 'src/app/servicios/tipoSala.service';
+
+//IMPORTACIONES PARA LA SECCIÓN DE LA TABLA (CON ANGULAR MATERIAL)
+import { AfterViewInit,Component, OnInit, ViewChild} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Usuario } from 'src/app/modelos/usuario.modelo';
-import { UsuarioService } from "../../servicios/usuario.service";
-import { ReunionService } from "../../servicios/reunion.service";
 
+//IMPORTACIÓN PARA ALERTAS
+import Swal from 'sweetalert2';
 
+//OTRA IMPORTACIÓN
 import { ActivatedRoute, Router } from '@angular/router';
-import Swal from "sweetalert2";
 declare var $: any;
 
 @Component({
@@ -36,11 +47,14 @@ export class DatosUsuarioComponent implements AfterViewInit {
   public usuarioModel;
   public idUsuarioModel: Usuario;
   public idUsuarioRuta: string;
+  public idReunionModel: Reunion;
 
   constructor(
-    private _usuarioService: UsuarioService,
-    private _reunionService: ReunionService,
 
+    public _usuarioService: UsuarioService,
+    public _reunionService: ReunionService,
+    public _salaService: SalaService,
+    public _tipoSalaService:TipoSalaService,
     public _activatedRoute: ActivatedRoute,
    /* private fb: FormBuilder,*/
     private _router: Router
@@ -51,22 +65,25 @@ export class DatosUsuarioComponent implements AfterViewInit {
     this.idUsuarioModel = new Usuario("","","","","","","","","");
     this.token = this._usuarioService.getToken();
     this.usuarioModel = new Usuario("","","","","","","","","");
+    this.idReunionModel = new Reunion("","","","","","","",{usuario:""},{nombre:""},"");
 
 /*
     this._reunionService.obtenerReunionesUsuario(this.identidad).subscribe ( usuarios => {
       this.dataSource.data = usuarios;
     })
 */
+
     this._usuarioService.obtenerUsuariosD().subscribe ( usuarios => {
-      this.dataSourceD.data = usuarios;
+      this.dataSource.data = usuarios;
     })
    }
+
 
    ngOnInit(): void {
     this._activatedRoute.paramMap.subscribe((dataRuta) => {
       this.idUsuarioRuta = dataRuta.get('idResponsable');
     });
-    this.obtenerUsuario(this.idUsuarioRuta);
+    this.obtenerReunionesUsuario(this.idUsuarioRuta);
   }
 
   obtenerUsuario(idUsuario){
@@ -79,7 +96,7 @@ export class DatosUsuarioComponent implements AfterViewInit {
   }
 
   //Obteniendo los usuarios activos
-  /*
+
   obtenerReunionesUsuario(idUsuarioRuta){
 
     this._reunionService.obtenerReunionesUsuario(idUsuarioRuta).subscribe(
@@ -91,7 +108,7 @@ export class DatosUsuarioComponent implements AfterViewInit {
       }
     )
   }
-*/
+
   //Obteniendo los usuarios desactivados
   obtenerUsuariosD(){
     this._usuarioService.obtenerUsuariosD().subscribe(
@@ -134,21 +151,25 @@ export class DatosUsuarioComponent implements AfterViewInit {
     )
   }
 
+  obtenerReunion(idReunion:String){
+    this._reunionService.obtenerReunion(idReunion).subscribe(
+      response=>{
+        this.idReunionModel = response.reunionEncontrada;
+        console.log(response);
+
+      }
+    )
+  }
+
   ngAfterViewInit() {
-      //this.dataSource.sort = this.sort;
-      //this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
   //Filtro tabla de usuarios activos
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  //Filtro tabla de usuarios desactivados
-  applyFilterD(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSourceD.filter = filterValue.trim().toLowerCase();
   }
 
   //Crear los usuarios

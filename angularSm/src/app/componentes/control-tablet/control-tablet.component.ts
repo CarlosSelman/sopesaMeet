@@ -66,6 +66,7 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
   public idSalaModel: Sala;
   public salaModel;
   public idSalaRuta: string;
+  public idSala;
 
   public reuniones;
   public todayDate;
@@ -76,16 +77,9 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
     @ViewChild(MatSort) sort!: MatSort;
     //VARIABLES QUE INSTANCIAS PARA LOS DATOS DE LAS TABLAS
     dataSourceReuniones = new MatTableDataSource<any[]>();
-    dataSourceReunionesC = new MatTableDataSource<any[]>();
-    dataSourceReunionesP = new MatTableDataSource<any[]>();
-    dataSourceReunionesR = new MatTableDataSource<any[]>();
     //VARIABLES QUE TRAEN LAS COLUMNAS DE CADA TABLA
     displayedColumns: string[] = ['descripcion','estado','cantidadAsist','start','end','acciones'];
-    displayedColumnsC: string[] = ['descripcion','estado','cantidadAsist','start','end','acciones'];
-    displayedColumnsP: string[] = ['descripcion','estado','cantidadAsist','start','end','acciones'];
-    displayedColumnsR: string[] = ['descripcion','estado','cantidadAsist','start','end','acciones'];
-
-  constructor(
+    constructor(
 
     //CREANDO UNA VARIABLE PARA NgbModal
     private modal: NgbModal,
@@ -112,18 +106,11 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
     //VARIABLE OBTENIENDO LA FECHA ACTUAL PARA VALIUDACIÓN EN PARTE DEL CRUD
     this.todayDate = new Date();
     //DECLARANDO QUE LAS VARIABLES OBTIENEN DATOS DEL SERVICIO
-    this._reunionService.obtenerReunionesT().subscribe ( reunionesT => {
+    /*
+    this._reunionService.obtenerReunionesSala(this.idSalaRuta).subscribe ( reunionesT => {
       this.dataSourceReuniones.data = reunionesT;
     })
-    this._reunionService.obtenerReunionesC().subscribe ( reunionesT => {
-      this.dataSourceReunionesC.data = reunionesT;
-    })
-    this._reunionService.obtenerReunionesR().subscribe ( reunionesT => {
-      this.dataSourceReunionesR.data = reunionesT;
-    })
-    this._reunionService.obtenerReunionesP().subscribe ( reunionesT => {
-      this.dataSourceReunionesP.data = reunionesT;
-    })
+    */
 /*
     this._reunionService.obtenerReunionesG().subscribe ( reuniones => {
       this.events = reuniones;
@@ -147,39 +134,6 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
     this._reunionService.obtenerReunionesT().subscribe(
       response => {
          this.dataSourceReuniones.data = response.reunionesEncontradas;
-      },
-      error => {
-        console.log(<any>error);
-      }
-    )
-  }
-
-  obtenerReunionesC(){
-    this._reunionService.obtenerReunionesC().subscribe(
-      response => {
-         this.dataSourceReunionesC.data = response.reunionesEncontradas;
-      },
-      error => {
-        console.log(<any>error);
-      }
-    )
-  }
-
-  obtenerReunionesR(){
-    this._reunionService.obtenerReunionesR().subscribe(
-      response => {
-         this.dataSourceReunionesR.data = response.reunionesEncontradas;
-      },
-      error => {
-        console.log(<any>error);
-      }
-    )
-  }
-
-  obtenerReunionesP(){
-    this._reunionService.obtenerReunionesP().subscribe(
-      response => {
-         this.dataSourceReunionesP.data = response.reunionesEncontradas;
       },
       error => {
         console.log(<any>error);
@@ -233,21 +187,6 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSourceReuniones.filter = filterValue.trim().toLowerCase();
-  }
-
-  applyFilterC(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSourceReunionesC.filter = filterValue.trim().toLowerCase();
-  }
-
-  applyFilterR(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSourceReunionesR.filter = filterValue.trim().toLowerCase();
-  }
-
-  applyFilterP(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSourceReunionesP.filter = filterValue.trim().toLowerCase();
   }
 
   //FUNCIONES
@@ -467,21 +406,6 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
     window.location.reload();
   }
 
-/*
-  obtenerReuniones(){
-    this._reunionService.obtenerReuniones(this.token).subscribe(
-      response => {
-         //this.reunionesModelGet = response.reunionesEncontradas;
-         this.events = response.reunionesEncontradas;
-         //console.log(response)
-      },
-      error => {
-        console.log(<any>error);
-      }
-    )
-  }
-*/
-
 /* SECCIÓN DEL CALENDARIO */
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
   view: CalendarView = CalendarView.Month;
@@ -513,7 +437,6 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
 
   refresh: Subject<any> = new Subject();
 
-  /*
   events: CalendarEvent[] = [
     {
       start: subDays(startOfDay(new Date()), 1),
@@ -554,9 +477,9 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
       draggable: true,
     },
   ];
-*/
 
-  events: CalendarEvent[] = [];
+
+  /*events: CalendarEvent[] = [];*/
 
   activeDayIsOpen: boolean = true;
 
@@ -638,6 +561,7 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
       this.idSalaRuta = dataRuta.get('idSala');
     });
     this.obtenerSalaSelect(this.idSalaRuta);
+    this.obtenerReunionesSala(this.idSalaRuta)
   }
 
   ngAfterViewInit() {
@@ -654,6 +578,14 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
     )
   }
 
+  obtenerReunionesSala(idSala){
+    this._reunionService.obtenerReunionesSala(idSala).subscribe(
+      response => {
+        this.dataSourceReuniones.data =response.reunionesObtenidas;
+        console.log(response);
+      }
+    )
+  }
 }
 
 

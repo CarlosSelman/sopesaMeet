@@ -139,11 +139,11 @@
                       <!-- Filtro -->
                       <mat-form-field appearance="standard">
                         <mat-label >Escribe algo para filtrar...</mat-label>
-                        <input matInput (keyup)="applyFilterP($event)" placeholder="Ejemplo: Reunión" #input autocomplete="off">
+                        <input matInput (keyup)="applyFilter($event)" placeholder="Ejemplo: Reunión" #input autocomplete="off">
                       </mat-form-field>
                       <!-- Tabla -->
                       <div class="mat-elevation-z8">
-                        <table  align="center" mat-table [dataSource]="dataSourceReunionesP" matSort > <!-- matSort -->
+                        <table  align="center" mat-table [dataSource]="dataSourceReuniones" matSort > <!-- matSort -->
 
                           <ng-container matColumnDef="descripcion">
                             <th mat-header-cell *matHeaderCellDef> <i class="bi bi-list-nested"></i> &nbsp; Descripción </th>
@@ -214,8 +214,8 @@
                                 </button>
                             </td>
                           </ng-container>
-                          <tr mat-header-row *matHeaderRowDef="displayedColumnsP"></tr>
-                          <tr mat-row *matRowDef="let row; columns: displayedColumnsP;"></tr>
+                          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                         </table>
                         <!-- Paginación -->
                        <mat-paginator  [pageSizeOptions]="[5, 10, 25,50,100]" showFirstLastButtons ></mat-paginator>
@@ -601,32 +601,32 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Datos del usuario:</h5>
+        <h5 class="modal-title" id="exampleModalLabelM">Datos de la Sala:</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form>
           <div class="mb-3">
-            <label for="inVnom" class="form-label">Nombres:</label>
+            <label for="inVnom" class="form-label"><i class="bi bi-card-heading"></i><strong> Nombre:</strong></label>
             <input type="text" class="form-control" id="inVnom" name="nombreV"
             #nombreV="ngModel" [(ngModel)]="salaModel.nombre" disabled>
           </div>
           <div class="mb-3">
-            <label for="inVap" class="form-label">Equipo Disponible:</label>
-            <input type="text" class="form-control" id="inVap" name="lastNameV"
-            #lastNameV="ngModel" [(ngModel)]="salaModel.equipoDisponible" disabled>
+            <label for="inVap" class="form-label"><i class="bi bi-ui-checks-grid"></i><strong> Equipo Disponible:</strong></label>
+            <textarea class="form-control" id="inVap" rows="2" name="lastNameV" #lastNameV="ngModel"
+              [(ngModel)]="salaModel.equipoDisponible" disabled></textarea>
           </div>
           <div class="mb-3">
-            <label for="inVus" class="form-label">Ubicación:</label>
-            <input type="text" class="form-control" id="inVus" name="userV"
-            #userV="ngModel" [(ngModel)]="salaModel.ubicacion" disabled>
+            <label for="inVus" class="form-label"><i class="bi bi-geo-alt-fill"></i><i class="bi bi-building"></i><strong> Nivel donde se ubica:</strong></label>
+            <textarea class="form-control" id="inVus" rows="1" name="userV" #userV="ngModel"
+              [(ngModel)]="salaModel.ubicacion" disabled></textarea>
           </div>
           <hr>
-          <div class="accordion accordion-flush" id="accordionFlushExample">
+          <div class="accordion" id="accordionFlushExample">
             <div class="accordion-item">
               <h2 class="accordion-header" id="flush-headingOne">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                  Ver imágenes de la sala...
+                  <i class="bi bi-link-45deg"></i><i class="bi bi-images"></i><strong> Imágenes:</strong>
                 </button>
               </h2>
               <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
@@ -646,9 +646,6 @@
             </div>
           </div>
         </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> Cerrar</button>
       </div>
     </div>
   </div>
