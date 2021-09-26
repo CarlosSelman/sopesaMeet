@@ -833,17 +833,17 @@
       <div class="modal-body">
         <form>
           <div class="mb-3">
-            <label for="inVrN" class="form-label">Nombre del Responsable:</label>
+            <label for="inVrN" class="form-label"><i class="bi bi-list-nested"></i><strong> Nombre del Responsable:</strong></label>
             <input type="text" class="form-control" id="inVrN" name="nombreRes"
             #nombreRes="ngModel" [(ngModel)]="idReunionModel.nombre" disabled>
           </div>
           <div class="mb-3">
-            <label for="inVrD" class="form-label">Descripción:</label>
+            <label for="inVrD" class="form-label"><i class="bi bi-list-nested"></i><strong> Descripción:</strong></label>
             <input type="text" class="form-control" id="inVrD" name="descReu"
             #descReu="ngModel" [(ngModel)]="idReunionModel.descripcion" disabled>
           </div>
           <div class="mb-3">
-            <label for="inVrS" class="form-label"><i class="bi bi-calendar-x"></i><strong> Fecha de Finalización:</strong></label>
+            <label for="inVrS" class="form-label"><i class="bi bi-calendar-check"></i><strong> Fecha de Inicio:</strong></label>
             <input
               class="form-control"
               type="text"
@@ -883,17 +883,17 @@
             />
           </div>
           <div class="mb-3">
-            <label for="inVrSala" class="form-label">Sala:</label>
+            <label for="inVrSala" class="form-label"><i class="bi bi-building"></i><strong> Nombre de la Sala:</strong></label>
             <input type="text" class="form-control" id="inVrSala" name="nombre"
             #nombre="ngModel" [(ngModel)]="idReunionModel.idSala.nombre" disabled>
           </div>
           <div class="mb-3">
-            <label for="inVrRespC" class="form-label">Usuario del Creador de la Reunión:</label>
+            <label for="inVrRespC" class="form-label"><i class="bi bi-person-circle"></i><strong> Usuario del Creador de la Reunión:</strong></label>
             <input type="text" class="form-control" id="inVrRespC" name="salReu"
             #salReu="ngModel" [(ngModel)]="idReunionModel.idResponsable.usuario" disabled>
           </div>
           <div class="mb-3">
-            <label for="inFges" class="form-label">Fecha de Gestión:</label>
+            <label for="inFges" class="form-label"><i class="bi bi-calendar-plus"></i><strong> Fecha de Gestión:</strong></label>
             <input type="text" class="form-control" id="inFges" name="fechGestR"
             #fechGestR="ngModel" [(ngModel)]="idReunionModel.fechaDeGestion" disabled>
           </div>

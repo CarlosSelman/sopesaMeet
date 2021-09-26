@@ -83,7 +83,7 @@ export class ReunionService {
   }
 
   asistencia(id:String): Observable<any>{
-    return this._http.get(this.url + '/asistencia/'+ id, {headers: this.headersVariable})
+    return this._http.put(this.url + '/asistencia/'+ id, {headers: this.headersVariable})
   }
 
   cancelarSolicitud(id:String):Observable<any>{

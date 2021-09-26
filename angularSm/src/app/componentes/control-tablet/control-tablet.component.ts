@@ -68,6 +68,8 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
   public idSalaRuta: string;
   public idSala;
 
+  public usuarioModel: Usuario;
+
   public reuniones;
   public todayDate;
   public reunionesT;
@@ -88,7 +90,8 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
     public _reunionService: ReunionService,
     public _salaService: SalaService,
     public _tipoSalaService:TipoSalaService,
-    public _activatedRoute: ActivatedRoute
+    public _activatedRoute: ActivatedRoute,
+    private _router: Router
     ) {
 
     //OBTENIENDO IDENTIDAD Y TOKEN
@@ -103,6 +106,9 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
     this.salasModelGetId = new Sala("","","","","","","","","");
     this.salasModelAdd = new Sala("","","","","","","","","");
     this.idSalaModel = new Sala("","","","","","","","","");
+
+    this.usuarioModel = new Usuario('', '', '', '', '', '', '', '', '');
+
     //VARIABLE OBTENIENDO LA FECHA ACTUAL PARA VALIUDACIÓN EN PARTE DEL CRUD
     this.todayDate = new Date();
     //DECLARANDO QUE LAS VARIABLES OBTIENEN DATOS DEL SERVICIO
@@ -553,8 +559,8 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
 
   ngOnInit(): void {
     this.obtenerTipoSalas();
-    this.obtenerSalasT();
-    this.obtenerReuniones(); //IMPRIMIENDO DE LA DB
+    //this.obtenerSalasT();
+    //this.obtenerReuniones(); //IMPRIMIENDO DE LA DB
     console.log(this.events); //IMPRIMIENDO LOS EVENTOS ESTATICOS
 
     this._activatedRoute.paramMap.subscribe((dataRuta) => {
@@ -586,6 +592,80 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
       }
     )
   }
+
+  getToken() {
+    this._usuarioService.login(this.usuarioModel).subscribe(
+      (response)=> {
+        console.log(response);
+        this.token = response.token;
+        localStorage.setItem('token', JSON.stringify(this.token));
+        this.reload();
+      },
+      (error) => {
+        console.log(<any>error);
+      }
+    );
+  }
+
+  login() {
+    this._usuarioService.login(this.usuarioModel).subscribe(
+      (response) => {
+        console.log(response);
+        //this.refresh()
+        this.identidad = response.usuarioEncontrado;
+        localStorage.setItem('identidad', JSON.stringify(this.identidad));
+        //this.getToken();
+        this.token=response.token;
+        localStorage.setItem('token', JSON.stringify(this.token));
+
+        if(this.identidad.estado=="Activo"){
+            /*
+            Swal.fire({
+              //position: 'top-end',
+              icon: 'success',
+              title: 'Ingreso exitoso',
+              showConfirmButton: false,
+              timer: 1500,
+            });
+*/
+            this.usuarioModel.usuario='';
+            this.usuarioModel.contrasena='';
+            $('#mConfirmacion').modal('show');
+        } else if(this.identidad.estado!="Activo"){
+          Swal.fire({
+            icon: 'error',
+            title: 'Su cuenta no está activa',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      },
+      (error) => {
+        console.log(<any>error);
+        Swal.fire({
+          //position: 'top-end',
+          icon: 'error',
+          title: 'Dato(s) incorrecto(s)',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
+      }
+    );
+  }
+
+
+
+
+  cerrarSesion(){
+    this.identidad = null;
+    this.token = null;
+    localStorage.setItem('identidad', JSON.stringify(this.identidad))
+    localStorage.setItem('token', JSON.stringify(this.token));
+  }
+
 }
+
+
 
 
