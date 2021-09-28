@@ -250,7 +250,7 @@ function obtenerReunionesUsuario(req, res){
         if(err) return res.status(500).send({ mensaje: 'Error en la peticion' });
         if(!solicitudAsistida) return res.status(500).send({ mensaje: 'No se ha podido poner en pendiente la solicitud de reunión.' });
         return res.status(200).send({ solicitudAsistida });
-    })
+    })    
 }
 
 module.exports = {

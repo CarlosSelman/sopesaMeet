@@ -76,6 +76,8 @@ export class ReunionComponent implements OnInit, AfterViewInit{
     dataSourceReunionesC = new MatTableDataSource<any[]>();
     dataSourceReunionesP = new MatTableDataSource<any[]>();
     dataSourceReunionesR = new MatTableDataSource<any[]>();
+
+    events: CalendarEvent<Reunion>[];
     //VARIABLES QUE TRAEN LAS COLUMNAS DE CADA TABLA
     displayedColumns: string[] = ['descripcion','estado','cantidadAsist','start','end','acciones'];
     displayedColumnsC: string[] = ['descripcion','estado','cantidadAsist','start','end','acciones'];
@@ -119,11 +121,11 @@ export class ReunionComponent implements OnInit, AfterViewInit{
     this._reunionService.obtenerReunionesP().subscribe ( reunionesT => {
       this.dataSourceReunionesP.data = reunionesT;
     })
-/*
+
     this._reunionService.obtenerReunionesG().subscribe ( reuniones => {
       this.events = reuniones;
     })
-*/
+
   }
 
   obtenerReunionesG(){
@@ -541,7 +543,7 @@ export class ReunionComponent implements OnInit, AfterViewInit{
   ];
 */
 
-  events: CalendarEvent[] = [];
+  /*events: CalendarEvent[] = [];*/
 
   activeDayIsOpen: boolean = true;
 

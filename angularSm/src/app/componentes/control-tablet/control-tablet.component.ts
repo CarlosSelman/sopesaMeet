@@ -59,6 +59,8 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
   public reunionesModelGetId: Reunion;
   public idReunionModel: Reunion;
 
+  public events:Reunion;
+
   public tipos;
   public salasModelGet;
   public salasModelAdd: Sala;
@@ -69,6 +71,7 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
   public idSala;
 
   public usuarioModel: Usuario;
+  public idUsuarioModel: Usuario;
 
   public reuniones;
   public todayDate;
@@ -79,6 +82,7 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
     @ViewChild(MatSort) sort!: MatSort;
     //VARIABLES QUE INSTANCIAS PARA LOS DATOS DE LAS TABLAS
     dataSourceReuniones = new MatTableDataSource<any[]>();
+
     //VARIABLES QUE TRAEN LAS COLUMNAS DE CADA TABLA
     displayedColumns: string[] = ['descripcion','estado','cantidadAsist','start','end','acciones'];
     constructor(
@@ -101,6 +105,7 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
     this.reunionesModelAdd = new Reunion("","","","","","","",{usuario:""},{nombre:""},"");
     this.reunionesModelGetId = new Reunion("","","","","","","",{usuario:""},{nombre:""},"");
     this.idReunionModel = new Reunion("","","","","","","",{usuario:""},{nombre:""},"");
+    this.events = new Reunion("","","","","","","",{usuario:""},{nombre:""},"");
     this.salaModel = new Sala("","","","","","","","","");
     //INSTANCIANDO LOS DATOS DE LA DB DE SALA CON LAS VARIABLES
     this.salasModelGetId = new Sala("","","","","","","","","");
@@ -108,6 +113,7 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
     this.idSalaModel = new Sala("","","","","","","","","");
 
     this.usuarioModel = new Usuario('', '', '', '', '', '', '', '', '');
+    this.idUsuarioModel = new Usuario('', '', '', '', '', '', '', '', '');
 
     //VARIABLE OBTENIENDO LA FECHA ACTUAL PARA VALIUDACIÓN EN PARTE DEL CRUD
     this.todayDate = new Date();
@@ -117,11 +123,11 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
       this.dataSourceReuniones.data = reunionesT;
     })
     */
-/*
+
     this._reunionService.obtenerReunionesG().subscribe ( reuniones => {
       this.events = reuniones;
     })
-*/
+
   }
 
   obtenerReunionesG(){
@@ -170,7 +176,15 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
   asistencia(idReunion){
     this._reunionService.asistencia(idReunion).subscribe(
       response=>{
-        console.log(response)
+        console.log(response);
+        this.cerrarSesion();
+            Swal.fire({
+              //position: 'top-end',
+              icon: 'success',
+              title: 'Asistencia Registrada',
+              showConfirmButton: false,
+              timer: 1500,
+            });
         //Refrescando la ventana
         this.reload();
       }
@@ -422,7 +436,7 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
     action: string;
     event: CalendarEvent;
   };
-
+/*
   actions: CalendarEventAction[] = [
     {
       label: '<i class="fas fa-fw fa-pencil-alt"></i>',
@@ -440,9 +454,9 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
       },
     },
   ];
-
+*/
   refresh: Subject<any> = new Subject();
-
+/*
   events: CalendarEvent[] = [
     {
       start: subDays(startOfDay(new Date()), 1),
@@ -483,7 +497,7 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
       draggable: true,
     },
   ];
-
+*/
 
   /*events: CalendarEvent[] = [];*/
 
@@ -502,7 +516,7 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
       this.viewDate = date;
     }
   }
-
+/*
   eventTimesChanged({
     event,
     newStart,
@@ -520,12 +534,13 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
     });
     this.handleEvent('Dropped or resized', event);
   }
-
+*/
    handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action };
     this.modal.open(this.modalContent, { size: 'lg' });
   }
 
+  /*
   addEvent(): void {
     this.events = [
       ...this.events,
@@ -542,11 +557,12 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
       },
     ];
   }
-
+*/
+/*
   deleteEvent(eventToDelete: CalendarEvent) {
     this.events = this.events.filter((event) => event !== eventToDelete);
   }
-
+*/
   setView(view: CalendarView) {
     this.view = view;
   }
@@ -567,7 +583,8 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
       this.idSalaRuta = dataRuta.get('idSala');
     });
     this.obtenerSalaSelect(this.idSalaRuta);
-    this.obtenerReunionesSala(this.idSalaRuta)
+    this.obtenerReunionesSala(this.idSalaRuta);
+    this.obtenerReunionesSalaC(this.idSalaRuta);
   }
 
   ngAfterViewInit() {
@@ -592,6 +609,16 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
       }
     )
   }
+
+  obtenerReunionesSalaC(idSala){
+    this._reunionService.obtenerReunionesSala(idSala).subscribe(
+      response => {
+        this.events =response.reunionesObtenidas;
+        console.log(response);
+      }
+    )
+  }
+
 
   getToken() {
     this._usuarioService.login(this.usuarioModel).subscribe(
@@ -619,18 +646,21 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
         localStorage.setItem('token', JSON.stringify(this.token));
 
         if(this.identidad.estado=="Activo"){
-            /*
-            Swal.fire({
-              //position: 'top-end',
-              icon: 'success',
-              title: 'Ingreso exitoso',
-              showConfirmButton: false,
-              timer: 1500,
-            });
-*/
             this.usuarioModel.usuario='';
             this.usuarioModel.contrasena='';
-            $('#mConfirmacion').modal('show');
+            if( this.identidad.usuario === this.idReunionModel.idResponsable.usuario){
+              $('#mConfirmacion').modal('show');
+            }else if(this.identidad.usuario != this.idReunionModel.idResponsable.usuario){
+              Swal.fire({
+                icon: 'warning',
+                title: 'No se pudo marcar asistencia',
+                text: "Solo el creador de la solicitud de reunión puede confirmar asistencia.",
+                showConfirmButton: false,
+                timer: 2500,
+              });
+              $('#mLogin').modal('show');
+            }
+
         } else if(this.identidad.estado!="Activo"){
           Swal.fire({
             icon: 'error',
@@ -638,6 +668,9 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
             showConfirmButton: false,
             timer: 1500,
           });
+          this.usuarioModel.usuario='';
+          this.usuarioModel.contrasena='';
+          $('#mLogin').modal('show');
         }
       },
       (error) => {
@@ -649,7 +682,9 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
           showConfirmButton: false,
           timer: 1500,
         });
-
+        this.usuarioModel.usuario='';
+        this.usuarioModel.contrasena='';
+        $('#mLogin').modal('show');
       }
     );
   }
@@ -662,6 +697,16 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
     this.token = null;
     localStorage.setItem('identidad', JSON.stringify(this.identidad))
     localStorage.setItem('token', JSON.stringify(this.token));
+  }
+
+  obtenerUsuarioId(idUsuario:String){
+    this._usuarioService.obtenerUsuarioId(idUsuario).subscribe(
+      response=>{
+        this.idUsuarioModel = response.usuarioEncontrado;
+        console.log(response);
+
+      }
+    )
   }
 
 }

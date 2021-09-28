@@ -19,6 +19,7 @@ import { FiltroTabletComponent } from './componentes/filtro-tablet/filtro-tablet
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ControlTabletComponent } from './componentes/control-tablet/control-tablet.component';
+import { CalendarPComponent } from './componentes/calendar-p/calendar-p.component';
 
 //Diferentes rutas a las que se puede navegar
 const routes: Routes = [
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'salasTipo/:idTipoSala', component: SalasTipoComponent},
   { path: 'salasTipoSuper/:idTipoSala', component: SalasTipoSuperComponent},
   { path: 'reunion', component: ReunionComponent},
+  { path: 'calendario', component: CalendarPComponent},
   { path: 'detalleTipoSala/:idTipoSala', component: DetalleTipoSalaComponent },
   { path: 'detalleSala/:idSala', component: DetalleSalaComponent },
   { path: 'tipoSalasC', component: TipoSalaCComponent},

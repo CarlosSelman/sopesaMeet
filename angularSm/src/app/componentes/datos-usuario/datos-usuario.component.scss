@@ -126,6 +126,18 @@ body {
     width: 100%;
 }
 
+.go-calendar{
+  margin-top: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 0 12px rgba(0, 0, 0, .2);
+  background-color: #fff;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  width: 100%;
+}
+
 .seccion-perfil-usuario .perfil-usuario-bioD {
   display: flex;
   flex-wrap: wrap;

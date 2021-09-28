@@ -51,6 +51,7 @@ import { FlatpickrModule } from 'angularx-flatpickr';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { FiltroTabletComponent } from './componentes/filtro-tablet/filtro-tablet.component';
 import { ControlTabletComponent } from './componentes/control-tablet/control-tablet.component';
+import { CalendarPComponent } from './componentes/calendar-p/calendar-p.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { ControlTabletComponent } from './componentes/control-tablet/control-tab
     CrearSalaComponent,
     FiltroTabletComponent,
     ControlTabletComponent,
+    CalendarPComponent,
 
   ],
   imports: [
@@ -82,7 +84,6 @@ import { ControlTabletComponent } from './componentes/control-tablet/control-tab
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-
     MatSliderModule,
     MatFormFieldModule,
     MatInputModule,

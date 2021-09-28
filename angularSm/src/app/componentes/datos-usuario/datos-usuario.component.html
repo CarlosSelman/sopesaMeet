@@ -9,53 +9,51 @@
 </head>
 
 <body>
-    <section *ngIf="identidad != null" class="seccion-perfil-usuario">
-        <div class="perfil-usuario-header">
-            <div class="perfil-usuario-portada">
-                <div class="perfil-usuario-avatar">
-                    <img src="/assets/user.png" alt="img-avatar">
-                    <!--
-                    <button type="button" class="boton-avatar">
-                      <i class="bi bi-check-circle-fill"></i>
-                    </button>
-                    -->
-                </div>
-                <button type="button" class="boton-portada" [routerLink]="['/inicio']">
-                    Regresar al inicio
-                </button>
-            </div>
+  <section *ngIf="identidad != null" class="seccion-perfil-usuario">
+    <div class="perfil-usuario-header">
+      <div class="perfil-usuario-portada">
+        <div class="perfil-usuario-avatar">
+          <img src="/assets/user.png" alt="img-avatar">
+            <!--
+              <button type="button" class="boton-avatar">
+                <i class="bi bi-check-circle-fill"></i>
+              </button>
+            -->
         </div>
-        <div  class="perfil-usuario-body">
-            <div class="perfil-usuario-bio">
-                <h3 class="titulo">{{identidad.usuario}}</h3>
-                <!--<p class="texto">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua.</p>-->
-            </div>
-            <div class="perfil-usuario-footer">
-                <ul class="lista-datos">
-                    <li><i class="bi bi-list-nested"></i> <strong> Nombre(s):</strong></li>
-                    <li><i class="bi bi-arrow-return-right"></i> {{identidad.nombres}}</li>
-                    <li><i class="bi bi-list-nested"></i> <strong> Apellido(s):</strong></li>
-                    <li><i class="bi bi-arrow-return-right"></i>  {{identidad.apellidos}}</li>
-                </ul>
-                <ul class="lista-datos">
-                  <li><i class="bi bi-envelope"></i> <strong> Correo electrónico:</strong></li>
-                  <li><i class="bi bi-arrow-return-right"></i>  {{identidad.correo}}</li>
-                  <li><i class="bi bi-telephone"></i> <strong> No. Telefónico:</strong></li>
-                  <li><i class="bi bi-arrow-return-right"></i> {{identidad.tel}}</li>
-              </ul>
-            </div>
-
-            <div class="perfil-usuario-bioD">
-              <h3 class="titulo">Solicitud de reuniones</h3>
-          </div>
-
-       <div class="container">
-              <!-- Filtro -->
-                <mat-form-field appearance="standard">
-                  <mat-label >Escribe algo para filtrar...</mat-label>
-                  <input matInput (keyup)="applyFilter($event)" placeholder="Ejemplo: Reunión" #input autocomplete="off">
-                </mat-form-field>
+        <button type="button" class="boton-portada" [routerLink]="['/inicio']">
+          Regresar al inicio
+        </button>
+      </div>
+    </div>
+    <div  class="perfil-usuario-body">
+      <div class="perfil-usuario-bio">
+        <h3 class="titulo">{{identidad.usuario}}</h3>
+          <!--<p class="texto">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua.</p>-->
+      </div>
+      <div class="perfil-usuario-footer">
+        <ul class="lista-datos">
+          <li><i class="bi bi-list-nested"></i> <strong> Nombre(s):</strong></li>
+          <li><i class="bi bi-arrow-return-right"></i> {{identidad.nombres}}</li>
+          <li><i class="bi bi-list-nested"></i> <strong> Apellido(s):</strong></li>
+          <li><i class="bi bi-arrow-return-right"></i>  {{identidad.apellidos}}</li>
+        </ul>
+        <ul class="lista-datos">
+          <li><i class="bi bi-envelope"></i> <strong> Correo electrónico:</strong></li>
+          <li><i class="bi bi-arrow-return-right"></i>  {{identidad.correo}}</li>
+          <li><i class="bi bi-telephone"></i> <strong> No. Telefónico:</strong></li>
+          <li><i class="bi bi-arrow-return-right"></i> {{identidad.tel}}</li>
+        </ul>
+      </div>
+      <div class="perfil-usuario-bioD">
+        <h3 class="titulo">Solicitud de reuniones</h3>
+      </div>
+      <div class="container">
+        <!-- Filtro -->
+        <mat-form-field appearance="standard">
+          <mat-label >Escribe algo para filtrar...</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ejemplo: Reunión" #input autocomplete="off">
+        </mat-form-field>
         <!-- Tabla  -->
         <div class="mat-elevation-z8">
           <table align="center" mat-table [dataSource]="dataSource" matSort >
@@ -124,27 +122,7 @@
             <ng-container matColumnDef="acciones">
               <th mat-header-cell *matHeaderCellDef>  </th>
               <td mat-cell *matCellDef="let element" style="text-align:right;">
-                <!--
-                  <div  class="dropdown">
-                    <button  class="btn btn-light btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                      <i class="bi bi-three-dots-vertical"> </i>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                      <li><a class="dropdown-item"
-                        data-bs-toggle="modal" data-bs-target="#mVerReunion"><i class="bi bi-search"></i> | Ver más</a></li>
-                      <li><a  class="dropdown-item"
-                        data-bs-toggle="modal" data-bs-target="#mEditarReunion" ><i style="color:orange" class="bi bi-pencil-square"></i> | Editar</a></li>
-                      <li><a  *ngIf="element.estado!='Confirmada'" class="dropdown-item"
-                        data-bs-toggle="modal" data-bs-target="#mDesactivarUsuario" > <i style="color:green" class="bi bi-check2-circle"></i> | Confirmar</a></li>
-                      <li><a *ngIf="element.estado!='Rechazada'" class="dropdown-item"
-                        data-bs-toggle="modal" data-bs-target="#mRechazarReunion"><i style="color:red"class="bi bi-x-circle"></i> | Rechazar</a></li>
-                      <li><a  *ngIf="element.estado!='Pendiente'" class="dropdown-item"
-                        data-bs-toggle="modal" data-bs-target="#mPendienteReunion"><i class="bi bi-clock-history"></i> | Poner en Pendiente</a></li>
-                      </ul>
-                  </div>
-                  -->
-                  <button type="button" class="btn btn-light"  data-bs-toggle="modal" data-bs-target="#mVerReunion" (click)="obtenerReunion(element._id)"><i class="bi bi-front"></i></button>
-
+                <button type="button" class="btn btn-light"  data-bs-toggle="modal" data-bs-target="#mVerReunion" (click)="obtenerReunion(element._id)"><i class="bi bi-front"></i></button>
               </td>
             </ng-container>
 
@@ -155,26 +133,29 @@
          <mat-paginator  [pageSizeOptions]="[5, 10, 25,50,100]" showFirstLastButtons ></mat-paginator>
         </div>
 
-
-              </div>
-
-            <div class="redes-sociales">
-              <a style="color:black" href="https://goo.gl/maps/82xybT4hZ7L6cGaAA" class="boton-redes"><i class="bi bi-geo-alt-fill"></i></a>
-                <a href="https://www.linkedin.com/company/sopesagt" class="boton-redes"><i class="bi bi-linkedin"></i></a>
-                <a style="color:blue" href="https://www.facebook.com/SOPESA1/" class="boton-redes facebook"><i class="bi bi-facebook"></i></a>
-                <a style="color:red" href="https://youtube.com/channel/UCEEfSQ7Nl4R-gA8eb2x-otg" class="boton-redes"><i class="bi bi-youtube"></i></a>
-                <a  style="
-                border-radius: 40px;
-                color: #fff;
-                vertical-align: middle;
-                background: #d6249f;
-                background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
-                box-shadow: 0px 3px 10px rgba(0,0,0,.25);" href="https://instagram.com/sopesa1" class="boton-redes"><i class="bi bi-instagram"></i></a>
-            </div>
+        <div class="go-calendar">
+          <p>Para ir a la sección del calendario donde se encuentran todas las solicitudes de reuniones y demás <a [routerLink]="['/reunion']" class="card-link">presiona aquí...</a></p>
         </div>
-        <br>
-    </section>
-    <div *ngIf="identidad === null" id="err">
+      </div>
+
+      <div class="redes-sociales">
+        <a style="color:black" href="https://goo.gl/maps/82xybT4hZ7L6cGaAA" class="boton-redes"><i class="bi bi-geo-alt-fill"></i></a>
+        <a href="https://www.linkedin.com/company/sopesagt" class="boton-redes"><i class="bi bi-linkedin"></i></a>
+        <a style="color:blue" href="https://www.facebook.com/SOPESA1/" class="boton-redes facebook"><i class="bi bi-facebook"></i></a>
+        <a style="color:red" href="https://youtube.com/channel/UCEEfSQ7Nl4R-gA8eb2x-otg" class="boton-redes"><i class="bi bi-youtube"></i></a>
+        <a style="
+          border-radius: 40px;
+          color: #fff;
+          vertical-align: middle;
+          background: #d6249f;
+          background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+          box-shadow: 0px 3px 10px rgba(0,0,0,.25);" href="https://instagram.com/sopesa1" class="boton-redes"><i class="bi bi-instagram"></i></a>
+      </div>
+    </div>
+    <br>
+  </section>
+
+  <div *ngIf="identidad === null" id="err">
       <div id="error-page">
         <div class="contentE">
           <h1 data-text="403">403</h1>
