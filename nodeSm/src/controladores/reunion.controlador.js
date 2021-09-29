@@ -2,6 +2,7 @@
 
 const reunionModelo = require("../modelos/reunion.modelo");
 const Reunion = require("../modelos/reunion.modelo");
+const Sala = require("../modelos/sala.modelo");
 const jwt = require('../servicios/jwt');
 const bcrypt = require("bcrypt-nodejs");
 
@@ -16,11 +17,11 @@ const pendiente = 'Pendiente';
 const rechazada = 'Rechazada';
 const asitio = 'Asistida'
 
-function obtenerReuniones(req,res){
-    reunionModelo.find().populate('idSala', 'nombre').populate('idResponsable','usuario rol').exec((err, reunionesEncontradas)=>{
+function obtenerReuniones(req, res) {
+    reunionModelo.find().populate('idSala', 'nombre').populate('idResponsable', 'usuario rol').exec((err, reunionesEncontradas) => {
         console.log(err);
-        if(err) return res.status(500).send({ mensaje: 'Error en la peticion de reuniones' });
-        if(!reunionesEncontradas) return res.status(500).send({ mensaje: 'Error al obtener las reuniones' });
+        if (err) return res.status(500).send({ mensaje: 'Error en la peticion de reuniones' });
+        if (!reunionesEncontradas) return res.status(500).send({ mensaje: 'Error al obtener las reuniones' });
         return res.status(200).send({ reunionesEncontradas });
     })
 }
@@ -35,44 +36,44 @@ function obtenerReunionesT(req,res){
 }
 */
 
-function obtenerReunionesT(req,res){
-    reunionModelo.find((err,reunionesEncontradas)=>{
-        if(err) return res.status(404).send({report: 'Error al encontrar las reuniones'});
-            return res.status(200).send(reunionesEncontradas);
-    })
-}
-
-function obtenerReunionesC(req,res){
-    reunionModelo.find({estado: confirmada},(err,reunionesEncontradas)=>{
-        if(err) return res.status(404).send({report: 'Error al encontrar las reuniones'});
+function obtenerReunionesT(req, res) {
+    reunionModelo.find((err, reunionesEncontradas) => {
+        if (err) return res.status(404).send({ report: 'Error al encontrar las reuniones' });
         return res.status(200).send(reunionesEncontradas);
     })
 }
 
-function obtenerReunionesP(req,res){
-    reunionModelo.find({estado: pendiente},(err,reunionesEncontradas)=>{
-        if(err) return res.status(404).send({report: 'Error al encontrar las reuniones'});
+function obtenerReunionesC(req, res) {
+    reunionModelo.find({ estado: confirmada }, (err, reunionesEncontradas) => {
+        if (err) return res.status(404).send({ report: 'Error al encontrar las reuniones' });
         return res.status(200).send(reunionesEncontradas);
     })
 }
 
-function obtenerReunionesR(req,res){
-    reunionModelo.find({estado: rechazada},(err,reunionesEncontradas)=>{
-        if(err) return res.status(404).send({report: 'Error al encontrar las reuniones'});
+function obtenerReunionesP(req, res) {
+    reunionModelo.find({ estado: pendiente }, (err, reunionesEncontradas) => {
+        if (err) return res.status(404).send({ report: 'Error al encontrar las reuniones' });
         return res.status(200).send(reunionesEncontradas);
     })
 }
 
-function crearReunion(req,res){
+function obtenerReunionesR(req, res) {
+    reunionModelo.find({ estado: rechazada }, (err, reunionesEncontradas) => {
+        if (err) return res.status(404).send({ report: 'Error al encontrar las reuniones' });
+        return res.status(200).send(reunionesEncontradas);
+    })
+}
+
+function crearReunion(req, res) {
     var reunionModelo = new Reunion();
     var params = req.body;
 
     //Para la fecha de gestión
     var todayDate = new Date();
     var actualDate = todayDate.toLocaleDateString();
-    if (params.nombre && params.descripcion) {
+    if (params.nombre && params.title) {
         reunionModelo.nombre = params.nombre;
-        reunionModelo.descripcion = params.descripcion;
+        reunionModelo.title = params.title;
         reunionModelo.start = params.start;
         reunionModelo.end = params.end;
         reunionModelo.cantidadAsist = params.cantidadAsist;
@@ -82,14 +83,14 @@ function crearReunion(req,res){
         reunionModelo.fechaDeGestion = actualDate;
 
         //Validando que si la fecha y hora de inicio es mayor o igual que la final entonces no procede.
-        if(reunionModelo.start>=reunionModelo.end){
+        if (reunionModelo.start >= reunionModelo.end) {
             return res.status(500).send({ mensaje: 'La fecha y hora inicial no puede ser mayor o igual a la final.' })
         }
-        
+
         Reunion.find({
             $or: [
                 { nombre: reunionModelo.nombre },
-                { descripcion: reunionModelo.descripcion }
+                { title: reunionModelo.title }
             ]
         }).exec((err, reunionesEncontradas) => {
             if (err) return res.status(500).send({ mensaje: 'Error en la peticion de la reunión' })
@@ -104,11 +105,11 @@ function crearReunion(req,res){
                     if (reunionGuardada) {
                         res.status(200).send(reunionGuardada)
                         //Mostrando todos los datos de la reunión
-                        console.log(params); 
+                        console.log(params);
                     } else {
                         res.status(404).send({ mensaje: 'No se ha podido registrar la reunión' })
                     }
-                }) 
+                })
             }
         })
     }
@@ -117,96 +118,70 @@ function crearReunion(req,res){
 function obtenerReunion(req, res) {
     var idReunion = req.params.idReunion
 
-    reunionModelo.findById(idReunion).populate('idSala idResponsable').exec((err, reunionEncontrada)=>{
+    reunionModelo.findById(idReunion).populate('idSala idResponsable').exec((err, reunionEncontrada) => {
         if (err) return res.status(500).send({ mensaje: 'Error en la peticion de la reunión' })
         if (!reunionEncontrada) return res.status(500).send({ mensaje: 'Error en obtener los datos de la reunión' })
         console.log(reunionEncontrada.nombre);
         return res.status(200).send({ reunionEncontrada })
     })
 }
-/*
-function confirmarSolicitud(req, res){
-    var idReunion = req.params.idReunion;
-    var estado = req.params.estado;
-    var reunionModelo = new Reunion();
-    reunionModelo.estado = confirmada;
 
-    Reunion.findByIdAndUpdate(idReunion, {estado: confirmada}, { new: true }, (err, solicitudConfirmada)=>{
-        if(err) return res.status(500).send({ mensaje: 'Error en la peticion' });
-        if(!solicitudConfirmada) return res.status(500).send({ mensaje: 'No se ha podido confirmar la solicitud de reunión.' });
-        return res.status(200).send({ solicitudConfirmada });
-    })
-}
-
-*/
-function confirmarSolicitud(req,res) {
+function confirmarSolicitud(req, res) {
 
     var idReunion = req.params.idReunion;
-    var estado = req.params.estado;
-    var reunionModelo = new Reunion();
-    reunionModelo.estado = confirmada;
-    
-    var idSala = req.params.idSala;
-    var params = req.body;
 
-    var reunionModelo= new Reunion();
+    let contador = 0;
 
-        let contador=0;
-        //reunionModelo.idSala = idSala;
-        
-        Reunion.findById(idReunion,(err, reunionEncontrada)=>{
+    Reunion.findById(idReunion, (err, reunionEncontrada) => {
+        var idSala = reunionEncontrada.idSala;
 
-            let start = new Date(reunionEncontrada.start);
-            let end = new Date(reunionEncontrada.end);
-            
-            Reunion.find({idSala: idSala},(err, reunionEncontrada)=>{
-                for (let i = 0; i < reunionEncontrada.length; i++) {
+        let fecha_llegar = new Date(reunionEncontrada.start);
+        let fecha_salir = new Date(reunionEncontrada.end);
 
-                if(
-                    start.getTime()>reunionEncontrada[i].start.getTime() && end.getTime()> reunionEncontrada[i].end.getTime() ||
-                    start.getTime()< reunionEncontrada[i].start.getTime() && end.getTime()< reunionEncontrada[i].end.getTime()
-                ){  
-                contador++;
-                }        
+        Reunion.find({ idSala: idSala, estado: confirmada }, (err, reunionesEncontradas) => {
+            for (let i = 0; i < reunionesEncontradas.length; i++) {
+                if (
+                    fecha_llegar.toISOString() > reunionesEncontradas[i].start && fecha_llegar.toISOString() > reunionesEncontradas[i].end ||
+                    fecha_llegar.toISOString() < reunionesEncontradas[i].start && fecha_salir.toISOString() < reunionesEncontradas[i].end
+                ) {
+                    contador++;
+                }
             }
-
-            if(contador== reunionEncontrada.length){                    
-                Reunion.findByIdAndUpdate(idReunion, {estado: confirmada}, { new: true }, (err, solicitudConfirmada)=>{
-                    if(err) return res.status(500).send({ mensaje: 'Error en la peticion' });
-                    if(!solicitudConfirmada) return res.status(500).send({ mensaje: 'No se ha podido cancelar la solicitud de reunión.' });
+            if (contador == reunionesEncontradas.length) {
+                Reunion.findByIdAndUpdate(idReunion, { estado: confirmada }, { new: true }, (err, solicitudConfirmada) => {
+                    if (err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+                    if (!solicitudConfirmada) return res.status(500).send({ mensaje: 'No se ha podido cancelar la solicitud de reunión.' });
                     return res.status(200).send({ solicitudConfirmada });
                 })
-            }else{
-                return res.status(500).send({mensaje: 'Hay interferencia con ese horario'})
+            } else {
+                return res.status(500).send({ mensaje: 'Hay interferencia con ese horario' })
             }
-            })
-
-           
+        })
     })
 }
 
-function cancelarSolicitud(req, res){
+function cancelarSolicitud(req, res) {
     var idReunion = req.params.idReunion;
     var estado = req.params.estado;
     var reunionModelo = new Reunion();
     reunionModelo.estado = rechazada;
 
-    Reunion.findByIdAndUpdate(idReunion, {estado: rechazada}, { new: true }, (err, solicitudCancelada)=>{
-        if(err) return res.status(500).send({ mensaje: 'Error en la peticion' });
-        if(!solicitudCancelada) return res.status(500).send({ mensaje: 'No se ha podido cancelar la solicitud de reunión.' });
+    Reunion.findByIdAndUpdate(idReunion, { estado: rechazada }, { new: true }, (err, solicitudCancelada) => {
+        if (err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+        if (!solicitudCancelada) return res.status(500).send({ mensaje: 'No se ha podido cancelar la solicitud de reunión.' });
         return res.status(200).send({ solicitudCancelada });
     })
 }
 
-function pendienteSolicitud(req, res){
+function pendienteSolicitud(req, res) {
     var idReunion = req.params.idReunion;
     var estado = req.params.estado;
     var reunionModelo = new Reunion();
     reunionModelo.estado = pendiente;
 
-    Reunion.findByIdAndUpdate(idReunion, {estado: pendiente}, { new: true }, (err, solicitudPendiente)=>{
-        if(err) return res.status(500).send({ mensaje: 'Error en la peticion' });
-        if(!solicitudPendiente) return res.status(500).send({ mensaje: 'No se ha podido poner en pendiente la solicitud de reunión.' });
+    Reunion.findByIdAndUpdate(idReunion, { estado: pendiente }, { new: true }, (err, solicitudPendiente) => {
+        if (err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+        if (!solicitudPendiente) return res.status(500).send({ mensaje: 'No se ha podido poner en pendiente la solicitud de reunión.' });
         return res.status(200).send({ solicitudPendiente });
     })
 }
@@ -215,42 +190,42 @@ function editarSolicitud(req, res) {
     var idReunion = req.params.idReunion;
     var params = req.body;
 
-    reunionModelo.findByIdAndUpdate(idReunion, params, { new: true }, (err, solicitudActualizada)=>{
-        if(err) return res.status(500).send({ mensaje: 'Error en la peticion' });
-        if(!solicitudActualizada) return res.status(500).send({ mensaje: 'No se ha podido actualizar la solicitud de reunión.' });
-            return res.status(200).send({ solicitudActualizada });
-    })   
+    reunionModelo.findByIdAndUpdate(idReunion, params, { new: true }, (err, solicitudActualizada) => {
+        if (err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+        if (!solicitudActualizada) return res.status(500).send({ mensaje: 'No se ha podido actualizar la solicitud de reunión.' });
+        return res.status(200).send({ solicitudActualizada });
+    })
 }
 
-function obtenerReunionesSala(req, res){
+function obtenerReunionesSala(req, res) {
     var idSala = req.params.idSala;
-    Reunion.find({idSala : idSala},(err, reunionesObtenidas)=>{
-        if(err) return res.status(500).send({ mensaje: 'Error en la peticion' });
-        if(!reunionesObtenidas) return res.status(500).send({ mensaje: 'No se han podido traer las reuniones' });
+    Reunion.find({ idSala: idSala }, (err, reunionesObtenidas) => {
+        if (err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+        if (!reunionesObtenidas) return res.status(500).send({ mensaje: 'No se han podido traer las reuniones' });
         return res.status(200).send({ reunionesObtenidas });
     })
 }
 
-function obtenerReunionesUsuario(req, res){
+function obtenerReunionesUsuario(req, res) {
     var idResponsable = req.params.idResponsable
-    Reunion.find({idResponsable : idResponsable},(err, reunionesObtenidas)=>{
-          if(err) return res.status(500).send({ mensaje: 'Error en la peticion' });
-          if(!reunionesObtenidas) return res.status(500).send({ mensaje: 'No se han podido traer las reuniones del usuario.' });
-          return res.status(200).send({ reunionesObtenidas });
-      })
-  }
+    Reunion.find({ idResponsable: idResponsable }, (err, reunionesObtenidas) => {
+        if (err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+        if (!reunionesObtenidas) return res.status(500).send({ mensaje: 'No se han podido traer las reuniones del usuario.' });
+        return res.status(200).send({ reunionesObtenidas });
+    })
+}
 
-  function asistencia(req, res){
+function asistencia(req, res) {
     var idReunion = req.params.idReunion;
     var estado = req.params.estado;
     var reunionModelo = new Reunion();
     reunionModelo.estado = asitio;
 
-    Reunion.findByIdAndUpdate(idReunion, {estado: asitio}, { new: true }, (err, solicitudAsistida)=>{
-        if(err) return res.status(500).send({ mensaje: 'Error en la peticion' });
-        if(!solicitudAsistida) return res.status(500).send({ mensaje: 'No se ha podido poner en pendiente la solicitud de reunión.' });
+    Reunion.findByIdAndUpdate(idReunion, { estado: asitio }, { new: true }, (err, solicitudAsistida) => {
+        if (err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+        if (!solicitudAsistida) return res.status(500).send({ mensaje: 'No se ha podido poner en pendiente la solicitud de reunión.' });
         return res.status(200).send({ solicitudAsistida });
-    })    
+    })
 }
 
 module.exports = {

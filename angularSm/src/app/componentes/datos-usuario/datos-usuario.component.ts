@@ -32,12 +32,12 @@ declare var $: any;
 export class DatosUsuarioComponent implements AfterViewInit {
   public identidad;
 
-  displayedColumns: string[] = ['descripcion','estado','cantidadAsist','start','end','acciones'];
+  displayedColumns: string[] = ['title','estado','cantidadAsist','start','end','acciones'];
   dataSource = new MatTableDataSource<any[]>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  displayedColumnsD: string[] = ['descripcion','estado','cantidadAsist','start','end','acciones'];
+  displayedColumnsD: string[] = ['title','estado','cantidadAsist','start','end','acciones'];
   dataSourceD = new MatTableDataSource<any[]>();
 
   public usuariosModelGet;

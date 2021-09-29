@@ -145,9 +145,9 @@
                     <div class="mat-elevation-z8">
                       <table  align="center" mat-table [dataSource]="dataSourceReuniones" matSort > <!-- matSort -->
 
-                        <ng-container matColumnDef="descripcion">
+                        <ng-container matColumnDef="title">
                           <th mat-header-cell *matHeaderCellDef> <i class="bi bi-list-nested"></i> &nbsp; Descripción </th>
-                          <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+                          <td mat-cell *matCellDef="let element"> {{element.title}} </td>
                         </ng-container>
 
                         <ng-container matColumnDef="estado">
@@ -316,7 +316,7 @@
           <div class="mb-3">
             <label for="inputDescripcionR" class="form-label"><i class="bi bi-list-nested"></i><strong> Descripción:</strong></label>
             <textarea class="form-control" id="inputDescripcionR" rows="1" name="descripcionR" #descripcionR="ngModel"
-              [(ngModel)]="reunionesModelAdd.descripcion"></textarea>
+              [(ngModel)]="reunionesModelAdd.title"></textarea>
           </div>
           <div class="mb-3">
             <label for="inputCnaAsR" class="form-label"><i class="bi bi-people-fill"></i><strong> Cantidad de Asistentes:</strong></label>
@@ -399,7 +399,7 @@
           <div class="mb-3">
             <label for="inVrD" class="form-label"><i class="bi bi-list-nested"></i><strong> Descripción:</strong></label>
             <input type="text" class="form-control" id="inVrD" name="descReu"
-            #descReu="ngModel" [(ngModel)]="idReunionModel.descripcion" disabled>
+            #descReu="ngModel" [(ngModel)]="idReunionModel.title" disabled>
           </div>
           <div class="mb-3">
             <label for="inVrS" class="form-label"><i class="bi bi-calendar-check"></i><strong> Fecha de Inicio:</strong></label>
@@ -481,7 +481,7 @@
           <div class="mb-3">
             <label for="inputApellidosP" class="form-label"><strong>Descripción:</strong></label>
             <input type="text" class="form-control" id="inputApellidosP"
-            name="apellidos" #apellidos="ngModel" [(ngModel)]="idReunionModel.descripcion">
+            name="apellidos" #apellidos="ngModel" [(ngModel)]="idReunionModel.title">
           </div>
           <div class="mb-3">
             <label for="inputUsuarioP" class="form-label"><strong>Cantidad de Asistentes:</strong></label>

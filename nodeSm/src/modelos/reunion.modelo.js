@@ -6,7 +6,7 @@ var Schema = mongoose.Schema; // Variable sobre cómo se va a llamar mi modelo
 var reunionSchema = Schema ({
     
     nombre: String,
-    descripcion: String, 
+    title: String, //descripcion
     start: String,
     end: String,
     cantidadAsist: String,

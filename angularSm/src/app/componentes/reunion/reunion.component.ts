@@ -77,12 +77,11 @@ export class ReunionComponent implements OnInit, AfterViewInit{
     dataSourceReunionesP = new MatTableDataSource<any[]>();
     dataSourceReunionesR = new MatTableDataSource<any[]>();
 
-    events: CalendarEvent<Reunion>[];
     //VARIABLES QUE TRAEN LAS COLUMNAS DE CADA TABLA
-    displayedColumns: string[] = ['descripcion','estado','cantidadAsist','start','end','acciones'];
-    displayedColumnsC: string[] = ['descripcion','estado','cantidadAsist','start','end','acciones'];
-    displayedColumnsP: string[] = ['descripcion','estado','cantidadAsist','start','end','acciones'];
-    displayedColumnsR: string[] = ['descripcion','estado','cantidadAsist','start','end','acciones'];
+    displayedColumns: string[] = ['title','estado','cantidadAsist','start','end','acciones'];
+    displayedColumnsC: string[] = ['title','estado','cantidadAsist','start','end','acciones'];
+    displayedColumnsP: string[] = ['title','estado','cantidadAsist','start','end','acciones'];
+    displayedColumnsR: string[] = ['title','estado','cantidadAsist','start','end','acciones'];
 
   constructor(
 
@@ -122,9 +121,11 @@ export class ReunionComponent implements OnInit, AfterViewInit{
       this.dataSourceReunionesP.data = reunionesT;
     })
 
+    /*
     this._reunionService.obtenerReunionesG().subscribe ( reuniones => {
       this.events = reuniones;
     })
+    */
 
   }
 
@@ -133,6 +134,18 @@ export class ReunionComponent implements OnInit, AfterViewInit{
       response => {
          this.events = response.reunionesEncontradas;
          console.log(response)
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  //FUNCIONES DE OBTENER REUNIONES EN TABLAS
+  obtenerReunionesP(){
+    this._reunionService.obtenerReunionesP().subscribe(
+      response => {
+         this.dataSourceReunionesP.data = response.reunionesEncontradas;
       },
       error => {
         console.log(<any>error);
@@ -173,49 +186,6 @@ export class ReunionComponent implements OnInit, AfterViewInit{
     )
   }
 
-  obtenerReunionesP(){
-    this._reunionService.obtenerReunionesP().subscribe(
-      response => {
-         this.dataSourceReunionesP.data = response.reunionesEncontradas;
-      },
-      error => {
-        console.log(<any>error);
-      }
-    )
-  }
-
-  cancelarSolicitud(idReunion){
-    this._reunionService.cancelarSolicitud(idReunion).subscribe(
-      response=>{
-        console.log(response)
-        //Refrescando la ventana
-        this.reload();
-      }
-    )
-  }
-
-  confirmarSolicitud(idReunion){
-    this._reunionService.confirmarSolicitud(idReunion).subscribe(
-      response=>{
-        console.log(response)
-        //Refrescando la ventana
-        this.reload();
-      }
-    )
-  }
-
-  pendienteSolicitud(idReunion){
-    this._reunionService.pendienteSolicitud(idReunion).subscribe(
-      response=>{
-        console.log(response)
-        //Refrescando la ventana
-        this.reload();
-      }
-    )
-  }
-
-
-
   //FILTROS DE LAS TABLAS
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -237,7 +207,53 @@ export class ReunionComponent implements OnInit, AfterViewInit{
     this.dataSourceReunionesP.filter = filterValue.trim().toLowerCase();
   }
 
-  //FUNCIONES
+  //FUNCIONES CRUD
+  cancelarSolicitud(idReunion){
+    this._reunionService.cancelarSolicitud(idReunion).subscribe(
+      response=>{
+        console.log(response)
+        //Refrescando la ventana
+        this.reload();
+      }
+    )
+  }
+
+  confirmarSolicitud(idReunion){
+    this._reunionService.confirmarSolicitud(idReunion).subscribe(
+      response=>{
+        console.log(response)
+        Swal.fire({
+          icon: 'success',
+          title: 'Confirmada',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        //Refrescando la ventana
+        this.reload();
+      },
+      error=>{
+        console.log(error)
+        Swal.fire({
+          icon: 'error',
+          title: 'No se pudo confirmar la reunión',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
+      }
+    )
+  }
+
+  pendienteSolicitud(idReunion){
+    this._reunionService.pendienteSolicitud(idReunion).subscribe(
+      response=>{
+        console.log(response)
+        //Refrescando la ventana
+        this.reload();
+      }
+    )
+  }
+
   obtenerReunion(idReunion:String){
     this._reunionService.obtenerReunion(idReunion).subscribe(
       response=>{
@@ -252,7 +268,7 @@ export class ReunionComponent implements OnInit, AfterViewInit{
     //Validación
       if(
         this.idReunionModel.nombre===""||
-        this.idReunionModel.descripcion===""||
+        this.idReunionModel.title===""||
         this.idReunionModel.cantidadAsist===""||
         this.idReunionModel.start===""||
         this.idReunionModel.end===""
@@ -347,7 +363,6 @@ export class ReunionComponent implements OnInit, AfterViewInit{
     )
   }
 
-  //OBTENIENDO DATOS DE LA DB
   obtenerReunionesDB(){
     this._reunionService.obtenerReuniones(this.token).subscribe(
       response => {
@@ -374,13 +389,12 @@ export class ReunionComponent implements OnInit, AfterViewInit{
     )
   }
 
-  //Función de agregar reunión
   crearReunion(){
 
     //Validación
       if(
         this.reunionesModelAdd.nombre===""||
-        this.reunionesModelAdd.descripcion===""||
+        this.reunionesModelAdd.title===""||
         this.reunionesModelAdd.cantidadAsist===""||
         this.reunionesModelAdd.start===""||
         this.reunionesModelAdd.end===""||
@@ -427,7 +441,7 @@ export class ReunionComponent implements OnInit, AfterViewInit{
           });
           //Limpiando los campos luego de la creación
           this.reunionesModelAdd.nombre ='';
-          this.reunionesModelAdd.descripcion ='';
+          this.reunionesModelAdd.title ='';//Descripcion
           this.reunionesModelAdd.cantidadAsist ='';
           this.reunionesModelAdd.start ='';
           this.reunionesModelAdd.end ='';
@@ -447,11 +461,6 @@ export class ReunionComponent implements OnInit, AfterViewInit{
         }
       )
     }
-  }
-
-  //Función para refrescar la pantalla
-  reload(): void{
-    window.location.reload();
   }
 
 /*
@@ -479,7 +488,7 @@ export class ReunionComponent implements OnInit, AfterViewInit{
     action: string;
     event: CalendarEvent;
   };
-
+/*
   actions: CalendarEventAction[] = [
     {
       label: '<i class="fas fa-fw fa-pencil-alt"></i>',
@@ -488,6 +497,8 @@ export class ReunionComponent implements OnInit, AfterViewInit{
         this.handleEvent('Edited', event);
       },
     },
+
+
     {
       label: '<i class="fas fa-fw fa-trash-alt"></i>',
       a11yLabel: 'Delete',
@@ -496,18 +507,18 @@ export class ReunionComponent implements OnInit, AfterViewInit{
         this.handleEvent('Deleted', event);
       },
     },
-  ];
 
+  ];
+*/
   refresh: Subject<any> = new Subject();
 
-  /*
   events: CalendarEvent[] = [
     {
       start: subDays(startOfDay(new Date()), 1),
       end: addDays(new Date(), 1),
       title: 'A 3 day event',
-      color: colors.red,
-      actions: this.actions,
+      //color: colors.red,
+      //actions: this.actions,
       allDay: true,
       resizable: {
         beforeStart: true,
@@ -518,22 +529,22 @@ export class ReunionComponent implements OnInit, AfterViewInit{
     {
       start: startOfDay(new Date()),
       title: 'An event with no end date',
-      color: colors.yellow,
-      actions: this.actions,
+      //color: colors.yellow,
+      //actions: this.actions,
     },
     {
       start: subDays(endOfMonth(new Date()), 3),
       end: addDays(endOfMonth(new Date()), 3),
       title: 'A long event that spans 2 months',
-      color: colors.blue,
+      //color: colors.blue,
       allDay: true,
     },
     {
       start: addHours(startOfDay(new Date()), 2),
       end: addHours(new Date(), 2),
       title: 'A draggable and resizable event',
-      color: colors.yellow,
-      actions: this.actions,
+      //color: colors.yellow,
+      //actions: this.actions,
       resizable: {
         beforeStart: true,
         afterEnd: true,
@@ -541,7 +552,6 @@ export class ReunionComponent implements OnInit, AfterViewInit{
       draggable: true,
     },
   ];
-*/
 
   /*events: CalendarEvent[] = [];*/
 
@@ -584,6 +594,7 @@ export class ReunionComponent implements OnInit, AfterViewInit{
     this.modal.open(this.modalContent, { size: 'lg' });
   }
 
+  /*
   addEvent(): void {
     this.events = [
       ...this.events,
@@ -600,10 +611,13 @@ export class ReunionComponent implements OnInit, AfterViewInit{
       },
     ];
   }
+  */
 
+  /*
   deleteEvent(eventToDelete: CalendarEvent) {
     this.events = this.events.filter((event) => event !== eventToDelete);
   }
+  */
 
   setView(view: CalendarView) {
     this.view = view;
@@ -623,8 +637,13 @@ export class ReunionComponent implements OnInit, AfterViewInit{
   }
 
   ngAfterViewInit() {
-      this.dataSourceReuniones.sort = this.sort;
-      this.dataSourceReuniones.paginator = this.paginator;
+    this.dataSourceReuniones.sort = this.sort;
+    this.dataSourceReuniones.paginator = this.paginator;
+  }
+
+  //Función para refrescar la pantalla
+  reload(): void{
+    window.location.reload();
   }
 }
 

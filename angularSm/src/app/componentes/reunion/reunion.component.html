@@ -130,7 +130,7 @@
               </h2>
               <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
-                <div   *ngIf="identidad != null && identidad.rol==='SuperAdministrador'" class="container"><br>
+                <div   *ngIf="identidad != null" class="container"><br>
                   <hr>
                   <mat-tab-group mat-align-tabs="center">
 
@@ -149,9 +149,9 @@
                       <div class="mat-elevation-z8">
                         <table  align="center" mat-table [dataSource]="dataSourceReuniones" matSort > <!-- matSort -->
 
-                          <ng-container matColumnDef="descripcion">
+                          <ng-container matColumnDef="title">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> <i class="bi bi-list-nested"></i> &nbsp; Descripción </th>
-                            <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+                            <td mat-cell *matCellDef="let element"> {{element.title}} </td>
                           </ng-container>
 
                           <ng-container matColumnDef="estado">
@@ -255,9 +255,9 @@
                       <div class="mat-elevation-z8">
                         <table  align="center" mat-table [dataSource]="dataSourceReunionesC" matSort > <!-- matSort -->
 
-                          <ng-container matColumnDef="descripcion">
+                          <ng-container matColumnDef="title">
                             <th mat-header-cell *matHeaderCellDef> <i class="bi bi-list-nested"></i> &nbsp; Descripción </th>
-                            <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+                            <td mat-cell *matCellDef="let element"> {{element.title}} </td>
                           </ng-container>
 
                           <ng-container matColumnDef="estado">
@@ -359,9 +359,9 @@
                       <div class="mat-elevation-z8">
                         <table  align="center" mat-table [dataSource]="dataSourceReunionesR" matSort > <!-- matSort -->
 
-                          <ng-container matColumnDef="descripcion">
+                          <ng-container matColumnDef="title">
                             <th mat-header-cell *matHeaderCellDef> <i class="bi bi-list-nested"></i> &nbsp; Descripción </th>
-                            <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+                            <td mat-cell *matCellDef="let element"> {{element.title}} </td>
                           </ng-container>
 
                           <ng-container matColumnDef="estado">
@@ -465,9 +465,9 @@
                       <div class="mat-elevation-z8">
                         <table  align="center" mat-table [dataSource]="dataSourceReunionesP" matSort > <!-- matSort -->
 
-                          <ng-container matColumnDef="descripcion">
+                          <ng-container matColumnDef="title">
                             <th mat-header-cell *matHeaderCellDef> <i class="bi bi-list-nested"></i> &nbsp; Descripción </th>
-                            <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+                            <td mat-cell *matCellDef="let element"> {{element.title}} </td>
                           </ng-container>
 
                           <ng-container matColumnDef="estado">
@@ -757,7 +757,7 @@
           <div class="mb-3">
             <label for="inputDescripcionR" class="form-label"><i class="bi bi-list-nested"></i><strong> Descripción:</strong></label>
             <textarea class="form-control" id="inputDescripcionR" rows="1" name="descripcionR" #descripcionR="ngModel"
-              [(ngModel)]="reunionesModelAdd.descripcion"></textarea>
+              [(ngModel)]="reunionesModelAdd.title"></textarea>
           </div>
           <div class="mb-3">
             <label for="inputCnaAsR" class="form-label"><i class="bi bi-people-fill"></i><strong> Cantidad de Asistentes:</strong></label>
@@ -840,7 +840,7 @@
           <div class="mb-3">
             <label for="inVrD" class="form-label"><i class="bi bi-list-nested"></i><strong> Descripción:</strong></label>
             <input type="text" class="form-control" id="inVrD" name="descReu"
-            #descReu="ngModel" [(ngModel)]="idReunionModel.descripcion" disabled>
+            #descReu="ngModel" [(ngModel)]="idReunionModel.title" disabled>
           </div>
           <div class="mb-3">
             <label for="inVrS" class="form-label"><i class="bi bi-calendar-check"></i><strong> Fecha de Inicio:</strong></label>
@@ -924,7 +924,7 @@
           <div class="mb-3">
             <label for="inputApellidos" class="form-label"><strong>Descripción:</strong></label>
             <input type="text" class="form-control" id="inputApellidos"
-            name="apellidos" #apellidos="ngModel" [(ngModel)]="idReunionModel.descripcion">
+            name="apellidos" #apellidos="ngModel" [(ngModel)]="idReunionModel.title">
           </div>
           <div class="mb-3">
             <label for="inputUsuario" class="form-label"><strong>Cantidad de Asistentes:</strong></label>
@@ -1014,6 +1014,26 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"
         (click)="pendienteSolicitud(idReunionModel._id)">Si, poner en pendiente <i class="bi bi-clock-history"></i> </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="mDesactivarUsuario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirmación de Solicitud de Reunión</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Esta seguro de que desea confirmar la solicitud de reunión a nombre de "{{idReunionModel.nombre}}"?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> No, cerrar</button>
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal"
+        (click)="confirmarSolicitud(idReunionModel._id)">Si, confirmar <i class="bi bi-check2-circle"></i> </button>
       </div>
     </div>
   </div>

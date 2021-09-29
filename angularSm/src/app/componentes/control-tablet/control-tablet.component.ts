@@ -84,7 +84,7 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
     dataSourceReuniones = new MatTableDataSource<any[]>();
 
     //VARIABLES QUE TRAEN LAS COLUMNAS DE CADA TABLA
-    displayedColumns: string[] = ['descripcion','estado','cantidadAsist','start','end','acciones'];
+    displayedColumns: string[] = ['title','estado','cantidadAsist','start','end','acciones'];
     constructor(
 
     //CREANDO UNA VARIABLE PARA NgbModal
@@ -224,7 +224,7 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
     //Validación
       if(
         this.idReunionModel.nombre===""||
-        this.idReunionModel.descripcion===""||
+        this.idReunionModel.title===""||
         this.idReunionModel.cantidadAsist===""||
         this.idReunionModel.start===""||
         this.idReunionModel.end===""
@@ -352,7 +352,7 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
     //Validación
       if(
         this.reunionesModelAdd.nombre===""||
-        this.reunionesModelAdd.descripcion===""||
+        this.reunionesModelAdd.title===""||
         this.reunionesModelAdd.cantidadAsist===""||
         this.reunionesModelAdd.start===""||
         this.reunionesModelAdd.end===""||
@@ -399,7 +399,7 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
           });
           //Limpiando los campos luego de la creación
           this.reunionesModelAdd.nombre ='';
-          this.reunionesModelAdd.descripcion ='';
+          this.reunionesModelAdd.title ='';
           this.reunionesModelAdd.cantidadAsist ='';
           this.reunionesModelAdd.start ='';
           this.reunionesModelAdd.end ='';
