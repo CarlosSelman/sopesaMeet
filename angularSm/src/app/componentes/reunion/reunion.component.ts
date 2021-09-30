@@ -25,7 +25,7 @@ import { Component, OnInit, ChangeDetectionStrategy, ViewChild, TemplateRef } fr
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
+import {  CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
 
 //DECLARANDO $ PARA UTILIZAR JQUERY
 declare var $: any;
@@ -67,7 +67,9 @@ export class ReunionComponent implements OnInit, AfterViewInit{
   public reuniones;
   public todayDate;
   public reunionesT;
-
+/*
+  public events:CalendarEvent[];
+*/
     //ViewChild DE LA PAGINACIÓN Y DEL SORT DE LA TABLA CON TODOS LOS DATOS
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
@@ -83,6 +85,8 @@ export class ReunionComponent implements OnInit, AfterViewInit{
     displayedColumnsP: string[] = ['title','estado','cantidadAsist','start','end','acciones'];
     displayedColumnsR: string[] = ['title','estado','cantidadAsist','start','end','acciones'];
 
+    events:Reunion[];
+
   constructor(
 
     //CREANDO UNA VARIABLE PARA NgbModal
@@ -93,14 +97,13 @@ export class ReunionComponent implements OnInit, AfterViewInit{
     public _salaService: SalaService,
     public _tipoSalaService:TipoSalaService
     ) {
-
     //OBTENIENDO IDENTIDAD Y TOKEN
     this.identidad = this._usuarioService.getIdentidad();
     this.token = this._usuarioService.getToken();
     //INSTANCIANDO LOS DATOS DE LA DB DE REUNIÓN CON LAS VARIABLES
-    this.reunionesModelAdd = new Reunion("","","","","","","",{usuario:""},{nombre:""},"");
-    this.reunionesModelGetId = new Reunion("","","","","","","",{usuario:""},{nombre:""},"");
-    this.idReunionModel = new Reunion("","","","","","","",{usuario:""},{nombre:""},"");
+    this.reunionesModelAdd = new Reunion("","","",null,null,"","",{usuario:""},{nombre:""},"")
+    this.reunionesModelGetId = new Reunion("","","",null,null,"","",{usuario:""},{nombre:""},"")
+    this.idReunionModel =  new Reunion("","","",null,null,"","",{usuario:""},{nombre:""},"")
     //INSTANCIANDO LOS DATOS DE LA DB DE SALA CON LAS VARIABLES
     this.salasModelGetId = new Sala("","","","","","","","","");
     this.salasModelAdd = new Sala("","","","","","","","","");
@@ -234,12 +237,12 @@ export class ReunionComponent implements OnInit, AfterViewInit{
       error=>{
         console.log(error)
         Swal.fire({
-          icon: 'error',
+          icon: 'warning',
           title: 'No se pudo confirmar la reunión',
+          text: "Hay interferencia con el horario.",
           showConfirmButton: false,
-          timer: 1500,
+          timer: 3500,
         });
-
       }
     )
   }
@@ -270,8 +273,8 @@ export class ReunionComponent implements OnInit, AfterViewInit{
         this.idReunionModel.nombre===""||
         this.idReunionModel.title===""||
         this.idReunionModel.cantidadAsist===""||
-        this.idReunionModel.start===""||
-        this.idReunionModel.end===""
+        this.idReunionModel.start===null||
+        this.idReunionModel.end===null
       ){
         //Alerta para que se llenen todos los campos
         Swal.fire({
@@ -396,8 +399,8 @@ export class ReunionComponent implements OnInit, AfterViewInit{
         this.reunionesModelAdd.nombre===""||
         this.reunionesModelAdd.title===""||
         this.reunionesModelAdd.cantidadAsist===""||
-        this.reunionesModelAdd.start===""||
-        this.reunionesModelAdd.end===""||
+        this.reunionesModelAdd.start===null||
+        this.reunionesModelAdd.end===null||
         this.reunionesModelAdd.idSala.nombre===""){
         //Alerta para que se llenen todos los campos
         Swal.fire({
@@ -443,8 +446,8 @@ export class ReunionComponent implements OnInit, AfterViewInit{
           this.reunionesModelAdd.nombre ='';
           this.reunionesModelAdd.title ='';//Descripcion
           this.reunionesModelAdd.cantidadAsist ='';
-          this.reunionesModelAdd.start ='';
-          this.reunionesModelAdd.end ='';
+          this.reunionesModelAdd.start =null;
+          this.reunionesModelAdd.end =null;
           this.reunionesModelAdd.idSala.nombre ='';
           //Refrescando la ventana
           this.reload();
@@ -511,7 +514,7 @@ export class ReunionComponent implements OnInit, AfterViewInit{
   ];
 */
   refresh: Subject<any> = new Subject();
-
+/*
   events: CalendarEvent[] = [
     {
       start: subDays(startOfDay(new Date()), 1),
@@ -552,8 +555,8 @@ export class ReunionComponent implements OnInit, AfterViewInit{
       draggable: true,
     },
   ];
-
-  /*events: CalendarEvent[] = [];*/
+*/
+/*events: CalendarEvent[] = [];*/
 
   activeDayIsOpen: boolean = true;
 
@@ -570,7 +573,7 @@ export class ReunionComponent implements OnInit, AfterViewInit{
       this.viewDate = date;
     }
   }
-
+/*
   eventTimesChanged({
     event,
     newStart,
@@ -588,7 +591,7 @@ export class ReunionComponent implements OnInit, AfterViewInit{
     });
     this.handleEvent('Dropped or resized', event);
   }
-
+*/
    handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action };
     this.modal.open(this.modalContent, { size: 'lg' });
@@ -632,7 +635,8 @@ export class ReunionComponent implements OnInit, AfterViewInit{
   ngOnInit(): void {
     this.obtenerTipoSalas();
     this.obtenerSalasT();
-    this.obtenerReuniones(); //IMPRIMIENDO DE LA DB
+    this.obtenerReuniones();
+    this.obtenerReunionesG(); //IMPRIMIENDO DE LA DB
     console.log(this.events); //IMPRIMIENDO LOS EVENTOS ESTATICOS
   }
 

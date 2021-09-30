@@ -2,9 +2,9 @@ export class Reunion{
   constructor(
     public _id: String,
     public nombre:String,
-    public title: String, //Descripcion
-    public start: String,
-    public end: String,
+    public title: string, //Descripcion
+    public start: Date,
+    public end: Date,
     public cantidadAsist: String,
     public estado: String,
     public idResponsable: {

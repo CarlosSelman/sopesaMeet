@@ -102,10 +102,10 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
     this.identidad = this._usuarioService.getIdentidad();
     this.token = this._usuarioService.getToken();
     //INSTANCIANDO LOS DATOS DE LA DB DE REUNIÓN CON LAS VARIABLES
-    this.reunionesModelAdd = new Reunion("","","","","","","",{usuario:""},{nombre:""},"");
-    this.reunionesModelGetId = new Reunion("","","","","","","",{usuario:""},{nombre:""},"");
-    this.idReunionModel = new Reunion("","","","","","","",{usuario:""},{nombre:""},"");
-    this.events = new Reunion("","","","","","","",{usuario:""},{nombre:""},"");
+    this.reunionesModelAdd = new Reunion("","","",new Date(),new Date(),"","",{usuario:""},{nombre:""},"")
+    this.reunionesModelGetId = new Reunion("","","",new Date(),new Date(),"","",{usuario:""},{nombre:""},"")
+    this.idReunionModel = new Reunion("","","",new Date(),new Date(),"","",{usuario:""},{nombre:""},"")
+    this.events = new Reunion("","","",new Date(),new Date(),"","",{usuario:""},{nombre:""},"")
     this.salaModel = new Sala("","","","","","","","","");
     //INSTANCIANDO LOS DATOS DE LA DB DE SALA CON LAS VARIABLES
     this.salasModelGetId = new Sala("","","","","","","","","");
@@ -226,8 +226,8 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
         this.idReunionModel.nombre===""||
         this.idReunionModel.title===""||
         this.idReunionModel.cantidadAsist===""||
-        this.idReunionModel.start===""||
-        this.idReunionModel.end===""
+        this.idReunionModel.start===null||
+        this.idReunionModel.end===null
       ){
         //Alerta para que se llenen todos los campos
         Swal.fire({
@@ -354,8 +354,8 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
         this.reunionesModelAdd.nombre===""||
         this.reunionesModelAdd.title===""||
         this.reunionesModelAdd.cantidadAsist===""||
-        this.reunionesModelAdd.start===""||
-        this.reunionesModelAdd.end===""||
+        this.reunionesModelAdd.start===null||
+        this.reunionesModelAdd.end===null||
         this.reunionesModelAdd.idSala.nombre===""){
         //Alerta para que se llenen todos los campos
         Swal.fire({
@@ -401,8 +401,8 @@ export class ControlTabletComponent implements OnInit, AfterViewInit{
           this.reunionesModelAdd.nombre ='';
           this.reunionesModelAdd.title ='';
           this.reunionesModelAdd.cantidadAsist ='';
-          this.reunionesModelAdd.start ='';
-          this.reunionesModelAdd.end ='';
+          this.reunionesModelAdd.start =null;
+          this.reunionesModelAdd.end =null;
           this.reunionesModelAdd.idSala.nombre ='';
           //Refrescando la ventana
           this.reload();

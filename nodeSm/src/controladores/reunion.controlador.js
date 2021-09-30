@@ -134,7 +134,7 @@ function confirmarSolicitud(req, res) {
 
     Reunion.findById(idReunion, (err, reunionEncontrada) => {
         var idSala = reunionEncontrada.idSala;
-
+ 
         let fecha_llegar = new Date(reunionEncontrada.start);
         let fecha_salir = new Date(reunionEncontrada.end);
 
