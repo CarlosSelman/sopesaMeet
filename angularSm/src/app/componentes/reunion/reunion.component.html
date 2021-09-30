@@ -234,7 +234,7 @@
                                     <li><a  class="dropdown-item"
                                       data-bs-toggle="modal" data-bs-target="#mEditarReunion" (click)="obtenerReunion(element._id)"><i style="color:orange" class="bi bi-pencil-square"></i> | Editar</a></li>
                                     <li><a  *ngIf="element.estado!='Confirmada'" class="dropdown-item"
-                                      data-bs-toggle="modal" data-bs-target="#mDesactivarUsuario" (click)="obtenerReunion(element._id)"> <i style="color:green" class="bi bi-check2-circle"></i> | Confirmar</a></li>
+                                      data-bs-toggle="modal" data-bs-target="#mConfirmarSolicitud" (click)="obtenerReunion(element._id)"> <i style="color:green" class="bi bi-check2-circle"></i> | Confirmar</a></li>
                                     <li><a *ngIf="element.estado!='Rechazada'" class="dropdown-item"
                                       data-bs-toggle="modal" data-bs-target="#mRechazarReunion"(click)="obtenerReunion(element._id)"><i style="color:red"class="bi bi-x-circle"></i> | Rechazar</a></li>
                                     <li><a  *ngIf="element.estado!='Pendiente'" class="dropdown-item"
@@ -340,7 +340,7 @@
                                     <li><a  class="dropdown-item"
                                       data-bs-toggle="modal" data-bs-target="#mEditarReunion" (click)="obtenerReunion(element._id)"><i style="color:orange" class="bi bi-pencil-square"></i> | Editar</a></li>
                                     <li><a  *ngIf="element.estado!='Confirmada'" class="dropdown-item"
-                                      data-bs-toggle="modal" data-bs-target="#mDesactivarUsuario" (click)="obtenerReunion(element._id)"> <i style="color:green" class="bi bi-check2-circle"></i> | Confirmar</a></li>
+                                      data-bs-toggle="modal" data-bs-target="#mConfirmarSolicitud" (click)="obtenerReunion(element._id)"> <i style="color:green" class="bi bi-check2-circle"></i> | Confirmar</a></li>
                                     <li><a *ngIf="element.estado!='Rechazada'" class="dropdown-item"
                                       data-bs-toggle="modal" data-bs-target="#mRechazarReunion"(click)="obtenerReunion(element._id)"><i style="color:red"class="bi bi-x-circle"></i> | Rechazar</a></li>
                                     <li><a  *ngIf="element.estado!='Pendiente'" class="dropdown-item"
@@ -444,7 +444,7 @@
                                     <li><a  class="dropdown-item"
                                       data-bs-toggle="modal" data-bs-target="#mEditarReunion" (click)="obtenerReunion(element._id)"><i style="color:orange" class="bi bi-pencil-square"></i> | Editar</a></li>
                                     <li><a  *ngIf="element.estado!='Confirmada'" class="dropdown-item"
-                                      data-bs-toggle="modal" data-bs-target="#mDesactivarUsuario" (click)="obtenerReunion(element._id)"> <i style="color:green" class="bi bi-check2-circle"></i> | Confirmar</a></li>
+                                      data-bs-toggle="modal" data-bs-target="#mConfirmarSolicitud" (click)="obtenerReunion(element._id)"> <i style="color:green" class="bi bi-check2-circle"></i> | Confirmar</a></li>
                                     <li><a *ngIf="element.estado!='Rechazada'" class="dropdown-item"
                                       data-bs-toggle="modal" data-bs-target="#mRechazarReunion"(click)="obtenerReunion(element._id)"><i style="color:red"class="bi bi-x-circle"></i> | Rechazar</a></li>
                                     <li><a  *ngIf="element.estado!='Pendiente'" class="dropdown-item"
@@ -550,7 +550,7 @@
                                     <li><a  class="dropdown-item"
                                       data-bs-toggle="modal" data-bs-target="#mEditarReunion" (click)="obtenerReunion(element._id)"><i style="color:orange" class="bi bi-pencil-square"></i> | Editar</a></li>
                                     <li><a  *ngIf="element.estado!='Confirmada'" class="dropdown-item"
-                                      data-bs-toggle="modal" data-bs-target="#mDesactivarUsuario" (click)="obtenerReunion(element._id)"> <i style="color:green" class="bi bi-check2-circle"></i> | Confirmar</a></li>
+                                      data-bs-toggle="modal" data-bs-target="#mConfirmarSolicitud" (click)="obtenerReunion(element._id)"> <i style="color:green" class="bi bi-check2-circle"></i> | Confirmar</a></li>
                                     <li><a *ngIf="element.estado!='Rechazada'" class="dropdown-item"
                                       data-bs-toggle="modal" data-bs-target="#mRechazarReunion"(click)="obtenerReunion(element._id)"><i style="color:red"class="bi bi-x-circle"></i> | Rechazar</a></li>
                                     <li><a  *ngIf="element.estado!='Pendiente'" class="dropdown-item"
@@ -753,11 +753,15 @@
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Agregar Reunión</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div style="background-color: #b71c1c;" class="modal-header">
+        <h5 style="color: white" class="modal-title" id="staticBackdropLabel">Agregar Reunión</h5>
+        <button style="background-color: white" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <div align="center" class="mb-3">
+          <img class="d-block w-20" alt="..." style="max-width: 20%;"  src="../../../assets/imgSopesa.png">
+        </div>
+        <hr>
         <form>
           <div class="mb-3">
             <label for="inputNombreR" class="form-label"><i class="bi bi-list-nested"></i><strong> Nombre del Responsable:</strong></label>
@@ -821,26 +825,29 @@
           </div>
           <div id="emailHelp" class="form-text"><i class="bi bi-exclamation-circle-fill"></i> No dejes campos vacios.</div>
           <div id="emailHelp" class="form-text"><strong><i class="bi bi-exclamation-circle-fill"></i> Cuando agregues la reunión pasará a un estado "Pendiente de Confirmación".</strong></div>
-      </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> Cancelar</button>
-        <button type="button" class="btn btn-outline-secondary" (click)="crearReunion()"><i class="bi bi-calendar-plus"></i> Agregar Reunión</button>
+          <hr>
+        </form>
+        <div class="d-grid gap-2">
+          <button type="button" class="btn btn-outline-secondary" (click)="crearReunion()"><i class="bi bi-calendar-plus"></i> Agregar Reunión</button>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-
 <!-- Modal Ver Reunion -->
 <div class="modal fade" id="mVerReunion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Datos de la Reunión:</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div style="background-color: #b71c1c;" class="modal-header">
+        <h5  style="color: white;" class="modal-title" id="exampleModalLabel">Datos de la Reunión:</h5>
+        <button style="background-color: white;" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <div align="center" class="mb-3">
+          <img class="d-block w-20" alt="..." style="max-width: 20%;"  src="../../../assets/imgSopesa.png">
+        </div>
+        <hr>
         <form>
           <div class="mb-3">
             <label for="inVrN" class="form-label"><i class="bi bi-list-nested"></i><strong> Nombre del Responsable:</strong></label>
@@ -909,9 +916,6 @@
           </div>
         </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> Cerrar</button>
-      </div>
     </div>
   </div>
 </div>
@@ -920,29 +924,33 @@
 <div class="modal fade" id="mEditarReunion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Editar Reunión</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div style="background-color: #b71c1c;" class="modal-header">
+        <h5 style="color:white;" class="modal-title" id="exampleModalLabel">Editar Reunión</h5>
+        <button style="background-color:white;" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <div align="center" class="mb-3">
+          <img class="d-block w-20" alt="..." style="max-width: 20%;"  src="../../../assets/imgSopesa.png">
+        </div>
+        <hr>
         <form>
           <div class="mb-3">
-            <label for="inputNombre" class="form-label"><strong>Nombres:</strong></label>
+            <label for="inputNombre" class="form-label"><i class="bi bi-list-nested"></i><strong> Nombres:</strong></label>
             <input type="text" class="form-control" id="inputNombre"
             name="nombres" #nombres="ngModel" [(ngModel)]="idReunionModel.nombre">
           </div>
           <div class="mb-3">
-            <label for="inputApellidos" class="form-label"><strong>Descripción:</strong></label>
+            <label for="inputApellidos" class="form-label"><i class="bi bi-list-nested"></i><strong> Descripción:</strong></label>
             <input type="text" class="form-control" id="inputApellidos"
             name="apellidos" #apellidos="ngModel" [(ngModel)]="idReunionModel.title">
           </div>
           <div class="mb-3">
-            <label for="inputUsuario" class="form-label"><strong>Cantidad de Asistentes:</strong></label>
+            <label for="inputUsuario" class="form-label"><i class="bi bi-people-fill"></i><strong> Cantidad de Asistentes:</strong></label>
             <input type="number" class="form-control" id="inputUsuario"
             name="usuario" #usuario="ngModel" [(ngModel)]="idReunionModel.cantidadAsist">
           </div>
           <div class="mb-3">
-            <label for="inputFechaIn" class="form-label"><i class="bi bi-calendar2-check"></i><strong> Fecha de Inicio:</strong></label>
+            <label for="inputFechaIn" class="form-label"><i class="bi bi-calendar-check"></i><strong> Fecha de Inicio:</strong></label>
             <input
               class="form-control"
               type="text"
@@ -981,10 +989,12 @@
           </div>
           <div id="emailHelp" class="form-text"><i class="bi bi-exclamation-circle-fill"></i> No dejes campos vacíos.</div>
         </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> Cerrar</button>
-        <button type="button" class="btn btn-success" (click)="editarSolicitud()"><i class="bi bi-save"></i> Guardar cambios</button>
+        <hr>
+        <div class="d-grid gap-2">
+          <button type="button" class="btn btn-outline-success"
+            (click)="editarSolicitud()"><i class="bi bi-save"></i> Guardar cambios
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -995,17 +1005,27 @@
 <div class="modal fade" id="mRechazarReunion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Confirmación de Rechazo</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div style="background-color: #b71c1c;" class="modal-header">
+        <h5  style="color: white;" class="modal-title" id="exampleModalLabel">Confirmación de Rechazo</h5>
+        <button  style="background-color: white;" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ¿Esta seguro de que desea rechazar la solicitud de reunión a nombre de "{{idReunionModel.nombre}}"?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"
-        (click)="cancelarSolicitud(idReunionModel._id)">Si, rechazar <i class="bi bi-x-circle"></i> </button>
-      </div>
+        <form>
+          <div align="center" class="mb-3">
+            <img class="d-block w-20" alt="..." style="max-width: 20%;"  src="../../../assets/imgSopesa.png">
+          </div>
+          <div align="center" class="mb-3">
+            <p>
+              ¿Esta seguro de que desea rechazar la solicitud de reunión a nombre de "{{idReunionModel.nombre}}"?
+            </p>
+          </div>
+          <div class="d-grid gap-2">
+            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"
+              (click)="cancelarSolicitud(idReunionModel._id)">Si, rechazar <i class="bi bi-x-circle"></i>
+            </button>
+          </div>
+        </form>
+     </div>
     </div>
   </div>
 </div>
@@ -1014,36 +1034,55 @@
 <div class="modal fade" id="mPendienteReunion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Confirmación de Pendiente</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div style="background-color: #b71c1c;" class="modal-header">
+        <h5 style="color: white;" class="modal-title" id="exampleModalLabel">Confirmación de Pendiente</h5>
+        <button style="background-color: white;"type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ¿Esta seguro de que desea poner en pendiente la solicitud de reunión a nombre de "{{idReunionModel.nombre}}"?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"
-        (click)="pendienteSolicitud(idReunionModel._id)">Si, poner en pendiente <i class="bi bi-clock-history"></i> </button>
+        <form>
+          <div align="center" class="mb-3">
+            <img class="d-block w-20" alt="..." style="max-width: 20%;"  src="../../../assets/imgSopesa.png">
+          </div>
+          <div align="center" class="mb-3">
+            <p>
+              ¿Esta seguro de que desea poner en pendiente la solicitud de reunión a nombre de "{{idReunionModel.nombre}}"?
+            </p>
+          </div>
+            <div class="d-grid gap-2">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"
+                (click)="pendienteSolicitud(idReunionModel._id)">Si, poner en pendiente <i class="bi bi-clock-history"></i>
+              </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
 </div>
 
-
-<div class="modal fade" id="mDesactivarUsuario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<!-- Modal de Confirmar La Reunion -->
+<div class="modal fade" id="mConfirmarSolicitud" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Confirmación de Solicitud de Reunión</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div style="background-color: #b71c1c;" class="modal-header">
+        <h5 style="color:white" class="modal-title" id="exampleModalLabel">Confirmación de Solicitud de Reunión</h5>
+        <button style="background-color: white;" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ¿Esta seguro de que desea confirmar la solicitud de reunión a nombre de "{{idReunionModel.nombre}}"?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> No, cerrar</button>
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal"
-        (click)="confirmarSolicitud(idReunionModel._id)">Si, confirmar <i class="bi bi-check2-circle"></i> </button>
+        <form>
+          <div align="center" class="mb-3">
+            <img class="d-block w-20" alt="..." style="max-width: 20%;"  src="../../../assets/imgSopesa.png">
+          </div>
+          <div align="center" class="mb-3">
+            <p>
+              ¿Esta seguro de que desea confirmar la solicitud de reunión a nombre de "{{idReunionModel.nombre}}"?
+            </p>
+          </div>
+            <div class="d-grid gap-2">
+              <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal" aria-label="Close"
+                (click)="confirmarSolicitud(idReunionModel._id)">Si, confirmar <i class="bi bi-check2-circle"></i>
+              </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
