@@ -67,6 +67,8 @@ export class ReunionComponent implements OnInit, AfterViewInit{
   public reuniones;
   public todayDate;
   public reunionesT;
+
+  public datos = new Array<Reunion>();
 /*
   public events:CalendarEvent[];
 */
@@ -85,7 +87,7 @@ export class ReunionComponent implements OnInit, AfterViewInit{
     displayedColumnsP: string[] = ['title','estado','cantidadAsist','start','end','acciones'];
     displayedColumnsR: string[] = ['title','estado','cantidadAsist','start','end','acciones'];
 
-    events:Reunion[];
+    //events:Reunion;
 
   constructor(
 
@@ -124,18 +126,20 @@ export class ReunionComponent implements OnInit, AfterViewInit{
       this.dataSourceReunionesP.data = reunionesT;
     })
 
-    /*
+
     this._reunionService.obtenerReunionesG().subscribe ( reuniones => {
-      this.events = reuniones;
+      this.datos = reuniones;
     })
-    */
+
 
   }
+
+
 
   obtenerReunionesG(){
     this._reunionService.obtenerReunionesG().subscribe(
       response => {
-         this.events = response.reunionesEncontradas;
+         this.datos = response.reunionesEncontradas;
          console.log(response)
       },
       error => {
@@ -144,6 +148,7 @@ export class ReunionComponent implements OnInit, AfterViewInit{
     )
   }
 
+  //events: CalendarEvent[] = this.datos[]
   //FUNCIONES DE OBTENER REUNIONES EN TABLAS
   obtenerReunionesP(){
     this._reunionService.obtenerReunionesP().subscribe(
@@ -491,7 +496,8 @@ export class ReunionComponent implements OnInit, AfterViewInit{
     action: string;
     event: CalendarEvent;
   };
-/*
+
+  /*
   actions: CalendarEventAction[] = [
     {
       label: '<i class="fas fa-fw fa-pencil-alt"></i>',
@@ -516,12 +522,13 @@ export class ReunionComponent implements OnInit, AfterViewInit{
   refresh: Subject<any> = new Subject();
 /*
   events: CalendarEvent[] = [
+
     {
       start: subDays(startOfDay(new Date()), 1),
       end: addDays(new Date(), 1),
       title: 'A 3 day event',
-      //color: colors.red,
-      //actions: this.actions,
+      color: colors.red,
+      actions: this.actions,
       allDay: true,
       resizable: {
         beforeStart: true,
@@ -532,30 +539,32 @@ export class ReunionComponent implements OnInit, AfterViewInit{
     {
       start: startOfDay(new Date()),
       title: 'An event with no end date',
-      //color: colors.yellow,
-      //actions: this.actions,
+      color: colors.yellow,
+      actions: this.actions,
     },
     {
       start: subDays(endOfMonth(new Date()), 3),
       end: addDays(endOfMonth(new Date()), 3),
       title: 'A long event that spans 2 months',
-      //color: colors.blue,
+      color: colors.blue,
       allDay: true,
     },
     {
       start: addHours(startOfDay(new Date()), 2),
       end: addHours(new Date(), 2),
       title: 'A draggable and resizable event',
-      //color: colors.yellow,
-      //actions: this.actions,
+      color: colors.yellow,
+      actions: this.actions,
       resizable: {
         beforeStart: true,
         afterEnd: true,
       },
       draggable: true,
     },
+
   ];
-*/
+  */
+
 /*events: CalendarEvent[] = [];*/
 
   activeDayIsOpen: boolean = true;
@@ -636,8 +645,9 @@ export class ReunionComponent implements OnInit, AfterViewInit{
     this.obtenerTipoSalas();
     this.obtenerSalasT();
     this.obtenerReuniones();
-    this.obtenerReunionesG(); //IMPRIMIENDO DE LA DB
-    console.log(this.events); //IMPRIMIENDO LOS EVENTOS ESTATICOS
+    this.obtenerReunionesG();
+    //this.obtenerReunionesG(); //IMPRIMIENDO DE LA DB
+    //console.log(this.datos); //IMPRIMIENDO LOS EVENTOS ESTATICOS
   }
 
   ngAfterViewInit() {

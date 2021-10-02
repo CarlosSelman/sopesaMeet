@@ -71,11 +71,13 @@ function crearReunion(req, res) {
     //Para la fecha de gestión
     var todayDate = new Date();
     var actualDate = todayDate.toLocaleDateString();
+
     if (params.nombre && params.title) {
         reunionModelo.nombre = params.nombre;
         reunionModelo.title = params.title;
-        reunionModelo.start = params.start;
-        reunionModelo.end = params.end;
+       
+        reunionModelo.startsAt = params.start;
+        reunionModelo.endsAt = params.end
         reunionModelo.cantidadAsist = params.cantidadAsist;
         reunionModelo.estado = pendiente;
         reunionModelo.idResponsable = req.usuario.sub;
@@ -83,10 +85,11 @@ function crearReunion(req, res) {
         reunionModelo.fechaDeGestion = actualDate;
 
         //Validando que si la fecha y hora de inicio es mayor o igual que la final entonces no procede.
+        
         if (reunionModelo.start >= reunionModelo.end) {
             return res.status(500).send({ mensaje: 'La fecha y hora inicial no puede ser mayor o igual a la final.' })
         }
-
+        
         Reunion.find({
             $or: [
                 { nombre: reunionModelo.nombre },
