@@ -52,6 +52,8 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { FiltroTabletComponent } from './componentes/filtro-tablet/filtro-tablet.component';
 import { ControlTabletComponent } from './componentes/control-tablet/control-tablet.component';
 import { CalendarPComponent } from './componentes/calendar-p/calendar-p.component';
+import { VisorEventosComponent } from './componentes/visor-eventos/visor-eventos.component';
+import { FullCalendarModule } from 'primeng/fullcalendar';
 
 @NgModule({
   declarations: [
@@ -74,6 +76,7 @@ import { CalendarPComponent } from './componentes/calendar-p/calendar-p.componen
     FiltroTabletComponent,
     ControlTabletComponent,
     CalendarPComponent,
+    VisorEventosComponent,
 
   ],
   imports: [
@@ -107,6 +110,8 @@ import { CalendarPComponent } from './componentes/calendar-p/calendar-p.componen
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
+
+    FullCalendarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

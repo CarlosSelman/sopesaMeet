@@ -20,6 +20,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ControlTabletComponent } from './componentes/control-tablet/control-tablet.component';
 import { CalendarPComponent } from './componentes/calendar-p/calendar-p.component';
+import { VisorEventosComponent } from './componentes/visor-eventos/visor-eventos.component';
 
 //Diferentes rutas a las que se puede navegar
 const routes: Routes = [
@@ -39,6 +40,7 @@ const routes: Routes = [
   { path: 'crearSala', component: CrearSalaComponent},
   { path: 'filtroTablet', component: FiltroTabletComponent},
   { path: 'controlTablet/:idSala', component: ControlTabletComponent},
+  { path: 'visorEventos', component: VisorEventosComponent},
   { path: '**', component: ErrorNoExisteComponent} //Ruta que me redirige al error 404 si no existe la ruta
 ];
 
