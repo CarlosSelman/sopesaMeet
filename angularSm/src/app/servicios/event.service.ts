@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GLOBAL } from './global.service';
 import { Observable } from 'rxjs';
-import { Event } from '../modelos/event.model';
+import { Event } from '../modelos/event.modelo';
 import * as moment from 'moment';
 
 @Injectable({
@@ -26,18 +26,18 @@ export class EventService {
     return this._http.get(this.url + '/obtenerEvents', {headers: this.headersVariable});
   }
 */
-obtenerEvents(): Observable<any>{
-  return this._http.get(this.url + '/obtenerEvents', {headers: this.headersVariable});
-}
+  obtenerEvents(): Observable<any>{
+    return this._http.get(this.url + '/obtenerEvents', {headers: this.headersVariable});
+  }
 
   crearEvent(event: Event, token): Observable<any> {
-      let headersToken = this.headersVariable.set('Authorization', token);
-      let params = JSON.stringify(event);
+    let headersToken = this.headersVariable.set('Authorization', token);
+    let params = JSON.stringify(event);
 
-      return this._http.post(this.url + '/crearEvent', params, {
-        headers: headersToken,
-      });
-    }
+    return this._http.post(this.url + '/crearEvent', params, {
+      headers: headersToken,
+    });
+  }
 
   obtenerEvent(id:String): Observable<any>{
     return this._http.get(this.url + '/obtenerEvent/'+ id, {headers: this.headersVariable})
@@ -50,7 +50,6 @@ obtenerEvents(): Observable<any>{
     }else{
       this.identidad = null;
     }
-
     return this.identidad;
   }
 
@@ -61,7 +60,6 @@ obtenerEvents(): Observable<any>{
     }else{
       this.token = null;
     }
-
     return this.token;
   }
 

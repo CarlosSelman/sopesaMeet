@@ -4,6 +4,18 @@ const eventoModelo = require("../modelos/event.modelo");
 const Event = require("../modelos/event.modelo");
 const jwt = require('../servicios/jwt');
 const bcrypt = require("bcrypt-nodejs");
+var moment = require('moment');
+
+//Roles
+const user = 'Usuario';
+const admin = 'Administrador';
+const superAdmin = 'SuperAdministrador';
+
+//Estado del usuario y de la sala
+const confirmada = 'Confirmada';
+const pendiente = 'Pendiente';
+const rechazada = 'Rechazada';
+const asitio = 'Asistida'
 
 function obtenerEvents(req, res) {
     eventoModelo.find((err, eventosEncontrados) => {
@@ -20,17 +32,21 @@ function crearEvent(req, res) {
     var todayDate = new Date();
     var actualDate = todayDate.toLocaleDateString();
 
-    if (params.start && params.title) {
+    if (params.nombre && params.title) {
         eventoModelo.title = params.title;
-        eventoModelo.start = params.start;
-        eventoModelo.end = params.end
-        
-
+        eventoModelo.nombre = params.nombre;
+        eventoModelo.start = moment(params.start).format('YYYY-MM-DDTHH:mm');
+        eventoModelo.end = moment(params.end).format('YYYY-MM-DDTHH:mm');
+        eventoModelo.cantidadAsist = params.cantidadAsist;
+        eventoModelo.estado = pendiente;
+        eventoModelo.idResponsable = req.usuario.sub;
+        eventoModelo.idSala = params.idSala;
+        eventoModelo.fechaDeGestion = actualDate;
         //Validando que si la fecha y hora de inicio es mayor o igual que la final entonces no procede.
         
-        if (eventoModelo.inicio >= eventoModelo.fin) {
+        if (eventoModelo.start >= eventoModelo.end) {
             return res.status(500).send({ mensaje: 'La fecha y hora inicial no puede ser mayor o igual a la final.' })
-        }
+        } 
         
         Event.find({
             $or: [

@@ -9,13 +9,32 @@
         </div>
         <div class="col-md-4 col-12">
           <label for="start">Inicio</label>
+          <!--
           <p-calendar
             name="start"
             id="start"
             inputStyleClass="form-control"
+
+            [minDate]="today"
             [(ngModel)]="event.startDate">
           </p-calendar>
+-->
 
+          <input
+            class="form-control"
+            type="text"
+            mwlFlatpickr
+            id="inputFechaIn"
+            name="fechIn"
+            #fechIn="ngModel"
+            [(ngModel)]="event.startDate"
+            [altInput]="true"
+            [convertModelValue]="true"
+            [enableTime]="true"
+            dateFormat="Y-m-dTH:i"
+            altFormat="F j, Y H:i"
+            placeholder="Seleccione la fecha de inicio"
+          />
           <p-checkbox
             name="show-end"
             label="¿Tiene fecha de fin?"
@@ -29,6 +48,7 @@
            name="end"
            id="end"
            inputStyleClass="form-control"
+           [minDate]="event.startDate"
            [(ngModel)]="event.endDate">
           </p-calendar>
         </div>

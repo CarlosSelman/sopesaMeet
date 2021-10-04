@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import { IEvent } from '../interfaces/ievent.interface';
 import * as moment from 'moment'
-export class Event implements IEvent {
+export class EventInt implements IEvent {
 
   constructor(data){
     _.set(this, 'data',data);

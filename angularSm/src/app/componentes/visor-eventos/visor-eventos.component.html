@@ -73,6 +73,161 @@
 
 
 
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div style="background-color: #b71c1c;" class="modal-header">
+        <h5 style="color: white" class="modal-title" id="staticBackdropLabel">Agregar Reunión</h5>
+        <button style="background-color: white" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div align="center" class="mb-3">
+          <img class="d-block w-20" alt="..." style="max-width: 20%;"  src="../../../assets/imgSopesa.png">
+        </div>
+        <hr>
+        <form>
+          <div class="mb-3">
+            <label for="inputNombreR" class="form-label"><i class="bi bi-list-nested"></i><strong> Nombre del Responsable:</strong></label>
+            <input type="text" class="form-control" id="inputNombreR" name="nombreR" #nombreR="ngModel"
+              [(ngModel)]="eventsModelAdd.nombre">
+          </div>
+          <div class="mb-3">
+            <label for="inputDescripcionR" class="form-label"><i class="bi bi-list-nested"></i><strong> Descripción:</strong></label>
+            <textarea class="form-control" id="inputDescripcionR" rows="1" name="descripcionR" #descripcionR="ngModel"
+              [(ngModel)]="eventsModelAdd.title"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="inputCnaAsR" class="form-label"><i class="bi bi-people-fill"></i><strong> Cantidad de Asistentes:</strong></label>
+            <input type="number" class="form-control" id="inputCnaAsR" name="cantAsR" #cantAsR="ngModel"
+              [(ngModel)]="eventsModelAdd.cantidadAsist">
+          </div>
+          <div class="mb-3">
+            <label for="inputFechaIn" class="form-label"><i class="bi bi-calendar2-check"></i><strong> Fecha de Inicio:</strong></label>
+            <input
+              class="form-control"
+              type="text"
+              mwlFlatpickr
+              id="inputFechaIn"
+              name="fechIn"
+              #fechIn="ngModel"
+              [(ngModel)]="eventsModelAdd.start"
+
+              [altInput]="true"
+              [convertModelValue]="true"
+              [enableTime]="true"
+              dateFormat="Y-m-dTH:i"
+              altFormat="F j, Y H:i"
+              placeholder="Seleccione la fecha de inicio"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="inputFechaFn" class="form-label"><i class="bi bi-calendar-x"></i><strong> Fecha de Finalización:</strong></label>
+            <input
+              class="form-control"
+              type="text"
+              mwlFlatpickr
+              id="inputFechaFn"
+              name="fechFn"
+              #fechFn="ngModel"
+              [(ngModel)]="eventsModelAdd.end"
+
+              [altInput]="true"
+              [convertModelValue]="true"
+              [enableTime]="true"
+              dateFormat="Y-m-dTH:i"
+              altFormat="F j, Y H:i"
+              placeholder="Seleccione la fecha de fin"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="inputSala" class="form-label"><i class="bi bi-building"></i><strong> Salas disponibles para la reunión:</strong></label>
+            <select  name="sala" #sala="ngModel"
+              [(ngModel)]="eventsModelAdd.idSala" class="form-select" aria-label="Default select example">
+              <option *ngFor="let tpsl of salasModelGet" [ngValue]="tpsl">{{tpsl.nombre}}</option>
+            </select>
+          </div>
+          <div id="emailHelp" class="form-text"><i class="bi bi-exclamation-circle-fill"></i> No dejes campos vacios.</div>
+          <div id="emailHelp" class="form-text"><strong><i class="bi bi-exclamation-circle-fill"></i> Cuando agregues la reunión pasará a un estado "Pendiente de Confirmación".</strong></div>
+          <hr>
+        </form>
+        <div class="d-grid gap-2">
+          <button type="button" class="btn btn-outline-secondary" (click)="crearEvent()"><i class="bi bi-calendar-plus"></i> Agregar Reunión</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div style="background-color: #b71c1c;" class="modal-header">
+        <h5 style="color: white" class="modal-title" id="staticBackdropLabel">Agregar Reunión</h5>
+        <button style="background-color: white" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div align="center" class="mb-3">
+          <img class="d-block w-20" alt="..." style="max-width: 20%;"  src="../../../assets/imgSopesa.png">
+        </div>
+        <hr>
+        <form>
+          <div class="mb-3">
+            <label for="inputDescripcionR" class="form-label"><i class="bi bi-list-nested"></i><strong> Descripción:</strong></label>
+            <textarea class="form-control" id="inputDescripcionR" rows="1" name="descripcionR" #descripcionR="ngModel"
+              [(ngModel)]="eventsModelAdd.title"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="inputFechaIn" class="form-label"><i class="bi bi-calendar2-check"></i><strong> Fecha de Inicio:</strong></label>
+            <input
+              class="form-control"
+              type="text"
+              mwlFlatpickr
+              id="inputFechaIn"
+              name="fechIn"
+              #fechIn="ngModel"
+              [(ngModel)]="eventsModelAdd.start"
+
+              [altInput]="true"
+              [convertModelValue]="true"
+              [enableTime]="true"
+              dateFormat="Y-m-dTH:i"
+              altFormat="F j, Y H:i"
+              placeholder="Seleccione la fecha de inicio"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="inputFechaFn" class="form-label"><i class="bi bi-calendar-x"></i><strong> Fecha de Finalización:</strong></label>
+            <input
+              class="form-control"
+              type="text"
+              mwlFlatpickr
+              id="inputFechaFn"
+              name="fechFn"
+              #fechFn="ngModel"
+              [(ngModel)]="eventsModelAdd.end"
+
+              [altInput]="true"
+              [convertModelValue]="true"
+              [enableTime]="true"
+              dateFormat="Y-m-dTH:i"
+              altFormat="F j, Y H:i"
+              placeholder="Seleccione la fecha de fin"
+            />
+          </div>
+
+          <div id="emailHelp" class="form-text"><i class="bi bi-exclamation-circle-fill"></i> No dejes campos vacios.</div>
+          <div id="emailHelp" class="form-text"><strong><i class="bi bi-exclamation-circle-fill"></i> Cuando agregues la reunión pasará a un estado "Pendiente de Confirmación".</strong></div>
+          <hr>
+        </form>
+        <div class="d-grid gap-2">
+          <button type="button" class="btn btn-outline-secondary" (click)="crearEvent()"><i class="bi bi-calendar-plus"></i> Agregar Reunión</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+-->
 
 
 
