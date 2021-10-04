@@ -1,0 +1,43 @@
+<div class ="row">
+  <div class="col-12">
+    <h1>Añadir evento</h1>
+    <form (ngSubmit)="addEvent()">
+      <div class="row form-group">
+        <div class="col-md-4 col-12">
+          <label for="descripcion">Descripcion</label>
+          <input type="text" class="form-control"name="descripcion" id="descripcion" [(ngModel)]="event.title"/>
+        </div>
+        <div class="col-md-4 col-12">
+          <label for="start">Inicio</label>
+          <p-calendar
+            name="start"
+            id="start"
+            inputStyleClass="form-control"
+            [(ngModel)]="event.startDate">
+          </p-calendar>
+
+          <p-checkbox
+            name="show-end"
+            label="¿Tiene fecha de fin?"
+            [(ngModel)]="showEnd">
+          </p-checkbox> <!-- binary="true"-->
+
+        </div>
+        <div class="col-md-4 col-12" *ngIf="showEnd">
+          <label for="end">Fin</label>
+          <p-calendar
+           name="end"
+           id="end"
+           inputStyleClass="form-control"
+           [(ngModel)]="event.endDate">
+          </p-calendar>
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-12">
+          <button type="button" type="submit" class="btn btn-primary btn-block">Añadir evento</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

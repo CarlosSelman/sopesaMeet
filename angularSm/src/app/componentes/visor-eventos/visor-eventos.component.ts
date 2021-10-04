@@ -1,22 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ViewEncapsulation } from '@angular/core';
 
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import { EventService } from 'src/app/servicios/event.service';
+import esLocale from '@fullcalendar/core/locales/es';
 
 @Component({
   selector: 'app-visor-eventos',
   templateUrl: './visor-eventos.component.html',
-  styleUrls: ['./visor-eventos.component.scss']
+  styleUrls: ['./visor-eventos.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class VisorEventosComponent implements OnInit {
 
-  public events: any;
+  public events: Event[];
+  //public events: any;
   public options: any;
 
-  constructor() {
+  constructor(private eventService: EventService) {
 
-    this.events = [
+  this.eventService.obtenerEvents().subscribe(events => {
+    this.events = events;
+  });
+
+   /* this.events = [
       {
           "title": "All Day Event",
           "start": "2021-10-02"
@@ -40,6 +48,7 @@ export class VisorEventosComponent implements OnInit {
           "end": "2021-10-13"
       }
   ];
+*/
 
     this.options = {
       plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
@@ -49,12 +58,25 @@ export class VisorEventosComponent implements OnInit {
           center: 'title',
           right: 'month,agendaWeek,agendaDay'
       },
-      editable: true
+      editable: false
   };
 
    }
 
+   obtenerEvents(){
+    this.eventService.obtenerEvents().subscribe(
+      response => {
+         this.events = response.eventosEncontrados;
+         console.log(response)
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
   ngOnInit(): void {
+    this.obtenerEvents();
   }
 
 }

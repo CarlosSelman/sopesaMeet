@@ -1,3 +1,4 @@
+<!--
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,16 +8,16 @@
   <meta name="keywords" content="">
 </head>
 <body>
-  <!-- Sección de la explicación del detalle de la sala -->
+
   <div style=" border-radius: 0;"class="card text-center">
     <div style="background-color:#b71c1c" class="card-body">
       <h5 style="color:white"class="card-title">Reuniones de la Sala "{{salaModel.nombre}}"</h5>
       <p style="color:white" class="card-text">En este apartado podrás encontrar las reuniones de esta sala y demás información.</p>
-      <!-- Sección de botones -->
+
       <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-            <!-- Botón para acceso del usuario -->
+
         <button type="button" class="btn btn-light" [routerLink]="['/filtroTablet']"><i class="bi bi-arrow-left-circle-fill"></i> Regresar</button> &nbsp;
-        <!-- Button trigger modal -->
+
         <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#MverSala"><i class="bi bi-info-circle-fill"></i>
           Ver sala...
         </button>
@@ -123,8 +124,6 @@
             </mwl-calendar-day-view>
           </div>
 
-          <!-- Everything you see below is just for the demo, you don't need to include it in your app-->
-          <!-- <br /><br /><br /> -->
           <br>
           <div class="accordion" id="accordionExample">
             <div class="accordion-item">
@@ -136,14 +135,14 @@
               <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                   <div class="container">
-                    <!-- Filtro -->
+
                     <mat-form-field appearance="standard">
                       <mat-label >Escribe algo para filtrar...</mat-label>
                       <input matInput (keyup)="applyFilter($event)" placeholder="Ejemplo: Reunión" #input autocomplete="off">
                     </mat-form-field>
-                    <!-- Tabla -->
+
                     <div class="mat-elevation-z8">
-                      <table  align="center" mat-table [dataSource]="dataSourceReuniones" matSort > <!-- matSort -->
+                      <table  align="center" mat-table [dataSource]="dataSourceReuniones" matSort >
 
                         <ng-container matColumnDef="title">
                           <th mat-header-cell *matHeaderCellDef> <i class="bi bi-list-nested"></i> &nbsp; Descripción </th>
@@ -217,7 +216,7 @@
                           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                       </table>
-                          <!-- Paginación -->
+
                         <mat-paginator  [pageSizeOptions]="[5, 10, 25,50,100]" showFirstLastButtons ></mat-paginator>
                     </div>
                   </div><br>
@@ -238,18 +237,7 @@
       </button>
     </div>
     <div class="modal-body">
-      <!-- Modal mostrando la acción
-      <div>
-        Action:
-        <pre>{{ modalData?.action }}</pre>
-      </div>
-      -->
-      <!-- Todos los datos del evento en formato json
-      <div>
-        Event:
-        <pre>{{ modalData?.event | json }}</pre>
-      </div>
-      -->
+
       <div>
         <i class="bi bi-list-nested"></i><strong> Nombre del evento: </strong>
           <pre>{{ modalData?.event.title }}</pre>
@@ -270,7 +258,6 @@
     </div>
   </ng-template>
 
-  <!-- Footer -->
   <div class="footer">
     <div class="footer-content">
       <div class="footer-section links">
@@ -298,7 +285,7 @@
 </html>
 
 
-<!-- Modal Agregar-->
+
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -380,8 +367,6 @@
   </div>
 </div>
 
-
-<!-- Modal Ver Reunion -->
 <div class="modal fade" id="mVerReunion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -463,7 +448,7 @@
   </div>
 </div>
 
-<!-- Modal Editar Reunion -->
+
 <div class="modal fade" id="mEditarReunion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -538,7 +523,6 @@
 </div>
 
 
-<!-- Modal Rechazar Reunion -->
 <div class="modal fade" id="mRechazarReunion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -557,7 +541,7 @@
   </div>
 </div>
 
-<!-- Modal Pendiente Reunion -->
+
 <div class="modal fade" id="mPendienteReunion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -576,7 +560,7 @@
   </div>
 </div>
 
-<!-- Modal Ver Usuario -->
+
 <div class="modal fade" id="MverSala" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -631,7 +615,7 @@
   </div>
 </div>
 
-<!-- Modal -->
+
 <div class="modal fade" id="mLogin" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -649,7 +633,7 @@
             <input matInput autocomplete="off" type="text" placeholder="Ingrese su usuario"  autofocus="" id="inputUsC" name="emailUsC" #emailUsC="ngModel"
               [(ngModel)]="usuarioModel.usuario" aria-describedby="emailHelp">
           </mat-form-field>
-          <mat-form-field appearance="fill"><!-- appearance="fill" -->
+          <mat-form-field appearance="fill">
             <mat-label>Ingrese su contraseña</mat-label>
             <input matInput autocomplete="off" type="password" placeholder="Ingrese su contraseña"  autofocus="" id="inputUsP" name="passwordC" #passwordC="ngModel"
               [(ngModel)]="usuarioModel.contrasena">
@@ -664,7 +648,7 @@
   </div>
 </div>
 
-<!-- Modal Paso 2 -->
+
 <div class="modal fade" id="mConfirmacion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -688,3 +672,5 @@
     </div>
   </div>
 </div>
+
+-->

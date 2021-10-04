@@ -1,3 +1,5 @@
+
+<!--
 <!DOCTYPE html>
 <html>
 <head>
@@ -107,17 +109,7 @@
 
             >
             </mwl-calendar-week-view>
-            <!--
-              <mwl-calendar-day-view
-              *ngSwitchCase="CalendarView.Day"
-              [viewDate]="viewDate"
-              [events]="events"
-              [refresh]="refresh"
-              (eventClicked)="handleEvent('Clicked', $event.event)"
-              (eventTimesChanged)="eventTimesChanged($event)"
-            >
-            </mwl-calendar-day-view>
-            -->
+
             <mwl-calendar-day-view
               *ngSwitchCase="CalendarView.Day"
               [viewDate]="viewDate"
@@ -128,8 +120,6 @@
             </mwl-calendar-day-view>
           </div>
 
-          <!-- Everything you see below is just for the demo, you don't need to include it in your app-->
-          <!-- <br /><br /><br /> -->
           <br>
           <div class="accordion" id="accordionExample">
             <div class="accordion-item">
@@ -144,20 +134,20 @@
                   <hr>
                   <mat-tab-group mat-align-tabs="center">
 
-                    <!-- Tab para ver todas las reuniones -->
+
                     <mat-tab>
                       <ng-template mat-tab-label>
                         <mat-icon class="example-tab-icon">search</mat-icon>
 
                       </ng-template>
-                      <!-- Filtro -->
+
                       <mat-form-field appearance="standard">
                         <mat-label >Escribe algo para filtrar...</mat-label>
                         <input matInput (keyup)="applyFilter($event)" placeholder="Ejemplo: Reunión" #input autocomplete="off">
                       </mat-form-field>
-                      <!-- Tabla -->
+
                       <div class="mat-elevation-z8">
-                        <table  align="center" mat-table [dataSource]="dataSourceReuniones" matSort > <!-- matSort -->
+                        <table  align="center" mat-table [dataSource]="dataSourceReuniones" matSort >
 
                           <ng-container matColumnDef="title">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> <i class="bi bi-list-nested"></i> &nbsp; Descripción </th>
@@ -246,24 +236,23 @@
                           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                         </table>
-                        <!-- Paginación -->
+
                        <mat-paginator  [pageSizeOptions]="[5, 10, 25,50,100]" showFirstLastButtons ></mat-paginator>
                       </div>
                     </mat-tab>
 
-                    <!-- Tab para ver todas las reuniones confirmadas -->
                     <mat-tab>
                       <ng-template mat-tab-label>
                         <mat-icon style="color:green"class="example-tab-icon">task_alt</mat-icon>
                       </ng-template>
-                      <!-- Filtro -->
+
                       <mat-form-field appearance="standard">
                         <mat-label >Escribe algo para filtrar...</mat-label>
                         <input matInput (keyup)="applyFilterC($event)" placeholder="Ejemplo: Reunión" #input autocomplete="off">
                       </mat-form-field>
-                      <!-- Tabla -->
+
                       <div class="mat-elevation-z8">
-                        <table  align="center" mat-table [dataSource]="dataSourceReunionesC" matSort > <!-- matSort -->
+                        <table  align="center" mat-table [dataSource]="dataSourceReunionesC" matSort >
 
                           <ng-container matColumnDef="title">
                             <th mat-header-cell *matHeaderCellDef> <i class="bi bi-list-nested"></i> &nbsp; Descripción </th>
@@ -355,19 +344,18 @@
                       </div>
                     </mat-tab>
 
-                    <!-- Tab para ver todas las reuniones rechazadas -->
                     <mat-tab>
                       <ng-template mat-tab-label>
                         <mat-icon style="color:red"class="example-tab-icon">highlight_off</mat-icon>
                       </ng-template>
-                      <!-- Filtro -->
+
                       <mat-form-field appearance="standard">
                         <mat-label >Escribe algo para filtrar...</mat-label>
                         <input matInput (keyup)="applyFilterR($event)" placeholder="Ejemplo: Reunión" #input autocomplete="off">
                       </mat-form-field>
-                      <!-- Tabla -->
+
                       <div class="mat-elevation-z8">
-                        <table  align="center" mat-table [dataSource]="dataSourceReunionesR" matSort > <!-- matSort -->
+                        <table  align="center" mat-table [dataSource]="dataSourceReunionesR" matSort >
 
                           <ng-container matColumnDef="title">
                             <th mat-header-cell *matHeaderCellDef> <i class="bi bi-list-nested"></i> &nbsp; Descripción </th>
@@ -456,24 +444,23 @@
                           <tr mat-header-row *matHeaderRowDef="displayedColumnsR"></tr>
                           <tr mat-row *matRowDef="let row; columns: displayedColumnsR;"></tr>
                         </table>
-                        <!-- Paginación
-                       <mat-paginator  [pageSizeOptions]="[5, 10, 25,50,100]" showFirstLastButtons ></mat-paginator>-->
+
                       </div>
                     </mat-tab>
 
-                     <!-- Tab para ver todas las reuniones pendientes -->
+
                     <mat-tab>
                       <ng-template mat-tab-label>
                         <mat-icon class="example-tab-icon">query_builder</mat-icon>
                       </ng-template>
-                      <!-- Filtro -->
+
                       <mat-form-field appearance="standard">
                         <mat-label >Escribe algo para filtrar...</mat-label>
                         <input matInput (keyup)="applyFilterP($event)" placeholder="Ejemplo: Reunión" #input autocomplete="off">
                       </mat-form-field>
-                      <!-- Tabla -->
+
                       <div class="mat-elevation-z8">
-                        <table  align="center" mat-table [dataSource]="dataSourceReunionesP" matSort > <!-- matSort -->
+                        <table  align="center" mat-table [dataSource]="dataSourceReunionesP" matSort >
 
                           <ng-container matColumnDef="title">
                             <th mat-header-cell *matHeaderCellDef> <i class="bi bi-list-nested"></i> &nbsp; Descripción </th>
@@ -562,101 +549,14 @@
                           <tr mat-header-row *matHeaderRowDef="displayedColumnsP"></tr>
                           <tr mat-row *matRowDef="let row; columns: displayedColumnsP;"></tr>
                         </table>
-                        <!-- Paginación
-                       <mat-paginator  [pageSizeOptions]="[5, 10, 25,50,100]" showFirstLastButtons ></mat-paginator>-->
+
                       </div>
                     </mat-tab>
 
                   </mat-tab-group>
                 </div><br>
               </div>
-              <!--
-                    <h3>
-                    Edit events
-                    <button class="btn btn-primary float-right" (click)="addEvent()">
-                      Add new
-                    </button>
-                    <div class="clearfix"></div>
-                  </h3>
 
-                  <div class="table-responsive">
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr align="center" class="table-dark">
-                          <th>Title</th>
-                          <th>Primary color</th>
-                          <th>Secondary color</th>
-                          <th>Starts at</th>
-                          <th>Ends at</th>
-                          <th>Remove</th>
-                        </tr>
-                      </thead>
-
-                      <tbody align="center">
-                        <tr *ngFor="let event of events">
-                          <td>
-                            <input
-                              type="text"
-                              class="form-control"
-                              [(ngModel)]="event.title"
-                              (keyup)="refresh.next()"
-                            />
-                          </td>
-                          <td>
-                            <input
-                              type="color"
-                              [(ngModel)]="event.color.primary"
-                              (change)="refresh.next()"
-                            />
-                          </td>
-                          <td>
-                            <input
-                              type="color"
-                              [(ngModel)]="event.color.secondary"
-                              (change)="refresh.next()"
-                            />
-                          </td>
-                          <td>
-                            <input
-                              class="form-control"
-                              type="text"
-                              mwlFlatpickr
-                              [(ngModel)]="event.start"
-                              (ngModelChange)="refresh.next()"
-                              [altInput]="true"
-                              [convertModelValue]="true"
-                              [enableTime]="true"
-                              dateFormat="Y-m-dTH:i"
-                              altFormat="F j, Y H:i"
-                              placeholder="Not set"
-                            />
-                          </td>
-                          <td>
-                            <input
-                              class="form-control"
-                              type="text"
-                              mwlFlatpickr
-                              [(ngModel)]="event.end"
-                              (ngModelChange)="refresh.next()"
-                              [altInput]="true"
-                              [convertModelValue]="true"
-                              [enableTime]="true"
-                              dateFormat="Y-m-dTH:i"
-                              altFormat="F j, Y H:i"
-                              placeholder="Not set"
-                            />
-                          </td>
-                          <td>
-                            <button class="btn btn-danger" (click)="deleteEvent(event)">
-                              Delete
-                            </button>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-
-                  </div>
-                -->
                 </div>
               </div>
             </div>
@@ -675,18 +575,7 @@
       </button>
     </div>
     <div class="modal-body">
-      <!-- Modal mostrando la acción
-      <div>
-        Action:
-        <pre>{{ modalData?.action }}</pre>
-      </div>
-      -->
-      <!-- Todos los datos del evento en formato json
-      <div>
-        Event:
-        <pre>{{ modalData?.event | json }}</pre>
-      </div>
-      -->
+
       <div>
         <i class="bi bi-list-nested"></i><strong> Nombre del evento: </strong>
           <pre>{{ modalData?.event.title }}</pre>
@@ -707,7 +596,7 @@
     </div>
   </ng-template>
 
-  <!-- Error 403 -->
+
   <div *ngIf="identidad === null" id="err">
     <div id="error-page">
       <div class="contentE">
@@ -721,7 +610,7 @@
     </div>
   </div>
 
-  <!-- Footer -->
+
   <div class="footer">
     <div class="footer-content">
       <div class="footer-section links">
@@ -749,7 +638,7 @@
 </html>
 
 
-<!-- Modal Agregar-->
+
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -835,7 +724,7 @@
   </div>
 </div>
 
-<!-- Modal Ver Reunion -->
+
 <div class="modal fade" id="mVerReunion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -920,7 +809,6 @@
   </div>
 </div>
 
-<!-- Modal Editar Reunion -->
 <div class="modal fade" id="mEditarReunion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -1001,7 +889,6 @@
 </div>
 
 
-<!-- Modal Rechazar Reunion -->
 <div class="modal fade" id="mRechazarReunion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -1030,7 +917,7 @@
   </div>
 </div>
 
-<!-- Modal Pendiente Reunion -->
+
 <div class="modal fade" id="mPendienteReunion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -1059,7 +946,7 @@
   </div>
 </div>
 
-<!-- Modal de Confirmar La Reunion -->
+
 <div class="modal fade" id="mConfirmarSolicitud" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -1087,4 +974,4 @@
     </div>
   </div>
 </div>
-
+-->

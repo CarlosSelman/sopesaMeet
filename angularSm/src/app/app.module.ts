@@ -45,7 +45,7 @@ import { SalasTipoSuperComponent } from './componentes/salas-tipo-super/salas-ti
 import { ErrorNoExisteComponent } from './componentes/error-no-existe/error-no-existe.component';
 import { CrearSalaComponent } from './componentes/crear-sala/crear-sala.component';
 
-import { CalendarModule, DateAdapter } from 'angular-calendar';
+import {  DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
@@ -54,6 +54,9 @@ import { ControlTabletComponent } from './componentes/control-tablet/control-tab
 import { CalendarPComponent } from './componentes/calendar-p/calendar-p.component';
 import { VisorEventosComponent } from './componentes/visor-eventos/visor-eventos.component';
 import { FullCalendarModule } from 'primeng/fullcalendar';
+import { AddEventComponent } from './componentes/add-event/add-event.component';
+import { CheckboxModule } from 'primeng/checkbox';
+import {CalendarModule} from 'primeng/calendar'
 
 @NgModule({
   declarations: [
@@ -77,6 +80,7 @@ import { FullCalendarModule } from 'primeng/fullcalendar';
     ControlTabletComponent,
     CalendarPComponent,
     VisorEventosComponent,
+    AddEventComponent,
 
   ],
   imports: [
@@ -105,13 +109,19 @@ import { FullCalendarModule } from 'primeng/fullcalendar';
     MatSelectModule,
 
     NgbModalModule,
+
+    /*
     FlatpickrModule.forRoot(),
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
+*/
+    FullCalendarModule,
+    CheckboxModule,
+    CalendarModule
 
-    FullCalendarModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
