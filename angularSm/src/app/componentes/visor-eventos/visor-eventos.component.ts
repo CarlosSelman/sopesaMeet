@@ -15,12 +15,23 @@ import { ReunionService } from 'src/app/servicios/reunion.service';
 //IMPORTACIÓN PARA ALERTAS
 import Swal from 'sweetalert2';
 
+//IMPORTACIONES PARA LA SECCIÓN DE LA TABLA (CON ANGULAR MATERIAL)
+import { AfterViewInit} from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+
+
+//DECLARANDO $ PARA UTILIZAR JQUERY
+declare var $: any;
+
 //OTRAS Importaciones
 import { Component, OnInit, Input, ViewChild, ViewEncapsulation } from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import esLocale from '@fullcalendar/core/locales/es';
+//import esLocale from '@fullcalendar/core/locales/es';
 
 @Component({
   selector: 'app-visor-eventos',
@@ -52,6 +63,21 @@ export class VisorEventosComponent implements OnInit {
   public events: Event[];
   public options: any;
 
+  //ViewChild DE LA PAGINACIÓN Y DEL SORT DE LA TABLA CON TODOS LOS DATOS
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+  //VARIABLES QUE INSTANCIAS PARA LOS DATOS DE LAS TABLAS
+  dataSourceReuniones = new MatTableDataSource<any[]>();
+  dataSourceReunionesC = new MatTableDataSource<any[]>();
+  dataSourceReunionesP = new MatTableDataSource<any[]>();
+  dataSourceReunionesR = new MatTableDataSource<any[]>();
+
+  //VARIABLES QUE TRAEN LAS COLUMNAS DE CADA TABLA
+  displayedColumns: string[] = ['title','estado','cantidadAsist','start','end','acciones'];
+  displayedColumnsC: string[] = ['title','estado','cantidadAsist','start','end','acciones'];
+  displayedColumnsP: string[] = ['title','estado','cantidadAsist','start','end','acciones'];
+  displayedColumnsR: string[] = ['title','estado','cantidadAsist','start','end','acciones'];
+
   constructor(
     private eventService: EventService,
     private _usuarioService: UsuarioService,
@@ -59,21 +85,37 @@ export class VisorEventosComponent implements OnInit {
     private _tipoSalaService: TipoSalaService,
     ) {
 
-      this.identidad = this._usuarioService.getIdentidad();
+    this.identidad = this._usuarioService.getIdentidad();
     this.token = this._usuarioService.getToken();
 
-      this.eventsModelAdd =new Event("","","","","","","",{usuario:""},{nombre:""},"");
-      this.eventsModelGetId =new Event("","","","","","","",{usuario:""},{nombre:""},"");
-      this.idEventModel =new Event("","","","","","","",{usuario:""},{nombre:""},"");
+    this.eventsModelAdd = new Event("","","",null,null,"","",{usuario:""},{nombre:""},"");
+    this.eventsModelGetId = new Event("","","",null,null,"","",{usuario:""},{nombre:""},"");
+    this.idEventModel = new Event("","","",null,null,"","",{usuario:""},{nombre:""},"");
 
-      this.salasModelGetId = new Sala("","","","","","","","","");
+    this.salasModelGetId = new Sala("","","","","","","","","");
     this.salasModelAdd = new Sala("","","","","","","","","");
     this.idSalaModel = new Sala("","","","","","","","","");
 
+    //OBTENIENDO LOS DATOS DE LA DB PARA LAS TABLAS
+    this.eventService.obtenerEventsT().subscribe ( reunionesT => {
+      this.dataSourceReuniones.data = reunionesT;
+    })
+    this.eventService.obtenerEventsC().subscribe ( reunionesT => {
+      this.dataSourceReunionesC.data = reunionesT;
+    })
+    this.eventService.obtenerEventsR().subscribe ( reunionesT => {
+      this.dataSourceReunionesR.data = reunionesT;
+    })
+    this.eventService.obtenerEventsP().subscribe ( reunionesT => {
+      this.dataSourceReunionesP.data = reunionesT;
+    })
     //OBTENIENDO LOS DATOS DE LA DB PARA EL CALENDARIO
     this.eventService.obtenerEvents().subscribe(events => {
       this.events = events;
     });
+
+    //VARIABLE OBTENIENDO LA FECHA ACTUAL PARA VALIUDACIÓN EN PARTE DEL CRUD
+    this.todayDate = new Date();
 
    /* this.events = [
       {
@@ -126,15 +168,58 @@ export class VisorEventosComponent implements OnInit {
     )
   }
 
-  crearEvent(){
+  obtenerEventsP(){
+    this.eventService.obtenerEventsP().subscribe(
+      response => {
+         this.dataSourceReunionesP.data = response.eventosEncontrados;
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
 
+  obtenerEventsT(){
+    this.eventService.obtenerEventsT().subscribe(
+      response => {
+         this.dataSourceReuniones.data = response.eventosEncontrados;
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  obtenerEventsC(){
+    this.eventService.obtenerEventsC().subscribe(
+      response => {
+         this.dataSourceReunionesC.data = response.eventosEncontrados;
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  obtenerEventsR(){
+    this.eventService.obtenerEventsR().subscribe(
+      response => {
+         this.dataSourceReunionesR.data = response.eventosEncontrados;
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  crearEvent(){
     //Validación
       if(
         this.eventsModelAdd.nombre===""||
         this.eventsModelAdd.title===""||
         this.eventsModelAdd.cantidadAsist===""||
-        this.eventsModelAdd.start===""||
-        this.eventsModelAdd.end===""||
+        this.eventsModelAdd.start===null||
+        this.eventsModelAdd.end===null||
         this.eventsModelAdd.idSala.nombre===""){
         //Alerta para que se llenen todos los campos
         Swal.fire({
@@ -155,7 +240,7 @@ export class VisorEventosComponent implements OnInit {
         });
         //Validando que la fecha de inicio no sea menor a la actual
       }else if(
-        this.eventsModelAdd.start < this.todayDate
+          this.todayDate > this.eventsModelAdd.start
       ){
         Swal.fire({
           icon: 'warning',
@@ -180,8 +265,8 @@ export class VisorEventosComponent implements OnInit {
           this.eventsModelAdd.nombre ='';
           this.eventsModelAdd.title ='';//Descripcion
           this.eventsModelAdd.cantidadAsist ='';
-          this.eventsModelAdd.start ='';
-          this.eventsModelAdd.end ='';
+          this.eventsModelAdd.start = null;
+          this.eventsModelAdd.end = null;
           this.eventsModelAdd.idSala.nombre ='';
           //Refrescando la ventana
           this.reload();
@@ -233,11 +318,139 @@ export class VisorEventosComponent implements OnInit {
     )
   }
 
+  cancelarSolicitudEvent(idEvento){
+    this.eventService.cancelarSolicitudEvent(idEvento).subscribe(
+      response=>{
+        console.log(response)
+        //Refrescando la ventana
+        this.reload();
+      }
+    )
+  }
+
+  confirmarSolicitudEvent(idEvento){
+    this.eventService.confirmarSolicitudEvent(idEvento).subscribe(
+      response=>{
+        console.log(response)
+        Swal.fire({
+          icon: 'success',
+          title: 'Confirmada',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        //Refrescando la ventana
+        this.reload();
+      },
+      error=>{
+        console.log(error)
+        Swal.fire({
+          icon: 'warning',
+          title: 'No se pudo confirmar la reunión',
+          text: "Hay interferencia con el horario.",
+          showConfirmButton: false,
+          timer: 3500,
+        });
+      }
+    )
+  }
+
+  pendienteSolicitudEvent(idEvento){
+    this.eventService.pendienteSolicitudEvent(idEvento).subscribe(
+      response=>{
+        console.log(response)
+        //Refrescando la ventana
+        this.reload();
+      }
+    )
+  }
+
+  obtenerEvent(idEvento:String){
+    this.eventService.obtenerEvent(idEvento).subscribe(
+      response=>{
+        this.idEventModel = response.eventoEncontrado;
+        console.log(response);
+
+      }
+    )
+  }
+
+  editarSolicitudEvent(){
+    //Validación
+      if(
+        this.idEventModel.nombre===""||
+        this.idEventModel.title===""||
+        this.idEventModel.cantidadAsist===""||
+        this.idEventModel.start===null||
+        this.idEventModel.end===null
+      ){
+        //Alerta para que se llenen todos los campos
+        Swal.fire({
+          icon: 'warning',
+          title: 'Llene todos los campos',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        //Validando que la fecha te inicio no sea mayor o igual a la final
+      }else if(
+        this.idEventModel.start >= this.idEventModel.end
+      ){
+        Swal.fire({
+          icon: 'warning',
+          title: 'La fecha de inicio no puede ser mayor o igual a la final',
+          showConfirmButton: false,
+          timer: 2500,
+        });
+        //Validando que la fecha de inicio no sea menor a la actual
+      }else if(
+        this.idEventModel.start < this.todayDate
+      ){
+        Swal.fire({
+          icon: 'warning',
+          title: 'La fecha de inicio es del pasado',
+          text: "Pon una fecha que no sea menor a la actual.",
+          showConfirmButton: false,
+          timer: 2500,
+        });
+      }else{
+        console.log(this.idEventModel)
+      this.eventService.editarSolicitudEvent(this.idEventModel).subscribe(
+        response=>{
+          console.log(response);
+          //Alerta de que se creó correctamente el usuario
+          Swal.fire({
+            icon: 'success',
+            title: 'Reunión actualizada correctamente',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          //Refrescando la ventana
+          this.reload();
+          //this._router.navigate(['/usuarios'])
+        },
+        (error) => {
+          console.log(<any>error);
+          Swal.fire({
+            icon: 'error',
+            title: 'No se pudo actualizar la reunión',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      )
+    }
+  }
+
+//OnInit y AfterViewInit
 
   ngOnInit(): void {
     this.obtenerEvents();
     this.obtenerTipoSalas();
     this.obtenerSalasT();
+  }
+
+  ngAfterViewInit() {
+    this.dataSourceReuniones.sort = this.sort;
+    this.dataSourceReuniones.paginator = this.paginator;
   }
 
   //Función para refrescar la pantalla

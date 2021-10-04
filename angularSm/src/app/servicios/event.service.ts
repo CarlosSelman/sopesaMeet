@@ -21,11 +21,7 @@ export class EventService {
   constructor(public _http: HttpClient) {
     this.url = GLOBAL.url;
   }
-/*
-  obtenerEvents(): Observable<any>{
-    return this._http.get(this.url + '/obtenerEvents', {headers: this.headersVariable});
-  }
-*/
+
   obtenerEvents(): Observable<any>{
     return this._http.get(this.url + '/obtenerEvents', {headers: this.headersVariable});
   }
@@ -43,6 +39,60 @@ export class EventService {
     return this._http.get(this.url + '/obtenerEvent/'+ id, {headers: this.headersVariable})
   }
 
+  obtenerEventsT(): Observable<any>{
+    return this._http.get(this.url + '/obtenerEventsT', {headers: this.headersVariable});
+  }
+
+  obtenerReunionesG(): Observable<any>{
+    return this._http.get(this.url + '/obtenerReunionesT', {headers: this.headersVariable});
+  }
+
+  obtenerEventsC(): Observable<any>{
+    return this._http.get(this.url + '/obtenerEventsC', {headers: this.headersVariable});
+  }
+
+  obtenerEventsR(): Observable<any>{
+    return this._http.get(this.url + '/obtenerEventsR', {headers: this.headersVariable});
+  }
+
+  obtenerEventsP(): Observable<any>{
+    return this._http.get(this.url + '/obtenerEventsP', {headers: this.headersVariable});
+  }
+
+  obtenerEventsSala(id:String):Observable<any>{
+    return this._http.get(this.url + '/obtenerEventsSala/' + id, {headers:  this.headersVariable})
+  }
+
+  obtenerEventsUsuario(id:String):Observable<any>{
+    return this._http.get(this.url + '/obtenerEventsUsuario/' + id, {headers:  this.headersVariable})
+  }
+
+  editarSolicitudEvent(event: Event):Observable<any>{
+    let params = JSON.stringify(event);
+    let headersToken = this.headersVariable.set('Authorization', this.getToken())
+
+    return this._http.put(this.url + '/editarSolicitudEvent/' + event._id, params, {headers: headersToken})
+  }
+
+  confirmarSolicitudEvent(id:String):Observable<any>{
+    let headersToken = this.headersVariable.set('Authorization', this.getToken())
+    return this._http.put(this.url + '/confirmarSolicitudEvent/' + id, {headers: headersToken})
+  }
+
+  asistenciaEvent(id:String): Observable<any>{
+    return this._http.put(this.url + '/asistenciaEvent/'+ id, {headers: this.headersVariable})
+  }
+
+  cancelarSolicitudEvent(id:String):Observable<any>{
+    let headersToken = this.headersVariable.set('Authorization', this.getToken())
+    return this._http.put(this.url + '/cancelarSolicitudEvent/' + id, {headers: headersToken})
+  }
+
+  pendienteSolicitudEvent(id:String):Observable<any>{
+    let headersToken = this.headersVariable.set('Authorization', this.getToken())
+    return this._http.put(this.url + '/pendienteSolicitudEvent/' + id, {headers: headersToken})
+  }
+
   getIdentidad(){
     var identidad2:string = JSON.parse(localStorage.getItem('identidad') || '{}');
     if(identidad2 != 'undefined'){
@@ -50,6 +100,7 @@ export class EventService {
     }else{
       this.identidad = null;
     }
+
     return this.identidad;
   }
 
@@ -60,8 +111,8 @@ export class EventService {
     }else{
       this.token = null;
     }
+
     return this.token;
   }
 
 }
-

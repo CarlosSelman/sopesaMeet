@@ -3,8 +3,8 @@ export class Event{
     public _id: String,
     public nombre:String,
     public title: string, //Descripcion
-    public start: string,
-    public end: string,
+    public start: Date,
+    public end: Date,
     public cantidadAsist: String,
     public estado: String,
     public idResponsable: {

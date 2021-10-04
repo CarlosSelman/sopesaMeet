@@ -18,8 +18,38 @@ const rechazada = 'Rechazada';
 const asitio = 'Asistida'
 
 function obtenerEvents(req, res) {
+    eventoModelo.find().populate('idSala', 'nombre').populate('idResponsable', 'usuario rol').exec((err, eventosEncontrados) => {
+        console.log(err);
+        if (err) return res.status(500).send({ mensaje: 'Error en la peticion de reuniones' });
+        if (!eventosEncontrados) return res.status(500).send({ mensaje: 'Error al obtener las reuniones' });
+        return res.status(200).send({ eventosEncontrados });
+    })
+}
+
+function obtenerEventsT(req, res) {
     eventoModelo.find((err, eventosEncontrados) => {
-        if (err) return res.status(404).send({ report: 'Error al encontrar los Eventos' });
+        if (err) return res.status(404).send({ report: 'Error al encontrar las reuniones' });
+        return res.status(200).send(eventosEncontrados);
+    })
+}
+
+function obtenerEventsC(req, res) {
+    eventoModelo.find({ estado: confirmada }, (err, eventosEncontrados) => {
+        if (err) return res.status(404).send({ report: 'Error al encontrar las reuniones' });
+        return res.status(200).send(eventosEncontrados);
+    })
+}
+
+function obtenerEventsP(req, res) {
+    eventoModelo.find({ estado: pendiente }, (err, reunionesEncontradas) => {
+        if (err) return res.status(404).send({ report: 'Error al encontrar las reuniones' });
+        return res.status(200).send(reunionesEncontradas);
+    })
+}
+
+function obtenerEventsR(req, res) {
+    eventoModelo.find({ estado: rechazada }, (err, eventosEncontrados) => {
+        if (err) return res.status(404).send({ report: 'Error al encontrar las reuniones' });
         return res.status(200).send(eventosEncontrados);
     })
 }
@@ -79,18 +109,129 @@ function crearEvent(req, res) {
 function obtenerEvent(req, res) {
     var idEvento = req.params.idEvento
 
-    eventoModelo.findById(idEvento).exec((err, eventoEncontrado) => {
-        if (err) return res.status(500).send({ mensaje: 'Error en la peticion del evento' })
-        if (!eventoEncontrado) return res.status(500).send({ mensaje: 'Error en obtener los datos del evento' })
+    eventoModelo.findById(idEvento).populate('idSala idResponsable').exec((err, eventoEncontrado) => {
+        if (err) return res.status(500).send({ mensaje: 'Error en la peticion de la reunión' })
+        if (!eventoEncontrado) return res.status(500).send({ mensaje: 'Error en obtener los datos de la reunión' })
         console.log(eventoEncontrado.title);
-        console.log(eventoEncontrado.start);
-        console.log(eventoEncontrado.end);
         return res.status(200).send({ eventoEncontrado })
+    })
+}
+
+function confirmarSolicitudEvent(req, res) {
+
+    var idEvento = req.params.idEvento;
+
+    let contador = 0;
+
+    Event.findById(idEvento, (err, eventoEncontrado) => {
+        var idSala = eventoEncontrado.idSala;
+ 
+        let fecha_llegar = new Date(eventoEncontrado.start);
+        let fecha_salir = new Date(eventoEncontrado.end);
+
+        Event.find({ idSala: idSala, estado: confirmada }, (err, eventosEncontrados) => {
+            for (let i = 0; i < eventosEncontrados.length; i++) {
+                if (
+                    fecha_llegar.toISOString() > eventosEncontrados[i].start && fecha_llegar.toISOString() > eventosEncontrados[i].end ||
+                    fecha_llegar.toISOString() < eventosEncontrados[i].start && fecha_salir.toISOString() < eventosEncontrados[i].end
+                ) {
+                    contador++;
+                }
+            }
+            if (contador == eventosEncontrados.length) {
+                Event.findByIdAndUpdate(idEvento, { estado: confirmada }, { new: true }, (err, solicitudConfirmada) => {
+                    if (err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+                    if (!solicitudConfirmada) return res.status(500).send({ mensaje: 'No se ha podido cancelar la solicitud de reunión.' });
+                    return res.status(200).send({ solicitudConfirmada });
+                })
+            } else {
+                return res.status(500).send({ mensaje: 'Hay interferencia con ese horario' })
+            }
+        })
+    })
+}
+
+function cancelarSolicitudEvent(req, res) {
+    var idEvento = req.params.idEvento;
+    var estado = req.params.estado;
+    var eventoModelo = new Event();
+    eventoModelo.estado = rechazada;
+
+    Event.findByIdAndUpdate(idEvento, { estado: rechazada }, { new: true }, (err, solicitudCancelada) => {
+        if (err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+        if (!solicitudCancelada) return res.status(500).send({ mensaje: 'No se ha podido cancelar la solicitud de reunión.' });
+        return res.status(200).send({ solicitudCancelada });
+    })
+}
+
+function pendienteSolicitudEvent(req, res) {
+    var idEvento = req.params.idEvento;
+    var estado = req.params.estado;
+    var eventoModelo = new Event();
+    eventoModelo.estado = pendiente;
+
+    Event.findByIdAndUpdate(idEvento, { estado: pendiente }, { new: true }, (err, solicitudPendiente) => {
+        if (err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+        if (!solicitudPendiente) return res.status(500).send({ mensaje: 'No se ha podido poner en pendiente la solicitud de reunión.' });
+        return res.status(200).send({ solicitudPendiente });
+    })
+}
+
+function editarSolicitudEvent(req, res) {
+    var idEvento = req.params.idEvento;
+    var params = req.body;
+
+    eventoModelo.findByIdAndUpdate(idEvento, params, { new: true }, (err, solicitudActualizada) => {
+        if (err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+        if (!solicitudActualizada) return res.status(500).send({ mensaje: 'No se ha podido actualizar la solicitud de reunión.' });
+        return res.status(200).send({ solicitudActualizada });
+    })
+}
+
+function obtenerEventsSala(req, res) {
+    var idSala = req.params.idSala;
+    Event.find({ idSala: idSala }, (err, reunionesObtenidas) => {
+        if (err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+        if (!reunionesObtenidas) return res.status(500).send({ mensaje: 'No se han podido traer las reuniones' });
+        return res.status(200).send({ reunionesObtenidas });
+    })
+}
+
+function obtenerEventsUsuario(req, res) {
+    var idResponsable = req.params.idResponsable
+    Event.find({ idResponsable: idResponsable }, (err, reunionesObtenidas) => {
+        if (err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+        if (!reunionesObtenidas) return res.status(500).send({ mensaje: 'No se han podido traer las reuniones del usuario.' });
+        return res.status(200).send({ reunionesObtenidas });
+    })
+}
+
+function asistenciaEvent(req, res) {
+    var idEvento = req.params.idEvento;
+    var estado = req.params.estado;
+    var eventoModelo = new Event();
+    eventoModelo.estado = asitio;
+
+    Event.findByIdAndUpdate(idEvento, { estado: asitio }, { new: true }, (err, solicitudAsistida) => {
+        if (err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+        if (!solicitudAsistida) return res.status(500).send({ mensaje: 'No se ha podido poner en pendiente la solicitud de reunión.' });
+        return res.status(200).send({ solicitudAsistida });
     })
 }
 
 module.exports = {
     obtenerEvents,
     crearEvent,
-    obtenerEvent
+    obtenerEvent,
+    obtenerEventsT,
+    obtenerEventsC,
+    obtenerEventsP,
+    obtenerEventsR,
+    confirmarSolicitudEvent,
+    cancelarSolicitudEvent,
+    pendienteSolicitudEvent,
+    editarSolicitudEvent,
+    obtenerEventsSala,
+    obtenerEventsUsuario,
+    asistenciaEvent
 }
