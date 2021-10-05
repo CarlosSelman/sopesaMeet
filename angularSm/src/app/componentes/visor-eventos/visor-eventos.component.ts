@@ -431,10 +431,11 @@ export class VisorEventosComponent implements OnInit {
       }
     }else{
       Swal.fire({
-        icon: 'error',
-        title: 'No eres el creador',
+        icon: 'warning',
+        title: 'No se pudo editar la reunión',
+        text: "Solo el creador de la solicitud de reunión puede editarla.",
         showConfirmButton: false,
-        timer: 1500,
+        timer: 2500,
       });
     }
   }
