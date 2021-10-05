@@ -458,4 +458,26 @@ export class VisorEventosComponent implements OnInit {
     window.location.reload();
   }
 
+  //FILTROS DE LAS TABLAS
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSourceReuniones.filter = filterValue.trim().toLowerCase();
+  }
+
+  applyFilterC(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSourceReunionesC.filter = filterValue.trim().toLowerCase();
+  }
+
+  applyFilterR(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSourceReunionesR.filter = filterValue.trim().toLowerCase();
+  }
+
+  applyFilterP(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSourceReunionesP.filter = filterValue.trim().toLowerCase();
+  }
+
+
 }

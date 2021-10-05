@@ -21,7 +21,7 @@ var api = express.Router();
     api.get('/obtenerEventsR', eventControlador.obtenerEventsR);
     api.put('/confirmarSolicitudEvent/:idEvento', eventControlador.confirmarSolicitudEvent);
     api.put('/cancelarSolicitudEvent/:idEvento', eventControlador.cancelarSolicitudEvent);
-    api.put('/editarSolicitudEvent/:idEvento', authenticated.ensureAuth, eventControlador.editarSolicitudEvent);
+    api.put('/editarSolicitudEvent/:idEvento',authenticated.ensureAuth,  eventControlador.editarSolicitudEvent);
     api.get('/obtenerEventsSala/:idSala', eventControlador.obtenerEventsSala);
     api.get('/obtenerEventsUsuario/:idResponsable', eventControlador.obtenerEventsUsuario);
     

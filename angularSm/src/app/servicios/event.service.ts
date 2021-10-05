@@ -68,7 +68,7 @@ export class EventService {
   }
 
   editarSolicitudEvent(eventCalendar: EventCalendar):Observable<any>{
-    let params = JSON.stringify(event);
+    let params = JSON.stringify(eventCalendar);
     let headersToken = this.headersVariable.set('Authorization', this.getToken())
 
     return this._http.put(this.url + '/editarSolicitudEvent/' + eventCalendar._id, params, {headers: headersToken})
