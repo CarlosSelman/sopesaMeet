@@ -9,9 +9,6 @@ import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { TipoSalaService } from 'src/app/servicios/tipoSala.service';
 import { EventService } from 'src/app/servicios/event.service';
 
-
-import { ReunionService } from 'src/app/servicios/reunion.service';
-
 //IMPORTACIÓN PARA ALERTAS
 import Swal from 'sweetalert2';
 
@@ -21,7 +18,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-
 
 //DECLARANDO $ PARA UTILIZAR JQUERY
 declare var $: any;
@@ -38,7 +34,7 @@ import interactionPlugin from '@fullcalendar/interaction';
   templateUrl: './visor-eventos.component.html',
   styleUrls: ['./visor-eventos.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  providers: [UsuarioService,SalaService,ReunionService,TipoSalaService]
+  providers: [UsuarioService,SalaService,TipoSalaService]
 })
 export class VisorEventosComponent implements OnInit {
 
@@ -146,12 +142,14 @@ export class VisorEventosComponent implements OnInit {
   this.options = {
     plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
     defaultDate: new Date(),
+    initialView:'dayGridMonth',
     header: {
-      left: 'prev,next',
+      left: 'prev,today,next',
       center: 'title',
       right: 'dayGridMonth,timeGridWeek,timeGridDay'
     },
-    editable: false
+    editable: false,
+    //eventColor: '#378006'
   };
 
   }
