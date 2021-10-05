@@ -51,6 +51,10 @@ export class EventService {
     return this._http.get(this.url + '/obtenerEventsC', {headers: this.headersVariable});
   }
 
+  obtenerEventsAsist(): Observable<any>{
+    return this._http.get(this.url + '/obtenerEventsAsist', {headers: this.headersVariable});
+  }
+
   obtenerEventsR(): Observable<any>{
     return this._http.get(this.url + '/obtenerEventsR', {headers: this.headersVariable});
   }

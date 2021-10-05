@@ -1,20 +1,18 @@
-
-<!--
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
-  <title>SM-Reuniones</title>
+  <title>SM-VisorEventosSala</title>
   <meta charset="UTF-8">
   <meta name="description" content="">
   <meta name="keywords" content="">
 </head>
 <br>
 <body>
-  <div  *ngIf="identidad !=null" style=" border-radius: 0;"class="card text-center">
+  <div style=" border-radius: 0;"class="card text-center">
     <div class="card-header"></div>
     <div style="background-color:#b71c1c" class="card-body">
       <h5 style="color:white"class="card-title">Calendario de Reuniones</h5>
-      <p style="color:white" class="card-text">En esta sección podrás encontrar todas las reuniones hechas, las cuales las podrás gestionar en un calendario que cuenta con varias funciones.</p>
+      <p style="color:white" class="card-text">En esta sección podrás encontrar todas las reuniones hechas, las cuales las podrás ver y gestionar. En el calendario podrás visualizar todas las reuniones de todas las salas que han sido confirmadas y/o asistidas.</p>
       <button type="button" class="btn btn-light" [routerLink]="['/inicio']"><i class="bi bi-house-fill"></i> Ir al inicio</button>&nbsp;
       <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
         <i class="bi bi-calendar-plus"></i> Agregar Reunión
@@ -22,104 +20,11 @@
     </div>
     <div class="card-footer text-muted"></div>
   </div>
-  <div *ngIf="identidad !=null" class="login-form">
-    <div class = "container">
+  <div class="login-form">
+
       <div class = "main">
         <div class = "content">
-
-          <div class="row text-center">
-            <div class="col-md-4">
-              <div class="btn-group">
-                <div
-                  class="btn btn-danger"
-                  mwlCalendarPreviousView
-                  [view]="view"
-                  [(viewDate)]="viewDate"
-                  (viewDateChange)="closeOpenMonthViewDay()"
-                >
-                  Previous
-                </div>
-                <div
-                  class="btn btn-outline-danger"
-                  mwlCalendarToday
-                  [(viewDate)]="viewDate"
-                >
-                  Today
-                </div>
-                <div
-                  class="btn btn-danger"
-                  mwlCalendarNextView
-                  [view]="view"
-                  [(viewDate)]="viewDate"
-                  (viewDateChange)="closeOpenMonthViewDay()"
-                >
-                  Next
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
-            </div>
-            <div class="col-md-4">
-              <div class="btn-group">
-                <div
-                  class="btn btn-danger"
-                  (click)="setView(CalendarView.Month)"
-                  [class.active]="view === CalendarView.Month"
-                >
-                  Month
-                </div>
-                <div
-                  class="btn btn-danger"
-                  (click)="setView(CalendarView.Week)"
-                  [class.active]="view === CalendarView.Week"
-                >
-                  Week
-                </div>
-                <div
-                  class="btn btn-danger"
-                  (click)="setView(CalendarView.Day)"
-                  [class.active]="view === CalendarView.Day"
-                >
-                  Day
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <br />
-          <div [ngSwitch]="view">
-            <mwl-calendar-month-view
-              *ngSwitchCase="CalendarView.Month"
-              [viewDate]="viewDate"
-              [events]="datos"
-              [refresh]="refresh"
-              [activeDayIsOpen]="activeDayIsOpen"
-              (dayClicked)="dayClicked($event.day)"
-              (eventClicked)="handleEvent('Clicked', $event.event)"
-
-            >
-            </mwl-calendar-month-view>
-            <mwl-calendar-week-view
-              *ngSwitchCase="CalendarView.Week"
-              [viewDate]="viewDate"
-              [events]="datos"
-              [refresh]="refresh"
-              (eventClicked)="handleEvent('Clicked', $event.event)"
-
-            >
-            </mwl-calendar-week-view>
-
-            <mwl-calendar-day-view
-              *ngSwitchCase="CalendarView.Day"
-              [viewDate]="viewDate"
-              [events]="datos"
-              [refresh]="refresh"
-              (eventClicked)="handleEvent('Clicked', $event.event)"
-            >
-            </mwl-calendar-day-view>
-          </div>
-
+          <p-fullCalendar [events]="events" [options]="options"></p-fullCalendar>
           <br>
           <div class="accordion" id="accordionExample">
             <div class="accordion-item">
@@ -134,20 +39,20 @@
                   <hr>
                   <mat-tab-group mat-align-tabs="center">
 
-
+                    <!-- Tab para ver todas las reuniones -->
                     <mat-tab>
                       <ng-template mat-tab-label>
                         <mat-icon class="example-tab-icon">search</mat-icon>
 
                       </ng-template>
-
+                      <!-- Filtro -->
                       <mat-form-field appearance="standard">
                         <mat-label >Escribe algo para filtrar...</mat-label>
                         <input matInput (keyup)="applyFilter($event)" placeholder="Ejemplo: Reunión" #input autocomplete="off">
                       </mat-form-field>
-
+                      <!-- Tabla -->
                       <div class="mat-elevation-z8">
-                        <table  align="center" mat-table [dataSource]="dataSourceReuniones" matSort >
+                        <table  align="center" mat-table [dataSource]="dataSourceReuniones" matSort > <!-- matSort -->
 
                           <ng-container matColumnDef="title">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> <i class="bi bi-list-nested"></i> &nbsp; Descripción </th>
@@ -175,7 +80,7 @@
                                 name="fechFnd"
                                 #fechFnd="ngModel"
                                 [(ngModel)]="element.start"
-                                (ngModelChange)="refresh.next()"
+
                                 [altInput]="true"
                                 [convertModelValue]="true"
                                 [enableTime]="true"
@@ -198,7 +103,7 @@
                                 name="fechIn"
                                 #fechIn="ngModel"
                                 [(ngModel)]="element.end"
-                                (ngModelChange)="refresh.next()"
+
                                 [altInput]="true"
                                 [convertModelValue]="true"
                                 [enableTime]="true"
@@ -220,15 +125,15 @@
                                   </button>
                                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     <li><a class="dropdown-item"
-                                      data-bs-toggle="modal" data-bs-target="#mVerReunion" (click)="obtenerReunion(element._id)"><i class="bi bi-search"></i> | Ver más</a></li>
+                                      data-bs-toggle="modal" data-bs-target="#mVerReunion" (click)="obtenerEvent(element._id)"><i class="bi bi-search"></i> | Ver más</a></li>
                                     <li><a  class="dropdown-item"
-                                      data-bs-toggle="modal" data-bs-target="#mEditarReunion" (click)="obtenerReunion(element._id)"><i style="color:orange" class="bi bi-pencil-square"></i> | Editar</a></li>
+                                      data-bs-toggle="modal" data-bs-target="#mEditarReunion" (click)="obtenerEvent(element._id)"><i style="color:orange" class="bi bi-pencil-square"></i> | Editar</a></li>
                                     <li><a  *ngIf="element.estado!='Confirmada'" class="dropdown-item"
-                                      data-bs-toggle="modal" data-bs-target="#mConfirmarSolicitud" (click)="obtenerReunion(element._id)"> <i style="color:green" class="bi bi-check2-circle"></i> | Confirmar</a></li>
+                                      data-bs-toggle="modal" data-bs-target="#mConfirmarSolicitud" (click)="obtenerEvent(element._id)"> <i style="color:green" class="bi bi-check2-circle"></i> | Confirmar</a></li>
                                     <li><a *ngIf="element.estado!='Rechazada'" class="dropdown-item"
-                                      data-bs-toggle="modal" data-bs-target="#mRechazarReunion"(click)="obtenerReunion(element._id)"><i style="color:red"class="bi bi-x-circle"></i> | Rechazar</a></li>
+                                      data-bs-toggle="modal" data-bs-target="#mRechazarReunion"(click)="obtenerEvent(element._id)"><i style="color:red"class="bi bi-x-circle"></i> | Rechazar</a></li>
                                     <li><a  *ngIf="element.estado!='Pendiente'" class="dropdown-item"
-                                      data-bs-toggle="modal" data-bs-target="#mPendienteReunion" (click)="obtenerReunion(element._id)"><i class="bi bi-clock-history"></i> | Poner en Pendiente</a></li>
+                                      data-bs-toggle="modal" data-bs-target="#mPendienteReunion" (click)="obtenerEvent(element._id)"><i class="bi bi-clock-history"></i> | Poner en Pendiente</a></li>
                                     </ul>
                                 </div>
                             </td>
@@ -236,24 +141,24 @@
                           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                         </table>
-
+                        <!-- Paginación -->
                        <mat-paginator  [pageSizeOptions]="[5, 10, 25,50,100]" showFirstLastButtons ></mat-paginator>
                       </div>
                     </mat-tab>
 
-
+                    <!-- Tab para ver todas las reuniones confirmadas -->
                     <mat-tab>
                       <ng-template mat-tab-label>
                         <mat-icon style="color:green"class="example-tab-icon">task_alt</mat-icon>
                       </ng-template>
-
+                      <!-- Filtro -->
                       <mat-form-field appearance="standard">
                         <mat-label >Escribe algo para filtrar...</mat-label>
                         <input matInput (keyup)="applyFilterC($event)" placeholder="Ejemplo: Reunión" #input autocomplete="off">
                       </mat-form-field>
-
+                      <!-- Tabla -->
                       <div class="mat-elevation-z8">
-                        <table  align="center" mat-table [dataSource]="dataSourceReunionesC" matSort >
+                        <table  align="center" mat-table [dataSource]="dataSourceReunionesC" matSort > <!-- matSort -->
 
                           <ng-container matColumnDef="title">
                             <th mat-header-cell *matHeaderCellDef> <i class="bi bi-list-nested"></i> &nbsp; Descripción </th>
@@ -281,7 +186,7 @@
                                 name="fechFnd"
                                 #fechFnd="ngModel"
                                 [(ngModel)]="element.start"
-                                (ngModelChange)="refresh.next()"
+
                                 [altInput]="true"
                                 [convertModelValue]="true"
                                 [enableTime]="true"
@@ -304,7 +209,7 @@
                                 name="fechIn"
                                 #fechIn="ngModel"
                                 [(ngModel)]="element.end"
-                                (ngModelChange)="refresh.next()"
+
                                 [altInput]="true"
                                 [convertModelValue]="true"
                                 [enableTime]="true"
@@ -326,15 +231,15 @@
                                   </button>
                                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     <li><a class="dropdown-item"
-                                      data-bs-toggle="modal" data-bs-target="#mVerReunion" (click)="obtenerReunion(element._id)"><i class="bi bi-search"></i> | Ver más</a></li>
+                                      data-bs-toggle="modal" data-bs-target="#mVerReunion" (click)="obtenerEvent(element._id)"><i class="bi bi-search"></i> | Ver más</a></li>
                                     <li><a  class="dropdown-item"
-                                      data-bs-toggle="modal" data-bs-target="#mEditarReunion" (click)="obtenerReunion(element._id)"><i style="color:orange" class="bi bi-pencil-square"></i> | Editar</a></li>
+                                      data-bs-toggle="modal" data-bs-target="#mEditarReunion" (click)="obtenerEvent(element._id)"><i style="color:orange" class="bi bi-pencil-square"></i> | Editar</a></li>
                                     <li><a  *ngIf="element.estado!='Confirmada'" class="dropdown-item"
-                                      data-bs-toggle="modal" data-bs-target="#mConfirmarSolicitud" (click)="obtenerReunion(element._id)"> <i style="color:green" class="bi bi-check2-circle"></i> | Confirmar</a></li>
+                                      data-bs-toggle="modal" data-bs-target="#mConfirmarSolicitud" (click)="obtenerEvent(element._id)"> <i style="color:green" class="bi bi-check2-circle"></i> | Confirmar</a></li>
                                     <li><a *ngIf="element.estado!='Rechazada'" class="dropdown-item"
-                                      data-bs-toggle="modal" data-bs-target="#mRechazarReunion"(click)="obtenerReunion(element._id)"><i style="color:red"class="bi bi-x-circle"></i> | Rechazar</a></li>
+                                      data-bs-toggle="modal" data-bs-target="#mRechazarReunion"(click)="obtenerEvent(element._id)"><i style="color:red"class="bi bi-x-circle"></i> | Rechazar</a></li>
                                     <li><a  *ngIf="element.estado!='Pendiente'" class="dropdown-item"
-                                      data-bs-toggle="modal" data-bs-target="#mPendienteReunion" (click)="obtenerReunion(element._id)"><i class="bi bi-clock-history"></i> | Poner en Pendiente</a></li>
+                                      data-bs-toggle="modal" data-bs-target="#mPendienteReunion" (click)="obtenerEvent(element._id)"><i class="bi bi-clock-history"></i> | Poner en Pendiente</a></li>
                                     </ul>
                                 </div>
                             </td>
@@ -345,19 +250,19 @@
                       </div>
                     </mat-tab>
 
-
+                    <!-- Tab para ver todas las reuniones rechazadas -->
                     <mat-tab>
                       <ng-template mat-tab-label>
                         <mat-icon style="color:red"class="example-tab-icon">highlight_off</mat-icon>
                       </ng-template>
-
+                      <!-- Filtro -->
                       <mat-form-field appearance="standard">
                         <mat-label >Escribe algo para filtrar...</mat-label>
                         <input matInput (keyup)="applyFilterR($event)" placeholder="Ejemplo: Reunión" #input autocomplete="off">
                       </mat-form-field>
-
+                      <!-- Tabla -->
                       <div class="mat-elevation-z8">
-                        <table  align="center" mat-table [dataSource]="dataSourceReunionesR" matSort >
+                        <table  align="center" mat-table [dataSource]="dataSourceReunionesR" matSort > <!-- matSort -->
 
                           <ng-container matColumnDef="title">
                             <th mat-header-cell *matHeaderCellDef> <i class="bi bi-list-nested"></i> &nbsp; Descripción </th>
@@ -385,7 +290,7 @@
                                 name="fechFnd"
                                 #fechFnd="ngModel"
                                 [(ngModel)]="element.start"
-                                (ngModelChange)="refresh.next()"
+
                                 [altInput]="true"
                                 [convertModelValue]="true"
                                 [enableTime]="true"
@@ -408,7 +313,7 @@
                                 name="fechIn"
                                 #fechIn="ngModel"
                                 [(ngModel)]="element.end"
-                                (ngModelChange)="refresh.next()"
+
                                 [altInput]="true"
                                 [convertModelValue]="true"
                                 [enableTime]="true"
@@ -430,15 +335,15 @@
                                   </button>
                                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     <li><a class="dropdown-item"
-                                      data-bs-toggle="modal" data-bs-target="#mVerReunion" (click)="obtenerReunion(element._id)"><i class="bi bi-search"></i> | Ver más</a></li>
+                                      data-bs-toggle="modal" data-bs-target="#mVerReunion" (click)="obtenerEvent(element._id)"><i class="bi bi-search"></i> | Ver más</a></li>
                                     <li><a  class="dropdown-item"
-                                      data-bs-toggle="modal" data-bs-target="#mEditarReunion" (click)="obtenerReunion(element._id)"><i style="color:orange" class="bi bi-pencil-square"></i> | Editar</a></li>
+                                      data-bs-toggle="modal" data-bs-target="#mEditarReunion" (click)="obtenerEvent(element._id)"><i style="color:orange" class="bi bi-pencil-square"></i> | Editar</a></li>
                                     <li><a  *ngIf="element.estado!='Confirmada'" class="dropdown-item"
-                                      data-bs-toggle="modal" data-bs-target="#mConfirmarSolicitud" (click)="obtenerReunion(element._id)"> <i style="color:green" class="bi bi-check2-circle"></i> | Confirmar</a></li>
+                                      data-bs-toggle="modal" data-bs-target="#mConfirmarSolicitud" (click)="obtenerEvent(element._id)"> <i style="color:green" class="bi bi-check2-circle"></i> | Confirmar</a></li>
                                     <li><a *ngIf="element.estado!='Rechazada'" class="dropdown-item"
-                                      data-bs-toggle="modal" data-bs-target="#mRechazarReunion"(click)="obtenerReunion(element._id)"><i style="color:red"class="bi bi-x-circle"></i> | Rechazar</a></li>
+                                      data-bs-toggle="modal" data-bs-target="#mRechazarReunion"(click)="obtenerEvent(element._id)"><i style="color:red"class="bi bi-x-circle"></i> | Rechazar</a></li>
                                     <li><a  *ngIf="element.estado!='Pendiente'" class="dropdown-item"
-                                      data-bs-toggle="modal" data-bs-target="#mPendienteReunion" (click)="obtenerReunion(element._id)"><i class="bi bi-clock-history"></i> | Poner en Pendiente</a></li>
+                                      data-bs-toggle="modal" data-bs-target="#mPendienteReunion" (click)="obtenerEvent(element._id)"><i class="bi bi-clock-history"></i> | Poner en Pendiente</a></li>
                                     </ul>
                                 </div>
                             </td>
@@ -446,23 +351,24 @@
                           <tr mat-header-row *matHeaderRowDef="displayedColumnsR"></tr>
                           <tr mat-row *matRowDef="let row; columns: displayedColumnsR;"></tr>
                         </table>
-
+                        <!-- Paginación
+                       <mat-paginator  [pageSizeOptions]="[5, 10, 25,50,100]" showFirstLastButtons ></mat-paginator>-->
                       </div>
                     </mat-tab>
 
-
+                     <!-- Tab para ver todas las reuniones pendientes -->
                     <mat-tab>
                       <ng-template mat-tab-label>
                         <mat-icon class="example-tab-icon">query_builder</mat-icon>
                       </ng-template>
-
+                      <!-- Filtro -->
                       <mat-form-field appearance="standard">
                         <mat-label >Escribe algo para filtrar...</mat-label>
                         <input matInput (keyup)="applyFilterP($event)" placeholder="Ejemplo: Reunión" #input autocomplete="off">
                       </mat-form-field>
-
+                      <!-- Tabla -->
                       <div class="mat-elevation-z8">
-                        <table  align="center" mat-table [dataSource]="dataSourceReunionesP" matSort >
+                        <table  align="center" mat-table [dataSource]="dataSourceReunionesP" matSort > <!-- matSort -->
 
                           <ng-container matColumnDef="title">
                             <th mat-header-cell *matHeaderCellDef> <i class="bi bi-list-nested"></i> &nbsp; Descripción </th>
@@ -490,7 +396,7 @@
                                 name="fechFnd"
                                 #fechFnd="ngModel"
                                 [(ngModel)]="element.start"
-                                (ngModelChange)="refresh.next()"
+
                                 [altInput]="true"
                                 [convertModelValue]="true"
                                 [enableTime]="true"
@@ -513,7 +419,7 @@
                                 name="fechIn"
                                 #fechIn="ngModel"
                                 [(ngModel)]="element.end"
-                                (ngModelChange)="refresh.next()"
+
                                 [altInput]="true"
                                 [convertModelValue]="true"
                                 [enableTime]="true"
@@ -535,15 +441,15 @@
                                   </button>
                                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     <li><a class="dropdown-item"
-                                      data-bs-toggle="modal" data-bs-target="#mVerReunion" (click)="obtenerReunion(element._id)"><i class="bi bi-search"></i> | Ver más</a></li>
+                                      data-bs-toggle="modal" data-bs-target="#mVerReunion" (click)="obtenerEvent(element._id)"><i class="bi bi-search"></i> | Ver más</a></li>
                                     <li><a  class="dropdown-item"
-                                      data-bs-toggle="modal" data-bs-target="#mEditarReunion" (click)="obtenerReunion(element._id)"><i style="color:orange" class="bi bi-pencil-square"></i> | Editar</a></li>
+                                      data-bs-toggle="modal" data-bs-target="#mEditarReunion" (click)="obtenerEvent(element._id)"><i style="color:orange" class="bi bi-pencil-square"></i> | Editar</a></li>
                                     <li><a  *ngIf="element.estado!='Confirmada'" class="dropdown-item"
-                                      data-bs-toggle="modal" data-bs-target="#mConfirmarSolicitud" (click)="obtenerReunion(element._id)"> <i style="color:green" class="bi bi-check2-circle"></i> | Confirmar</a></li>
+                                      data-bs-toggle="modal" data-bs-target="#mConfirmarSolicitud" (click)="obtenerEvent(element._id)"> <i style="color:green" class="bi bi-check2-circle"></i> | Confirmar</a></li>
                                     <li><a *ngIf="element.estado!='Rechazada'" class="dropdown-item"
-                                      data-bs-toggle="modal" data-bs-target="#mRechazarReunion"(click)="obtenerReunion(element._id)"><i style="color:red"class="bi bi-x-circle"></i> | Rechazar</a></li>
+                                      data-bs-toggle="modal" data-bs-target="#mRechazarReunion"(click)="obtenerEvent(element._id)"><i style="color:red"class="bi bi-x-circle"></i> | Rechazar</a></li>
                                     <li><a  *ngIf="element.estado!='Pendiente'" class="dropdown-item"
-                                      data-bs-toggle="modal" data-bs-target="#mPendienteReunion" (click)="obtenerReunion(element._id)"><i class="bi bi-clock-history"></i> | Poner en Pendiente</a></li>
+                                      data-bs-toggle="modal" data-bs-target="#mPendienteReunion" (click)="obtenerEvent(element._id)"><i class="bi bi-clock-history"></i> | Poner en Pendiente</a></li>
                                     </ul>
                                 </div>
                             </td>
@@ -551,55 +457,24 @@
                           <tr mat-header-row *matHeaderRowDef="displayedColumnsP"></tr>
                           <tr mat-row *matRowDef="let row; columns: displayedColumnsP;"></tr>
                         </table>
-
+                        <!-- Paginación
+                       <mat-paginator  [pageSizeOptions]="[5, 10, 25,50,100]" showFirstLastButtons ></mat-paginator>-->
                       </div>
                     </mat-tab>
 
                   </mat-tab-group>
                 </div><br>
               </div>
-
-                </div>
-              </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
+  </div>
 
 
-  <ng-template #modalContent let-close="close">
-    <div class="modal-header">
-      <h5 class="modal-title">Datos del evento:</h5>
-      <button type="button" class="close" (click)="close()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-
-      <div>
-        <i class="bi bi-list-nested"></i><strong> Nombre del evento: </strong>
-          <pre>{{ modalData?.event.title }}</pre>
-      </div>
-      <div>
-        <i class="bi bi-calendar-check"></i><strong> Fecha de inicio: </strong>
-          <pre>{{ modalData?.event.start }}</pre>
-      </div>
-      <div>
-        <i class="bi bi-calendar-x"></i><strong> Fecha de fin: </strong>
-          <pre>{{ modalData?.event.end }}</pre>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-danger" (click)="close()">
-        Cerrar
-      </button>
-    </div>
-  </ng-template>
-
-
-  <div *ngIf="identidad === null" id="err">
+  <!-- Error 403
+  <div id="err">
     <div id="error-page">
       <div class="contentE">
         <h1 data-text="403">403</h1>
@@ -611,8 +486,8 @@
       </div>
     </div>
   </div>
-
-
+-->
+  <!-- Footer -->
   <div class="footer">
     <div class="footer-content">
       <div class="footer-section links">
@@ -657,17 +532,17 @@
           <div class="mb-3">
             <label for="inputNombreR" class="form-label"><i class="bi bi-list-nested"></i><strong> Nombre del Responsable:</strong></label>
             <input type="text" class="form-control" id="inputNombreR" name="nombreR" #nombreR="ngModel"
-              [(ngModel)]="reunionesModelAdd.nombre">
+              [(ngModel)]="eventsModelAdd.nombre">
           </div>
           <div class="mb-3">
             <label for="inputDescripcionR" class="form-label"><i class="bi bi-list-nested"></i><strong> Descripción:</strong></label>
             <textarea class="form-control" id="inputDescripcionR" rows="1" name="descripcionR" #descripcionR="ngModel"
-              [(ngModel)]="reunionesModelAdd.title"></textarea>
+              [(ngModel)]="eventsModelAdd.title"></textarea>
           </div>
           <div class="mb-3">
             <label for="inputCnaAsR" class="form-label"><i class="bi bi-people-fill"></i><strong> Cantidad de Asistentes:</strong></label>
             <input type="number" class="form-control" id="inputCnaAsR" name="cantAsR" #cantAsR="ngModel"
-              [(ngModel)]="reunionesModelAdd.cantidadAsist">
+              [(ngModel)]="eventsModelAdd.cantidadAsist">
           </div>
           <div class="mb-3">
             <label for="inputFechaIn" class="form-label"><i class="bi bi-calendar2-check"></i><strong> Fecha de Inicio:</strong></label>
@@ -678,8 +553,8 @@
               id="inputFechaIn"
               name="fechIn"
               #fechIn="ngModel"
-              [(ngModel)]="reunionesModelAdd.start"
-              (ngModelChange)="refresh.next()"
+              [(ngModel)]="eventsModelAdd.start"
+
               [altInput]="true"
               [convertModelValue]="true"
               [enableTime]="true"
@@ -697,8 +572,8 @@
               id="inputFechaFn"
               name="fechFn"
               #fechFn="ngModel"
-              [(ngModel)]="reunionesModelAdd.end"
-              (ngModelChange)="refresh.next()"
+              [(ngModel)]="eventsModelAdd.end"
+
               [altInput]="true"
               [convertModelValue]="true"
               [enableTime]="true"
@@ -710,7 +585,7 @@
           <div class="mb-3">
             <label for="inputSala" class="form-label"><i class="bi bi-building"></i><strong> Salas disponibles para la reunión:</strong></label>
             <select  name="sala" #sala="ngModel"
-              [(ngModel)]="reunionesModelAdd.idSala" class="form-select" aria-label="Default select example">
+              [(ngModel)]="eventsModelAdd.idSala" class="form-select" aria-label="Default select example">
               <option *ngFor="let tpsl of salasModelGet" [ngValue]="tpsl">{{tpsl.nombre}}</option>
             </select>
           </div>
@@ -719,14 +594,14 @@
           <hr>
         </form>
         <div class="d-grid gap-2">
-          <button type="button" class="btn btn-outline-secondary" (click)="crearReunion()"><i class="bi bi-calendar-plus"></i> Agregar Reunión</button>
+          <button type="button" class="btn btn-outline-secondary" (click)="crearEvent()"><i class="bi bi-calendar-plus"></i> Agregar Reunión</button>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-
+<!-- Modal Ver Reunion -->
 <div class="modal fade" id="mVerReunion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -743,12 +618,12 @@
           <div class="mb-3">
             <label for="inVrN" class="form-label"><i class="bi bi-list-nested"></i><strong> Nombre del Responsable:</strong></label>
             <input type="text" class="form-control" id="inVrN" name="nombreRes"
-            #nombreRes="ngModel" [(ngModel)]="idReunionModel.nombre" disabled>
+            #nombreRes="ngModel" [(ngModel)]="idEventModel.nombre" disabled>
           </div>
           <div class="mb-3">
             <label for="inVrD" class="form-label"><i class="bi bi-list-nested"></i><strong> Descripción:</strong></label>
             <input type="text" class="form-control" id="inVrD" name="descReu"
-            #descReu="ngModel" [(ngModel)]="idReunionModel.title" disabled>
+            #descReu="ngModel" [(ngModel)]="idEventModel.title" disabled>
           </div>
           <div class="mb-3">
             <label for="inVrS" class="form-label"><i class="bi bi-calendar-check"></i><strong> Fecha de Inicio:</strong></label>
@@ -759,8 +634,8 @@
               id="inVrS"
               name="inicReu"
               #inicReu="ngModel"
-              [(ngModel)]="idReunionModel.start"
-              (ngModelChange)="refresh.next()"
+              [(ngModel)]="idEventModel.start"
+
               [altInput]="true"
               [convertModelValue]="true"
               [enableTime]="true"
@@ -779,8 +654,8 @@
               id="inVrF"
               name="finReu"
               #finReu="ngModel"
-              [(ngModel)]="idReunionModel.end"
-              (ngModelChange)="refresh.next()"
+              [(ngModel)]="idEventModel.end"
+
               [altInput]="true"
               [convertModelValue]="true"
               [enableTime]="true"
@@ -793,17 +668,17 @@
           <div class="mb-3">
             <label for="inVrSala" class="form-label"><i class="bi bi-building"></i><strong> Nombre de la Sala:</strong></label>
             <input type="text" class="form-control" id="inVrSala" name="nombre"
-            #nombre="ngModel" [(ngModel)]="idReunionModel.idSala.nombre" disabled>
+            #nombre="ngModel" [(ngModel)]="idEventModel.idSala.nombre" disabled>
           </div>
           <div class="mb-3">
             <label for="inVrRespC" class="form-label"><i class="bi bi-person-circle"></i><strong> Usuario del Creador de la Reunión:</strong></label>
             <input type="text" class="form-control" id="inVrRespC" name="salReu"
-            #salReu="ngModel" [(ngModel)]="idReunionModel.idResponsable.usuario" disabled>
+            #salReu="ngModel" [(ngModel)]="idEventModel.idResponsable.usuario" disabled>
           </div>
           <div class="mb-3">
             <label for="inFges" class="form-label"><i class="bi bi-calendar-plus"></i><strong> Fecha de Gestión:</strong></label>
             <input type="text" class="form-control" id="inFges" name="fechGestR"
-            #fechGestR="ngModel" [(ngModel)]="idReunionModel.fechaDeGestion" disabled>
+            #fechGestR="ngModel" [(ngModel)]="idEventModel.fechaDeGestion" disabled>
           </div>
         </form>
       </div>
@@ -811,7 +686,7 @@
   </div>
 </div>
 
-
+<!-- Modal Editar Reunion -->
 <div class="modal fade" id="mEditarReunion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -828,17 +703,17 @@
           <div class="mb-3">
             <label for="inputNombre" class="form-label"><i class="bi bi-list-nested"></i><strong> Nombres:</strong></label>
             <input type="text" class="form-control" id="inputNombre"
-            name="nombres" #nombres="ngModel" [(ngModel)]="idReunionModel.nombre">
+            name="nombres" #nombres="ngModel" [(ngModel)]="idEventModel.nombre">
           </div>
           <div class="mb-3">
             <label for="inputApellidos" class="form-label"><i class="bi bi-list-nested"></i><strong> Descripción:</strong></label>
             <input type="text" class="form-control" id="inputApellidos"
-            name="apellidos" #apellidos="ngModel" [(ngModel)]="idReunionModel.title">
+            name="apellidos" #apellidos="ngModel" [(ngModel)]="idEventModel.title">
           </div>
           <div class="mb-3">
             <label for="inputUsuario" class="form-label"><i class="bi bi-people-fill"></i><strong> Cantidad de Asistentes:</strong></label>
             <input type="number" class="form-control" id="inputUsuario"
-            name="usuario" #usuario="ngModel" [(ngModel)]="idReunionModel.cantidadAsist">
+            name="usuario" #usuario="ngModel" [(ngModel)]="idEventModel.cantidadAsist">
           </div>
           <div class="mb-3">
             <label for="inputFechaIn" class="form-label"><i class="bi bi-calendar-check"></i><strong> Fecha de Inicio:</strong></label>
@@ -849,8 +724,8 @@
               id="inputFechaIn"
               name="fechIn"
               #fechIn="ngModel"
-              [(ngModel)]="idReunionModel.start"
-              (ngModelChange)="refresh.next()"
+              [(ngModel)]="idEventModel.start"
+
               [altInput]="true"
               [convertModelValue]="true"
               [enableTime]="true"
@@ -868,8 +743,8 @@
               id="inputFechaFn"
               name="fechFn"
               #fechFn="ngModel"
-              [(ngModel)]="idReunionModel.end"
-              (ngModelChange)="refresh.next()"
+              [(ngModel)]="idEventModel.end"
+
               [altInput]="true"
               [convertModelValue]="true"
               [enableTime]="true"
@@ -883,7 +758,7 @@
         <hr>
         <div class="d-grid gap-2">
           <button type="button" class="btn btn-outline-success"
-            (click)="editarSolicitud()"><i class="bi bi-save"></i> Guardar cambios
+            (click)="editarSolicitudEvent()"><i class="bi bi-save"></i> Guardar cambios
           </button>
         </div>
       </div>
@@ -892,6 +767,7 @@
 </div>
 
 
+<!-- Modal Rechazar Reunion -->
 <div class="modal fade" id="mRechazarReunion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -906,12 +782,12 @@
           </div>
           <div align="center" class="mb-3">
             <p>
-              ¿Esta seguro de que desea rechazar la solicitud de reunión a nombre de "{{idReunionModel.nombre}}"?
+              ¿Esta seguro de que desea rechazar la solicitud de reunión a nombre de "{{idEventModel.nombre}}"?
             </p>
           </div>
           <div class="d-grid gap-2">
             <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"
-              (click)="cancelarSolicitud(idReunionModel._id)">Si, rechazar <i class="bi bi-x-circle"></i>
+              (click)="cancelarSolicitudEvent(idEventModel._id)">Si, rechazar <i class="bi bi-x-circle"></i>
             </button>
           </div>
         </form>
@@ -920,7 +796,7 @@
   </div>
 </div>
 
-
+<!-- Modal Pendiente Reunion -->
 <div class="modal fade" id="mPendienteReunion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -935,12 +811,12 @@
           </div>
           <div align="center" class="mb-3">
             <p>
-              ¿Esta seguro de que desea poner en pendiente la solicitud de reunión a nombre de "{{idReunionModel.nombre}}"?
+              ¿Esta seguro de que desea poner en pendiente la solicitud de reunión a nombre de "{{idEventModel.nombre}}"?
             </p>
           </div>
             <div class="d-grid gap-2">
               <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"
-                (click)="pendienteSolicitud(idReunionModel._id)">Si, poner en pendiente <i class="bi bi-clock-history"></i>
+                (click)="pendienteSolicitudEvent(idEventModel._id)">Si, poner en pendiente <i class="bi bi-clock-history"></i>
               </button>
           </div>
         </form>
@@ -949,6 +825,7 @@
   </div>
 </div>
 
+<!-- Modal de Confirmar La Reunion -->
 <div class="modal fade" id="mConfirmarSolicitud" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -963,12 +840,12 @@
           </div>
           <div align="center" class="mb-3">
             <p>
-              ¿Esta seguro de que desea confirmar la solicitud de reunión a nombre de "{{idReunionModel.nombre}}"?
+              ¿Esta seguro de que desea confirmar la solicitud de reunión a nombre de "{{idEventModel.nombre}}"?
             </p>
           </div>
             <div class="d-grid gap-2">
               <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal" aria-label="Close"
-                (click)="confirmarSolicitud(idReunionModel._id)">Si, confirmar <i class="bi bi-check2-circle"></i>
+                (click)="confirmarSolicitudEvent(idEventModel._id)">Si, confirmar <i class="bi bi-check2-circle"></i>
               </button>
           </div>
         </form>
@@ -976,4 +853,6 @@
     </div>
   </div>
 </div>
--->
+
+
+

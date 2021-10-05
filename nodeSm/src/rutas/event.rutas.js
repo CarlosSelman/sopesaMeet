@@ -14,6 +14,7 @@ var api = express.Router();
     api.get('/obtenerEvent/:idEvento', eventControlador.obtenerEvent);
     api.post('/crearEvent',authenticated.ensureAuth,  eventControlador.crearEvent);
     api.get('/obtenerEventsT', eventControlador.obtenerEventsT);
+    api.get('/obtenerEventsAsist', eventControlador.obtenerEventsAsist);
     api.get('/obtenerEventsC', eventControlador.obtenerEventsC);
     api.put('/pendienteSolicitudEvent/:idEvento', eventControlador.pendienteSolicitudEvent);
     api.put('/asistenciaEvent/:idEvento', eventControlador.asistenciaEvent); 

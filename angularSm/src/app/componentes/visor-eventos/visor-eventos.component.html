@@ -12,7 +12,7 @@
     <div class="card-header"></div>
     <div style="background-color:#b71c1c" class="card-body">
       <h5 style="color:white"class="card-title">Calendario de Reuniones</h5>
-      <p style="color:white" class="card-text">En esta sección podrás encontrar todas las reuniones hechas, las cuales las podrás gestionar en un calendario que cuenta con varias funciones.</p>
+      <p style="color:white" class="card-text">En esta sección podrás encontrar todas las reuniones hechas, las cuales las podrás ver y gestionar. En el calendario podrás visualizar todas las reuniones de todas las salas que han sido confirmadas y/o asistidas.</p>
       <button type="button" class="btn btn-light" [routerLink]="['/inicio']"><i class="bi bi-house-fill"></i> Ir al inicio</button>&nbsp;
       <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
         <i class="bi bi-calendar-plus"></i> Agregar Reunión
@@ -127,12 +127,12 @@
                                     <li><a class="dropdown-item"
                                       data-bs-toggle="modal" data-bs-target="#mVerReunion" (click)="obtenerEvent(element._id)"><i class="bi bi-search"></i> | Ver más</a></li>
                                     <li><a  class="dropdown-item"
-                                      data-bs-toggle="modal" data-bs-target="#mEditarReunion" (click)="obtenerEvent(element._id)"><i style="color:orange" class="bi bi-pencil-square"></i> | Editar</a></li>
-                                    <li><a  *ngIf="element.estado!='Confirmada'" class="dropdown-item"
+                                      data-bs-toggle="modal" data-bs-target="#mEditarReunion"  (click)="obtenerEvent(element._id)"><i style="color:orange" class="bi bi-pencil-square"></i> | Editar</a></li>
+                                    <li><a  *ngIf="element.estado!='Confirmada' && identidad !=null && identidad.rol!='Usuario'" class="dropdown-item"
                                       data-bs-toggle="modal" data-bs-target="#mConfirmarSolicitud" (click)="obtenerEvent(element._id)"> <i style="color:green" class="bi bi-check2-circle"></i> | Confirmar</a></li>
-                                    <li><a *ngIf="element.estado!='Rechazada'" class="dropdown-item"
+                                    <li><a *ngIf="element.estado!='Rechazada' && identidad !=null && identidad.rol!='Usuario'" class="dropdown-item"
                                       data-bs-toggle="modal" data-bs-target="#mRechazarReunion"(click)="obtenerEvent(element._id)"><i style="color:red"class="bi bi-x-circle"></i> | Rechazar</a></li>
-                                    <li><a  *ngIf="element.estado!='Pendiente'" class="dropdown-item"
+                                    <li><a  *ngIf="element.estado!='Pendiente' && identidad !=null && identidad.rol!='Usuario'" class="dropdown-item"
                                       data-bs-toggle="modal" data-bs-target="#mPendienteReunion" (click)="obtenerEvent(element._id)"><i class="bi bi-clock-history"></i> | Poner en Pendiente</a></li>
                                     </ul>
                                 </div>
@@ -226,19 +226,19 @@
                             <td mat-cell *matCellDef="let element" style="text-align:right;">
 
                                 <div  class="dropdown">
-                                  <button  class="btn btn-light btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                  <button  class="btn btn-light btn-sm" type="button" id="dropdownMenuButton1"  data-bs-toggle="modal" data-bs-target="#mVerReunion" (click)="obtenerEvent(element._id)"><i class="bi bi-search"></i>
+                                  </button>
+                                  <button *ngIf=" identidad !=null && identidad.rol!='Usuario'" class="btn btn-light btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="bi bi-three-dots-vertical"> </i>
                                   </button>
                                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     <li><a class="dropdown-item"
                                       data-bs-toggle="modal" data-bs-target="#mVerReunion" (click)="obtenerEvent(element._id)"><i class="bi bi-search"></i> | Ver más</a></li>
-                                    <li><a  class="dropdown-item"
-                                      data-bs-toggle="modal" data-bs-target="#mEditarReunion" (click)="obtenerEvent(element._id)"><i style="color:orange" class="bi bi-pencil-square"></i> | Editar</a></li>
-                                    <li><a  *ngIf="element.estado!='Confirmada'" class="dropdown-item"
+                                    <li><a  *ngIf="element.estado!='Confirmada' && identidad !=null && identidad.rol!='Usuario'" class="dropdown-item"
                                       data-bs-toggle="modal" data-bs-target="#mConfirmarSolicitud" (click)="obtenerEvent(element._id)"> <i style="color:green" class="bi bi-check2-circle"></i> | Confirmar</a></li>
-                                    <li><a *ngIf="element.estado!='Rechazada'" class="dropdown-item"
+                                    <li><a *ngIf="element.estado!='Rechazada' && identidad !=null && identidad.rol!='Usuario'" class="dropdown-item"
                                       data-bs-toggle="modal" data-bs-target="#mRechazarReunion"(click)="obtenerEvent(element._id)"><i style="color:red"class="bi bi-x-circle"></i> | Rechazar</a></li>
-                                    <li><a  *ngIf="element.estado!='Pendiente'" class="dropdown-item"
+                                    <li><a  *ngIf="element.estado!='Pendiente' && identidad !=null && identidad.rol!='Usuario'" class="dropdown-item"
                                       data-bs-toggle="modal" data-bs-target="#mPendienteReunion" (click)="obtenerEvent(element._id)"><i class="bi bi-clock-history"></i> | Poner en Pendiente</a></li>
                                     </ul>
                                 </div>
@@ -338,11 +338,11 @@
                                       data-bs-toggle="modal" data-bs-target="#mVerReunion" (click)="obtenerEvent(element._id)"><i class="bi bi-search"></i> | Ver más</a></li>
                                     <li><a  class="dropdown-item"
                                       data-bs-toggle="modal" data-bs-target="#mEditarReunion" (click)="obtenerEvent(element._id)"><i style="color:orange" class="bi bi-pencil-square"></i> | Editar</a></li>
-                                    <li><a  *ngIf="element.estado!='Confirmada'" class="dropdown-item"
+                                    <li><a  *ngIf="element.estado!='Confirmada' && identidad !=null && identidad.rol!='Usuario'" class="dropdown-item"
                                       data-bs-toggle="modal" data-bs-target="#mConfirmarSolicitud" (click)="obtenerEvent(element._id)"> <i style="color:green" class="bi bi-check2-circle"></i> | Confirmar</a></li>
-                                    <li><a *ngIf="element.estado!='Rechazada'" class="dropdown-item"
+                                    <li><a *ngIf="element.estado!='Rechazada' && identidad !=null && identidad.rol!='Usuario'" class="dropdown-item"
                                       data-bs-toggle="modal" data-bs-target="#mRechazarReunion"(click)="obtenerEvent(element._id)"><i style="color:red"class="bi bi-x-circle"></i> | Rechazar</a></li>
-                                    <li><a  *ngIf="element.estado!='Pendiente'" class="dropdown-item"
+                                    <li><a  *ngIf="element.estado!='Pendiente' && identidad !=null && identidad.rol!='Usuario'" class="dropdown-item"
                                       data-bs-toggle="modal" data-bs-target="#mPendienteReunion" (click)="obtenerEvent(element._id)"><i class="bi bi-clock-history"></i> | Poner en Pendiente</a></li>
                                     </ul>
                                 </div>
@@ -444,11 +444,11 @@
                                       data-bs-toggle="modal" data-bs-target="#mVerReunion" (click)="obtenerEvent(element._id)"><i class="bi bi-search"></i> | Ver más</a></li>
                                     <li><a  class="dropdown-item"
                                       data-bs-toggle="modal" data-bs-target="#mEditarReunion" (click)="obtenerEvent(element._id)"><i style="color:orange" class="bi bi-pencil-square"></i> | Editar</a></li>
-                                    <li><a  *ngIf="element.estado!='Confirmada'" class="dropdown-item"
+                                    <li><a  *ngIf="element.estado!='Confirmada' && identidad !=null && identidad.rol!='Usuario'" class="dropdown-item"
                                       data-bs-toggle="modal" data-bs-target="#mConfirmarSolicitud" (click)="obtenerEvent(element._id)"> <i style="color:green" class="bi bi-check2-circle"></i> | Confirmar</a></li>
-                                    <li><a *ngIf="element.estado!='Rechazada'" class="dropdown-item"
+                                    <li><a *ngIf="element.estado!='Rechazada' && identidad !=null && identidad.rol!='Usuario'" class="dropdown-item"
                                       data-bs-toggle="modal" data-bs-target="#mRechazarReunion"(click)="obtenerEvent(element._id)"><i style="color:red"class="bi bi-x-circle"></i> | Rechazar</a></li>
-                                    <li><a  *ngIf="element.estado!='Pendiente'" class="dropdown-item"
+                                    <li><a  *ngIf="element.estado!='Pendiente' && identidad !=null && identidad.rol!='Usuario'" class="dropdown-item"
                                       data-bs-toggle="modal" data-bs-target="#mPendienteReunion" (click)="obtenerEvent(element._id)"><i class="bi bi-clock-history"></i> | Poner en Pendiente</a></li>
                                     </ul>
                                 </div>
@@ -459,6 +459,102 @@
                         </table>
                         <!-- Paginación
                        <mat-paginator  [pageSizeOptions]="[5, 10, 25,50,100]" showFirstLastButtons ></mat-paginator>-->
+                      </div>
+                    </mat-tab>
+
+                    <!-- Tab para ver todas las reuniones asistidas -->
+                    <mat-tab>
+                      <ng-template mat-tab-label>
+                        <mat-icon style="color:rgb(3, 82, 3)"class="example-tab-icon">assignment_turned_in</mat-icon>
+
+                      </ng-template>
+                      <!-- Filtro -->
+                      <mat-form-field appearance="standard">
+                        <mat-label >Escribe algo para filtrar...</mat-label>
+                        <input matInput (keyup)="applyFilterA($event)" placeholder="Ejemplo: Reunión" #input autocomplete="off">
+                      </mat-form-field>
+                      <!-- Tabla -->
+                      <div class="mat-elevation-z8">
+                        <table  align="center" mat-table [dataSource]="dataSourceReunionesA" matSort > <!-- matSort -->
+
+                          <ng-container matColumnDef="title">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> <i class="bi bi-list-nested"></i> &nbsp; Descripción </th>
+                            <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="estado">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+                            <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="cantidadAsist">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header><i class="bi bi-people-fill"></i> </th>
+                            <td mat-cell *matCellDef="let element"> {{element.cantidadAsist}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="start">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> <i class="bi bi-calendar2-check-fill"></i> &nbsp; Fecha de Inicio </th>
+                            <td mat-cell *matCellDef="let element">
+                              <input
+                                class="form-control"
+                                type="text"
+                                mwlFlatpickr
+                                id="inputFechaFn"
+                                name="fechFnd"
+                                #fechFnd="ngModel"
+                                [(ngModel)]="element.start"
+
+                                [altInput]="true"
+                                [convertModelValue]="true"
+                                [enableTime]="true"
+                                dateFormat="Y-m-dTH:i"
+                                altFormat="F j, Y H:i"
+                                placeholder="Seleccione la fecha de inicio"
+                                disabled
+                            />
+                            </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="end">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header><i class="bi bi-calendar2-x-fill"></i> &nbsp; Fecha de finalización </th>
+                            <td mat-cell *matCellDef="let element">
+                              <input
+                                class="form-control"
+                                type="text"
+                                mwlFlatpickr
+                                id="inputFechaIn"
+                                name="fechIn"
+                                #fechIn="ngModel"
+                                [(ngModel)]="element.end"
+
+                                [altInput]="true"
+                                [convertModelValue]="true"
+                                [enableTime]="true"
+                                dateFormat="Y-m-dTH:i"
+                                altFormat="F j, Y H:i"
+                                placeholder="Seleccione la fecha de inicio"
+                                disabled
+                            />
+                            </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="acciones">
+                            <th mat-header-cell *matHeaderCellDef>  </th>
+                            <td mat-cell *matCellDef="let element" style="text-align:right;">
+
+                                <div  class="dropdown">
+
+                                  <button  class="btn btn-light btn-sm" type="button" id="dropdownMenuButton1"  data-bs-toggle="modal" data-bs-target="#mVerReunion" (click)="obtenerEvent(element._id)"><i class="bi bi-search"></i>
+                                  </button>
+
+                                </div>
+                            </td>
+                          </ng-container>
+                          <tr mat-header-row *matHeaderRowDef="displayedColumnsA"></tr>
+                          <tr mat-row *matRowDef="let row; columns: displayedColumnsA;"></tr>
+                        </table>
+                        <!-- Paginación -->
+                       <mat-paginator  [pageSizeOptions]="[5, 10, 25,50,100]" showFirstLastButtons ></mat-paginator>
                       </div>
                     </mat-tab>
 

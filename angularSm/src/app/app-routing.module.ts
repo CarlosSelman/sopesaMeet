@@ -5,7 +5,6 @@ import { DetalleTipoSalaComponent } from './componentes/detalle-tipo-sala/detall
 import { ErrorNoExisteComponent } from './componentes/error-no-existe/error-no-existe.component';
 import { InicioComponent } from './componentes/inicio/inicio.component';
 import { LoginComponent } from './componentes/login/login.component';
-import { ReunionComponent } from './componentes/reunion/reunion.component';
 import { SalaComponent } from './componentes/sala/sala.component';
 import { SalasTipoSuperComponent } from './componentes/salas-tipo-super/salas-tipo-super.component';
 import { SalasTipoComponent } from './componentes/salas-tipo/salas-tipo.component';
@@ -14,14 +13,16 @@ import { TipoSalaComponent } from './componentes/tipo-sala/tipo-sala.component';
 import { UsuarioComponent } from './componentes/usuario/usuario.component';
 import { DatosUsuarioComponent } from './componentes/datos-usuario/datos-usuario.component';
 import { FiltroTabletComponent } from './componentes/filtro-tablet/filtro-tablet.component';
+import { VisorEventosComponent } from './componentes/visor-eventos/visor-eventos.component';
+import { VisorEventosSalaComponent } from './componentes/visor-eventos-sala/visor-eventos-sala.component';
+
+import { ControlTabletComponent } from './componentes/control-tablet/control-tablet.component';
+import { AddEventComponent } from './componentes/add-event/add-event.component';
 
 //Otras importaciones
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ControlTabletComponent } from './componentes/control-tablet/control-tablet.component';
-import { CalendarPComponent } from './componentes/calendar-p/calendar-p.component';
-import { VisorEventosComponent } from './componentes/visor-eventos/visor-eventos.component';
-import { AddEventComponent } from './componentes/add-event/add-event.component';
+
 //Diferentes rutas a las que se puede navegar
 const routes: Routes = [
   { path: 'login', component: LoginComponent},
@@ -32,8 +33,6 @@ const routes: Routes = [
   { path: 'salas', component: SalaComponent},
   { path: 'salasTipo/:idTipoSala', component: SalasTipoComponent},
   { path: 'salasTipoSuper/:idTipoSala', component: SalasTipoSuperComponent},
-  { path: 'reunion', component: ReunionComponent},
-  { path: 'calendario', component: CalendarPComponent},
   { path: 'detalleTipoSala/:idTipoSala', component: DetalleTipoSalaComponent },
   { path: 'detalleSala/:idSala', component: DetalleSalaComponent },
   { path: 'tipoSalasC', component: TipoSalaCComponent},
@@ -41,11 +40,8 @@ const routes: Routes = [
   { path: 'filtroTablet', component: FiltroTabletComponent},
   { path: 'controlTablet/:idSala', component: ControlTabletComponent},
   { path: 'visorEventos', component: VisorEventosComponent},
+  { path: 'visorEventosSala/:idSala', component: VisorEventosSalaComponent},
   { path: 'addEvent', component: AddEventComponent},
-
-
-
-
   { path: '**', component: ErrorNoExisteComponent} //Ruta que me redirige al error 404 si no existe la ruta
 ];
 

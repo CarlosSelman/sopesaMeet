@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { NavbarComponent } from './componentes/navbar/navbar.component';
 import { InicioComponent } from './componentes/inicio/inicio.component';
-import { ReunionComponent } from './componentes/reunion/reunion.component';
 import { UsuarioComponent } from './componentes/usuario/usuario.component';
 import { DatosUsuarioComponent } from './componentes/datos-usuario/datos-usuario.component';
 import { TipoSalaComponent } from './componentes/tipo-sala/tipo-sala.component';
@@ -52,7 +51,6 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { FiltroTabletComponent } from './componentes/filtro-tablet/filtro-tablet.component';
 import { ControlTabletComponent } from './componentes/control-tablet/control-tablet.component';
-import { CalendarPComponent } from './componentes/calendar-p/calendar-p.component';
 
 import { VisorEventosComponent } from './componentes/visor-eventos/visor-eventos.component';
 import { AddEventComponent } from './componentes/add-event/add-event.component';
@@ -61,7 +59,8 @@ import { CheckboxModule } from 'primeng/checkbox';
 
 import { FullCalendarModule } from 'primeng/fullcalendar';
 import { FlatpickrModule } from 'angularx-flatpickr';
-import { CalendarModule } from 'primeng/calendar'
+import { CalendarModule } from 'primeng/calendar';
+import { VisorEventosSalaComponent } from './componentes/visor-eventos-sala/visor-eventos-sala.component'
 
 @NgModule({
   declarations: [
@@ -69,7 +68,6 @@ import { CalendarModule } from 'primeng/calendar'
     LoginComponent,
     NavbarComponent,
     InicioComponent,
-    ReunionComponent,
     UsuarioComponent,
     DatosUsuarioComponent,
     TipoSalaComponent,
@@ -83,9 +81,9 @@ import { CalendarModule } from 'primeng/calendar'
     CrearSalaComponent,
     FiltroTabletComponent,
     ControlTabletComponent,
-    CalendarPComponent,
     VisorEventosComponent,
     AddEventComponent,
+    VisorEventosSalaComponent,
 
   ],
   imports: [

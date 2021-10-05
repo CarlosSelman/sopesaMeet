@@ -15,7 +15,7 @@ const superAdmin = 'SuperAdministrador';
 const confirmada = 'Confirmada';
 const pendiente = 'Pendiente';
 const rechazada = 'Rechazada';
-const asitio = 'Asistida'
+const asitio = 'Asistida';
 
 function obtenerEvents(req, res) {
     eventoModelo.find().populate('idSala', 'nombre').populate('idResponsable', 'usuario rol').exec((err, eventosEncontrados) => {
@@ -35,6 +35,13 @@ function obtenerEventsT(req, res) {
 
 function obtenerEventsC(req, res) {
     eventoModelo.find({ estado: confirmada }, (err, eventosEncontrados) => {
+        if (err) return res.status(404).send({ report: 'Error al encontrar las reuniones' });
+        return res.status(200).send(eventosEncontrados);
+    })
+}
+
+function obtenerEventsAsist(req, res) {
+    eventoModelo.find({ estado: asitio }, (err, eventosEncontrados) => {
         if (err) return res.status(404).send({ report: 'Error al encontrar las reuniones' });
         return res.status(200).send(eventosEncontrados);
     })
@@ -233,5 +240,6 @@ module.exports = {
     editarSolicitudEvent,
     obtenerEventsSala,
     obtenerEventsUsuario,
-    asistenciaEvent
+    asistenciaEvent,
+    obtenerEventsAsist
 }

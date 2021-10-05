@@ -2,7 +2,6 @@
 import { Usuario } from 'src/app/modelos/usuario.modelo';
 import { EventCalendar } from 'src/app/modelos/event.modelo';
 import { Sala } from 'src/app/modelos/sala.modelo';
-import esLocale from '@fullcalendar/core/locales/es';
 
 //IMPORTACIÓN DE SERVICIOS
 import { SalaService } from 'src/app/servicios/sala.service';
@@ -31,13 +30,13 @@ import interactionPlugin from '@fullcalendar/interaction';
 //import esLocale from '@fullcalendar/core/locales/es';
 
 @Component({
-  selector: 'app-visor-eventos',
-  templateUrl: './visor-eventos.component.html',
-  styleUrls: ['./visor-eventos.component.scss'],
+  selector: 'app-visor-eventos-sala',
+  templateUrl: './visor-eventos-sala.component.html',
+  styleUrls: ['./visor-eventos-sala.component.scss'],
   encapsulation: ViewEncapsulation.None,
   providers: [UsuarioService,SalaService,TipoSalaService]
 })
-export class VisorEventosComponent implements OnInit {
+export class VisorEventosSalaComponent implements OnInit {
 
   public identidad;
   public token;
@@ -68,13 +67,13 @@ export class VisorEventosComponent implements OnInit {
   dataSourceReunionesC = new MatTableDataSource<any[]>();
   dataSourceReunionesP = new MatTableDataSource<any[]>();
   dataSourceReunionesR = new MatTableDataSource<any[]>();
-  dataSourceReunionesA = new MatTableDataSource<any[]>();
+
   //VARIABLES QUE TRAEN LAS COLUMNAS DE CADA TABLA
   displayedColumns: string[] = ['title','estado','cantidadAsist','start','end','acciones'];
   displayedColumnsC: string[] = ['title','estado','cantidadAsist','start','end','acciones'];
   displayedColumnsP: string[] = ['title','estado','cantidadAsist','start','end','acciones'];
   displayedColumnsR: string[] = ['title','estado','cantidadAsist','start','end','acciones'];
-  displayedColumnsA: string[] = ['title','estado','cantidadAsist','start','end','acciones'];
+
   constructor(
     private eventService: EventService,
     private _usuarioService: UsuarioService,
@@ -106,40 +105,68 @@ export class VisorEventosComponent implements OnInit {
     this.eventService.obtenerEventsP().subscribe ( reunionesT => {
       this.dataSourceReunionesP.data = reunionesT;
     })
-    this.eventService.obtenerEventsAsist().subscribe ( reunionesT => {
-      this.dataSourceReunionesA.data = reunionesT;
-    })
-
     //OBTENIENDO LOS DATOS DE LA DB PARA EL CALENDARIO
     this.eventService.obtenerEvents().subscribe(events => {
       this.events = events;
     });
 
-    //OPCIONES GENERALES (DISEÑO VISTA CALENDARIO)
-    this.options = {
-      plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
-      defaultDate: new Date(),
-      initialView:'dayGridMonth',
-      locale: esLocale,
-      header: {
-        left: 'prev,today,next',
-        center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay'
-      },
-      editable: false,
-      //eventColor: '#378006',
-      //eventBorderColor: '#378006'
-    };
-
     //VARIABLE OBTENIENDO LA FECHA ACTUAL PARA VALIUDACIÓN EN PARTE DEL CRUD
     this.todayDate = new Date();
+
+   /* this.events = [
+      {
+          "title": "All Day Event",
+          "start": "2021-10-02"
+      },
+      {
+          "title": "Long Event",
+          "start": "2021-10-04",
+          "end": "2021-10-05"
+      },
+      {
+          "title": "Repeating Event",
+          "start": "2021-10-13T16:00:00"
+      },
+      {
+          "title": "Repeating Event",
+          "start": "2021-10-13T15:00:00"
+      },
+      {
+          "title": "Conference",
+          "start": "2021-10-11",
+          "end": "2021-10-13"
+      }
+  ];
+*/
+
+  this.options = {
+    plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+    defaultDate: new Date(),
+    initialView:'dayGridMonth',
+    header: {
+      left: 'prev,today,next',
+      center: 'title',
+      right: 'dayGridMonth,timeGridWeek,timeGridDay'
+    },
+    editable: false,
+
+    //eventColor: '#378006',
+
+    //eventBorderColor: '#378006'
+  };
+
   }
 
    obtenerEvents(){
     this.eventService.obtenerEvents().subscribe(
       response => {
-        this.events = response.eventosEncontrados;
-        console.log(response)
+         this.events = response.eventosEncontrados;
+         console.log(response)
+
+         if(response.estado==='Confirmada'){
+          eventColor: '#378006'
+
+         }
       },
       error => {
         console.log(<any>error);
@@ -184,17 +211,6 @@ export class VisorEventosComponent implements OnInit {
     this.eventService.obtenerEventsR().subscribe(
       response => {
          this.dataSourceReunionesR.data = response.eventosEncontrados;
-      },
-      error => {
-        console.log(<any>error);
-      }
-    )
-  }
-
-  obtenerEventsAsist(){
-    this.eventService.obtenerEventsAsist().subscribe(
-      response => {
-         this.dataSourceReunionesA.data = response.eventosEncontrados;
       },
       error => {
         console.log(<any>error);
@@ -365,8 +381,7 @@ export class VisorEventosComponent implements OnInit {
   }
 
   editarSolicitudEvent(){
-    if(this.identidad.usuario === this.idEventModel.idResponsable.usuario){
-      //Validación
+    //Validación
       if(
         this.idEventModel.nombre===""||
         this.idEventModel.title===""||
@@ -404,38 +419,30 @@ export class VisorEventosComponent implements OnInit {
         });
       }else{
         console.log(this.idEventModel)
-        this.eventService.editarSolicitudEvent(this.idEventModel).subscribe(
-          response=>{
-            console.log(response);
-            //Alerta de que se creó correctamente el usuario
-            Swal.fire({
-              icon: 'success',
-              title: 'Reunión actualizada correctamente',
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            //Refrescando la ventana
-            this.reload();
-            //this._router.navigate(['/usuarios'])
-          },
-          (error) => {
-            console.log(<any>error);
-            Swal.fire({
-              icon: 'error',
-              title: 'No se pudo actualizar la reunión',
-              showConfirmButton: false,
-              timer: 1500,
-            });
-          }
-        )
-      }
-    }else{
-      Swal.fire({
-        icon: 'error',
-        title: 'No eres el creador',
-        showConfirmButton: false,
-        timer: 1500,
-      });
+      this.eventService.editarSolicitudEvent(this.idEventModel).subscribe(
+        response=>{
+          console.log(response);
+          //Alerta de que se creó correctamente el usuario
+          Swal.fire({
+            icon: 'success',
+            title: 'Reunión actualizada correctamente',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          //Refrescando la ventana
+          this.reload();
+          //this._router.navigate(['/usuarios'])
+        },
+        (error) => {
+          console.log(<any>error);
+          Swal.fire({
+            icon: 'error',
+            title: 'No se pudo actualizar la reunión',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      )
     }
   }
 
@@ -478,35 +485,6 @@ export class VisorEventosComponent implements OnInit {
     this.dataSourceReunionesP.filter = filterValue.trim().toLowerCase();
   }
 
-  applyFilterA(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSourceReunionesA.filter = filterValue.trim().toLowerCase();
-  }
-
 
 }
-/* this.events = [
-      {
-          "title": "All Day Event",
-          "start": "2021-10-02"
-      },
-      {
-          "title": "Long Event",
-          "start": "2021-10-04",
-          "end": "2021-10-05"
-      },
-      {
-          "title": "Repeating Event",
-          "start": "2021-10-13T16:00:00"
-      },
-      {
-          "title": "Repeating Event",
-          "start": "2021-10-13T15:00:00"
-      },
-      {
-          "title": "Conference",
-          "start": "2021-10-11",
-          "end": "2021-10-13"
-      }
-  ];
-*/
+
