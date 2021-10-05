@@ -1,4 +1,4 @@
-export class Event{
+export class EventCalendar{
   constructor(
     public _id: String,
     public nombre:String,

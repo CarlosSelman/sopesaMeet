@@ -1,6 +1,6 @@
 //IMPORTACIÓN DE MODELOS
 import { Usuario } from 'src/app/modelos/usuario.modelo';
-import { Event } from 'src/app/modelos/event.modelo';
+import { EventCalendar } from 'src/app/modelos/event.modelo';
 import { Sala } from 'src/app/modelos/sala.modelo';
 
 //IMPORTACIÓN DE SERVICIOS
@@ -46,9 +46,9 @@ export class VisorEventosComponent implements OnInit {
   public token;
   public salas;
   public eventsModelGet;
-  public eventsModelAdd: Event;
-  public eventsModelGetId: Event;
-  public idEventModel: Event;
+  public eventsModelAdd: EventCalendar;
+  public eventsModelGetId: EventCalendar;
+  public idEventModel: EventCalendar;
 
   public tipos;
   public salasModelGet;
@@ -60,7 +60,7 @@ export class VisorEventosComponent implements OnInit {
   public todayDate;
   public reunionesT;
 
-  public events: Event[];
+  public events: EventCalendar[];
   public options: any;
 
   //ViewChild DE LA PAGINACIÓN Y DEL SORT DE LA TABLA CON TODOS LOS DATOS
@@ -88,9 +88,9 @@ export class VisorEventosComponent implements OnInit {
     this.identidad = this._usuarioService.getIdentidad();
     this.token = this._usuarioService.getToken();
 
-    this.eventsModelAdd = new Event("","","",null,null,"","",{usuario:""},{nombre:""},"");
-    this.eventsModelGetId = new Event("","","",null,null,"","",{usuario:""},{nombre:""},"");
-    this.idEventModel = new Event("","","",null,null,"","",{usuario:""},{nombre:""},"");
+    this.eventsModelAdd = new EventCalendar("","","",null,null,"","",{usuario:""},{nombre:""},"");
+    this.eventsModelGetId = new EventCalendar("","","",null,null,"","",{usuario:""},{nombre:""},"");
+    this.idEventModel = new EventCalendar("","","",null,null,"","",{usuario:""},{nombre:""},"");
 
     this.salasModelGetId = new Sala("","","","","","","","","");
     this.salasModelAdd = new Sala("","","","","","","","","");

@@ -1,12 +1,12 @@
 //IMPORTACIÓN DE MODELOS
 import { Usuario } from 'src/app/modelos/usuario.modelo';
-import { Reunion } from 'src/app/modelos/reunion.modelo';
+import { EventCalendar } from 'src/app/modelos/event.modelo';
 import { Sala } from 'src/app/modelos/sala.modelo';
 
 //IMPORTACIÓN DE SERVICIOS
 import { SalaService } from 'src/app/servicios/sala.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
-import { ReunionService } from 'src/app/servicios/reunion.service';
+import { EventService } from 'src/app/servicios/event.service';
 import { TipoSalaService } from 'src/app/servicios/tipoSala.service';
 
 //IMPORTACIONES PARA LA SECCIÓN DE LA TABLA (CON ANGULAR MATERIAL)
@@ -27,7 +27,7 @@ declare var $: any;
   selector: 'app-datos-usuario',
   templateUrl: './datos-usuario.component.html',
   styleUrls: ['./datos-usuario.component.scss'],
-  providers: [UsuarioService,ReunionService]
+  providers: [UsuarioService,EventService]
 })
 export class DatosUsuarioComponent implements AfterViewInit {
   public identidad;
@@ -47,12 +47,12 @@ export class DatosUsuarioComponent implements AfterViewInit {
   public usuarioModel;
   public idUsuarioModel: Usuario;
   public idUsuarioRuta: string;
-  public idReunionModel: Reunion;
+  public idEventModel: EventCalendar;
 
   constructor(
 
     public _usuarioService: UsuarioService,
-    public _reunionService: ReunionService,
+    public _eventService: EventService,
     public _salaService: SalaService,
     public _tipoSalaService:TipoSalaService,
     public _activatedRoute: ActivatedRoute,
@@ -65,7 +65,7 @@ export class DatosUsuarioComponent implements AfterViewInit {
     this.idUsuarioModel = new Usuario("","","","","","","","","");
     this.token = this._usuarioService.getToken();
     this.usuarioModel = new Usuario("","","","","","","","","");
-    this.idReunionModel = new Reunion("","","",new Date(),new Date(),"","",{usuario:""},{nombre:""},"")
+    this.idEventModel = new EventCalendar("","","",null,null,"","",{usuario:""},{nombre:""},"")
 
 /*
     this._reunionService.obtenerReunionesUsuario(this.identidad).subscribe ( usuarios => {
@@ -83,7 +83,7 @@ export class DatosUsuarioComponent implements AfterViewInit {
     this._activatedRoute.paramMap.subscribe((dataRuta) => {
       this.idUsuarioRuta = dataRuta.get('idResponsable');
     });
-    this.obtenerReunionesUsuario(this.idUsuarioRuta);
+    this.obtenerEventsUsuario(this.idUsuarioRuta);
   }
 
   obtenerUsuario(idUsuario){
@@ -97,9 +97,9 @@ export class DatosUsuarioComponent implements AfterViewInit {
 
   //Obteniendo los usuarios activos
 
-  obtenerReunionesUsuario(idUsuarioRuta){
+  obtenerEventsUsuario(idUsuarioRuta){
 
-    this._reunionService.obtenerReunionesUsuario(idUsuarioRuta).subscribe(
+    this._eventService.obtenerEventsUsuario(idUsuarioRuta).subscribe(
       response => {
          this.dataSource.data = response.reunionesObtenidas;
       },
@@ -151,10 +151,10 @@ export class DatosUsuarioComponent implements AfterViewInit {
     )
   }
 
-  obtenerReunion(idReunion:String){
-    this._reunionService.obtenerReunion(idReunion).subscribe(
+  obtenerEvent(idEvento:String){
+    this._eventService.obtenerEvent(idEvento).subscribe(
       response=>{
-        this.idReunionModel = response.reunionEncontrada;
+        this.idEventModel = response.eventoEncontrado;
         console.log(response);
 
       }
@@ -167,6 +167,7 @@ export class DatosUsuarioComponent implements AfterViewInit {
   }
 
   //Filtro tabla de usuarios activos
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();

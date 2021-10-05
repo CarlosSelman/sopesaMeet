@@ -49,12 +49,12 @@
         <h3 class="titulo">Solicitud de reuniones</h3>
       </div>
       <div class="container">
-        <!-- Filtro -->
+        <!-- Filtro-->
         <mat-form-field appearance="standard">
           <mat-label >Escribe algo para filtrar...</mat-label>
           <input matInput (keyup)="applyFilter($event)" placeholder="Ejemplo: Reunión" #input autocomplete="off">
         </mat-form-field>
-        <!-- Tabla
+        <!-- Tabla -->
         <div class="mat-elevation-z8">
           <table align="center" mat-table [dataSource]="dataSource" matSort >
 
@@ -122,7 +122,7 @@
             <ng-container matColumnDef="acciones">
               <th mat-header-cell *matHeaderCellDef>  </th>
               <td mat-cell *matCellDef="let element" style="text-align:right;">
-                <button type="button" class="btn btn-light"  data-bs-toggle="modal" data-bs-target="#mVerReunion" (click)="obtenerReunion(element._id)"><i class="bi bi-front"></i></button>
+                <button type="button" class="btn btn-light"  data-bs-toggle="modal" data-bs-target="#mVerReunion" (click)="obtenerEvent(element._id)"><i class="bi bi-front"></i></button>
               </td>
             </ng-container>
 
@@ -132,9 +132,9 @@
 
          <mat-paginator  [pageSizeOptions]="[5, 10, 25,50,100]" showFirstLastButtons ></mat-paginator>
         </div>
--->
+
         <div class="go-calendar">
-          <p>Para ir a la sección del calendario donde se encuentran todas las solicitudes de reuniones y demás <a [routerLink]="['/reunion']" class="card-link">presiona aquí...</a></p>
+          <p>Para ir a la sección del calendario donde se encuentran todas las solicitudes de reuniones y demás <a [routerLink]="['/visorEventos']" class="card-link">presiona aquí...</a></p>
         </div>
       </div>
 
@@ -170,7 +170,7 @@
 </body>
 </html>
 
-<!-- Modal Ver Reunion
+<!-- Modal Ver Reunion -->
 <div class="modal fade" id="mVerReunion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -183,12 +183,12 @@
           <div class="mb-3">
             <label for="inVrN" class="form-label"><i class="bi bi-list-nested"></i><strong> Nombre del Responsable:</strong></label>
             <input type="text" class="form-control" id="inVrN" name="nombreRes"
-            #nombreRes="ngModel" [(ngModel)]="idReunionModel.nombre" disabled>
+            #nombreRes="ngModel" [(ngModel)]="idEventModel.nombre" disabled>
           </div>
           <div class="mb-3">
             <label for="inVrD" class="form-label"><i class="bi bi-list-nested"></i><strong> Descripción:</strong></label>
             <input type="text" class="form-control" id="inVrD" name="descReu"
-            #descReu="ngModel" [(ngModel)]="idReunionModel.title" disabled>
+            #descReu="ngModel" [(ngModel)]="idEventModel.title" disabled>
           </div>
           <div class="mb-3">
             <label for="inVrS" class="form-label"><i class="bi bi-calendar-check"></i><strong> Fecha de Inicio:</strong></label>
@@ -199,7 +199,7 @@
               id="inVrS"
               name="inicReu"
               #inicReu="ngModel"
-              [(ngModel)]="idReunionModel.start"
+              [(ngModel)]="idEventModel.start"
               [altInput]="true"
               [convertModelValue]="true"
               [enableTime]="true"
@@ -218,7 +218,7 @@
               id="inVrF"
               name="finReu"
               #finReu="ngModel"
-              [(ngModel)]="idReunionModel.end"
+              [(ngModel)]="idEventModel.end"
               [altInput]="true"
               [convertModelValue]="true"
               [enableTime]="true"
@@ -231,17 +231,17 @@
           <div class="mb-3">
             <label for="inVrSala" class="form-label"><i class="bi bi-building"></i><strong> Nombre de la Sala:</strong></label>
             <input type="text" class="form-control" id="inVrSala" name="nombre"
-            #nombre="ngModel" [(ngModel)]="idReunionModel.idSala.nombre" disabled>
+            #nombre="ngModel" [(ngModel)]="idEventModel.idSala.nombre" disabled>
           </div>
           <div class="mb-3">
             <label for="inVrRespC" class="form-label"><i class="bi bi-person-circle"></i><strong> Usuario del Creador de la Reunión:</strong></label>
             <input type="text" class="form-control" id="inVrRespC" name="salReu"
-            #salReu="ngModel" [(ngModel)]="idReunionModel.idResponsable.usuario" disabled>
+            #salReu="ngModel" [(ngModel)]="idEventModel.idResponsable.usuario" disabled>
           </div>
           <div class="mb-3">
             <label for="inFges" class="form-label"><i class="bi bi-calendar-plus"></i><strong> Fecha de Gestión:</strong></label>
             <input type="text" class="form-control" id="inFges" name="fechGestR"
-            #fechGestR="ngModel" [(ngModel)]="idReunionModel.fechaDeGestion" disabled>
+            #fechGestR="ngModel" [(ngModel)]="idEventModel.fechaDeGestion" disabled>
           </div>
         </form>
       </div>
@@ -251,4 +251,4 @@
     </div>
   </div>
 </div>
--->
+

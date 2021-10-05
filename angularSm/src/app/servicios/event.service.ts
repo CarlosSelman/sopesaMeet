@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GLOBAL } from './global.service';
 import { Observable } from 'rxjs';
-import { Event } from '../modelos/event.modelo';
+import { EventCalendar } from '../modelos/event.modelo';
 import * as moment from 'moment';
 
 @Injectable({
@@ -26,9 +26,9 @@ export class EventService {
     return this._http.get(this.url + '/obtenerEvents', {headers: this.headersVariable});
   }
 
-  crearEvent(event: Event, token): Observable<any> {
+  crearEvent(eventCalendar: EventCalendar, token): Observable<any> {
     let headersToken = this.headersVariable.set('Authorization', token);
-    let params = JSON.stringify(event);
+    let params = JSON.stringify(eventCalendar);
 
     return this._http.post(this.url + '/crearEvent', params, {
       headers: headersToken,
@@ -67,11 +67,11 @@ export class EventService {
     return this._http.get(this.url + '/obtenerEventsUsuario/' + id, {headers:  this.headersVariable})
   }
 
-  editarSolicitudEvent(event: Event):Observable<any>{
+  editarSolicitudEvent(eventCalendar: EventCalendar):Observable<any>{
     let params = JSON.stringify(event);
     let headersToken = this.headersVariable.set('Authorization', this.getToken())
 
-    return this._http.put(this.url + '/editarSolicitudEvent/' + event._id, params, {headers: headersToken})
+    return this._http.put(this.url + '/editarSolicitudEvent/' + eventCalendar._id, params, {headers: headersToken})
   }
 
   confirmarSolicitudEvent(id:String):Observable<any>{
