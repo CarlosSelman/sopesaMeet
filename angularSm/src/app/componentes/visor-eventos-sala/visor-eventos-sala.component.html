@@ -42,95 +42,373 @@
                 <div class="accordion-body">
                   <div class="container">
 
-                    <mat-form-field appearance="standard">
-                      <mat-label >Escribe algo para filtrar...</mat-label>
-                      <input matInput (keyup)="applyFilter($event)" placeholder="Ejemplo: Reunión" #input autocomplete="off">
-                    </mat-form-field>
+                    <mat-tab-group mat-align-tabs="center">
 
-                    <div class="mat-elevation-z8">
-                      <table  align="center" mat-table [dataSource]="dataSourceReuniones" matSort >
+                      <!-- Reuniones confirmadas  -->
+                      <mat-tab>
+                        <ng-template mat-tab-label>
+                          <mat-icon style="color:green"class="example-tab-icon">task_alt</mat-icon>
+                        </ng-template>
+                        <mat-form-field appearance="standard">
+                          <mat-label >Escribe algo para filtrar...</mat-label>
+                          <input matInput (keyup)="applyFilter($event)" placeholder="Ejemplo: Reunión" #input autocomplete="off">
+                        </mat-form-field>
 
-                        <ng-container matColumnDef="title">
-                          <th mat-header-cell *matHeaderCellDef mat-sort-header> <i class="bi bi-list-nested"></i> &nbsp; Descripción </th>
-                          <td mat-cell *matCellDef="let element"> {{element.title}} </td>
-                        </ng-container>
+                        <div class="mat-elevation-z8">
+                          <table  align="center" mat-table [dataSource]="dataSourceReuniones">
 
-                        <ng-container matColumnDef="estado">
-                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
-                          <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
-                        </ng-container>
+                            <ng-container matColumnDef="title">
+                              <th mat-header-cell *matHeaderCellDef> <i class="bi bi-list-nested"></i> &nbsp; Descripción </th>
+                              <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                            </ng-container>
 
-                        <ng-container matColumnDef="cantidadAsist">
-                          <th mat-header-cell *matHeaderCellDef mat-sort-header><i class="bi bi-people-fill"></i> </th>
-                          <td mat-cell *matCellDef="let element"> {{element.cantidadAsist}} </td>
-                        </ng-container>
+                            <ng-container matColumnDef="estado">
+                              <th mat-header-cell *matHeaderCellDef> Estado </th>
+                              <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+                            </ng-container>
 
-                        <ng-container matColumnDef="start">
-                          <th mat-header-cell *matHeaderCellDef mat-sort-header> <i class="bi bi-calendar2-check-fill"></i> &nbsp; Fecha de Inicio </th>
-                          <td mat-cell *matCellDef="let element">
-                            <input
-                              class="form-control"
-                              type="text"
-                              mwlFlatpickr
-                              id="inputFechaFn"
-                              name="fechFnd"
-                              #fechFnd="ngModel"
-                              [(ngModel)]="element.start"
+                            <ng-container matColumnDef="cantidadAsist">
+                              <th mat-header-cell *matHeaderCellDef><i class="bi bi-people-fill"></i> </th>
+                              <td mat-cell *matCellDef="let element"> {{element.cantidadAsist}} </td>
+                            </ng-container>
 
-                              [altInput]="true"
-                              [convertModelValue]="true"
-                              [enableTime]="true"
-                              dateFormat="Y-m-dTH:i"
-                              altFormat="F j, Y H:i"
-                              placeholder="Seleccione la fecha de inicio"
-                              disabled
-                            />
-                          </td>
-                        </ng-container>
+                            <ng-container matColumnDef="start">
+                              <th mat-header-cell *matHeaderCellDef> <i class="bi bi-calendar2-check-fill"></i> &nbsp; Fecha de Inicio </th>
+                              <td mat-cell *matCellDef="let element">
+                                <input
+                                  class="form-control"
+                                  type="text"
+                                  mwlFlatpickr
+                                  id="inputFechaFn"
+                                  name="fechFnd"
+                                  #fechFnd="ngModel"
+                                  [(ngModel)]="element.start"
 
-                        <ng-container matColumnDef="end">
-                          <th mat-header-cell *matHeaderCellDef mat-sort-header><i class="bi bi-calendar2-x-fill"></i> &nbsp; Fecha de finalización </th>
-                          <td mat-cell *matCellDef="let element">
-                            <input
-                              class="form-control"
-                              type="text"
-                              mwlFlatpickr
-                              id="inputFechaIn"
-                              name="fechIn"
-                              #fechIn="ngModel"
-                              [(ngModel)]="element.end"
+                                  [altInput]="true"
+                                  [convertModelValue]="true"
+                                  [enableTime]="true"
+                                  dateFormat="Y-m-dTH:i"
+                                  altFormat="F j, Y H:i"
+                                  placeholder="Seleccione la fecha de inicio"
+                                  disabled
+                                />
+                              </td>
+                            </ng-container>
 
-                              [altInput]="true"
-                              [convertModelValue]="true"
-                              [enableTime]="true"
-                              dateFormat="Y-m-dTH:i"
-                              altFormat="F j, Y H:i"
-                              placeholder="Seleccione la fecha de inicio"
-                              disabled
-                            />
-                          </td>
-                        </ng-container>
+                            <ng-container matColumnDef="end">
+                              <th mat-header-cell *matHeaderCellDef><i class="bi bi-calendar2-x-fill"></i> &nbsp; Fecha de finalización </th>
+                              <td mat-cell *matCellDef="let element">
+                                <input
+                                  class="form-control"
+                                  type="text"
+                                  mwlFlatpickr
+                                  id="inputFechaIn"
+                                  name="fechIn"
+                                  #fechIn="ngModel"
+                                  [(ngModel)]="element.end"
 
-                        <ng-container matColumnDef="acciones">
-                          <th mat-header-cell *matHeaderCellDef>  </th>
-                          <td mat-cell *matCellDef="let element" style="text-align:right;">
+                                  [altInput]="true"
+                                  [convertModelValue]="true"
+                                  [enableTime]="true"
+                                  dateFormat="Y-m-dTH:i"
+                                  altFormat="F j, Y H:i"
+                                  placeholder="Seleccione la fecha de inicio"
+                                  disabled
+                                />
+                              </td>
+                            </ng-container>
 
-                            <div class="btn-group" role="group" aria-label="Basic example">
-                              <button  *ngIf="element.estado != 'Asistida'" type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#mLogin" (click)="obtenerEvent(element._id)">
-                                <i class="bi bi-clipboard-check"></i>
-                              </button>
-                              <button  class="btn btn-light" type="button" id="dropdownMenuButton1"  data-bs-toggle="modal" data-bs-target="#mVerReunion" (click)="obtenerEvent(element._id)"><i class="bi bi-search"></i>
-                              </button>
-                            </div>
+                            <ng-container matColumnDef="acciones">
+                              <th mat-header-cell *matHeaderCellDef>  </th>
+                              <td mat-cell *matCellDef="let element" style="text-align:right;">
 
-                          </td>
-                        </ng-container>
-                          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                      </table>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                  <button  *ngIf="element.estado != 'Asistida'" type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#mLogin" (click)="obtenerEvent(element._id)">
+                                    <i class="bi bi-clipboard-check"></i>
+                                  </button>
+                                  <button  class="btn btn-light" type="button" id="dropdownMenuButton1"  data-bs-toggle="modal" data-bs-target="#mVerReunion" (click)="obtenerEvent(element._id)"><i class="bi bi-search"></i>
+                                  </button>
+                                </div>
 
-                        <mat-paginator  [pageSizeOptions]="[5, 10, 25,50,100]" showFirstLastButtons ></mat-paginator>
-                    </div>
+                              </td>
+                            </ng-container>
+                              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                          </table>
+                        </div>
+
+                      </mat-tab>
+                      <!-- Reuniones rechazadas -->
+                      <mat-tab>
+                        <ng-template mat-tab-label>
+                          <mat-icon style="color: red" class="example-tab-icon">highlight_off</mat-icon>
+                        </ng-template>
+                        <mat-form-field appearance="standard">
+                          <mat-label >Escribe algo para filtrar...</mat-label>
+                          <input matInput (keyup)="applyFilterAsistRech($event)" placeholder="Ejemplo: Reunión" #input autocomplete="off">
+                        </mat-form-field>
+
+                        <div class="mat-elevation-z8">
+                          <table  align="center" mat-table [dataSource]="dataSourceReunionesRech">
+
+                            <ng-container matColumnDef="title">
+                              <th mat-header-cell *matHeaderCellDef> <i class="bi bi-list-nested"></i> &nbsp; Descripción </th>
+                              <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="estado">
+                              <th mat-header-cell *matHeaderCellDef> Estado </th>
+                              <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="cantidadAsist">
+                              <th mat-header-cell *matHeaderCellDef><i class="bi bi-people-fill"></i> </th>
+                              <td mat-cell *matCellDef="let element"> {{element.cantidadAsist}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="start">
+                              <th mat-header-cell *matHeaderCellDef> <i class="bi bi-calendar2-check-fill"></i> &nbsp; Fecha de Inicio </th>
+                              <td mat-cell *matCellDef="let element">
+                                <input
+                                  class="form-control"
+                                  type="text"
+                                  mwlFlatpickr
+                                  id="inputFechaFn"
+                                  name="fechFnd"
+                                  #fechFnd="ngModel"
+                                  [(ngModel)]="element.start"
+
+                                  [altInput]="true"
+                                  [convertModelValue]="true"
+                                  [enableTime]="true"
+                                  dateFormat="Y-m-dTH:i"
+                                  altFormat="F j, Y H:i"
+                                  placeholder="Seleccione la fecha de inicio"
+                                  disabled
+                                />
+                              </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="end">
+                              <th mat-header-cell *matHeaderCellDef><i class="bi bi-calendar2-x-fill"></i> &nbsp; Fecha de finalización </th>
+                              <td mat-cell *matCellDef="let element">
+                                <input
+                                  class="form-control"
+                                  type="text"
+                                  mwlFlatpickr
+                                  id="inputFechaIn"
+                                  name="fechIn"
+                                  #fechIn="ngModel"
+                                  [(ngModel)]="element.end"
+
+                                  [altInput]="true"
+                                  [convertModelValue]="true"
+                                  [enableTime]="true"
+                                  dateFormat="Y-m-dTH:i"
+                                  altFormat="F j, Y H:i"
+                                  placeholder="Seleccione la fecha de inicio"
+                                  disabled
+                                />
+                              </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="acciones">
+                              <th mat-header-cell *matHeaderCellDef>  </th>
+                              <td mat-cell *matCellDef="let element" style="text-align:right;">
+                                  <button  class="btn btn-light" type="button" id="dropdownMenuButton1"  data-bs-toggle="modal" data-bs-target="#mVerReunion" (click)="obtenerEvent(element._id)"><i class="bi bi-search"></i>
+                                  </button>
+                              </td>
+                            </ng-container>
+                              <tr mat-header-row *matHeaderRowDef="displayedColumnsAsistRech"></tr>
+                              <tr mat-row *matRowDef="let row; columns: displayedColumnsAsistRech;"></tr>
+                          </table>
+                        </div>
+
+                      </mat-tab>
+                      <!-- Reuniones pendientes -->
+                      <mat-tab>
+                        <ng-template mat-tab-label>
+                          <mat-icon class="example-tab-icon">query_builder</mat-icon>
+                        </ng-template>
+                        <mat-form-field appearance="standard">
+                          <mat-label >Escribe algo para filtrar...</mat-label>
+                          <input matInput (keyup)="applyFilterPen($event)" placeholder="Ejemplo: Reunión" #input autocomplete="off">
+                        </mat-form-field>
+
+                        <div class="mat-elevation-z8">
+                          <table  align="center" mat-table [dataSource]="dataSourceReunionesPen">
+
+                            <ng-container matColumnDef="title">
+                              <th mat-header-cell *matHeaderCellDef> <i class="bi bi-list-nested"></i> &nbsp; Descripción </th>
+                              <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="estado">
+                              <th mat-header-cell *matHeaderCellDef> Estado </th>
+                              <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="cantidadAsist">
+                              <th mat-header-cell *matHeaderCellDef><i class="bi bi-people-fill"></i> </th>
+                              <td mat-cell *matCellDef="let element"> {{element.cantidadAsist}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="start">
+                              <th mat-header-cell *matHeaderCellDef> <i class="bi bi-calendar2-check-fill"></i> &nbsp; Fecha de Inicio </th>
+                              <td mat-cell *matCellDef="let element">
+                                <input
+                                  class="form-control"
+                                  type="text"
+                                  mwlFlatpickr
+                                  id="inputFechaFn"
+                                  name="fechFnd"
+                                  #fechFnd="ngModel"
+                                  [(ngModel)]="element.start"
+
+                                  [altInput]="true"
+                                  [convertModelValue]="true"
+                                  [enableTime]="true"
+                                  dateFormat="Y-m-dTH:i"
+                                  altFormat="F j, Y H:i"
+                                  placeholder="Seleccione la fecha de inicio"
+                                  disabled
+                                />
+                              </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="end">
+                              <th mat-header-cell *matHeaderCellDef><i class="bi bi-calendar2-x-fill"></i> &nbsp; Fecha de finalización </th>
+                              <td mat-cell *matCellDef="let element">
+                                <input
+                                  class="form-control"
+                                  type="text"
+                                  mwlFlatpickr
+                                  id="inputFechaIn"
+                                  name="fechIn"
+                                  #fechIn="ngModel"
+                                  [(ngModel)]="element.end"
+
+                                  [altInput]="true"
+                                  [convertModelValue]="true"
+                                  [enableTime]="true"
+                                  dateFormat="Y-m-dTH:i"
+                                  altFormat="F j, Y H:i"
+                                  placeholder="Seleccione la fecha de inicio"
+                                  disabled
+                                />
+                              </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="acciones">
+                              <th mat-header-cell *matHeaderCellDef>  </th>
+                              <td mat-cell *matCellDef="let element" style="text-align:right;">
+                                  <button  class="btn btn-light" type="button" id="dropdownMenuButton1"  data-bs-toggle="modal" data-bs-target="#mVerReunion" (click)="obtenerEvent(element._id)"><i class="bi bi-search"></i>
+                                  </button>
+                              </td>
+                            </ng-container>
+                              <tr mat-header-row *matHeaderRowDef="displayedColumnsPen"></tr>
+                              <tr mat-row *matRowDef="let row; columns: displayedColumnsPen;"></tr>
+                          </table>
+                        </div>
+
+                      </mat-tab>
+                      <!-- Reuniones asistidas  -->
+                      <mat-tab>
+                        <ng-template mat-tab-label>
+                          <mat-icon style="color:rgb(3, 82, 3)" class="example-tab-icon">assignment_turned_in</mat-icon>
+                        </ng-template>
+                        <mat-form-field appearance="standard">
+                          <mat-label >Escribe algo para filtrar...</mat-label>
+                          <input matInput (keyup)="applyFilterAsist($event)" placeholder="Ejemplo: Reunión" #input autocomplete="off">
+                        </mat-form-field>
+
+                        <div class="mat-elevation-z8">
+                          <table  align="center" mat-table [dataSource]="dataSourceReunionesAsist">
+
+                            <ng-container matColumnDef="title">
+                              <th mat-header-cell *matHeaderCellDef> <i class="bi bi-list-nested"></i> &nbsp; Descripción </th>
+                              <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="estado">
+                              <th mat-header-cell *matHeaderCellDef> Estado </th>
+                              <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="cantidadAsist">
+                              <th mat-header-cell *matHeaderCellDef><i class="bi bi-people-fill"></i> </th>
+                              <td mat-cell *matCellDef="let element"> {{element.cantidadAsist}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="start">
+                              <th mat-header-cell *matHeaderCellDef> <i class="bi bi-calendar2-check-fill"></i> &nbsp; Fecha de Inicio </th>
+                              <td mat-cell *matCellDef="let element">
+                                <input
+                                  class="form-control"
+                                  type="text"
+                                  mwlFlatpickr
+                                  id="inputFechaFn"
+                                  name="fechFnd"
+                                  #fechFnd="ngModel"
+                                  [(ngModel)]="element.start"
+
+                                  [altInput]="true"
+                                  [convertModelValue]="true"
+                                  [enableTime]="true"
+                                  dateFormat="Y-m-dTH:i"
+                                  altFormat="F j, Y H:i"
+                                  placeholder="Seleccione la fecha de inicio"
+                                  disabled
+                                />
+                              </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="end">
+                              <th mat-header-cell *matHeaderCellDef><i class="bi bi-calendar2-x-fill"></i> &nbsp; Fecha de finalización </th>
+                              <td mat-cell *matCellDef="let element">
+                                <input
+                                  class="form-control"
+                                  type="text"
+                                  mwlFlatpickr
+                                  id="inputFechaIn"
+                                  name="fechIn"
+                                  #fechIn="ngModel"
+                                  [(ngModel)]="element.end"
+
+                                  [altInput]="true"
+                                  [convertModelValue]="true"
+                                  [enableTime]="true"
+                                  dateFormat="Y-m-dTH:i"
+                                  altFormat="F j, Y H:i"
+                                  placeholder="Seleccione la fecha de inicio"
+                                  disabled
+                                />
+                              </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="acciones">
+                              <th mat-header-cell *matHeaderCellDef>  </th>
+                              <td mat-cell *matCellDef="let element" style="text-align:right;">
+
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                  <button  *ngIf="element.estado != 'Asistida'" type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#mLogin" (click)="obtenerEvent(element._id)">
+                                    <i class="bi bi-clipboard-check"></i>
+                                  </button>
+                                  <button  class="btn btn-light" type="button" id="dropdownMenuButton1"  data-bs-toggle="modal" data-bs-target="#mVerReunion" (click)="obtenerEvent(element._id)"><i class="bi bi-search"></i>
+                                  </button>
+                                </div>
+
+                              </td>
+                            </ng-container>
+                              <tr mat-header-row *matHeaderRowDef="displayedColumnsAsist"></tr>
+                              <tr mat-row *matRowDef="let row; columns: displayedColumnsAsist;"></tr>
+                          </table>
+                        </div>
+
+                      </mat-tab>
+
+                    </mat-tab-group>
+
                   </div><br>
                 </div>
               </div>
@@ -342,3 +620,29 @@
     </div>
   </div>
 </div>
+
+
+<div class="modal fade" id="mConfirmacion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div style="background-color: #b71c1c;" class="modal-header">
+        <h5 style="color:white">Paso #2: Confirmación... (2/2)</h5>
+        <button type="button" style="background-color: white;"class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="cerrarSesion()"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div align="center" class="mb-3">
+            <img class="d-block w-20" alt="..." style="max-width: 20%;"  src="../../../assets/imgSopesa.png">
+          </div>
+          <div align="center" class="mb-3">
+            <p><strong>¿Está seguro de marcar asistencia?</strong>
+          </div>
+            <div class="d-grid gap-2">
+            <button *ngIf="identidad != null && identidad.usuario === idEventModel.idResponsable.usuario"type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" aria-label="Close" (click)="asistencia(idEventModel._id)">Si, marcar asistencia.</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

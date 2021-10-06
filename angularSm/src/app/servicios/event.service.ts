@@ -67,6 +67,22 @@ export class EventService {
     return this._http.get(this.url + '/obtenerEventsSala/' + id, {headers:  this.headersVariable})
   }
 
+  obtenerEventsSalaAsist(id:String):Observable<any>{
+    return this._http.get(this.url + '/obtenerEventsSalaAsist/' + id, {headers:  this.headersVariable})
+  }
+
+  obtenerEventsSalaAsistCal(id:String):Observable<any>{
+    return this._http.get(this.url + '/obtenerEventsSalaAsistCal/' + id, {headers:  this.headersVariable})
+  }
+
+  obtenerEventsSalaRech(id:String):Observable<any>{
+    return this._http.get(this.url + '/obtenerEventsSalaRech/' + id, {headers:  this.headersVariable})
+  }
+
+  obtenerEventsSalaPen(id:String):Observable<any>{
+    return this._http.get(this.url + '/obtenerEventsSalaPen/' + id, {headers:  this.headersVariable})
+  }
+
   obtenerEventsUsuario(id:String):Observable<any>{
     return this._http.get(this.url + '/obtenerEventsUsuario/' + id, {headers:  this.headersVariable})
   }

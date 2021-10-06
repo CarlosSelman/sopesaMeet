@@ -73,11 +73,16 @@ export class VisorEventosSalaComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   //VARIABLES QUE INSTANCIAS PARA LOS DATOS DE LAS TABLAS
   dataSourceReuniones = new MatTableDataSource<any[]>();
-
+  dataSourceReunionesAsist = new MatTableDataSource<any[]>();
+  dataSourceReunionesPen = new MatTableDataSource<any[]>();
+  dataSourceReunionesRech = new MatTableDataSource<any[]>();
+  dataSourceReunionesCal = new MatTableDataSource<any[]>();
   //VARIABLES QUE TRAEN LAS COLUMNAS DE CADA TABLA
   displayedColumns: string[] = ['title','estado','cantidadAsist','start','end','acciones'];
-
-
+  displayedColumnsAsist: string[] = ['title','estado','cantidadAsist','start','end','acciones'];
+  displayedColumnsPen: string[] = ['title','estado','cantidadAsist','start','end','acciones'];
+  displayedColumnsAsistRech: string[] = ['title','estado','cantidadAsist','start','end','acciones'];
+  displayedColumnsCal: string[] = ['title','estado','cantidadAsist','start','end','acciones'];
 
   constructor(
     private eventService: EventService,
@@ -102,11 +107,8 @@ export class VisorEventosSalaComponent implements OnInit {
     this.usuarioModel = new Usuario('', '', '', '', '', '', '', '', '');
     this.idUsuarioModel = new Usuario('', '', '', '', '', '', '', '', '');
 
-
-
     //VARIABLE OBTENIENDO LA FECHA ACTUAL PARA VALIUDACIÓN EN PARTE DEL CRUD
     this.todayDate = new Date();
-
 
   this.options = {
     plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
@@ -186,6 +188,39 @@ export class VisorEventosSalaComponent implements OnInit {
     this.eventService.obtenerEventsSala(idSala).subscribe(
       response => {
          this.dataSourceReuniones.data = response.reunionesObtenidas;
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  obtenerEventsSalaAsist(idSala){
+    this.eventService.obtenerEventsSalaAsist(idSala).subscribe(
+      response => {
+         this.dataSourceReunionesAsist.data = response.reunionesObtenidas;
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  obtenerEventsSalaPen(idSala){
+    this.eventService.obtenerEventsSalaPen(idSala).subscribe(
+      response => {
+         this.dataSourceReunionesPen.data = response.reunionesObtenidas;
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  obtenerEventsSalaRech(idSala){
+    this.eventService.obtenerEventsSalaRech(idSala).subscribe(
+      response => {
+         this.dataSourceReunionesRech.data = response.reunionesObtenidas;
       },
       error => {
         console.log(<any>error);
@@ -357,10 +392,19 @@ export class VisorEventosSalaComponent implements OnInit {
     )
   }
 
-  obtenerEventsSala(idSala){
-    this.eventService.obtenerEventsSala(idSala).subscribe(
+  obtenerEventsSalaAsistCal(idSala){
+    this.eventService.obtenerEventsSalaAsistCal(idSala).subscribe(
       response => {
         this.events =response.reunionesObtenidas;
+        console.log(response);
+      }
+    )
+  }
+
+  obtenerEventsSalaTabCal(idSala){
+    this.eventService.obtenerEventsSalaAsistCal(idSala).subscribe(
+      response => {
+        this.dataSourceReunionesCal =response.reunionesObtenidas;
         console.log(response);
       }
     )
@@ -447,16 +491,17 @@ export class VisorEventosSalaComponent implements OnInit {
       this.idSalaRuta = dataRuta.get('idSala');
     });
     this.obtenerSalaSelect(this.idSalaRuta);
-    this.obtenerEventsSala(this.idSalaRuta);
+    this.obtenerEventsSalaAsistCal(this.idSalaRuta);
     this.obtenerEventsT(this.idSalaRuta);
-
-
-
+    this.obtenerEventsSalaAsist(this.idSalaRuta);
+    this.obtenerEventsSalaRech(this.idSalaRuta);
+    this.obtenerEventsSalaPen(this.idSalaRuta);
+    this.obtenerEventsSalaTabCal(this.idSalaRuta);
   }
 
   ngAfterViewInit() {
-    this.dataSourceReuniones.sort = this.sort;
-    this.dataSourceReuniones.paginator = this.paginator;
+    this.dataSourceReunionesCal.sort = this.sort;
+    this.dataSourceReunionesCal.paginator = this.paginator;
   }
 
   //Función para refrescar la pantalla
@@ -465,9 +510,30 @@ export class VisorEventosSalaComponent implements OnInit {
   }
 
   //FILTROS DE LAS TABLAS
+
+  applyFilterCal(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSourceReunionesCal.filter = filterValue.trim().toLowerCase();
+  }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSourceReuniones.filter = filterValue.trim().toLowerCase();
+  }
+
+  applyFilterAsist(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSourceReunionesAsist.filter = filterValue.trim().toLowerCase();
+  }
+
+  applyFilterAsistRech(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSourceReunionesRech.filter = filterValue.trim().toLowerCase();
+  }
+
+  applyFilterPen(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSourceReunionesPen.filter = filterValue.trim().toLowerCase();
   }
 
 }

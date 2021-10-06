@@ -197,6 +197,42 @@ function editarSolicitudEvent(req, res) {
 
 function obtenerEventsSala(req, res) {
     var idSala = req.params.idSala;
+    Event.find({ idSala: idSala, estado: confirmada}, (err, reunionesObtenidas) => {
+        if (err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+        if (!reunionesObtenidas) return res.status(500).send({ mensaje: 'No se han podido traer las reuniones' });
+        return res.status(200).send({ reunionesObtenidas });
+    })
+}
+
+function obtenerEventsSalaAsist(req, res) {
+    var idSala = req.params.idSala;
+    Event.find({ idSala: idSala, estado: asitio}, (err, reunionesObtenidas) => {
+        if (err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+        if (!reunionesObtenidas) return res.status(500).send({ mensaje: 'No se han podido traer las reuniones' });
+        return res.status(200).send({ reunionesObtenidas });
+    })
+}
+
+function obtenerEventsSalaRech(req, res) {
+    var idSala = req.params.idSala;
+    Event.find({ idSala: idSala, estado: rechazada}, (err, reunionesObtenidas) => {
+        if (err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+        if (!reunionesObtenidas) return res.status(500).send({ mensaje: 'No se han podido traer las reuniones' });
+        return res.status(200).send({ reunionesObtenidas });
+    })
+}
+
+function obtenerEventsSalaPen(req, res) {
+    var idSala = req.params.idSala;
+    Event.find({ idSala: idSala, estado: pendiente}, (err, reunionesObtenidas) => {
+        if (err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+        if (!reunionesObtenidas) return res.status(500).send({ mensaje: 'No se han podido traer las reuniones' });
+        return res.status(200).send({ reunionesObtenidas });
+    })
+}
+
+function obtenerEventsSalaAsistCal(req, res) {
+    var idSala = req.params.idSala;
     Event.find({ idSala: idSala }, (err, reunionesObtenidas) => {
         if (err) return res.status(500).send({ mensaje: 'Error en la peticion' });
         if (!reunionesObtenidas) return res.status(500).send({ mensaje: 'No se han podido traer las reuniones' });
@@ -241,5 +277,9 @@ module.exports = {
     obtenerEventsSala,
     obtenerEventsUsuario,
     asistenciaEvent,
-    obtenerEventsAsist
+    obtenerEventsAsist,
+    obtenerEventsSalaAsist,
+    obtenerEventsSalaAsistCal,
+    obtenerEventsSalaRech,
+    obtenerEventsSalaPen
 }

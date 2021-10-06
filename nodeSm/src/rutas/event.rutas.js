@@ -24,6 +24,10 @@ var api = express.Router();
     api.put('/cancelarSolicitudEvent/:idEvento', eventControlador.cancelarSolicitudEvent);
     api.put('/editarSolicitudEvent/:idEvento',authenticated.ensureAuth,  eventControlador.editarSolicitudEvent);
     api.get('/obtenerEventsSala/:idSala', eventControlador.obtenerEventsSala);
+    api.get('/obtenerEventsSalaAsist/:idSala', eventControlador.obtenerEventsSalaAsist);
+    api.get('/obtenerEventsSalaAsistCal/:idSala', eventControlador.obtenerEventsSalaAsistCal);
+    api.get('/obtenerEventsSalaRech/:idSala', eventControlador.obtenerEventsSalaRech);
+    api.get('/obtenerEventsSalaPen/:idSala', eventControlador.obtenerEventsSalaPen);
     api.get('/obtenerEventsUsuario/:idResponsable', eventControlador.obtenerEventsUsuario);
     
 module.exports = api; 
