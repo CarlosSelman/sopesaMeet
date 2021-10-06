@@ -28,6 +28,8 @@ import { Component, OnInit, Input, ViewChild, ViewEncapsulation } from '@angular
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import Tooltip from 'tooltip.js'
+import { FullCalendar } from 'primeng/fullcalendar/fullcalendar';
 //import esLocale from '@fullcalendar/core/locales/es';
 
 @Component({
@@ -39,6 +41,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 })
 export class VisorEventosComponent implements OnInit {
 
+  @ViewChild('fcm',{static:false}) fcm: FullCalendar;
   public identidad;
   public token;
   public salas;
@@ -125,6 +128,15 @@ export class VisorEventosComponent implements OnInit {
         left: 'prev,today,next',
         center: 'title',
         right: 'dayGridMonth,timeGridWeek,timeGridDay'
+      },
+      eventRender: (e) =>  {
+        var tooltip = new Tooltip(e.el, {
+          title: "<h6>"+e.event.title +"</h6>"+e.event.extendedProps.idSala.nombre + "<br>"+e.event.extendedProps.estado,
+          placement: 'top',
+          trigger: 'hover',
+          container: 'body',
+          html: true
+        });
       },
       editable: false,
       //eventColor: '#378006',

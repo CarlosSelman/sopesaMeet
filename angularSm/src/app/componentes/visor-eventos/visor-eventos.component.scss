@@ -216,3 +216,32 @@ table {
     margin: 25px 0;
     display: inline-flex;
   }
+
+  .popper, .tooltip{
+    position: absolute;
+    z-index: 9999;
+    //background: #FFC107;
+    color: black;
+    opacity: 1 !important;
+    width: 150px;
+    border-radius: 3px;
+    box-shadow: 0 0 2px rgba(0,0,0,0.5);
+    //padding: 10px;
+    text-align: center;
+  }
+
+  .body .fc .fc-event .Confirmada{
+    background-color: green;
+  }
+
+  .body .fc .fc-event .Pendiente{
+    background-color: gray;
+  }
+
+  .body .fc .fc-event .Asistida{
+    background-color: blue;
+  }
+
+  .body .fc .fc-event .Rechazada{
+    background-color: red;
+  }

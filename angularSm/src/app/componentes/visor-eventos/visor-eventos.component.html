@@ -24,7 +24,7 @@
 
       <div class = "main">
         <div class = "content">
-          <p-fullCalendar [events]="events" [options]="options"></p-fullCalendar>
+          <p-fullCalendar #fcm [events]="events" [options]="options"></p-fullCalendar>
           <br>
           <div class="accordion" id="accordionExample">
             <div class="accordion-item">
@@ -550,8 +550,6 @@
                           <tr mat-header-row *matHeaderRowDef="displayedColumnsA"></tr>
                           <tr mat-row *matRowDef="let row; columns: displayedColumnsA;"></tr>
                         </table>
-                        <!-- Paginación -->
-                       <mat-paginator  [pageSizeOptions]="[5, 10, 25,50,100]" showFirstLastButtons ></mat-paginator>
                       </div>
                     </mat-tab>
 
