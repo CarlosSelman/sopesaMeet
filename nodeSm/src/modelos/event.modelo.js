@@ -11,6 +11,7 @@ var eventSchema = Schema ({
     end: String,
     cantidadAsist: String,
     estado: String, 
+    className: String,
     idResponsable: {type: Schema.Types.ObjectId, ref : 'Usuario'}, //Referencia del usuario que lo creó
     idSala: {type: Schema.Types.ObjectId, ref : 'Sala'}, //Referencia a la sala
     fechaDeGestion: String

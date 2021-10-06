@@ -7,6 +7,7 @@ export class EventCalendar{
     public end: Date,
     public cantidadAsist: String,
     public estado: String,
+    public className: String,
     public idResponsable: {
       usuario: String;
     },

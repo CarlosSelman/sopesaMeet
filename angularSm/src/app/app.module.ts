@@ -50,10 +50,8 @@ import { CrearSalaComponent } from './componentes/crear-sala/crear-sala.componen
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { FiltroTabletComponent } from './componentes/filtro-tablet/filtro-tablet.component';
-import { ControlTabletComponent } from './componentes/control-tablet/control-tablet.component';
 
 import { VisorEventosComponent } from './componentes/visor-eventos/visor-eventos.component';
-import { AddEventComponent } from './componentes/add-event/add-event.component';
 
 import { CheckboxModule } from 'primeng/checkbox';
 
@@ -80,9 +78,7 @@ import { VisorEventosSalaComponent } from './componentes/visor-eventos-sala/viso
     ErrorNoExisteComponent,
     CrearSalaComponent,
     FiltroTabletComponent,
-    ControlTabletComponent,
     VisorEventosComponent,
-    AddEventComponent,
     VisorEventosSalaComponent,
 
   ],

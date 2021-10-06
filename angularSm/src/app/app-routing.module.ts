@@ -16,9 +16,6 @@ import { FiltroTabletComponent } from './componentes/filtro-tablet/filtro-tablet
 import { VisorEventosComponent } from './componentes/visor-eventos/visor-eventos.component';
 import { VisorEventosSalaComponent } from './componentes/visor-eventos-sala/visor-eventos-sala.component';
 
-import { ControlTabletComponent } from './componentes/control-tablet/control-tablet.component';
-import { AddEventComponent } from './componentes/add-event/add-event.component';
-
 //Otras importaciones
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -38,10 +35,8 @@ const routes: Routes = [
   { path: 'tipoSalasC', component: TipoSalaCComponent},
   { path: 'crearSala', component: CrearSalaComponent},
   { path: 'filtroTablet', component: FiltroTabletComponent},
-  { path: 'controlTablet/:idSala', component: ControlTabletComponent},
   { path: 'visorEventos', component: VisorEventosComponent},
   { path: 'visorEventosSala/:idSala', component: VisorEventosSalaComponent},
-  { path: 'addEvent', component: AddEventComponent},
   { path: '**', component: ErrorNoExisteComponent} //Ruta que me redirige al error 404 si no existe la ruta
 ];
 

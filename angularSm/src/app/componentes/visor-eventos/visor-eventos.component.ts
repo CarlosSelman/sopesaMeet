@@ -88,9 +88,9 @@ export class VisorEventosComponent implements OnInit {
     this.identidad = this._usuarioService.getIdentidad();
     this.token = this._usuarioService.getToken();
 
-    this.eventsModelAdd = new EventCalendar("","","",null,null,"","",{usuario:""},{nombre:""},"");
-    this.eventsModelGetId = new EventCalendar("","","",null,null,"","",{usuario:""},{nombre:""},"");
-    this.idEventModel = new EventCalendar("","","",null,null,"","",{usuario:""},{nombre:""},"");
+    this.eventsModelAdd = new EventCalendar("","","",null,null,"","","",{usuario:""},{nombre:""},"");
+    this.eventsModelGetId = new EventCalendar("","","",null,null,"","","",{usuario:""},{nombre:""},"");
+    this.idEventModel = new EventCalendar("","","",null,null,"","","",{usuario:""},{nombre:""},"");
 
     this.salasModelGetId = new Sala("","","","","","","","","");
     this.salasModelAdd = new Sala("","","","","","","","","");

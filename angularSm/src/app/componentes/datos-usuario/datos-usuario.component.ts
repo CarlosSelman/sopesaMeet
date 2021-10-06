@@ -65,13 +65,7 @@ export class DatosUsuarioComponent implements AfterViewInit {
     this.idUsuarioModel = new Usuario("","","","","","","","","");
     this.token = this._usuarioService.getToken();
     this.usuarioModel = new Usuario("","","","","","","","","");
-    this.idEventModel = new EventCalendar("","","",null,null,"","",{usuario:""},{nombre:""},"")
-
-/*
-    this._reunionService.obtenerReunionesUsuario(this.identidad).subscribe ( usuarios => {
-      this.dataSource.data = usuarios;
-    })
-*/
+    this.idEventModel = new EventCalendar("","","",null,null,"","","",{usuario:""},{nombre:""},"");
 
     this._usuarioService.obtenerUsuariosD().subscribe ( usuarios => {
       this.dataSource.data = usuarios;

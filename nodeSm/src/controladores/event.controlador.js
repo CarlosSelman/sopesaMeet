@@ -76,6 +76,7 @@ function crearEvent(req, res) {
         eventoModelo.end = moment(params.end).format('YYYY-MM-DDTHH:mm');
         eventoModelo.cantidadAsist = params.cantidadAsist;
         eventoModelo.estado = pendiente;
+        eventoModelo.className = pendiente;
         eventoModelo.idResponsable = req.usuario.sub;
         eventoModelo.idSala = params.idSala;
         eventoModelo.fechaDeGestion = actualDate;
@@ -146,7 +147,7 @@ function confirmarSolicitudEvent(req, res) {
                 }
             }
             if (contador == eventosEncontrados.length) {
-                Event.findByIdAndUpdate(idEvento, { estado: confirmada }, { new: true }, (err, solicitudConfirmada) => {
+                Event.findByIdAndUpdate(idEvento, { estado: confirmada, className:confirmada }, { new: true }, (err, solicitudConfirmada) => {
                     if (err) return res.status(500).send({ mensaje: 'Error en la peticion' });
                     if (!solicitudConfirmada) return res.status(500).send({ mensaje: 'No se ha podido cancelar la solicitud de reunión.' });
                     return res.status(200).send({ solicitudConfirmada });
@@ -163,8 +164,9 @@ function cancelarSolicitudEvent(req, res) {
     var estado = req.params.estado;
     var eventoModelo = new Event();
     eventoModelo.estado = rechazada;
+    eventoModelo.className = rechazada;
 
-    Event.findByIdAndUpdate(idEvento, { estado: rechazada }, { new: true }, (err, solicitudCancelada) => {
+    Event.findByIdAndUpdate(idEvento, { estado: rechazada, className: rechazada}, { new: true }, (err, solicitudCancelada) => {
         if (err) return res.status(500).send({ mensaje: 'Error en la peticion' });
         if (!solicitudCancelada) return res.status(500).send({ mensaje: 'No se ha podido cancelar la solicitud de reunión.' });
         return res.status(200).send({ solicitudCancelada });
@@ -176,8 +178,9 @@ function pendienteSolicitudEvent(req, res) {
     var estado = req.params.estado;
     var eventoModelo = new Event();
     eventoModelo.estado = pendiente;
+    eventoModelo.className = pendiente;
 
-    Event.findByIdAndUpdate(idEvento, { estado: pendiente }, { new: true }, (err, solicitudPendiente) => {
+    Event.findByIdAndUpdate(idEvento, { estado: pendiente, className: pendiente }, { new: true }, (err, solicitudPendiente) => {
         if (err) return res.status(500).send({ mensaje: 'Error en la peticion' });
         if (!solicitudPendiente) return res.status(500).send({ mensaje: 'No se ha podido poner en pendiente la solicitud de reunión.' });
         return res.status(200).send({ solicitudPendiente });
@@ -254,8 +257,9 @@ function asistenciaEvent(req, res) {
     var estado = req.params.estado;
     var eventoModelo = new Event();
     eventoModelo.estado = asitio;
+    eventoModelo.className = asitio;
 
-    Event.findByIdAndUpdate(idEvento, { estado: asitio }, { new: true }, (err, solicitudAsistida) => {
+    Event.findByIdAndUpdate(idEvento, { estado: asitio , className: asitio}, { new: true }, (err, solicitudAsistida) => {
         if (err) return res.status(500).send({ mensaje: 'Error en la peticion' });
         if (!solicitudAsistida) return res.status(500).send({ mensaje: 'No se ha podido poner en pendiente la solicitud de reunión.' });
         return res.status(200).send({ solicitudAsistida });
