@@ -49,6 +49,7 @@ export class VisorEventosComponent implements OnInit {
   public eventsModelAdd: EventCalendar;
   public eventsModelGetId: EventCalendar;
   public idEventModel: EventCalendar;
+  public event: EventCalendar;
 
   public tipos;
   public salasModelGet;

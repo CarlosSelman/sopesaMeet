@@ -216,3 +216,43 @@ pre {
   margin: 25px 0;
   display: inline-flex;
 }
+
+.fc-day-grid-event.fc-h-event.fc-event.Confirmada{
+  background-color: green;
+  border-color: green;
+}
+
+.fc-time-grid-event.fc-event.fc-event.Confirmada{
+  background-color: green;
+  border-color: green;
+}
+
+.fc-day-grid-event.fc-h-event.fc-event.Pendiente{
+  background-color: gray;
+  border-color: gray;
+}
+
+.fc-time-grid-event.fc-event.fc-event.Pendiente{
+  background-color: gray;
+  border-color: gray;
+}
+
+.fc-day-grid-event.fc-h-event.fc-event.Rechazada{
+  background-color: red;
+  border-color: red;
+}
+
+.fc-time-grid-event.fc-event.fc-event.Rechazada{
+  background-color: red;
+  border-color: red;
+}
+
+.fc-day-grid-event.fc-h-event.fc-event.Asistida{
+  background-color: blue;
+  border-color: blue;
+}
+
+.fc-time-grid-event.fc-event.fc-event.Asistida{
+  background-color: blue;
+  border-color: blue;
+}

@@ -230,18 +230,42 @@ table {
     text-align: center;
   }
 
-  .body .fc .fc-event .Confirmada{
+  .fc-day-grid-event.fc-h-event.fc-event.Confirmada{
     background-color: green;
+    border-color: green;
   }
 
-  .body .fc .fc-event .Pendiente{
+  .fc-time-grid-event.fc-event.fc-event.Confirmada{
+    background-color: green;
+    border-color: green;
+  }
+
+  .fc-day-grid-event.fc-h-event.fc-event.Pendiente{
     background-color: gray;
+    border-color: gray;
   }
 
-  .body .fc .fc-event .Asistida{
-    background-color: blue;
+  .fc-time-grid-event.fc-event.fc-event.Pendiente{
+    background-color: gray;
+    border-color: gray;
   }
 
-  .body .fc .fc-event .Rechazada{
+  .fc-day-grid-event.fc-h-event.fc-event.Rechazada{
     background-color: red;
+    border-color: red;
+  }
+
+  .fc-time-grid-event.fc-event.fc-event.Rechazada{
+    background-color: red;
+    border-color: red;
+  }
+
+  .fc-day-grid-event.fc-h-event.fc-event.Asistida{
+    background-color: blue;
+    border-color: blue;
+  }
+
+  .fc-time-grid-event.fc-event.fc-event.Asistida{
+    background-color: blue;
+    border-color: blue;
   }
