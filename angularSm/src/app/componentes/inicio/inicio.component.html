@@ -57,45 +57,7 @@
     </button>
   </div>
 <br>
-<!--
-<div class="card text-center">
-  <div class="card-header">
-
-  </div>
-  <div style="background-color: gray" class="card-body">
-<div class="accordion" id="accordionExample">
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="headingOne">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-        Visión
-      </button>
-    </h2>
-    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-      <div class="accordion-body">
-         Ser un Centro de Servicios de negocios de clase mundial con prestación de servicios en América Latina a mediano plazo.
-      </div>
-    </div>
-  </div>
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="headingTwo">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-        Misión
-      </button>
-    </h2>
-    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-      <div class="accordion-body">
-        Generamos valor a los accionistas y clientes con una sinergia de talento humano e innovación, proporcionando servicios de excelencia en la región centroamericana.
-      </div>
-    </div>
-  </div>
-</div>
-  </div>
-  <div class="card-footer text-muted">
-
-  </div>
-</div>
--->
-  <div *ngIf="identidad != null && identidad.rol!='Usuario'" class="login-form" style="background-color:#b71c1c">
+  <div *ngIf="identidad != null && identidad.rol==='SuperAdministrador'" class="login-form" style="background-color:#b71c1c">
       <div class = "container">
         <div class = "main">
           <div class = "content">
