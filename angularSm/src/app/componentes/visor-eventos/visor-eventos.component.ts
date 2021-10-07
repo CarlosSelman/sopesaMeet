@@ -378,7 +378,11 @@ export class VisorEventosComponent implements OnInit {
   }
 
   editarSolicitudEvent(){
-    if(this.identidad.usuario === this.idEventModel.idResponsable.usuario){
+    if(
+      this.identidad.usuario === this.idEventModel.idResponsable.usuario ||
+      this.identidad.rol==='SuperAdministrador' ||
+      this.identidad.rol==='Administrador'
+      ){
       //Validación
       if(
         this.idEventModel.nombre===""||
